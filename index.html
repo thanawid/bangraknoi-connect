@@ -122,6 +122,40 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
   .desktop-wrap{width:100%}
 }
 
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal-sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;padding:1.5rem 1.25rem 2rem}
+.modal-handle{width:40px;height:4px;background:#E5E7EB;border-radius:4px;margin:0 auto 1.25rem}
+.modal-title{font-size:17px;font-weight:600;color:#111827;margin-bottom:4px}
+.modal-sub{font-size:12px;color:#6B7280;margin-bottom:1.25rem;line-height:1.6}
+.disclaimer-box{background:#FEF3C7;border:1px solid #FDE68A;border-radius:12px;padding:0.875rem 1rem;margin-bottom:1.25rem;font-size:12px;color:#92400E;line-height:1.7}
+.disclaimer-box strong{display:block;margin-bottom:4px;font-size:13px}
+.legal-box{background:#EDE9FE;border:1px solid #DDD6FE;border-radius:12px;padding:0.875rem 1rem;margin-bottom:1.25rem;font-size:11px;color:#4C1D95;line-height:1.8}
+.legal-box strong{display:block;margin-bottom:4px;font-size:12px;color:#4C1D95}
+.form-group{margin-bottom:1rem}
+.form-label{font-size:13px;font-weight:500;color:#374151;margin-bottom:5px;display:block}
+.form-label span{color:#DC2626;margin-left:2px}
+.form-input{width:100%;border:1px solid #E5E7EB;border-radius:10px;padding:10px 12px;font-size:13px;font-family:'Sarabun',sans-serif;color:#111827;outline:none;background:#fff}
+.form-input:focus{border-color:#7C3AED}
+.form-select{width:100%;border:1px solid #E5E7EB;border-radius:10px;padding:10px 12px;font-size:13px;font-family:'Sarabun',sans-serif;color:#111827;outline:none;background:#fff;appearance:none}
+.form-textarea{width:100%;border:1px solid #E5E7EB;border-radius:10px;padding:10px 12px;font-size:13px;font-family:'Sarabun',sans-serif;color:#111827;outline:none;resize:vertical;min-height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.consent-box{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:10px;padding:0.875rem;margin-bottom:1.25rem}
+.consent-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.consent-item:last-child{margin-bottom:0}
+.consent-item input[type=checkbox]{margin-top:2px;accent-color:#6B21A8;flex-shrink:0}
+.consent-item label{font-size:12px;color:#374151;line-height:1.6;cursor:pointer}
+.consent-item label a{color:#6B21A8}
+.submit-btn{width:100%;background:linear-gradient(135deg,#4C1D95,#6B21A8);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-family:'Sarabun',sans-serif;font-weight:600;cursor:pointer;margin-top:4px}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed}
+.cancel-btn{width:100%;background:#F3F4F6;color:#6B7280;border:none;border-radius:12px;padding:12px;font-size:14px;font-family:'Sarabun',sans-serif;cursor:pointer;margin-top:8px}
+.success-box{text-align:center;padding:2rem 1rem;display:none}
+.success-box .big-icon{font-size:56px;margin-bottom:1rem}
+.success-box h3{font-size:18px;font-weight:600;color:#111827;margin-bottom:8px}
+.success-box p{font-size:13px;color:#6B7280;line-height:1.7}
+.modal-close{float:right;background:none;border:none;font-size:22px;color:#9CA3AF;cursor:pointer;margin-top:-4px}
+.map-embed{width:100%;height:280px;border-radius:16px;border:none;margin:1.25rem 1.25rem 0;width:calc(100% - 2.5rem)}
 </style>
 </head>
 <body>
@@ -131,7 +165,7 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
   <div class="header-inner">
     <div class="logo-wrap"><img src="logo2026.png" alt="ตราเทศบาลเมืองบางรักน้อย"></div>
     <div class="header-text">
-      <h1>บางรักน้อย Connect <span style="font-size:10px;font-weight:400;background:rgba(255,255,255,0.2);border:0.5px solid rgba(255,255,255,0.35);border-radius:20px;padding:2px 8px;letter-spacing:0.5px;vertical-align:middle">v1.0</span></h1>
+      <h1>บางรักน้อย Connect <span style="font-size:10px;font-weight:400;background:rgba(255,255,255,0.2);border:0.5px solid rgba(255,255,255,0.35);border-radius:20px;padding:2px 8px;letter-spacing:0.5px;vertical-align:middle">v2.0</span></h1>
       <p>เทศบาลเมืองบางรักน้อย จ.นนทบุรี</p>
     </div>
     <div class="header-right">
@@ -194,7 +228,7 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
     <div class="cat c5" onclick="switchCat(this,'ข่าว')">
       <i class="ti ti-speakerphone cat-icon"></i><div class="cat-name">ข่าวสารเทศบาล</div><div class="cat-count">อัปเดตล่าสุด</div>
     </div>
-    <div class="cat c6" onclick="switchCat(this,'สมัคร')">
+    <div class="cat c6" onclick="openRegModal()">
       <i class="ti ti-forms cat-icon"></i><div class="cat-name">สมัครเข้าระบบ</div><div class="cat-count">เปิดรับสมัคร</div>
     </div>
   </div>
@@ -206,6 +240,12 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
   <div class="card-list" id="cardList"></div>
 
   <div class="gold-divider"></div>
+
+  <iframe class="map-embed"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15495.123456!2d100.4833!3d13.8833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29d8000000001%3A0x1!2z4LiQ4LiZ4LiR4Li04LiZ4Lir4Liy4LiH4LiBIOC4meC4o-C4suC4p-C4tOC4l-C4o-C5jA!5e0!3m2!1sth!2sth!4v1234567890"
+    allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    title="แผนที่ชุมชนบางรักน้อย"></iframe>
+
   <div class="map-block" onclick="openMap()">
     <div class="map-icon"><i class="ti ti-map-2"></i></div>
     <div class="map-text"><h3>แผนที่ชุมชนบางรักน้อย</h3><p>ดูตำแหน่งช่าง ร้านอาหาร และสถานที่ทั้งหมดบนแผนที่</p></div>
@@ -216,7 +256,7 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
     <h3>✨ ร้านค้า ช่าง กลุ่มอาชีพ — ลงทะเบียนฟรี</h3>
     <p>เพิ่มข้อมูลของคุณเข้าระบบ ให้คนในชุมชนค้นหาเจอ<br>ไม่มีค่าใช้จ่าย ดูแลโดยเทศบาลเมืองบางรักน้อย</p>
     <div class="reg-btns">
-      <button class="reg-btn btn-gold"><i class="ti ti-forms"></i> สมัครเข้าระบบ</button>
+      <button class="reg-btn btn-gold" onclick="openRegModal()"><i class="ti ti-forms"></i> สมัครเข้าระบบ</button>
       <button class="reg-btn btn-outline"><i class="ti ti-brand-line"></i> LINE OA</button>
     </div>
   </div>
@@ -224,7 +264,7 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
   <div class="footer-note">
     ข้อมูลผ่านการตรวจสอบเบื้องต้นจากเทศบาล<br>
     การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างประชาชนกับผู้ให้บริการโดยตรง<br>
-    <strong style="color:#6B21A8">เทศบาลเมืองบางรักน้อย</strong> อ.เมืองนนทบุรี จ.นนทบุรี<br><span style="display:inline-block;margin-top:8px;background:#EDE9FE;color:#6B21A8;border:1px solid rgba(107,33,168,0.2);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;letter-spacing:0.5px">v1.0 — บางรักน้อย Connect</span>
+    <strong style="color:#6B21A8">เทศบาลเมืองบางรักน้อย</strong> อ.เมืองนนทบุรี จ.นนทบุรี<br><span style="display:inline-block;margin-top:8px;background:#EDE9FE;color:#6B21A8;border:1px solid rgba(107,33,168,0.2);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;letter-spacing:0.5px">v2.0 — บางรักน้อย Connect</span>
   </div>
 </div>
 
@@ -323,7 +363,142 @@ document.getElementById("mainSearch").addEventListener("keyup",function(e){
   }
 });
 renderCards("ช่าง");
+
+function openRegModal(){
+  document.getElementById('regModal').classList.add('show');
+  document.body.style.overflow='hidden';
+  document.getElementById('regForm').style.display='block';
+  document.getElementById('successBox').style.display='none';
+}
+function closeReg(){
+  document.getElementById('regModal').classList.remove('show');
+  document.body.style.overflow='';
+}
+function closeRegOnOverlay(e){
+  if(e.target===document.getElementById('regModal')) closeReg();
+}
+function checkConsent(){
+  var all = document.getElementById('c1').checked &&
+            document.getElementById('c2').checked &&
+            document.getElementById('c3').checked;
+  document.getElementById('submitBtn').disabled = !all;
+}
+function submitForm(){
+  var type = document.getElementById('regType').value;
+  var name = document.getElementById('regName').value.trim();
+  var contact = document.getElementById('regContact').value.trim();
+  var phone = document.getElementById('regPhone').value.trim();
+  var area = document.getElementById('regArea').value.trim();
+  var desc = document.getElementById('regDesc').value.trim();
+  if(!type||!name||!contact||!phone||!area||!desc){
+    alert('กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบถ้วนครับ');
+    return;
+  }
+  document.getElementById('regForm').style.display='none';
+  document.getElementById('successBox').style.display='block';
+}
+
 </script>
 </div><!-- /desktop-wrap -->
+
+<!-- REGISTER MODAL -->
+<div class="modal-overlay" id="regModal" onclick="closeRegOnOverlay(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeReg()"><i class="ti ti-x"></i></button>
+
+    <div id="regForm">
+      <div class="modal-title">📋 สมัครเข้าระบบบางรักน้อย Connect</div>
+      <div class="modal-sub">กรอกข้อมูลเพื่อให้เทศบาลตรวจสอบและเผยแพร่ในระบบ<br>ไม่มีค่าใช้จ่ายใดๆ ทั้งสิ้น</div>
+
+      <div class="disclaimer-box">
+        <strong>⚠️ ข้อมูลสำคัญก่อนสมัคร</strong>
+        ข้อมูลที่ท่านกรอกจะผ่านการตรวจสอบเบื้องต้นโดยเจ้าหน้าที่เทศบาล และจะถูกเผยแพร่ต่อสาธารณะบนระบบ "บางรักน้อย Connect" เพื่ออำนวยความสะดวกแก่ประชาชนในพื้นที่
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">ประเภทที่สมัคร <span>*</span></label>
+        <select class="form-select" id="regType">
+          <option value="">-- เลือกประเภท --</option>
+          <option value="craft">ช่างในชุมชน (ช่างไฟ ประปา แอร์ ยาง ฯลฯ)</option>
+          <option value="food">ร้านอาหาร / เครื่องดื่ม / คาเฟ่</option>
+          <option value="product">สินค้าชุมชน / OTOP / ของฝาก</option>
+          <option value="place">สถานที่ท่องเที่ยว / จุดเช็คอิน</option>
+          <option value="career">กลุ่มอาชีพ / วิสาหกิจชุมชน</option>
+          <option value="other">อื่นๆ</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">ชื่อร้าน / ชื่อช่าง / ชื่อกลุ่ม <span>*</span></label>
+        <input class="form-input" id="regName" type="text" placeholder="เช่น ช่างไฟสมชาย หรือ ร้านข้าวแกงป้าแดง">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">ชื่อผู้ประสานงาน <span>*</span></label>
+          <input class="form-input" id="regContact" type="text" placeholder="ชื่อ-สกุล">
+        </div>
+        <div class="form-group">
+          <label class="form-label">เบอร์โทรศัพท์ <span>*</span></label>
+          <input class="form-input" id="regPhone" type="tel" placeholder="08x-xxx-xxxx">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">ที่อยู่ / หมู่ / ชุมชน <span>*</span></label>
+        <input class="form-input" id="regArea" type="text" placeholder="เช่น หมู่ 3 ต.บางรักน้อย อ.เมืองนนทบุรี">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">LINE / Facebook / เว็บไซต์</label>
+        <input class="form-input" id="regSocial" type="text" placeholder="(ถ้ามี)">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">คำอธิบายสั้นๆ เกี่ยวกับบริการ/สินค้า <span>*</span></label>
+        <textarea class="form-textarea" id="regDesc" placeholder="อธิบายสั้นๆ ไม่เกิน 200 ตัวอักษร เช่น ให้บริการซ่อมไฟฟ้าในบ้าน ติดตั้งสปอตไลท์ บริการ 24 ชม."></textarea>
+      </div>
+
+      <!-- ข้อสงวนสิทธิ์และความยินยอม -->
+      <div class="legal-box">
+        <strong>📜 ข้อสงวนสิทธิ์และเงื่อนไขการเผยแพร่ข้อมูล</strong>
+        ระบบ "บางรักน้อย Connect" จัดทำโดยเทศบาลเมืองบางรักน้อย เพื่อเป็นศูนย์รวมข้อมูลบริการชุมชน โดยมีบทบาทเป็น <u>ผู้จัดระบบข้อมูลเท่านั้น</u> ไม่ใช่คู่สัญญาหรือผู้รับประกันคุณภาพบริการแต่อย่างใด<br><br>
+        การติดต่อ ซื้อขาย หรือว่าจ้างบริการใดๆ เป็น <u>ความรับผิดชอบระหว่างประชาชนกับผู้ให้บริการโดยตรง</u><br><br>
+        เทศบาลสงวนสิทธิ์ระงับหรือถอดข้อมูลที่พบว่าเป็นเท็จ ไม่เหมาะสม หรือมีข้อร้องเรียนที่มีมูล โดยไม่ต้องแจ้งล่วงหน้า
+      </div>
+
+      <div class="consent-box">
+        <div class="consent-item">
+          <input type="checkbox" id="c1" onchange="checkConsent()">
+          <label for="c1">ข้าพเจ้ายินยอมให้เทศบาลเมืองบางรักน้อยเผยแพร่ข้อมูลชื่อ เบอร์โทร ที่อยู่ และข้อมูลบริการของข้าพเจ้าต่อสาธารณะบนระบบ "บางรักน้อย Connect"</label>
+        </div>
+        <div class="consent-item">
+          <input type="checkbox" id="c2" onchange="checkConsent()">
+          <label for="c2">ข้าพเจ้ารับทราบว่าเทศบาลทำหน้าที่เป็นตัวกลางข้อมูลเท่านั้น และ<u>ไม่รับผิดชอบต่อผลของการติดต่อ ซื้อขาย หรือว่าจ้างบริการใดๆ</u> ที่เกิดจากข้อมูลในระบบ</label>
+        </div>
+        <div class="consent-item">
+          <input type="checkbox" id="c3" onchange="checkConsent()">
+          <label for="c3">ข้าพเจ้ารับทราบว่าเทศบาลมีสิทธิ์แก้ไข ระงับ หรือถอดข้อมูลของข้าพเจ้าได้ หากพบว่าข้อมูลไม่ถูกต้องหรือมีข้อร้องเรียนที่มีมูล</label>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" disabled onclick="submitForm()">
+        ส่งข้อมูลเพื่อรอการตรวจสอบ
+      </button>
+      <button class="cancel-btn" onclick="closeReg()">ยกเลิก</button>
+    </div>
+
+    <!-- หน้าสำเร็จ -->
+    <div class="success-box" id="successBox">
+      <div class="big-icon">✅</div>
+      <h3>ส่งข้อมูลเรียบร้อยแล้ว!</h3>
+      <p>เจ้าหน้าที่เทศบาลจะตรวจสอบข้อมูลของท่าน<br>และแจ้งผลภายใน 3–5 วันทำการ<br><br>
+      <strong>ขอบคุณที่ร่วมเป็นส่วนหนึ่งของชุมชน 🙏</strong></p>
+      <button class="submit-btn" style="margin-top:1.5rem" onclick="closeReg()">กลับหน้าหลัก</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
