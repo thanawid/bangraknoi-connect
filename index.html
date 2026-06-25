@@ -285,591 +285,335 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
 .nav-btn.active span{color:var(--purple)}
 
 /* ── RESPONSIVE: mobile-first ── */
-.desktop-wrap{width:100%;max-width:100%}
-.header-inner,.hero,.stats-bar,.main{max-width:100%}
+.desktop-wrap{width:100%;max-width:100%;overflow-x:hidden}
+.hero{width:100%}
+.hero-title{font-size:22px;word-break:keep-all}
+.search-wrap input{width:100%}
 
-@media(min-width:600px){
-  .cats{grid-template-columns:repeat(3,1fr)}
+@media(min-width:640px){
+  body{background:#2D1B69}
+  .desktop-wrap{max-width:640px;margin:0 auto;background:#F5F3FF;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,0.4)}
+  .bottom-nav{max-width:640px;left:50%;transform:translateX(-50%)}
   .hero-title{font-size:26px}
 }
 
 @media(min-width:900px){
-  body{background:#2D1B69}
-  .desktop-wrap{max-width:900px;margin:0 auto;background:#F5F3FF;min-height:100vh;box-shadow:0 0 80px rgba(0,0,0,0.5)}
-  .header-inner{max-width:900px}
-  .hero{max-width:900px}
-  .stats-bar{max-width:900px}
-  .main{max-width:900px}
+  .desktop-wrap{max-width:900px}
+  .bottom-nav{max-width:900px}
   .hero-title{font-size:30px}
-  .hero-sub{font-size:15px}
-  .cats{grid-template-columns:repeat(6,1fr);gap:12px}
-  .cat-icon{font-size:28px}
-  .cat-name{font-size:12px}
-  .card-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .hero{padding:1.75rem 2rem 2rem}
+  .stats-bar{display:flex;justify-content:center;gap:5rem;padding:1rem 2rem}
+  .stat-num{font-size:26px}
+  .cats{grid-template-columns:repeat(6,1fr);padding:0 1.5rem;gap:10px}
+  .cat-icon{font-size:22px}
+  .cat-name{font-size:11px}
+  .section-label,.list-head,.footer-note{padding-left:1.5rem;padding-right:1.5rem}
+  .card-list{padding:0 1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .card-list .card{margin-bottom:0}
-  .bottom-nav{max-width:900px;left:50%;transform:translateX(-50%);border-radius:16px 16px 0 0}
-  .ai-panel{margin:1rem 1.25rem}
-  .map-block{margin:1.25rem 1.25rem 0}
-  .map-embed{width:calc(100% - 2.5rem)}
-  .reg-block{margin:1rem 1.25rem}
+  .ai-panel,.reg-block,.map-block,.gold-divider{margin-left:1.5rem;margin-right:1.5rem}
+  .bottom-nav{max-width:900px}
 }
 
 @media(min-width:1200px){
-  body{background:#1E1148}
-  .desktop-wrap{max-width:1100px}
+  .desktop-wrap{max-width:1200px}
+  .bottom-nav{max-width:1200px}
   .hero-title{font-size:36px}
-  .cats{grid-template-columns:repeat(6,1fr)}
-  .card-list{grid-template-columns:1fr 1fr 1fr}
-  .stats-bar{display:flex;justify-content:center;gap:4rem;padding:1rem 2rem}
-  .stat-item{text-align:center}
-  .stat-num{font-size:28px}
-  .hero{padding:2rem 2rem 2.5rem}
-  .section-label{padding:1.5rem 2rem 0.5rem}
-  .cats{padding:0 2rem}
-  .list-head{padding:1.5rem 2rem 0.75rem}
+  .hero{padding:2rem 3rem 2.5rem}
+  .stats-bar{gap:8rem;padding:1rem 3rem}
+  .cats{padding:0 3rem;gap:12px}
+  .section-label{padding:1.5rem 3rem 0.5rem}
+  .list-head{padding:1.5rem 3rem 0.75rem}
+  .card-list{padding:0 3rem;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .ai-panel,.reg-block,.gold-divider{margin-left:3rem;margin-right:3rem}
+  .map-block{margin-left:3rem;margin-right:3rem}
+  .footer-note{padding:1.5rem 3rem}
+  .bottom-nav{max-width:1200px}
+}
+
+</style>
+PE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>บางรักน้อย Connect — ศูนย์รวมข้อมูลชุมชน</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="logo_BC.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#6B21A8;--purple-dark:#4C1D95;--purple-light:#EDE9FE;--purple-mid:#7C3AED;
+  --gold:#D97706;--gold-light:#FEF3C7;--gold-bright:#F59E0B;
+  --green:#15803D;--green-light:#DCFCE7;--yellow:#CA8A04;
+  --white:#FFFFFF;--gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
+  --gray-500:#6B7280;--gray-700:#374151;--gray-900:#111827;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;
+}
+
+body{word-break:keep-all;overflow-wrap:break-word;-webkit-locale:"th";font-variant-ligatures:none}
+body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);min-height:100vh}
+.header{background:linear-gradient(135deg,#4C1D95 0%,#6B21A8 60%,#8B21C8 100%);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(107,33,168,0.4)}
+.header-inner{max-width:640px;margin:0 auto;padding:0.75rem 1.25rem;display:flex;align-items:center;gap:12px}
+.logo-wrap{width:48px;height:48px;border-radius:12px;overflow:hidden;flex-shrink:0;background:transparent}
+.logo-wrap img{width:100%;height:100%;object-fit:contain}
+.header-text h1{font-size:17px;font-weight:600;color:#fff;letter-spacing:0.2px}
+.header-text p{font-size:11px;color:rgba(255,255,255,0.75);margin-top:1px}
+.header-right{margin-left:auto}
+.header-badge{background:rgba(255,255,255,0.15);border:0.5px solid rgba(255,255,255,0.3);border-radius:20px;padding:4px 10px;font-size:11px;color:#fff;display:flex;align-items:center;gap:4px}
+.hero{background:linear-gradient(180deg,#4C1D95 0%,#6B21A8 100%);padding:1.5rem 1.25rem 2rem;max-width:640px;margin:0 auto}
+.hero-title{font-size:22px;font-weight:600;color:#fff;margin-bottom:6px;line-height:1.3}
+.hero-title span{color:#F59E0B}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:1.25rem;line-height:1.6}
+.search-wrap{position:relative}
+.search-wrap input{width:100%;background:#fff;border:none;border-radius:var(--radius-lg);padding:13px 48px 13px 48px;font-size:14px;font-family:'Sarabun',sans-serif;color:var(--gray-900);outline:none;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+.search-wrap input::placeholder{color:var(--gray-500)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--purple);font-size:20px}
+.search-ai-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--purple);color:#fff;border:none;border-radius:var(--radius-md);padding:6px 14px;font-size:12px;font-family:'Sarabun',sans-serif;cursor:pointer;display:flex;align-items:center;gap:4px}
+.stats-bar{max-width:640px;margin:0 auto;background:#fff;border-bottom:0.5px solid var(--gray-200);padding:0.75rem 1.25rem;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat-item{text-align:center}
+.stat-num{font-size:20px;font-weight:600;color:var(--purple)}
+.stat-lbl{font-size:10px;color:var(--gray-500)}
+.main{max-width:640px;margin:0 auto;padding:0 0 80px}
+.ai-panel{background:linear-gradient(135deg,#EDE9FE,#F0FDF4);border:1px solid rgba(107,33,168,0.15);border-radius:var(--radius-lg);margin:1rem 1.25rem;padding:1rem 1.25rem}
+.ai-panel-head{display:flex;align-items:center;gap:8px;margin-bottom:0.75rem}
+.ai-panel-head i{font-size:20px;color:var(--purple-mid)}
+.ai-panel-head span{font-size:14px;font-weight:500;color:var(--purple-dark)}
+.close-ai{margin-left:auto;background:none;border:none;color:var(--gray-500);cursor:pointer;font-size:18px;padding:0}
+.ai-input-row{display:flex;gap:8px;margin-bottom:0.75rem}
+.ai-input-row input{flex:1;border:1px solid rgba(107,33,168,0.25);border-radius:var(--radius-md);padding:9px 12px;font-size:13px;font-family:'Sarabun',sans-serif;color:var(--gray-900);background:#fff;outline:none}
+.ai-send{background:var(--purple);color:#fff;border:none;border-radius:var(--radius-md);padding:9px 16px;font-size:13px;font-family:'Sarabun',sans-serif;cursor:pointer;font-weight:500}
+.ai-tags{display:flex;gap:6px;flex-wrap:wrap}
+.ai-tag{font-size:11px;padding:4px 10px;border-radius:20px;background:#fff;border:1px solid rgba(107,33,168,0.2);color:var(--purple);cursor:pointer;font-family:'Sarabun',sans-serif}
+.ai-result{margin-top:0.875rem;background:#fff;border-radius:var(--radius-md);padding:0.875rem 1rem;font-size:13px;line-height:1.7;color:var(--gray-700);border-left:3px solid var(--purple-mid);display:none}
+.ai-result.show{display:block}
+.section-label{font-size:11px;font-weight:600;color:var(--gray-500);letter-spacing:1px;text-transform:uppercase;padding:1.25rem 1.25rem 0.5rem;display:flex;align-items:center;gap:6px}
+.section-label::after{content:'';flex:1;height:0.5px;background:var(--gray-200)}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 1.25rem}
+.cat{background:#fff;border:1.5px solid var(--gray-200);border-radius:var(--radius-lg);padding:14px 8px 12px;text-align:center;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden}
+.cat:hover{border-color:var(--purple-mid);background:var(--purple-light)}
+.cat.active{border-color:var(--purple);background:var(--purple-light)}
+.cat.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--gold-bright))}
+.cat-icon{font-size:26px;display:block;margin-bottom:6px}
+.c1 .cat-icon{color:#7C3AED}.c2 .cat-icon{color:#D97706}.c3 .cat-icon{color:#15803D}
+.c4 .cat-icon{color:#D97706}.c5 .cat-icon{color:#0369A1}.c6 .cat-icon{color:#BE185D}
+.cat-name{font-size:11px;color:var(--gray-700);line-height:1.3;font-weight:500}
+.cat-count{font-size:10px;color:var(--gray-500);margin-top:2px}
+.list-head{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.25rem 0.625rem}
+.list-head h2{font-size:16px;font-weight:600;color:var(--gray-900);display:flex;align-items:center;gap:6px}
+.list-head h2 i{font-size:18px;color:var(--purple)}
+.list-head a{font-size:12px;color:var(--purple);text-decoration:none;cursor:pointer}
+.card-list{padding:0 1.25rem}
+.card{background:#fff;border:0.5px solid var(--gray-200);border-radius:var(--radius-lg);padding:1rem 1.125rem;margin-bottom:10px;display:flex;gap:12px;cursor:pointer;transition:all 0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.card:hover{border-color:rgba(107,33,168,0.3);box-shadow:0 4px 16px rgba(107,33,168,0.08)}
+.card-thumb{width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.t-purple{background:#EDE9FE;color:#7C3AED}.t-gold{background:#FEF3C7;color:#D97706}
+.t-green{background:#DCFCE7;color:#15803D}.t-blue{background:#E0F2FE;color:#0369A1}
+.t-pink{background:#FCE7F3;color:#BE185D}
+.card-body{flex:1;min-width:0}
+.card-body h3{font-size:14px;font-weight:600;color:var(--gray-900);margin-bottom:3px}
+.card-body p{font-size:12px;color:var(--gray-500);line-height:1.5;margin-bottom:6px}
+.card-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.badge{font-size:10px;padding:3px 8px;border-radius:20px;font-weight:500}
+.b-purple{background:#EDE9FE;color:#4C1D95}.b-gold{background:#FEF3C7;color:#92400E}
+.b-green{background:#DCFCE7;color:#166534}.b-blue{background:#E0F2FE;color:#1E40AF}
+.b-gray{background:#F3F4F6;color:#6B7280}
+.verified{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#15803D;background:#DCFCE7;padding:2px 6px;border-radius:20px}
+.phone-link{font-size:11px;color:var(--purple);display:flex;align-items:center;gap:3px;text-decoration:none}
+.gold-divider{height:2px;background:linear-gradient(90deg,transparent,#F59E0B,transparent);margin:1.25rem 1.25rem 0;opacity:0.4}
+.map-block{margin:1.25rem 1.25rem 0;background:linear-gradient(135deg,#EDE9FE,#FEF3C7);border:1px solid rgba(107,33,168,0.15);border-radius:var(--radius-lg);padding:1.25rem;display:flex;align-items:center;gap:14px;cursor:pointer}
+.map-icon{width:52px;height:52px;background:var(--purple);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.map-icon i{font-size:26px;color:#fff}
+.map-text h3{font-size:14px;font-weight:600;color:var(--purple-dark)}
+.map-text p{font-size:12px;color:var(--gray-500);margin-top:2px}
+.map-arr{margin-left:auto;color:var(--purple);font-size:20px}
+.reg-block{margin:1rem 1.25rem;background:linear-gradient(135deg,#4C1D95,#6B21A8);border-radius:var(--radius-lg);padding:1.25rem;color:#fff;position:relative;overflow:hidden}
+.reg-block::before{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;background:rgba(255,255,255,0.05);border-radius:50%}
+.reg-block h3{font-size:15px;font-weight:600;margin-bottom:4px;position:relative}
+.reg-block p{font-size:12px;color:rgba(255,255,255,0.75);margin-bottom:1rem;line-height:1.5;position:relative}
+.reg-btns{display:flex;gap:8px;flex-wrap:wrap;position:relative}
+.reg-btn{padding:8px 16px;border-radius:var(--radius-md);font-size:12px;font-family:'Sarabun',sans-serif;font-weight:500;cursor:pointer;border:none;display:flex;align-items:center;gap:6px}
+.btn-gold{background:#F59E0B;color:#fff}
+.btn-outline{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3)}
+.footer-note{text-align:center;padding:1.5rem 1.25rem 0.5rem;font-size:11px;color:var(--gray-500);line-height:1.8}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:0.5px solid var(--gray-200);padding:0.5rem 0 0.75rem;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,0.06)}
+.bottom-nav-inner{max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px;background:none;border:none;cursor:pointer;font-family:'Sarabun',sans-serif}
+.nav-btn i{font-size:22px;color:#6B7280}
+.nav-btn span{font-size:10px;color:#6B7280}
+.nav-btn.active i{color:var(--purple)}
+.nav-btn.active span{color:var(--purple)}
+
+
+@media(min-width:1024px){
+  body{background:#1E1148}
+  .desktop-wrap{max-width:100%;display:grid;grid-template-columns:240px 1fr;grid-template-rows:auto 1fr;min-height:100vh;background:transparent}
+
+  /* Header เต็มแถว */
+  .header{grid-column:1/-1;grid-row:1;background:linear-gradient(135deg,#3B0764,#6B21A8);padding:0}
+  .header-inner{max-width:100%;padding:0.625rem 1.5rem;gap:12px}
+  .header-text h1{font-size:16px}
+
+  /* Sidebar ซ้าย */
+  .sidebar{display:flex!important;flex-direction:column;grid-column:1;grid-row:2;background:#2D1B69;padding:1.25rem 0;min-height:calc(100vh - 56px);position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+  .sidebar-logo{padding:0 1.25rem 1.25rem;border-bottom:0.5px solid rgba(255,255,255,0.1);margin-bottom:1rem}
+  .sidebar-logo img{width:64px;height:64px;object-fit:contain;display:block;margin:0 auto 8px}
+  .sidebar-logo p{text-align:center;font-size:11px;color:rgba(255,255,255,0.5);line-height:1.5}
+  .sidebar-menu{padding:0 0.75rem}
+  .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;color:rgba(255,255,255,0.7);font-size:13px;margin-bottom:4px;transition:all 0.15s}
+  .sidebar-item:hover{background:rgba(255,255,255,0.08);color:#fff}
+  .sidebar-item.active{background:rgba(255,255,255,0.15);color:#fff}
+  .sidebar-item i{font-size:18px;width:20px;text-align:center}
+  .sidebar-item.c1 i{color:#A78BFA}
+  .sidebar-item.c2 i{color:#F59E0B}
+  .sidebar-item.c3 i{color:#34D399}
+  .sidebar-item.c4 i{color:#FB923C}
+  .sidebar-item.c5 i{color:#60A5FA}
+  .sidebar-item.c6 i{color:#F472B6}
+  .sidebar-divider{height:0.5px;background:rgba(255,255,255,0.1);margin:0.75rem 1.25rem}
+  .sidebar-footer{margin-top:auto;padding:1rem 1.25rem}
+  .sidebar-footer p{font-size:10px;color:rgba(255,255,255,0.3);line-height:1.6;text-align:center}
+
+  /* Content ขวา */
+  .content-area{grid-column:2;grid-row:2;background:#F5F3FF;overflow-y:auto}
+  .hero{border-radius:0}
+  .stats-bar{border-radius:0}
+  .cats{grid-template-columns:repeat(3,1fr)}
+  .card-list{grid-template-columns:1fr 1fr}
+  .bottom-nav{display:none!important}
+  .main{padding-bottom:2rem}
+
+  /* Hero บน desktop */
+  .hero-title{font-size:28px}
+  .hero{padding:1.5rem 2rem 2rem}
+  .section-label{padding:1.25rem 2rem 0.5rem}
+  .cats{padding:0 2rem;gap:10px}
+  .list-head{padding:1.25rem 2rem 0.625rem}
   .card-list{padding:0 2rem}
   .ai-panel{margin:1rem 2rem}
   .map-block{margin:1.25rem 2rem 0}
   .reg-block{margin:1rem 2rem}
-}
-
-
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:flex-end;justify-content:center}
-.modal-overlay.show{display:flex}
-.modal-sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;padding:1.5rem 1.25rem 2rem}
-.modal-handle{width:40px;height:4px;background:#E5E7EB;border-radius:4px;margin:0 auto 1.25rem}
-.modal-title{font-size:17px;font-weight:600;color:#111827;margin-bottom:4px}
-.modal-sub{font-size:12px;color:#6B7280;margin-bottom:1.25rem;line-height:1.6}
-.disclaimer-box{background:#FEF3C7;border:1px solid #FDE68A;border-radius:12px;padding:0.875rem 1rem;margin-bottom:1.25rem;font-size:12px;color:#92400E;line-height:1.7}
-.disclaimer-box strong{display:block;margin-bottom:4px;font-size:13px}
-.legal-box{background:#EDE9FE;border:1px solid #DDD6FE;border-radius:12px;padding:0.875rem 1rem;margin-bottom:1.25rem;font-size:11px;color:#4C1D95;line-height:1.8}
-.legal-box strong{display:block;margin-bottom:4px;font-size:12px;color:#4C1D95}
-.form-group{margin-bottom:1rem}
-.form-label{font-size:13px;font-weight:500;color:#374151;margin-bottom:5px;display:block}
-.form-label span{color:#DC2626;margin-left:2px}
-.form-input{width:100%;border:1px solid #E5E7EB;border-radius:10px;padding:10px 12px;font-size:13px;font-family:'Sarabun',sans-serif;color:#111827;outline:none;background:#fff}
-.form-input:focus{border-color:#7C3AED}
-.form-select{width:100%;border:1px solid #E5E7EB;border-radius:10px;padding:10px 12px;font-size:13px;font-family:'Sarabun',sans-serif;color:#111827;outline:none;background:#fff;appearance:none}
-.form-textarea{width:100%;border:1px solid #E5E7EB;border-radius:10px;padding:10px 12px;font-size:13px;font-family:'Sarabun',sans-serif;color:#111827;outline:none;resize:vertical;min-height:80px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.consent-box{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:10px;padding:0.875rem;margin-bottom:1.25rem}
-.consent-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
-.consent-item:last-child{margin-bottom:0}
-.consent-item input[type=checkbox]{margin-top:2px;accent-color:#6B21A8;flex-shrink:0}
-.consent-item label{font-size:12px;color:#374151;line-height:1.6;cursor:pointer}
-.consent-item label a{color:#6B21A8}
-.submit-btn{width:100%;background:linear-gradient(135deg,#4C1D95,#6B21A8);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-family:'Sarabun',sans-serif;font-weight:600;cursor:pointer;margin-top:4px}
-.submit-btn:disabled{opacity:0.5;cursor:not-allowed}
-.cancel-btn{width:100%;background:#F3F4F6;color:#6B7280;border:none;border-radius:12px;padding:12px;font-size:14px;font-family:'Sarabun',sans-serif;cursor:pointer;margin-top:8px}
-.success-box{text-align:center;padding:2rem 1rem;display:none}
-.success-box .big-icon{font-size:56px;margin-bottom:1rem}
-.success-box h3{font-size:18px;font-weight:600;color:#111827;margin-bottom:8px}
-.success-box p{font-size:13px;color:#6B7280;line-height:1.7}
-.modal-close{float:right;background:none;border:none;font-size:22px;color:#9CA3AF;cursor:pointer;margin-top:-4px}
-.map-embed{width:100%;height:280px;border-radius:16px;border:none;margin:1.25rem 1.25rem 0;width:calc(100% - 2.5rem)}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-@keyframes floatDot{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.hero-title{animation:fadeUp 0.6s ease both}
-.hero-sub{animation:fadeUp 0.6s 0.15s ease both}
-.search-wrap{animation:fadeUp 0.6s 0.25s ease both}
-.stat-num{transition:all 0.3s ease}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.5s ease,transform 0.5s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.card{transition:all 0.2s ease}
-.card:hover{transform:translateY(-3px);border-color:rgba(107,33,168,0.35)!important;box-shadow:0 8px 24px rgba(107,33,168,0.12)!important}
-.cat{transition:all 0.18s ease}
-.cat:hover{transform:translateY(-2px)}
-.hero{background-size:200% 200%;animation:shimmer 8s linear infinite;background-image:linear-gradient(135deg,#3B0764 0%,#4C1D95 30%,#6B21A8 60%,#4C1D95 80%,#3B0764 100%)}
-.hero-dots{position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none}
-.hero-dot{position:absolute;border-radius:50%;background:rgba(245,158,11,0.15)}
-.hero-dot:nth-child(1){width:80px;height:80px;top:10%;right:10%;animation:floatDot 4s ease-in-out infinite}
-.hero-dot:nth-child(2){width:40px;height:40px;top:60%;right:25%;animation:floatDot 5s 1s ease-in-out infinite}
-.hero-dot:nth-child(3){width:24px;height:24px;top:30%;right:40%;animation:floatDot 3.5s 0.5s ease-in-out infinite}
-.search-wrap input:focus{box-shadow:0 0 0 3px rgba(107,33,168,0.2)!important;outline:none}
-.header-badge{animation:pulse 3s ease-in-out infinite}
-.btn-gold{position:relative;overflow:hidden}
-.btn-gold::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);animation:shimmer 2.5s linear infinite}
-.stat-item:hover .stat-num{transform:scale(1.1);color:#7C3AED}
-
-/* ── RESPONSIVE: mobile-first ── */
-.desktop-wrap{width:100%;max-width:100%}
-
-@media(min-width:768px){
-  body{background:#2D1B69}
-  .desktop-wrap{max-width:800px;margin:0 auto;background:#F5F3FF;min-height:100vh;box-shadow:0 0 60px rgba(0,0,0,0.5)}
-  .hero-title{font-size:28px}
-  .cats{grid-template-columns:repeat(3,1fr)}
-  .bottom-nav{max-width:800px;left:50%;transform:translateX(-50%)}
-}
-
-@media(min-width:1080px){
-  body{background:#1E1148}
-  .desktop-wrap{max-width:1080px}
-  .hero-title{font-size:32px}
-  .hero{padding:2rem 2.5rem 2.5rem}
-  .stats-bar{padding:1rem 2.5rem;display:flex;justify-content:center;gap:6rem}
-  .stat-num{font-size:28px}
-  .cats{grid-template-columns:repeat(6,1fr);padding:0 2rem;gap:12px}
-  .cat-name{font-size:12px}
-  .section-label{padding:1.5rem 2rem 0.5rem}
-  .list-head{padding:1.5rem 2rem 0.75rem}
-  .card-list{padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .card-list .card{margin-bottom:0}
-  .ai-panel{margin:1rem 2rem}
-  .map-block{margin:1.25rem 2rem 0}
-  .map-embed{width:calc(100% - 4rem);margin-left:2rem}
-  .reg-block{margin:1rem 2rem}
-  .gold-divider{margin:1.25rem 2rem 0}
   .footer-note{padding:1.5rem 2rem}
-  .bottom-nav{max-width:1080px}
+  .gold-divider{margin:1.25rem 2rem 0}
 }
 
-@media(min-width:1400px){
-  body{background:#150D3D}
-  .desktop-wrap{max-width:1320px}
-  .hero-title{font-size:38px}
-  .hero{padding:2.5rem 3.5rem 3rem}
-  .cats{padding:0 3.5rem;gap:14px}
-  .section-label{padding:1.5rem 3.5rem 0.5rem}
-  .list-head{padding:1.5rem 3.5rem 0.75rem}
-  .card-list{padding:0 3.5rem;grid-template-columns:1fr 1fr 1fr;gap:14px}
-  .ai-panel{margin:1rem 3.5rem}
-  .map-block{margin:1.25rem 3.5rem 0}
-  .map-embed{width:calc(100% - 7rem);margin-left:3.5rem}
-  .reg-block{margin:1rem 3.5rem}
-  .gold-divider{margin:1.25rem 3.5rem 0}
-  .footer-note{padding:1.5rem 3.5rem}
-  .bottom-nav{max-width:1320px}
-  .stats-bar{gap:10rem}
-  .stat-num{font-size:32px}
+@media(max-width:1023px){
+  .sidebar{display:none}
+  .content-area{display:contents}
 }
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-@keyframes floatDot{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-
-/* hero fade up */
-.hero-title{animation:fadeUp 0.6s ease both}
-.hero-sub{animation:fadeUp 0.6s 0.15s ease both}
-.search-wrap{animation:fadeUp 0.6s 0.25s ease both}
-
-/* stats counter สวย */
-.stat-num{transition:all 0.3s ease}
-
-/* scroll reveal */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.5s ease,transform 0.5s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-
-/* hover card ยกขึ้น */
-.card{transition:all 0.2s ease}
-.card:hover{transform:translateY(-3px);border-color:rgba(107,33,168,0.35)!important;box-shadow:0 8px 24px rgba(107,33,168,0.12)!important}
-
-/* hover cat */
-.cat{transition:all 0.18s ease}
-.cat:hover{transform:translateY(-2px)}
-
-/* hero bg เคลื่อนไหวนิดๆ */
-.hero{background-size:200% 200%;animation:shimmer 8s linear infinite;background-image:linear-gradient(135deg,#3B0764 0%,#4C1D95 30%,#6B21A8 60%,#4C1D95 80%,#3B0764 100%)}
-
-/* floating dots ใน hero */
-.hero-dots{position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none}
-.hero-dot{position:absolute;border-radius:50%;background:rgba(245,158,11,0.15)}
-.hero-dot:nth-child(1){width:80px;height:80px;top:10%;right:10%;animation:floatDot 4s ease-in-out infinite}
-.hero-dot:nth-child(2){width:40px;height:40px;top:60%;right:25%;animation:floatDot 5s 1s ease-in-out infinite}
-.hero-dot:nth-child(3){width:24px;height:24px;top:30%;right:40%;animation:floatDot 3.5s 0.5s ease-in-out infinite}
-
-/* search input glow เมื่อ focus */
-.search-wrap input:focus{box-shadow:0 0 0 3px rgba(107,33,168,0.2),0 4px 20px rgba(0,0,0,0.15)!important;outline:none}
-
-/* badge pulse เล็กน้อย */
-.header-badge{animation:pulse 3s ease-in-out infinite}
-
-/* sidebar item hover */
-.sidebar-item{transition:all 0.15s ease}
-
-/* AI panel fade in */
-.ai-panel{animation:fadeIn 0.3s ease}
-
-/* reg block shimmer button */
-.btn-gold{position:relative;overflow:hidden}
-.btn-gold::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);animation:shimmer 2.5s linear infinite}
-
-/* stat bar hover */
-.stat-item{cursor:default;transition:transform 0.2s}
-.stat-item:hover .stat-num{transform:scale(1.1);color:#7C3AED}
-
-</style>
-</head>
-<body>
-
-<div class="desktop-wrap">
-<div class="header">
-  <div class="header-inner">
-    <div class="logo-wrap"><img src="logo_BC.png" alt="โลโก้บางรักน้อย Connect"></div>
-    <div class="header-text">
-      <h1>บางรักน้อย Connect <span style="font-size:10px;font-weight:400;background:rgba(255,255,255,0.2);border:0.5px solid rgba(255,255,255,0.35);border-radius:20px;padding:2px 8px;letter-spacing:0.5px;vertical-align:middle">v1.0</span></h1>
-      <p>เทศบาลเมืองบางรักน้อย จ.นนทบุรี</p>
-    </div>
-    <div class="header-right">
-      <span class="header-badge"><i class="ti ti-circle-filled" style="font-size:8px;color:#4ADE80"></i> เปิดให้บริการ</span>
-    </div>
-  </div>
-</div>
-
-
-<div class="hero" style="position:relative">
-  <div class="hero-dots"><div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div></div>
-  <h1 class="hero-title" style="position:relative">รู้จัก<span>บางรักน้อย</span><br>ให้มากขึ้น</h1>
-  <p class="hero-sub">ศูนย์รวมข้อมูลชุมชน ครบในที่เดียว<br>ช่าง ร้านอาหาร ท่องเที่ยว อาชีพ และข่าวสาร</p>
-  <div class="search-wrap">
-    <i class="ti ti-search search-icon"></i>
-    <input type="text" id="mainSearch" placeholder="ค้นหา เช่น ช่างไฟ ร้านอาหาร วัด...">
-    <button class="search-ai-btn" onclick="openAI()"><i class="ti ti-sparkles"></i> AI</button>
-  </div>
-</div>
-
-<div class="stats-bar reveal">
-  <div class="stat-item"><div class="stat-num">24</div><div class="stat-lbl">ช่างในชุมชน</div></div>
-  <div class="stat-item"><div class="stat-num">38</div><div class="stat-lbl">ร้านค้า/บริการ</div></div>
-  <div class="stat-item"><div class="stat-num">12</div><div class="stat-lbl">สถานที่สำคัญ</div></div>
-</div>
-
-<div class="main">
-  <div class="ai-panel" id="aiPanel" style="display:none">
-    <div class="ai-panel-head">
-      <i class="ti ti-sparkles"></i>
-      <span>ผู้ช่วย AI — ถามอะไรก็ได้เกี่ยวกับชุมชน</span>
-      <button class="close-ai" onclick="closeAI()"><i class="ti ti-x"></i></button>
-    </div>
-    <div class="ai-input-row">
-      <input type="text" id="aiInput" placeholder="เช่น หาช่างประปาด่วน หรือ ร้านอาหารเปิดเย็น...">
-      <button class="ai-send" onclick="askAI()">ถาม</button>
-    </div>
-    <div class="ai-tags">
-      <span class="ai-tag" onclick="setQ('หาช่างไฟฟ้าใกล้บ้าน')">⚡ ช่างไฟ</span>
-      <span class="ai-tag" onclick="setQ('ร้านอาหารเปิดเย็น')">🍜 ร้านเย็น</span>
-      <span class="ai-tag" onclick="setQ('จุดเช็คอินบางรักน้อย')">📍 เช็คอิน</span>
-      <span class="ai-tag" onclick="setQ('อบรมอาชีพฟรี')">🎓 อบรมฟรี</span>
-      <span class="ai-tag" onclick="setQ('ข่าวสารล่าสุด')">📢 ข่าว</span>
-    </div>
-    <div class="ai-result" id="aiResult"></div>
-  </div>
-
-  <div class="section-label reveal">หมวดหมู่</div>
-  <div class="cats">
-    <div class="cat c1 active" onclick="switchCat(this,'ช่าง')">
-      <i class="ti ti-tool cat-icon"></i><div class="cat-name">หาช่างใกล้บ้าน</div><div class="cat-count">24 ราย</div>
-    </div>
-    <div class="cat c2" onclick="switchCat(this,'ร้านอาหาร')">
-      <i class="ti ti-bowl cat-icon"></i><div class="cat-name">ร้านอาหาร/ของดี</div><div class="cat-count">38 ร้าน</div>
-    </div>
-    <div class="cat c3" onclick="switchCat(this,'ท่องเที่ยว')">
-      <i class="ti ti-camera cat-icon"></i><div class="cat-name">เที่ยวบางรักน้อย</div><div class="cat-count">12 จุด</div>
-    </div>
-    <div class="cat c4" onclick="switchCat(this,'อาชีพ')">
-      <i class="ti ti-school cat-icon"></i><div class="cat-name">ฝึกอาชีพ/กิจกรรม</div><div class="cat-count">8 หลักสูตร</div>
-    </div>
-    <div class="cat c5" onclick="switchCat(this,'ข่าว')">
-      <i class="ti ti-speakerphone cat-icon"></i><div class="cat-name">ข่าวสารเทศบาล</div><div class="cat-count">อัปเดตล่าสุด</div>
-    </div>
-    <div class="cat c6" onclick="openRegModal()">
-      <i class="ti ti-forms cat-icon"></i><div class="cat-name">สมัครเข้าระบบ</div><div class="cat-count">เปิดรับสมัคร</div>
-    </div>
-  </div>
-
-  <div class="list-head reveal">
-    <h2><i class="ti ti-tool" id="listIcon"></i><span id="listTitle">ช่างในชุมชน</span></h2>
-    <a>ดูทั้งหมด</a>
-  </div>
-  <div class="card-list" id="cardList"></div>
-
-  <div class="gold-divider"></div>
-
-  <iframe class="map-embed"
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15495.123456!2d100.4833!3d13.8833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29d8000000001%3A0x1!2z4LiQ4LiZ4LiR4Li04LiZ4Lir4Liy4LiH4LiBIOC4meC4o-C4suC4p-C4tOC4l-C4o-C5jA!5e0!3m2!1sth!2sth!4v1234567890"
-    allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-    title="แผนที่ชุมชนบางรักน้อย"></iframe>
-
-  <div class="map-block reveal" onclick="openMap()">
-    <div class="map-icon"><i class="ti ti-map-2"></i></div>
-    <div class="map-text"><h3>แผนที่ชุมชนบางรักน้อย</h3><p>ดูตำแหน่งช่าง ร้านอาหาร และสถานที่ทั้งหมดบนแผนที่</p></div>
-    <i class="ti ti-chevron-right map-arr"></i>
-  </div>
-
-  <div class="reg-block reveal">
-    <h3>✨ ร้านค้า ช่าง กลุ่มอาชีพ — ลงทะเบียนฟรี</h3>
-    <p>เพิ่มข้อมูลของคุณเข้าระบบ ให้คนในชุมชนค้นหาเจอ<br>ไม่มีค่าใช้จ่าย ดูแลโดยเทศบาลเมืองบางรักน้อย</p>
-    <div class="reg-btns">
-      <button class="reg-btn btn-gold" onclick="openRegModal()"><i class="ti ti-forms"></i> สมัครเข้าระบบ</button>
-      <button class="reg-btn btn-outline"><i class="ti ti-brand-line"></i> LINE OA</button>
-    </div>
-  </div>
-
-  <div class="footer-note">
-    ข้อมูลนี้จัดทำเพื่ออำนวยความสะดวกแก่ประชาชน ผ่านการตรวจสอบเบื้องต้นโดยเทศบาลเมืองบางรักน้อย<br>
-    การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างผู้รับบริการกับผู้ให้บริการโดยตรง<br>
-    เทศบาลสงวนสิทธิ์ระงับหรือถอดข้อมูลที่ไม่เหมาะสมโดยไม่ต้องแจ้งล่วงหน้า<br><br>
-    <strong style="color:#6B21A8">เทศบาลเมืองบางรักน้อย</strong> อ.เมืองนนทบุรี จ.นนทบุรี<br>
-    <span style="display:inline-block;margin-top:6px;background:#EDE9FE;color:#6B21A8;border:1px solid rgba(107,33,168,0.2);border-radius:20px;padding:2px 12px;font-size:11px;font-weight:600">v1.0 © 2568 บางรักน้อย Connect</span>
-  </div>
-</div>
-
-<div class="bottom-nav">
-  <div class="bottom-nav-inner">
-    <button class="nav-btn active" onclick="navTo('home',this)"><i class="ti ti-home"></i><span>หน้าหลัก</span></button>
-    <button class="nav-btn" onclick="navTo('search',this)"><i class="ti ti-search"></i><span>ค้นหา</span></button>
-    <button class="nav-btn" onclick="navTo('map',this)"><i class="ti ti-map-pin"></i><span>แผนที่</span></button>
-    <button class="nav-btn" onclick="navTo('news',this)"><i class="ti ti-speakerphone"></i><span>ข่าวสาร</span></button>
-  </div>
-</div>
-
-<script>
-const DATA={
-  "ช่าง":[
-    {icon:"ti-plug",thumb:"t-purple",title:"ช่างไฟ สมชาย อินทร์ทอง",desc:"ติดตั้ง ซ่อมระบบไฟฟ้า งานฝ้าและสปอตไลท์ บริการตลอด 24 ชม.",cat:"ช่างไฟ",catCls:"b-purple",area:"หมู่ 3 บางรักน้อย",phone:"089-123-4567",ok:true},
-    {icon:"ti-droplet",thumb:"t-blue",title:"ช่างประปา วิชัย สุขสม",desc:"แก้ท่อแตก อุดตัน ติดตั้งมิเตอร์น้ำ วางท่อใหม่",cat:"ช่างประปา",catCls:"b-blue",area:"หมู่ 5 ท่าอิฐ",phone:"081-234-5678",ok:true},
-    {icon:"ti-air-conditioning",thumb:"t-green",title:"ช่างแอร์ ประทีป เย็นใจ",desc:"ล้างแอร์ เติมน้ำยา ซ่อมแอร์ทุกยี่ห้อ ราคาเป็นมิตร",cat:"ช่างแอร์",catCls:"b-gold",area:"บางรักน้อย",phone:"062-345-6789",ok:false},
-    {icon:"ti-car",thumb:"t-gold",title:"ช่างยาง นคร รถดี",desc:"เปลี่ยนยาง ถ่วงล้อ ซ่อมยางแบน บริการถึงที่",cat:"ช่างยาง",catCls:"b-green",area:"ปากทางท่าอิฐ",phone:"092-456-7890",ok:true}
-  ],
-  "ร้านอาหาร":[
-    {icon:"ti-bowl",thumb:"t-gold",title:"ข้าวแกงป้าแดง",desc:"ข้าวราดแกงรสเด็ด ของสดทุกวัน เปิด 06.00–14.00 น.",cat:"อาหารตามสั่ง",catCls:"b-gold",area:"ตลาดท่าอิฐ",phone:"085-678-9012",ok:true},
-    {icon:"ti-coffee",thumb:"t-green",title:"คาเฟ่บางรักน้อย",desc:"กาแฟดริป เบเกอรี่สด บรรยากาศริมน้ำ เปิดถึง 20.00 น.",cat:"คาเฟ่",catCls:"b-green",area:"ริมน้ำบางรักน้อย",phone:"091-789-0123",ok:true},
-    {icon:"ti-fish",thumb:"t-blue",title:"ต้มยำป้าเพิ่ม",desc:"ต้มยำทะเลสด น้ำข้น น้ำใส เปิดทุกวัน 10.00–21.00 น.",cat:"อาหารไทย",catCls:"b-blue",area:"ซอยวัดบางรักน้อย",phone:"086-890-1234",ok:false}
-  ],
-  "ท่องเที่ยว":[
-    {icon:"ti-building-church",thumb:"t-gold",title:"วัดบางรักน้อย",desc:"วัดเก่าแก่ริมคลอง สถาปัตยกรรมงดงาม จุดถ่ายภาพยอดนิยม",cat:"วัด/ศาสนสถาน",catCls:"b-gold",area:"ริมคลองบางรักน้อย",phone:"",ok:true},
-    {icon:"ti-anchor",thumb:"t-blue",title:"ตลาดน้ำท่าอิฐ",desc:"ตลาดวัฒนธรรมริมน้ำ อาหาร ของที่ระลึก เปิดเสาร์-อาทิตย์ 07.00–14.00",cat:"แลนด์มาร์ค",catCls:"b-blue",area:"ท่าอิฐ อ.เมืองนนทบุรี",phone:"",ok:true},
-    {icon:"ti-trees",thumb:"t-green",title:"สวนสาธารณะเทศบาล",desc:"สวนออกกำลังกาย ลานกีฬา เส้นทางปั่นจักรยาน เปิดตลอด",cat:"สวนสาธารณะ",catCls:"b-green",area:"บางรักน้อย",phone:"",ok:true}
-  ],
-  "อาชีพ":[
-    {icon:"ti-needle-thread",thumb:"t-pink",title:"อบรมตัดเย็บเสื้อผ้า รุ่น 2/2567",desc:"กลุ่มแม่บ้านเทศบาล ฟรีไม่มีค่าใช้จ่าย รับ 20 คน",cat:"ฟรี",catCls:"b-green",area:"สำนักงานเทศบาล",phone:"02-xxx-xxxx",ok:true},
-    {icon:"ti-plant",thumb:"t-green",title:"เกษตรอินทรีย์ในเมือง",desc:"ปลูกผักไฮโดรโปนิก 3 วัน สมัครได้ถึง 15 ก.ย. 67",cat:"เปิดรับสมัคร",catCls:"b-gold",area:"สวนสาธารณะเทศบาล",phone:"02-xxx-xxxx",ok:true},
-    {icon:"ti-device-laptop",thumb:"t-blue",title:"ทักษะดิจิทัลสำหรับผู้สูงวัย",desc:"เรียนใช้สมาร์ทโฟน โอนเงิน ซื้อของออนไลน์ ฟรี!",cat:"ฟรี",catCls:"b-green",area:"ศูนย์ผู้สูงอายุเทศบาล",phone:"02-xxx-xxxx",ok:true}
-  ],
-  "ข่าว":[
-    {icon:"ti-alert-triangle",thumb:"t-gold",title:"ปิดถนนซ่อมบำรุง ซอยหมู่ 2",desc:"ปิดเส้นทางชั่วคราว 3–5 ก.ย. 2567 โปรดใช้เส้นทางสำรองผ่านหมู่ 4",cat:"ด่วน",catCls:"b-gold",area:"เทศบาลบางรักน้อย",phone:"",ok:true},
-    {icon:"ti-calendar-event",thumb:"t-purple",title:"งานลอยกระทง บางรักน้อย 2567",desc:"20 พ.ย. 2567 ณ ท่าน้ำบางรักน้อย ประกวดกระทง มินิคอนเสิร์ต",cat:"กิจกรรม",catCls:"b-purple",area:"ท่าน้ำบางรักน้อย",phone:"",ok:true},
-    {icon:"ti-heart",thumb:"t-green",title:"ตรวจสุขภาพฟรี ประจำปี 2567",desc:"ลงทะเบียนฉีดวัคซีนและตรวจสุขภาพฟรีสำหรับผู้สูงอายุ",cat:"สาธารณสุข",catCls:"b-green",area:"คลินิกชุมชนเทศบาล",phone:"02-xxx-xxxx",ok:true}
-  ],
-  "สมัคร":[
-    {icon:"ti-building-store",thumb:"t-purple",title:"ลงทะเบียนร้านค้า/ผู้ให้บริการ",desc:"เพิ่มร้านของคุณในระบบ ให้คนหาเจอง่าย ฟรี ไม่มีค่าใช้จ่าย",cat:"เปิดรับสมัคร",catCls:"b-green",area:"",phone:"",ok:false},
-    {icon:"ti-tool",thumb:"t-gold",title:"ลงทะเบียนช่างในชุมชน",desc:"ช่างฝีมือทุกประเภท สมัครได้เลย เทศบาลตรวจสอบและเผยแพร่ให้",cat:"เปิดรับสมัคร",catCls:"b-green",area:"",phone:"",ok:false},
-    {icon:"ti-plant-2",thumb:"t-green",title:"ลงทะเบียนกลุ่มอาชีพ/OTOP",desc:"กลุ่มวิสาหกิจชุมชน สินค้า OTOP สมัครประชาสัมพันธ์ผ่านระบบ",cat:"เปิดรับสมัคร",catCls:"b-green",area:"",phone:"",ok:false}
-  ]
-};
-const ICONS={ช่าง:"ti-tool",ร้านอาหาร:"ti-bowl",ท่องเที่ยว:"ti-camera",อาชีพ:"ti-school",ข่าว:"ti-speakerphone",สมัคร:"ti-forms"};
-const TITLES={ช่าง:"ช่างในชุมชน",ร้านอาหาร:"ร้านอาหาร/ของดีชุมชน",ท่องเที่ยว:"เที่ยวบางรักน้อย",อาชีพ:"ฝึกอาชีพ/กิจกรรม",ข่าว:"ข่าวสารเทศบาล",สมัคร:"สมัครเข้าระบบ"};
-const AI_R={
-  "หาช่างไฟฟ้าใกล้บ้าน":"⚡ พบช่างไฟในระบบ 1 ราย<br><br><b>ช่างไฟ สมชาย อินทร์ทอง</b><br>หมู่ 3 บางรักน้อย | ✅ ผ่านการตรวจสอบ<br>โทร <span style='color:#6B21A8'>089-123-4567</span><br><br>💡 แนะนำโทรนัดก่อนนะครับ",
-  "ร้านอาหารเปิดเย็น":"🍜 ร้านที่เปิดช่วงเย็น-ค่ำ<br><br><b>คาเฟ่บางรักน้อย</b> — เปิดถึง 20.00 น.<br>ริมน้ำบางรักน้อย | โทร 091-789-0123<br><br><b>ต้มยำป้าเพิ่ม</b> — เปิดถึง 21.00 น.<br>ซอยวัดบางรักน้อย | โทร 086-890-1234",
-  "จุดเช็คอินบางรักน้อย":"📍 จุดเช็คอินยอดนิยม<br><br>1. <b>วัดบางรักน้อย</b> — ริมคลอง วิวสวยมาก<br>2. <b>ตลาดน้ำท่าอิฐ</b> — เสาร์-อาทิตย์ เช้า<br>3. <b>สวนสาธารณะเทศบาล</b> — ยามเย็นแสงดี",
-  "อบรมอาชีพฟรี":"🎓 หลักสูตรที่เปิดรับอยู่ตอนนี้<br><br>✅ <b>ตัดเย็บเสื้อผ้า</b> รุ่น 2/2567 — ฟรี<br>✅ <b>เกษตรอินทรีย์</b> — สมัครถึง 15 ก.ย.<br>✅ <b>ทักษะดิจิทัล</b> ผู้สูงวัย — ฟรี<br><br>ติดต่อ โทร 02-xxx-xxxx",
-  "ข่าวสารล่าสุด":"📢 ข่าวล่าสุด<br><br>⚠️ <b>ด่วน:</b> ปิดถนนซ่อมบำรุงหมู่ 2 วันที่ 3–5 ก.ย.<br>🎉 <b>งานลอยกระทง 2567</b> — 20 พ.ย. ท่าน้ำ<br>💊 <b>ตรวจสุขภาพฟรี</b> ลงทะเบียนได้แล้ว"
-};
-function renderCards(cat){
-  var items=DATA[cat]||[];
-  document.getElementById("listTitle").textContent=TITLES[cat];
-  document.getElementById("listIcon").className="ti "+(ICONS[cat]||"ti-list");
-  document.getElementById("cardList").innerHTML=items.map(function(d){
-    return '<div class="card"><div class="card-thumb '+d.thumb+'"><i class="ti '+d.icon+'"></i></div><div class="card-body"><h3>'+d.title+'</h3><p>'+d.desc+'</p><div class="card-meta"><span class="badge '+d.catCls+'">'+d.cat+'</span>'+
-    (d.ok?'<span class="verified"><i class="ti ti-circle-check" style="font-size:10px"></i> ตรวจสอบแล้ว</span>':'')+
-    (d.area?'<span class="badge b-gray"><i class="ti ti-map-pin" style="font-size:10px"></i> '+d.area+'</span>':'')+
-    (d.phone?'<a class="phone-link" href="tel:'+d.phone+'"><i class="ti ti-phone" style="font-size:11px"></i> '+d.phone+'</a>':'')+
-    '</div></div></div>';
-  }).join("");
-}
-function switchCat(el,cat){
-  document.querySelectorAll(".cat").forEach(function(c){c.classList.remove("active");});
-  el.classList.add("active");renderCards(cat);revealCards();
-}
-function openAI(){
-  var p=document.getElementById("aiPanel");p.style.display="block";
-  document.getElementById("aiInput").focus();
-  p.scrollIntoView({behavior:"smooth",block:"start"});
-}
-function closeAI(){document.getElementById("aiPanel").style.display="none";}
-function setQ(q){document.getElementById("aiInput").value=q;askAI();}
-function askAI(){
-  var q=document.getElementById("aiInput").value.trim();if(!q)return;
-  var el=document.getElementById("aiResult");
-  el.innerHTML=AI_R[q]||("🔍 ค้นหา <b>"+q+"</b>...<br><br>ไม่พบข้อมูลตรงกัน ลองคำอื่น หรือ <span style='color:#6B21A8;cursor:pointer'>แจ้งเพิ่มข้อมูล</span>");
-  el.classList.add("show");
-}
-function openMap(){alert("แผนที่ชุมชน\n\nจะ embed Google My Maps ที่นี่ครับ\nสร้างได้ที่ maps.google.com/mymaps");}
-function navTo(page,el){
-  document.querySelectorAll(".nav-btn").forEach(function(b){b.classList.remove("active");});
-  el.classList.add("active");
-  if(page==="search")openAI();
-  if(page==="map")openMap();
-  if(page==="news"){switchCat(document.querySelectorAll(".cat")[4],"ข่าว");}
-}
-document.getElementById("mainSearch").addEventListener("keyup",function(e){
-  if(e.key==="Enter"&&this.value.trim()){
-    document.getElementById("aiInput").value=this.value.trim();openAI();askAI();
-  }
-});
-renderCards("ช่าง");
-
-// ── Scroll Reveal ──
-var revealEls = document.querySelectorAll('.reveal');
-var observer = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}
-  });
-},{threshold:0.1});
-revealEls.forEach(function(el){observer.observe(el);});
-
-// ── Counter Animation ──
-function animateCounter(el, target, duration){
-  var start = 0;
-  var step = target / (duration / 16);
-  var timer = setInterval(function(){
-    start += step;
-    if(start >= target){start = target; clearInterval(timer);}
-    el.textContent = Math.floor(start);
-  }, 16);
-}
-var statsObserver = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){
-      animateCounter(document.getElementById('statCraft')||{textContent:0}, 24, 1200);
-      animateCounter(document.getElementById('statShop')||{textContent:0}, 38, 1400);
-      animateCounter(document.getElementById('statPlace')||{textContent:0}, 12, 1000);
-      statsObserver.disconnect();
-    }
-  });
-},{threshold:0.3});
-var statsBar = document.querySelector('.stats-bar');
-if(statsBar) statsObserver.observe(statsBar);
-
-// ── Card reveal เมื่อ render ──
-function revealCards(){
-  setTimeout(function(){
-    document.querySelectorAll('.card').forEach(function(c,i){
-      c.style.opacity='0';c.style.transform='translateY(16px)';
-      setTimeout(function(){
-        c.style.transition='opacity 0.35s ease,transform 0.35s ease';
-        c.style.opacity='1';c.style.transform='translateY(0)';
-      }, i * 80);
-    });
-  }, 50);
+="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>บางรักน้อย Connect — ศูนย์รวมข้อมูลชุมชน</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="logo_BC.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#6B21A8;--purple-dark:#4C1D95;--purple-light:#EDE9FE;--purple-mid:#7C3AED;
+  --gold:#D97706;--gold-light:#FEF3C7;--gold-bright:#F59E0B;
+  --green:#15803D;--green-light:#DCFCE7;--yellow:#CA8A04;
+  --white:#FFFFFF;--gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
+  --gray-500:#6B7280;--gray-700:#374151;--gray-900:#111827;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;
 }
 
+body{word-break:keep-all;overflow-wrap:break-word;-webkit-locale:"th";font-variant-ligatures:none}
+body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);min-height:100vh}
+.header{background:linear-gradient(135deg,#4C1D95 0%,#6B21A8 60%,#8B21C8 100%);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(107,33,168,0.4)}
+.header-inner{max-width:640px;margin:0 auto;padding:0.75rem 1.25rem;display:flex;align-items:center;gap:12px}
+.logo-wrap{width:48px;height:48px;border-radius:12px;overflow:hidden;flex-shrink:0;background:transparent}
+.logo-wrap img{width:100%;height:100%;object-fit:contain}
+.header-text h1{font-size:17px;font-weight:600;color:#fff;letter-spacing:0.2px}
+.header-text p{font-size:11px;color:rgba(255,255,255,0.75);margin-top:1px}
+.header-right{margin-left:auto}
+.header-badge{background:rgba(255,255,255,0.15);border:0.5px solid rgba(255,255,255,0.3);border-radius:20px;padding:4px 10px;font-size:11px;color:#fff;display:flex;align-items:center;gap:4px}
+.hero{background:linear-gradient(180deg,#4C1D95 0%,#6B21A8 100%);padding:1.5rem 1.25rem 2rem;max-width:640px;margin:0 auto}
+.hero-title{font-size:22px;font-weight:600;color:#fff;margin-bottom:6px;line-height:1.3}
+.hero-title span{color:#F59E0B}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:1.25rem;line-height:1.6}
+.search-wrap{position:relative}
+.search-wrap input{width:100%;background:#fff;border:none;border-radius:var(--radius-lg);padding:13px 48px 13px 48px;font-size:14px;font-family:'Sarabun',sans-serif;color:var(--gray-900);outline:none;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+.search-wrap input::placeholder{color:var(--gray-500)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--purple);font-size:20px}
+.search-ai-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--purple);color:#fff;border:none;border-radius:var(--radius-md);padding:6px 14px;font-size:12px;font-family:'Sarabun',sans-serif;cursor:pointer;display:flex;align-items:center;gap:4px}
+.stats-bar{max-width:640px;margin:0 auto;background:#fff;border-bottom:0.5px solid var(--gray-200);padding:0.75rem 1.25rem;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat-item{text-align:center}
+.stat-num{font-size:20px;font-weight:600;color:var(--purple)}
+.stat-lbl{font-size:10px;color:var(--gray-500)}
+.main{max-width:640px;margin:0 auto;padding:0 0 80px}
+.ai-panel{background:linear-gradient(135deg,#EDE9FE,#F0FDF4);border:1px solid rgba(107,33,168,0.15);border-radius:var(--radius-lg);margin:1rem 1.25rem;padding:1rem 1.25rem}
+.ai-panel-head{display:flex;align-items:center;gap:8px;margin-bottom:0.75rem}
+.ai-panel-head i{font-size:20px;color:var(--purple-mid)}
+.ai-panel-head span{font-size:14px;font-weight:500;color:var(--purple-dark)}
+.close-ai{margin-left:auto;background:none;border:none;color:var(--gray-500);cursor:pointer;font-size:18px;padding:0}
+.ai-input-row{display:flex;gap:8px;margin-bottom:0.75rem}
+.ai-input-row input{flex:1;border:1px solid rgba(107,33,168,0.25);border-radius:var(--radius-md);padding:9px 12px;font-size:13px;font-family:'Sarabun',sans-serif;color:var(--gray-900);background:#fff;outline:none}
+.ai-send{background:var(--purple);color:#fff;border:none;border-radius:var(--radius-md);padding:9px 16px;font-size:13px;font-family:'Sarabun',sans-serif;cursor:pointer;font-weight:500}
+.ai-tags{display:flex;gap:6px;flex-wrap:wrap}
+.ai-tag{font-size:11px;padding:4px 10px;border-radius:20px;background:#fff;border:1px solid rgba(107,33,168,0.2);color:var(--purple);cursor:pointer;font-family:'Sarabun',sans-serif}
+.ai-result{margin-top:0.875rem;background:#fff;border-radius:var(--radius-md);padding:0.875rem 1rem;font-size:13px;line-height:1.7;color:var(--gray-700);border-left:3px solid var(--purple-mid);display:none}
+.ai-result.show{display:block}
+.section-label{font-size:11px;font-weight:600;color:var(--gray-500);letter-spacing:1px;text-transform:uppercase;padding:1.25rem 1.25rem 0.5rem;display:flex;align-items:center;gap:6px}
+.section-label::after{content:'';flex:1;height:0.5px;background:var(--gray-200)}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 1.25rem}
+.cat{background:#fff;border:1.5px solid var(--gray-200);border-radius:var(--radius-lg);padding:14px 8px 12px;text-align:center;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden}
+.cat:hover{border-color:var(--purple-mid);background:var(--purple-light)}
+.cat.active{border-color:var(--purple);background:var(--purple-light)}
+.cat.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--gold-bright))}
+.cat-icon{font-size:26px;display:block;margin-bottom:6px}
+.c1 .cat-icon{color:#7C3AED}.c2 .cat-icon{color:#D97706}.c3 .cat-icon{color:#15803D}
+.c4 .cat-icon{color:#D97706}.c5 .cat-icon{color:#0369A1}.c6 .cat-icon{color:#BE185D}
+.cat-name{font-size:11px;color:var(--gray-700);line-height:1.3;font-weight:500}
+.cat-count{font-size:10px;color:var(--gray-500);margin-top:2px}
+.list-head{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.25rem 0.625rem}
+.list-head h2{font-size:16px;font-weight:600;color:var(--gray-900);display:flex;align-items:center;gap:6px}
+.list-head h2 i{font-size:18px;color:var(--purple)}
+.list-head a{font-size:12px;color:var(--purple);text-decoration:none;cursor:pointer}
+.card-list{padding:0 1.25rem}
+.card{background:#fff;border:0.5px solid var(--gray-200);border-radius:var(--radius-lg);padding:1rem 1.125rem;margin-bottom:10px;display:flex;gap:12px;cursor:pointer;transition:all 0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.card:hover{border-color:rgba(107,33,168,0.3);box-shadow:0 4px 16px rgba(107,33,168,0.08)}
+.card-thumb{width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.t-purple{background:#EDE9FE;color:#7C3AED}.t-gold{background:#FEF3C7;color:#D97706}
+.t-green{background:#DCFCE7;color:#15803D}.t-blue{background:#E0F2FE;color:#0369A1}
+.t-pink{background:#FCE7F3;color:#BE185D}
+.card-body{flex:1;min-width:0}
+.card-body h3{font-size:14px;font-weight:600;color:var(--gray-900);margin-bottom:3px}
+.card-body p{font-size:12px;color:var(--gray-500);line-height:1.5;margin-bottom:6px}
+.card-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.badge{font-size:10px;padding:3px 8px;border-radius:20px;font-weight:500}
+.b-purple{background:#EDE9FE;color:#4C1D95}.b-gold{background:#FEF3C7;color:#92400E}
+.b-green{background:#DCFCE7;color:#166534}.b-blue{background:#E0F2FE;color:#1E40AF}
+.b-gray{background:#F3F4F6;color:#6B7280}
+.verified{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#15803D;background:#DCFCE7;padding:2px 6px;border-radius:20px}
+.phone-link{font-size:11px;color:var(--purple);display:flex;align-items:center;gap:3px;text-decoration:none}
+.gold-divider{height:2px;background:linear-gradient(90deg,transparent,#F59E0B,transparent);margin:1.25rem 1.25rem 0;opacity:0.4}
+.map-block{margin:1.25rem 1.25rem 0;background:linear-gradient(135deg,#EDE9FE,#FEF3C7);border:1px solid rgba(107,33,168,0.15);border-radius:var(--radius-lg);padding:1.25rem;display:flex;align-items:center;gap:14px;cursor:pointer}
+.map-icon{width:52px;height:52px;background:var(--purple);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.map-icon i{font-size:26px;color:#fff}
+.map-text h3{font-size:14px;font-weight:600;color:var(--purple-dark)}
+.map-text p{font-size:12px;color:var(--gray-500);margin-top:2px}
+.map-arr{margin-left:auto;color:var(--purple);font-size:20px}
+.reg-block{margin:1rem 1.25rem;background:linear-gradient(135deg,#4C1D95,#6B21A8);border-radius:var(--radius-lg);padding:1.25rem;color:#fff;position:relative;overflow:hidden}
+.reg-block::before{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;background:rgba(255,255,255,0.05);border-radius:50%}
+.reg-block h3{font-size:15px;font-weight:600;margin-bottom:4px;position:relative}
+.reg-block p{font-size:12px;color:rgba(255,255,255,0.75);margin-bottom:1rem;line-height:1.5;position:relative}
+.reg-btns{display:flex;gap:8px;flex-wrap:wrap;position:relative}
+.reg-btn{padding:8px 16px;border-radius:var(--radius-md);font-size:12px;font-family:'Sarabun',sans-serif;font-weight:500;cursor:pointer;border:none;display:flex;align-items:center;gap:6px}
+.btn-gold{background:#F59E0B;color:#fff}
+.btn-outline{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3)}
+.footer-note{text-align:center;padding:1.5rem 1.25rem 0.5rem;font-size:11px;color:var(--gray-500);line-height:1.8}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:0.5px solid var(--gray-200);padding:0.5rem 0 0.75rem;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,0.06)}
+.bottom-nav-inner{max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px;background:none;border:none;cursor:pointer;font-family:'Sarabun',sans-serif}
+.nav-btn i{font-size:22px;color:#6B7280}
+.nav-btn span{font-size:10px;color:#6B7280}
+.nav-btn.active i{color:var(--purple)}
+.nav-btn.active span{color:var(--purple)}
 
- catch(e) {
-    alert('ไม่สามารถส่งข้อมูลได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่ครับ');
-    btn.textContent = 'ส่งข้อมูลเพื่อรอการตรวจสอบ';
-    btn.disabled = false;
-  }
-}
-
-</script>
-</div><!-- /desktop-wrap -->
-
-<!-- REGISTER MODAL -->
-<div class="modal-overlay" id="regModal" onclick="closeRegOnOverlay(event)">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <button class="modal-close" onclick="closeReg()"><i class="ti ti-x"></i></button>
-
-    <div id="regForm">
-      <div class="modal-title">📋 สมัครเข้าระบบบางรักน้อย Connect</div>
-      <div class="modal-sub">กรอกข้อมูลเพื่อให้เทศบาลตรวจสอบและเผยแพร่ในระบบ<br>ไม่มีค่าใช้จ่ายใดๆ ทั้งสิ้น</div>
-
-      <div class="disclaimer-box">
-        <strong>⚠️ ข้อมูลสำคัญก่อนสมัคร</strong>
-        ข้อมูลที่ท่านกรอกจะผ่านการตรวจสอบเบื้องต้นโดยเจ้าหน้าที่เทศบาล และจะถูกเผยแพร่ต่อสาธารณะบนระบบ "บางรักน้อย Connect" เพื่ออำนวยความสะดวกแก่ประชาชนในพื้นที่
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">ประเภทที่สมัคร <span>*</span></label>
-        <select class="form-select" id="regType">
-          <option value="">-- เลือกประเภท --</option>
-          <option value="craft">ช่างในชุมชน (ช่างไฟ ประปา แอร์ ยาง ฯลฯ)</option>
-          <option value="food">ร้านอาหาร / เครื่องดื่ม / คาเฟ่</option>
-          <option value="product">สินค้าชุมชน / OTOP / ของฝาก</option>
-          <option value="place">สถานที่ท่องเที่ยว / จุดเช็คอิน</option>
-          <option value="career">กลุ่มอาชีพ / วิสาหกิจชุมชน</option>
-          <option value="other">อื่นๆ</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">ชื่อร้าน / ชื่อช่าง / ชื่อกลุ่ม <span>*</span></label>
-        <input class="form-input" id="regName" type="text" placeholder="เช่น ช่างไฟสมชาย หรือ ร้านข้าวแกงป้าแดง">
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">ชื่อผู้ประสานงาน <span>*</span></label>
-          <input class="form-input" id="regContact" type="text" placeholder="ชื่อ-สกุล">
-        </div>
-        <div class="form-group">
-          <label class="form-label">เบอร์โทรศัพท์ <span>*</span></label>
-          <input class="form-input" id="regPhone" type="tel" placeholder="08x-xxx-xxxx">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">ที่อยู่ / หมู่ / ชุมชน <span>*</span></label>
-        <input class="form-input" id="regArea" type="text" placeholder="เช่น หมู่ 3 ต.บางรักน้อย อ.เมืองนนทบุรี">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">LINE / Facebook / เว็บไซต์</label>
-        <input class="form-input" id="regSocial" type="text" placeholder="(ถ้ามี)">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">คำอธิบายสั้นๆ เกี่ยวกับบริการ/สินค้า <span>*</span></label>
-        <textarea class="form-textarea" id="regDesc" placeholder="อธิบายสั้นๆ ไม่เกิน 200 ตัวอักษร เช่น ให้บริการซ่อมไฟฟ้าในบ้าน ติดตั้งสปอตไลท์ บริการ 24 ชม."></textarea>
-      </div>
-
-      <!-- ข้อสงวนสิทธิ์และความยินยอม -->
-      <div class="legal-box">
-        <strong>📜 ข้อสงวนสิทธิ์และเงื่อนไขการเผยแพร่ข้อมูล</strong>
-        ระบบ "บางรักน้อย Connect" จัดทำโดยเทศบาลเมืองบางรักน้อย เพื่อเป็นศูนย์รวมข้อมูลบริการชุมชน โดยมีบทบาทเป็น <u>ผู้จัดระบบข้อมูลเท่านั้น</u> ไม่ใช่คู่สัญญาหรือผู้รับประกันคุณภาพบริการแต่อย่างใด<br><br>
-        การติดต่อ ซื้อขาย หรือว่าจ้างบริการใดๆ เป็น <u>ความรับผิดชอบระหว่างประชาชนกับผู้ให้บริการโดยตรง</u><br><br>
-        เทศบาลสงวนสิทธิ์ระงับหรือถอดข้อมูลที่พบว่าเป็นเท็จ ไม่เหมาะสม หรือมีข้อร้องเรียนที่มีมูล โดยไม่ต้องแจ้งล่วงหน้า
-      </div>
-
-      <div class="consent-box">
-        <div class="consent-item">
-          <input type="checkbox" id="c1" onchange="checkConsent()">
-          <label for="c1">ข้าพเจ้ายินยอมให้เทศบาลเมืองบางรักน้อยเผยแพร่ข้อมูลชื่อ เบอร์โทร ที่อยู่ และข้อมูลบริการของข้าพเจ้าต่อสาธารณะบนระบบ "บางรักน้อย Connect"</label>
-        </div>
-        <div class="consent-item">
-          <input type="checkbox" id="c2" onchange="checkConsent()">
-          <label for="c2">ข้าพเจ้ารับทราบว่าเทศบาลทำหน้าที่เป็นตัวกลางข้อมูลเท่านั้น และ<u>ไม่รับผิดชอบต่อผลของการติดต่อ ซื้อขาย หรือว่าจ้างบริการใดๆ</u> ที่เกิดจากข้อมูลในระบบ</label>
-        </div>
-        <div class="consent-item">
-          <input type="checkbox" id="c3" onchange="checkConsent()">
-          <label for="c3">ข้าพเจ้ารับทราบว่าเทศบาลมีสิทธิ์แก้ไข ระงับ หรือถอดข้อมูลของข้าพเจ้าได้ หากพบว่าข้อมูลไม่ถูกต้องหรือมีข้อร้องเรียนที่มีมูล</label>
-        </div>
-      </div>
-
-      <button class="submit-btn" id="submitBtn" disabled onclick="submitForm()">
-        ส่งข้อมูลเพื่อรอการตรวจสอบ
-      </button>
-      <button class="cancel-btn" onclick="closeReg()">ยกเลิก</button>
-    </div>
-
-    <!-- หน้าสำเร็จ -->
-    <div class="success-box" id="successBox">
-      <div class="big-icon">✅</div>
-      <h3>ส่งข้อมูลเรียบร้อยแล้ว!</h3>
-      <p>เจ้าหน้าที่เทศบาลจะตรวจสอบข้อมูลของท่าน<br>และแจ้งผลภายใน 3–5 วันทำการ<br><br>
-      <strong>ขอบคุณที่ร่วมเป็นส่วนหนึ่งของชุมชน 🙏</strong></p>
-      <button class="submit-btn" style="margin-top:1.5rem" onclick="closeReg()">กลับหน้าหลัก</button>
-    </div>
-  </div>
-</div>
-
-</body>
-</html>
