@@ -206,6 +206,30 @@ body{word-break:keep-all;overflow-wrap:break-word;font-family:'Sarabun',sans-ser
 .header-badge{animation:pulse 3s ease-in-out infinite}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── FIX CARD & CAT ── */
+.cat-name{white-space:nowrap;font-size:10px}
+.cat-count{font-size:9px}
+.card-body h3{font-size:13px;line-height:1.4}
+.card-body p{font-size:11px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-meta{flex-wrap:nowrap;overflow:hidden}
+.badge{white-space:nowrap;font-size:9px}
+.phone-link{white-space:nowrap;font-size:10px}
+.verified{white-space:nowrap;font-size:9px}
+
+/* คอมให้การ์ดกว้างพอ */
+@media(min-width:960px){
+  .card-list{grid-template-columns:1fr 1fr 1fr!important}
+  .card-body h3{font-size:14px}
+  .card-body p{font-size:12px}
+  .cat-name{font-size:11px;white-space:nowrap}
+  .badge{font-size:10px}
+}
+@media(min-width:1280px){
+  .card-body h3{font-size:14px}
+  .card-body p{font-size:13px}
+}
 </style>
 </head>
 <body>
@@ -312,9 +336,7 @@ body{word-break:keep-all;overflow-wrap:break-word;font-family:'Sarabun',sans-ser
   </div>
 
   <div class="footer-note">
-    ข้อมูลผ่านการตรวจสอบเบื้องต้นจากเทศบาล<br>
-    การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างประชาชนกับผู้ให้บริการโดยตรง<br>
-    <strong style="color:#6B21A8">เทศบาลเมืองบางรักน้อย</strong> อ.เมืองนนทบุรี จ.นนทบุรี<br><br>ข้อมูลนี้จัดทำเพื่ออำนวยความสะดวกแก่ประชาชน ผ่านการตรวจสอบเบื้องต้นโดยเทศบาลเมืองบางรักน้อย<br>การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างผู้รับบริการกับผู้ให้บริการโดยตรง<br>เทศบาลสงวนสิทธิ์ระงับหรือถอดข้อมูลที่ไม่เหมาะสมโดยไม่ต้องแจ้งล่วงหน้า<br><span style="display:inline-block;margin-top:8px;background:#EDE9FE;color:#6B21A8;border:1px solid rgba(107,33,168,0.2);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;letter-spacing:0.5px">v2.0 © 2569 บางรักน้อย Connect</span>
+    ข้อมูลนี้จัดทำเพื่ออำนวยความสะดวกแก่ประชาชน ผ่านการตรวจสอบเบื้องต้นโดยเทศบาลเมืองบางรักน้อย<br>การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างผู้รับบริการกับผู้ให้บริการโดยตรง<br>เทศบาลสงวนสิทธิ์ระงับหรือถอดข้อมูลที่ไม่เหมาะสมโดยไม่ต้องแจ้งล่วงหน้า<br><span style="display:inline-block;margin-top:8px;background:#EDE9FE;color:#6B21A8;border:1px solid rgba(107,33,168,0.2);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;letter-spacing:0.5px">v2.0 © 2569 บางรักน้อย Connect</span>
   </div>
 </div>
 
