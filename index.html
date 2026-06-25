@@ -6,7 +6,7 @@
 <title>บางรักน้อย Connect — ศูนย์รวมข้อมูลชุมชน</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="logo2026.png">
+<link rel="apple-touch-icon" href="logo_BC.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
@@ -20,6 +20,8 @@
   --gray-500:#6B7280;--gray-700:#374151;--gray-900:#111827;
   --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;
 }
+
+body{word-break:keep-all;overflow-wrap:break-word;-webkit-locale:"th";font-variant-ligatures:none}
 body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);min-height:100vh}
 .header{background:linear-gradient(135deg,#4C1D95 0%,#6B21A8 60%,#8B21C8 100%);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(107,33,168,0.4)}
 .header-inner{max-width:640px;margin:0 auto;padding:0.75rem 1.25rem;display:flex;align-items:center;gap:12px}
@@ -202,9 +204,9 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
 <div class="desktop-wrap">
 <div class="header">
   <div class="header-inner">
-    <div class="logo-wrap"><img src="logo2026.png" alt="ตราเทศบาลเมืองบางรักน้อย"></div>
+    <div class="logo-wrap"><img src="logo_BC.png" alt="โลโก้บางรักน้อย Connect"></div>
     <div class="header-text">
-      <h1>บางรักน้อย Connect <span style="font-size:10px;font-weight:400;background:rgba(255,255,255,0.2);border:0.5px solid rgba(255,255,255,0.35);border-radius:20px;padding:2px 8px;letter-spacing:0.5px;vertical-align:middle">v2.0</span></h1>
+      <h1>บางรักน้อย Connect <span style="font-size:10px;font-weight:400;background:rgba(255,255,255,0.2);border:0.5px solid rgba(255,255,255,0.35);border-radius:20px;padding:2px 8px;letter-spacing:0.5px;vertical-align:middle">v1.0</span></h1>
       <p>เทศบาลเมืองบางรักน้อย จ.นนทบุรี</p>
     </div>
     <div class="header-right">
@@ -214,8 +216,8 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
 </div>
 
 <div class="hero">
-  <h1 class="hero-title">ค้นหา<span>ทุกอย่าง</span>ในชุมชน<br>ได้ในที่เดียว</h1>
-  <p class="hero-sub">ช่าง ร้านอาหาร สถานที่ท่องเที่ยว อาชีพ และข่าวสาร<br>ของเทศบาลเมืองบางรักน้อย ในระบบเดียว</p>
+  <h1 class="hero-title">รู้จัก<span>บางรักน้อย</span><br>ให้มากขึ้น</h1>
+  <p class="hero-sub">ศูนย์รวมข้อมูลชุมชน ครบในที่เดียว<br>ช่าง ร้านอาหาร ท่องเที่ยว อาชีพ และข่าวสาร</p>
   <div class="search-wrap">
     <i class="ti ti-search search-icon"></i>
     <input type="text" id="mainSearch" placeholder="ค้นหา เช่น ช่างไฟ ร้านอาหาร วัด...">
@@ -303,7 +305,7 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
   <div class="footer-note">
     ข้อมูลผ่านการตรวจสอบเบื้องต้นจากเทศบาล<br>
     การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างประชาชนกับผู้ให้บริการโดยตรง<br>
-    <strong style="color:#6B21A8">เทศบาลเมืองบางรักน้อย</strong> อ.เมืองนนทบุรี จ.นนทบุรี<br><span style="display:inline-block;margin-top:8px;background:#EDE9FE;color:#6B21A8;border:1px solid rgba(107,33,168,0.2);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;letter-spacing:0.5px">v2.0 — บางรักน้อย Connect</span>
+    <strong style="color:#6B21A8">เทศบาลเมืองบางรักน้อย</strong> อ.เมืองนนทบุรี จ.นนทบุรี<br><span style="display:inline-block;margin-top:8px;background:#EDE9FE;color:#6B21A8;border:1px solid rgba(107,33,168,0.2);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;letter-spacing:0.5px">v1.0 — บางรักน้อย Connect</span>
   </div>
 </div>
 
@@ -422,19 +424,50 @@ function checkConsent(){
             document.getElementById('c3').checked;
   document.getElementById('submitBtn').disabled = !all;
 }
-function submitForm(){
+async function submitForm(){
   var type = document.getElementById('regType').value;
   var name = document.getElementById('regName').value.trim();
   var contact = document.getElementById('regContact').value.trim();
   var phone = document.getElementById('regPhone').value.trim();
   var area = document.getElementById('regArea').value.trim();
+  var social = document.getElementById('regSocial').value.trim();
   var desc = document.getElementById('regDesc').value.trim();
   if(!type||!name||!contact||!phone||!area||!desc){
     alert('กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบถ้วนครับ');
     return;
   }
-  document.getElementById('regForm').style.display='none';
-  document.getElementById('successBox').style.display='block';
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'กำลังส่งข้อมูล...';
+  btn.disabled = true;
+  try {
+    var res = await fetch('https://formspree.io/f/FORMSPREE_ID', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        '_subject': '[บางรักน้อย Connect] สมัครใหม่: ' + name,
+        'ประเภท': type,
+        'ชื่อร้าน/ช่าง/กลุ่ม': name,
+        'ผู้ประสานงาน': contact,
+        'เบอร์โทร': phone,
+        'ที่อยู่': area,
+        'LINE/Facebook': social || '-',
+        'คำอธิบาย': desc,
+        'email': 'bangraknoi2022@gmail.com', '_replyto': 'bangraknoi2022@gmail.com'
+      })
+    });
+    if(res.ok){
+      document.getElementById('regForm').style.display='none';
+      document.getElementById('successBox').style.display='block';
+    } else {
+      alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้งครับ');
+      btn.textContent = 'ส่งข้อมูลเพื่อรอการตรวจสอบ';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    alert('ไม่สามารถส่งข้อมูลได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่ครับ');
+    btn.textContent = 'ส่งข้อมูลเพื่อรอการตรวจสอบ';
+    btn.disabled = false;
+  }
 }
 
 </script>
