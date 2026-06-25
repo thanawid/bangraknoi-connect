@@ -374,6 +374,85 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 @keyframes floatDot{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero-title{animation:fadeUp 0.6s ease both}
+.hero-sub{animation:fadeUp 0.6s 0.15s ease both}
+.search-wrap{animation:fadeUp 0.6s 0.25s ease both}
+.stat-num{transition:all 0.3s ease}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.5s ease,transform 0.5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.card{transition:all 0.2s ease}
+.card:hover{transform:translateY(-3px);border-color:rgba(107,33,168,0.35)!important;box-shadow:0 8px 24px rgba(107,33,168,0.12)!important}
+.cat{transition:all 0.18s ease}
+.cat:hover{transform:translateY(-2px)}
+.hero{background-size:200% 200%;animation:shimmer 8s linear infinite;background-image:linear-gradient(135deg,#3B0764 0%,#4C1D95 30%,#6B21A8 60%,#4C1D95 80%,#3B0764 100%)}
+.hero-dots{position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none}
+.hero-dot{position:absolute;border-radius:50%;background:rgba(245,158,11,0.15)}
+.hero-dot:nth-child(1){width:80px;height:80px;top:10%;right:10%;animation:floatDot 4s ease-in-out infinite}
+.hero-dot:nth-child(2){width:40px;height:40px;top:60%;right:25%;animation:floatDot 5s 1s ease-in-out infinite}
+.hero-dot:nth-child(3){width:24px;height:24px;top:30%;right:40%;animation:floatDot 3.5s 0.5s ease-in-out infinite}
+.search-wrap input:focus{box-shadow:0 0 0 3px rgba(107,33,168,0.2)!important;outline:none}
+.header-badge{animation:pulse 3s ease-in-out infinite}
+.btn-gold{position:relative;overflow:hidden}
+.btn-gold::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);animation:shimmer 2.5s linear infinite}
+.stat-item:hover .stat-num{transform:scale(1.1);color:#7C3AED}
+
+/* ── RESPONSIVE: mobile-first ── */
+.desktop-wrap{width:100%;max-width:100%}
+
+@media(min-width:768px){
+  body{background:#2D1B69}
+  .desktop-wrap{max-width:800px;margin:0 auto;background:#F5F3FF;min-height:100vh;box-shadow:0 0 60px rgba(0,0,0,0.5)}
+  .hero-title{font-size:28px}
+  .cats{grid-template-columns:repeat(3,1fr)}
+  .bottom-nav{max-width:800px;left:50%;transform:translateX(-50%)}
+}
+
+@media(min-width:1080px){
+  body{background:#1E1148}
+  .desktop-wrap{max-width:1080px}
+  .hero-title{font-size:32px}
+  .hero{padding:2rem 2.5rem 2.5rem}
+  .stats-bar{padding:1rem 2.5rem;display:flex;justify-content:center;gap:6rem}
+  .stat-num{font-size:28px}
+  .cats{grid-template-columns:repeat(6,1fr);padding:0 2rem;gap:12px}
+  .cat-name{font-size:12px}
+  .section-label{padding:1.5rem 2rem 0.5rem}
+  .list-head{padding:1.5rem 2rem 0.75rem}
+  .card-list{padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .card-list .card{margin-bottom:0}
+  .ai-panel{margin:1rem 2rem}
+  .map-block{margin:1.25rem 2rem 0}
+  .map-embed{width:calc(100% - 4rem);margin-left:2rem}
+  .reg-block{margin:1rem 2rem}
+  .gold-divider{margin:1.25rem 2rem 0}
+  .footer-note{padding:1.5rem 2rem}
+  .bottom-nav{max-width:1080px}
+}
+
+@media(min-width:1400px){
+  body{background:#150D3D}
+  .desktop-wrap{max-width:1320px}
+  .hero-title{font-size:38px}
+  .hero{padding:2.5rem 3.5rem 3rem}
+  .cats{padding:0 3.5rem;gap:14px}
+  .section-label{padding:1.5rem 3.5rem 0.5rem}
+  .list-head{padding:1.5rem 3.5rem 0.75rem}
+  .card-list{padding:0 3.5rem;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .ai-panel{margin:1rem 3.5rem}
+  .map-block{margin:1.25rem 3.5rem 0}
+  .map-embed{width:calc(100% - 7rem);margin-left:3.5rem}
+  .reg-block{margin:1rem 3.5rem}
+  .gold-divider{margin:1.25rem 3.5rem 0}
+  .footer-note{padding:1.5rem 3.5rem}
+  .bottom-nav{max-width:1320px}
+  .stats-bar{gap:10rem}
+  .stat-num{font-size:32px}
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes floatDot{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
 /* hero fade up */
 .hero-title{animation:fadeUp 0.6s ease both}
@@ -444,26 +523,6 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
 </div>
 
 
-<div class="sidebar" id="sidebar">
-  <div class="sidebar-logo">
-    <img src="logo_BC.png" alt="บางรักน้อย Connect">
-    <p>เทศบาลเมืองบางรักน้อย<br>จ.นนทบุรี</p>
-  </div>
-  <div class="sidebar-menu">
-    <div class="sidebar-item c1 active" onclick="sideSwitch(this,'ช่าง')"><i class="ti ti-tool"></i> หาช่างใกล้บ้าน</div>
-    <div class="sidebar-item c2" onclick="sideSwitch(this,'ร้านอาหาร')"><i class="ti ti-bowl"></i> ร้านอาหาร/ของดี</div>
-    <div class="sidebar-item c3" onclick="sideSwitch(this,'ท่องเที่ยว')"><i class="ti ti-camera"></i> เที่ยวบางรักน้อย</div>
-    <div class="sidebar-item c4" onclick="sideSwitch(this,'อาชีพ')"><i class="ti ti-school"></i> ฝึกอาชีพ/กิจกรรม</div>
-    <div class="sidebar-item c5" onclick="sideSwitch(this,'ข่าว')"><i class="ti ti-speakerphone"></i> ข่าวสารเทศบาล</div>
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-item c6" onclick="openRegModal()"><i class="ti ti-forms"></i> สมัครเข้าระบบ</div>
-    <div class="sidebar-item" onclick="openAI()"><i class="ti ti-sparkles" style="color:#F59E0B"></i> ถาม AI</div>
-  </div>
-  <div class="sidebar-footer">
-    <p>ข้อมูลผ่านการตรวจสอบเบื้องต้น<br>โดยเทศบาลเมืองบางรักน้อย<br><br>v1.0 © 2567</p>
-  </div>
-</div>
-<div class="content-area">
 <div class="hero" style="position:relative">
   <div class="hero-dots"><div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div></div>
   <h1 class="hero-title" style="position:relative">รู้จัก<span>บางรักน้อย</span><br>ให้มากขึ้น</h1>
@@ -553,13 +612,14 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);m
   </div>
 
   <div class="footer-note">
-    ข้อมูลผ่านการตรวจสอบเบื้องต้นจากเทศบาล<br>
-    การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างประชาชนกับผู้ให้บริการโดยตรง<br>
-    <strong style="color:#6B21A8">เทศบาลเมืองบางรักน้อย</strong> อ.เมืองนนทบุรี จ.นนทบุรี<br><span style="display:inline-block;margin-top:8px;background:#EDE9FE;color:#6B21A8;border:1px solid rgba(107,33,168,0.2);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;letter-spacing:0.5px">v1.0 — บางรักน้อย Connect</span>
+    ข้อมูลนี้จัดทำเพื่ออำนวยความสะดวกแก่ประชาชน ผ่านการตรวจสอบเบื้องต้นโดยเทศบาลเมืองบางรักน้อย<br>
+    การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างผู้รับบริการกับผู้ให้บริการโดยตรง<br>
+    เทศบาลสงวนสิทธิ์ระงับหรือถอดข้อมูลที่ไม่เหมาะสมโดยไม่ต้องแจ้งล่วงหน้า<br><br>
+    <strong style="color:#6B21A8">เทศบาลเมืองบางรักน้อย</strong> อ.เมืองนนทบุรี จ.นนทบุรี<br>
+    <span style="display:inline-block;margin-top:6px;background:#EDE9FE;color:#6B21A8;border:1px solid rgba(107,33,168,0.2);border-radius:20px;padding:2px 12px;font-size:11px;font-weight:600">v1.0 © 2568 บางรักน้อย Connect</span>
   </div>
 </div>
 
-</div><!-- /content-area -->
 <div class="bottom-nav">
   <div class="bottom-nav-inner">
     <button class="nav-btn active" onclick="navTo('home',this)"><i class="ti ti-home"></i><span>หน้าหลัก</span></button>
@@ -702,78 +762,7 @@ function revealCards(){
 }
 
 
-function sideSwitch(el, cat){
-  document.querySelectorAll('.sidebar-item').forEach(function(i){i.classList.remove('active');});
-  el.classList.add('active');
-  // sync กับ cat grid
-  var cats = document.querySelectorAll('.cat');
-  var catMap = ['ช่าง','ร้านอาหาร','ท่องเที่ยว','อาชีพ','ข่าว','สมัคร'];
-  cats.forEach(function(c,i){
-    if(catMap[i]===cat){c.classList.add('active');switchCat(c,cat);}
-    else c.classList.remove('active');
-  });
-}
-
-
-function openRegModal(){
-  document.getElementById('regModal').classList.add('show');
-  document.body.style.overflow='hidden';
-  document.getElementById('regForm').style.display='block';
-  document.getElementById('successBox').style.display='none';
-}
-function closeReg(){
-  document.getElementById('regModal').classList.remove('show');
-  document.body.style.overflow='';
-}
-function closeRegOnOverlay(e){
-  if(e.target===document.getElementById('regModal')) closeReg();
-}
-function checkConsent(){
-  var all = document.getElementById('c1').checked &&
-            document.getElementById('c2').checked &&
-            document.getElementById('c3').checked;
-  document.getElementById('submitBtn').disabled = !all;
-}
-async function submitForm(){
-  var type = document.getElementById('regType').value;
-  var name = document.getElementById('regName').value.trim();
-  var contact = document.getElementById('regContact').value.trim();
-  var phone = document.getElementById('regPhone').value.trim();
-  var area = document.getElementById('regArea').value.trim();
-  var social = document.getElementById('regSocial').value.trim();
-  var desc = document.getElementById('regDesc').value.trim();
-  if(!type||!name||!contact||!phone||!area||!desc){
-    alert('กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบถ้วนครับ');
-    return;
-  }
-  var btn = document.getElementById('submitBtn');
-  btn.textContent = 'กำลังส่งข้อมูล...';
-  btn.disabled = true;
-  try {
-    var res = await fetch('https://formspree.io/f/mlgyjlyo', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({
-        '_subject': '[บางรักน้อย Connect] สมัครใหม่: ' + name,
-        'ประเภท': type,
-        'ชื่อร้าน/ช่าง/กลุ่ม': name,
-        'ผู้ประสานงาน': contact,
-        'เบอร์โทร': phone,
-        'ที่อยู่': area,
-        'LINE/Facebook': social || '-',
-        'คำอธิบาย': desc,
-        'email': 'bangraknoi2022@gmail.com', '_replyto': 'bangraknoi2022@gmail.com'
-      })
-    });
-    if(res.ok){
-      document.getElementById('regForm').style.display='none';
-      document.getElementById('successBox').style.display='block';
-    } else {
-      alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้งครับ');
-      btn.textContent = 'ส่งข้อมูลเพื่อรอการตรวจสอบ';
-      btn.disabled = false;
-    }
-  } catch(e) {
+ catch(e) {
     alert('ไม่สามารถส่งข้อมูลได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่ครับ');
     btn.textContent = 'ส่งข้อมูลเพื่อรอการตรวจสอบ';
     btn.disabled = false;
