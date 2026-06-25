@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>บางรักน้อย Connect — ศูนย์รวมข้อมูลชุมชน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#6B21A8;--purple-dark:#4C1D95;--purple-light:#EDE9FE;--purple-mid:#7C3AED;
+  --gold:#D97706;--gold-light:#FEF3C7;--gold-bright:#F59E0B;
+  --green:#15803D;--green-light:#DCFCE7;--yellow:#CA8A04;
+  --white:#FFFFFF;--gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
+  --gray-500:#6B7280;--gray-700:#374151;--gray-900:#111827;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;
+}
+body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);min-height:100vh}
+.header{background:linear-gradient(135deg,#4C1D95 0%,#6B21A8 60%,#8B21C8 100%);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(107,33,168,0.4)}
+.header-inner{max-width:640px;margin:0 auto;padding:0.75rem 1.25rem;display:flex;align-items:center;gap:12px}
+.logo-wrap{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid #F59E0B;background:#fff}
+.logo-wrap img{width:100%;height:100%;object-fit:cover}
+.header-text h1{font-size:17px;font-weight:600;color:#fff;letter-spacing:0.2px}
+.header-text p{font-size:11px;color:rgba(255,255,255,0.75);margin-top:1px}
+.header-right{margin-left:auto}
+.header-badge{background:rgba(255,255,255,0.15);border:0.5px solid rgba(255,255,255,0.3);border-radius:20px;padding:4px 10px;font-size:11px;color:#fff;display:flex;align-items:center;gap:4px}
+.hero{background:linear-gradient(180deg,#4C1D95 0%,#6B21A8 100%);padding:1.5rem 1.25rem 2rem;max-width:640px;margin:0 auto}
+.hero-title{font-size:22px;font-weight:600;color:#fff;margin-bottom:6px;line-height:1.3}
+.hero-title span{color:#F59E0B}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:1.25rem;line-height:1.6}
+.search-wrap{position:relative}
+.search-wrap input{width:100%;background:#fff;border:none;border-radius:var(--radius-lg);padding:13px 48px 13px 48px;font-size:14px;font-family:'Sarabun',sans-serif;color:var(--gray-900);outline:none;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+.search-wrap input::placeholder{color:var(--gray-500)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--purple);font-size:20px}
+.search-ai-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--purple);color:#fff;border:none;border-radius:var(--radius-md);padding:6px 14px;font-size:12px;font-family:'Sarabun',sans-serif;cursor:pointer;display:flex;align-items:center;gap:4px}
+.stats-bar{max-width:640px;margin:0 auto;background:#fff;border-bottom:0.5px solid var(--gray-200);padding:0.75rem 1.25rem;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat-item{text-align:center}
+.stat-num{font-size:20px;font-weight:600;color:var(--purple)}
+.stat-lbl{font-size:10px;color:var(--gray-500)}
+.main{max-width:640px;margin:0 auto;padding:0 0 80px}
+.ai-panel{background:linear-gradient(135deg,#EDE9FE,#F0FDF4);border:1px solid rgba(107,33,168,0.15);border-radius:var(--radius-lg);margin:1rem 1.25rem;padding:1rem 1.25rem}
+.ai-panel-head{display:flex;align-items:center;gap:8px;margin-bottom:0.75rem}
+.ai-panel-head i{font-size:20px;color:var(--purple-mid)}
+.ai-panel-head span{font-size:14px;font-weight:500;color:var(--purple-dark)}
+.close-ai{margin-left:auto;background:none;border:none;color:var(--gray-500);cursor:pointer;font-size:18px;padding:0}
+.ai-input-row{display:flex;gap:8px;margin-bottom:0.75rem}
+.ai-input-row input{flex:1;border:1px solid rgba(107,33,168,0.25);border-radius:var(--radius-md);padding:9px 12px;font-size:13px;font-family:'Sarabun',sans-serif;color:var(--gray-900);background:#fff;outline:none}
+.ai-send{background:var(--purple);color:#fff;border:none;border-radius:var(--radius-md);padding:9px 16px;font-size:13px;font-family:'Sarabun',sans-serif;cursor:pointer;font-weight:500}
+.ai-tags{display:flex;gap:6px;flex-wrap:wrap}
+.ai-tag{font-size:11px;padding:4px 10px;border-radius:20px;background:#fff;border:1px solid rgba(107,33,168,0.2);color:var(--purple);cursor:pointer;font-family:'Sarabun',sans-serif}
+.ai-result{margin-top:0.875rem;background:#fff;border-radius:var(--radius-md);padding:0.875rem 1rem;font-size:13px;line-height:1.7;color:var(--gray-700);border-left:3px solid var(--purple-mid);display:none}
+.ai-result.show{display:block}
+.section-label{font-size:11px;font-weight:600;color:var(--gray-500);letter-spacing:1px;text-transform:uppercase;padding:1.25rem 1.25rem 0.5rem;display:flex;align-items:center;gap:6px}
+.section-label::after{content:'';flex:1;height:0.5px;background:var(--gray-200)}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 1.25rem}
+.cat{background:#fff;border:1.5px solid var(--gray-200);border-radius:var(--radius-lg);padding:14px 8px 12px;text-align:center;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden}
+.cat:hover{border-color:var(--purple-mid);background:var(--purple-light)}
+.cat.active{border-color:var(--purple);background:var(--purple-light)}
+.cat.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--gold-bright))}
+.cat-icon{font-size:26px;display:block;margin-bottom:6px}
+.c1 .cat-icon{color:#7C3AED}.c2 .cat-icon{color:#D97706}.c3 .cat-icon{color:#15803D}
+.c4 .cat-icon{color:#D97706}.c5 .cat-icon{color:#0369A1}.c6 .cat-icon{color:#BE185D}
+.cat-name{font-size:11px;color:var(--gray-700);line-height:1.3;font-weight:500}
+.cat-count{font-size:10px;color:var(--gray-500);margin-top:2px}
+.list-head{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.25rem 0.625rem}
+.list-head h2{font-size:16px;font-weight:600;color:var(--gray-900);display:flex;align-items:center;gap:6px}
+.list-head h2 i{font-size:18px;color:var(--purple)}
+.list-head a{font-size:12px;color:var(--purple);text-decoration:none;cursor:pointer}
+.card-list{padding:0 1.25rem}
+.card{background:#fff;border:0.5px solid var(--gray-200);border-radius:var(--radius-lg);padding:1rem 1.125rem;margin-bottom:10px;display:flex;gap:12px;cursor:pointer;transition:all 0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.card:hover{border-color:rgba(107,33,168,0.3);box-shadow:0 4px 16px rgba(107,33,168,0.08)}
+.card-thumb{width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.t-purple{background:#EDE9FE;color:#7C3AED}.t-gold{background:#FEF3C7;color:#D97706}
+.t-green{background:#DCFCE7;color:#15803D}.t-blue{background:#E0F2FE;color:#0369A1}
+.t-pink{background:#FCE7F3;color:#BE185D}
+.card-body{flex:1;min-width:0}
+.card-body h3{font-size:14px;font-weight:600;color:var(--gray-900);margin-bottom:3px}
+.card-body p{font-size:12px;color:var(--gray-500);line-height:1.5;margin-bottom:6px}
+.card-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.badge{font-size:10px;padding:3px 8px;border-radius:20px;font-weight:500}
+.b-purple{background:#EDE9FE;color:#4C1D95}.b-gold{background:#FEF3C7;color:#92400E}
+.b-green{background:#DCFCE7;color:#166534}.b-blue{background:#E0F2FE;color:#1E40AF}
+.b-gray{background:#F3F4F6;color:#6B7280}
+.verified{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#15803D;background:#DCFCE7;padding:2px 6px;border-radius:20px}
+.phone-link{font-size:11px;color:var(--purple);display:flex;align-items:center;gap:3px;text-decoration:none}
+.gold-divider{height:2px;background:linear-gradient(90deg,transparent,#F59E0B,transparent);margin:1.25rem 1.25rem 0;opacity:0.4}
+.map-block{margin:1.25rem 1.25rem 0;background:linear-gradient(135deg,#EDE9FE,#FEF3C7);border:1px solid rgba(107,33,168,0.15);border-radius:var(--radius-lg);padding:1.25rem;display:flex;align-items:center;gap:14px;cursor:pointer}
+.map-icon{width:52px;height:52px;background:var(--purple);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.map-icon i{font-size:26px;color:#fff}
+.map-text h3{font-size:14px;font-weight:600;color:var(--purple-dark)}
+.map-text p{font-size:12px;color:var(--gray-500);margin-top:2px}
+.map-arr{margin-left:auto;color:var(--purple);font-size:20px}
+.reg-block{margin:1rem 1.25rem;background:linear-gradient(135deg,#4C1D95,#6B21A8);border-radius:var(--radius-lg);padding:1.25rem;color:#fff;position:relative;overflow:hidden}
+.reg-block::before{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;background:rgba(255,255,255,0.05);border-radius:50%}
+.reg-block h3{font-size:15px;font-weight:600;margin-bottom:4px;position:relative}
+.reg-block p{font-size:12px;color:rgba(255,255,255,0.75);margin-bottom:1rem;line-height:1.5;position:relative}
+.reg-btns{display:flex;gap:8px;flex-wrap:wrap;position:relative}
+.reg-btn{padding:8px 16px;border-radius:var(--radius-md);font-size:12px;font-family:'Sarabun',sans-serif;font-weight:500;cursor:pointer;border:none;display:flex;align-items:center;gap:6px}
+.btn-gold{background:#F59E0B;color:#fff}
+.btn-outline{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3)}
+.footer-note{text-align:center;padding:1.5rem 1.25rem 0.5rem;font-size:11px;color:var(--gray-500);line-height:1.8}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:0.5px solid var(--gray-200);padding:0.5rem 0 0.75rem;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,0.06)}
+.bottom-nav-inner{max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px;background:none;border:none;cursor:pointer;font-family:'Sarabun',sans-serif}
+.nav-btn i{font-size:22px;color:#6B7280}
+.nav-btn span{font-size:10px;color:#6B7280}
+.nav-btn.active i{color:var(--purple)}
+.nav-btn.active span{color:var(--purple)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-wrap"><img src="logo2026.png" alt="ตราเทศบาลเมืองบางรักน้อย"></div>
+    <div class="header-text">
+      <h1>บางรักน้อย Connect</h1>
+      <p>เทศบาลเมืองบางรักน้อย จ.นนทบุรี</p>
+    </div>
+    <div class="header-right">
+      <span class="header-badge"><i class="ti ti-circle-filled" style="font-size:8px;color:#4ADE80"></i> เปิดให้บริการ</span>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <h1 class="hero-title">ค้นหา<span>ทุกอย่าง</span>ในชุมชน<br>ได้ในที่เดียว</h1>
+  <p class="hero-sub">ช่าง ร้านอาหาร สถานที่ท่องเที่ยว อาชีพ และข่าวสาร<br>ของเทศบาลเมืองบางรักน้อย ในระบบเดียว</p>
+  <div class="search-wrap">
+    <i class="ti ti-search search-icon"></i>
+    <input type="text" id="mainSearch" placeholder="ค้นหา เช่น ช่างไฟ ร้านอาหาร วัด...">
+    <button class="search-ai-btn" onclick="openAI()"><i class="ti ti-sparkles"></i> AI</button>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">24</div><div class="stat-lbl">ช่างในชุมชน</div></div>
+  <div class="stat-item"><div class="stat-num">38</div><div class="stat-lbl">ร้านค้า/บริการ</div></div>
+  <div class="stat-item"><div class="stat-num">12</div><div class="stat-lbl">สถานที่สำคัญ</div></div>
+</div>
+
+<div class="main">
+  <div class="ai-panel" id="aiPanel" style="display:none">
+    <div class="ai-panel-head">
+      <i class="ti ti-sparkles"></i>
+      <span>ผู้ช่วย AI — ถามอะไรก็ได้เกี่ยวกับชุมชน</span>
+      <button class="close-ai" onclick="closeAI()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="ai-input-row">
+      <input type="text" id="aiInput" placeholder="เช่น หาช่างประปาด่วน หรือ ร้านอาหารเปิดเย็น...">
+      <button class="ai-send" onclick="askAI()">ถาม</button>
+    </div>
+    <div class="ai-tags">
+      <span class="ai-tag" onclick="setQ('หาช่างไฟฟ้าใกล้บ้าน')">⚡ ช่างไฟ</span>
+      <span class="ai-tag" onclick="setQ('ร้านอาหารเปิดเย็น')">🍜 ร้านเย็น</span>
+      <span class="ai-tag" onclick="setQ('จุดเช็คอินบางรักน้อย')">📍 เช็คอิน</span>
+      <span class="ai-tag" onclick="setQ('อบรมอาชีพฟรี')">🎓 อบรมฟรี</span>
+      <span class="ai-tag" onclick="setQ('ข่าวสารล่าสุด')">📢 ข่าว</span>
+    </div>
+    <div class="ai-result" id="aiResult"></div>
+  </div>
+
+  <div class="section-label">หมวดหมู่</div>
+  <div class="cats">
+    <div class="cat c1 active" onclick="switchCat(this,'ช่าง')">
+      <i class="ti ti-tool cat-icon"></i><div class="cat-name">หาช่างใกล้บ้าน</div><div class="cat-count">24 ราย</div>
+    </div>
+    <div class="cat c2" onclick="switchCat(this,'ร้านอาหาร')">
+      <i class="ti ti-bowl cat-icon"></i><div class="cat-name">ร้านอาหาร/ของดี</div><div class="cat-count">38 ร้าน</div>
+    </div>
+    <div class="cat c3" onclick="switchCat(this,'ท่องเที่ยว')">
+      <i class="ti ti-camera cat-icon"></i><div class="cat-name">เที่ยวบางรักน้อย</div><div class="cat-count">12 จุด</div>
+    </div>
+    <div class="cat c4" onclick="switchCat(this,'อาชีพ')">
+      <i class="ti ti-school cat-icon"></i><div class="cat-name">ฝึกอาชีพ/กิจกรรม</div><div class="cat-count">8 หลักสูตร</div>
+    </div>
+    <div class="cat c5" onclick="switchCat(this,'ข่าว')">
+      <i class="ti ti-speakerphone cat-icon"></i><div class="cat-name">ข่าวสารเทศบาล</div><div class="cat-count">อัปเดตล่าสุด</div>
+    </div>
+    <div class="cat c6" onclick="switchCat(this,'สมัคร')">
+      <i class="ti ti-forms cat-icon"></i><div class="cat-name">สมัครเข้าระบบ</div><div class="cat-count">เปิดรับสมัคร</div>
+    </div>
+  </div>
+
+  <div class="list-head">
+    <h2><i class="ti ti-tool" id="listIcon"></i><span id="listTitle">ช่างในชุมชน</span></h2>
+    <a>ดูทั้งหมด</a>
+  </div>
+  <div class="card-list" id="cardList"></div>
+
+  <div class="gold-divider"></div>
+  <div class="map-block" onclick="openMap()">
+    <div class="map-icon"><i class="ti ti-map-2"></i></div>
+    <div class="map-text"><h3>แผนที่ชุมชนบางรักน้อย</h3><p>ดูตำแหน่งช่าง ร้านอาหาร และสถานที่ทั้งหมดบนแผนที่</p></div>
+    <i class="ti ti-chevron-right map-arr"></i>
+  </div>
+
+  <div class="reg-block">
+    <h3>✨ ร้านค้า ช่าง กลุ่มอาชีพ — ลงทะเบียนฟรี</h3>
+    <p>เพิ่มข้อมูลของคุณเข้าระบบ ให้คนในชุมชนค้นหาเจอ<br>ไม่มีค่าใช้จ่าย ดูแลโดยเทศบาลเมืองบางรักน้อย</p>
+    <div class="reg-btns">
+      <button class="reg-btn btn-gold"><i class="ti ti-forms"></i> สมัครเข้าระบบ</button>
+      <button class="reg-btn btn-outline"><i class="ti ti-brand-line"></i> LINE OA</button>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    ข้อมูลผ่านการตรวจสอบเบื้องต้นจากเทศบาล<br>
+    การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างประชาชนกับผู้ให้บริการโดยตรง<br>
+    <strong style="color:#6B21A8">เทศบาลเมืองบางรักน้อย</strong> อ.เมืองนนทบุรี จ.นนทบุรี
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <button class="nav-btn active" onclick="navTo('home',this)"><i class="ti ti-home"></i><span>หน้าหลัก</span></button>
+    <button class="nav-btn" onclick="navTo('search',this)"><i class="ti ti-search"></i><span>ค้นหา</span></button>
+    <button class="nav-btn" onclick="navTo('map',this)"><i class="ti ti-map-pin"></i><span>แผนที่</span></button>
+    <button class="nav-btn" onclick="navTo('news',this)"><i class="ti ti-speakerphone"></i><span>ข่าวสาร</span></button>
+  </div>
+</div>
+
+<script>
+const DATA={
+  "ช่าง":[
+    {icon:"ti-plug",thumb:"t-purple",title:"ช่างไฟ สมชาย อินทร์ทอง",desc:"ติดตั้ง ซ่อมระบบไฟฟ้า งานฝ้าและสปอตไลท์ บริการตลอด 24 ชม.",cat:"ช่างไฟ",catCls:"b-purple",area:"หมู่ 3 บางรักน้อย",phone:"089-123-4567",ok:true},
+    {icon:"ti-droplet",thumb:"t-blue",title:"ช่างประปา วิชัย สุขสม",desc:"แก้ท่อแตก อุดตัน ติดตั้งมิเตอร์น้ำ วางท่อใหม่",cat:"ช่างประปา",catCls:"b-blue",area:"หมู่ 5 ท่าอิฐ",phone:"081-234-5678",ok:true},
+    {icon:"ti-air-conditioning",thumb:"t-green",title:"ช่างแอร์ ประทีป เย็นใจ",desc:"ล้างแอร์ เติมน้ำยา ซ่อมแอร์ทุกยี่ห้อ ราคาเป็นมิตร",cat:"ช่างแอร์",catCls:"b-gold",area:"บางรักน้อย",phone:"062-345-6789",ok:false},
+    {icon:"ti-car",thumb:"t-gold",title:"ช่างยาง นคร รถดี",desc:"เปลี่ยนยาง ถ่วงล้อ ซ่อมยางแบน บริการถึงที่",cat:"ช่างยาง",catCls:"b-green",area:"ปากทางท่าอิฐ",phone:"092-456-7890",ok:true}
+  ],
+  "ร้านอาหาร":[
+    {icon:"ti-bowl",thumb:"t-gold",title:"ข้าวแกงป้าแดง",desc:"ข้าวราดแกงรสเด็ด ของสดทุกวัน เปิด 06.00–14.00 น.",cat:"อาหารตามสั่ง",catCls:"b-gold",area:"ตลาดท่าอิฐ",phone:"085-678-9012",ok:true},
+    {icon:"ti-coffee",thumb:"t-green",title:"คาเฟ่บางรักน้อย",desc:"กาแฟดริป เบเกอรี่สด บรรยากาศริมน้ำ เปิดถึง 20.00 น.",cat:"คาเฟ่",catCls:"b-green",area:"ริมน้ำบางรักน้อย",phone:"091-789-0123",ok:true},
+    {icon:"ti-fish",thumb:"t-blue",title:"ต้มยำป้าเพิ่ม",desc:"ต้มยำทะเลสด น้ำข้น น้ำใส เปิดทุกวัน 10.00–21.00 น.",cat:"อาหารไทย",catCls:"b-blue",area:"ซอยวัดบางรักน้อย",phone:"086-890-1234",ok:false}
+  ],
+  "ท่องเที่ยว":[
+    {icon:"ti-building-church",thumb:"t-gold",title:"วัดบางรักน้อย",desc:"วัดเก่าแก่ริมคลอง สถาปัตยกรรมงดงาม จุดถ่ายภาพยอดนิยม",cat:"วัด/ศาสนสถาน",catCls:"b-gold",area:"ริมคลองบางรักน้อย",phone:"",ok:true},
+    {icon:"ti-anchor",thumb:"t-blue",title:"ตลาดน้ำท่าอิฐ",desc:"ตลาดวัฒนธรรมริมน้ำ อาหาร ของที่ระลึก เปิดเสาร์-อาทิตย์ 07.00–14.00",cat:"แลนด์มาร์ค",catCls:"b-blue",area:"ท่าอิฐ อ.เมืองนนทบุรี",phone:"",ok:true},
+    {icon:"ti-trees",thumb:"t-green",title:"สวนสาธารณะเทศบาล",desc:"สวนออกกำลังกาย ลานกีฬา เส้นทางปั่นจักรยาน เปิดตลอด",cat:"สวนสาธารณะ",catCls:"b-green",area:"บางรักน้อย",phone:"",ok:true}
+  ],
+  "อาชีพ":[
+    {icon:"ti-needle-thread",thumb:"t-pink",title:"อบรมตัดเย็บเสื้อผ้า รุ่น 2/2567",desc:"กลุ่มแม่บ้านเทศบาล ฟรีไม่มีค่าใช้จ่าย รับ 20 คน",cat:"ฟรี",catCls:"b-green",area:"สำนักงานเทศบาล",phone:"02-xxx-xxxx",ok:true},
+    {icon:"ti-plant",thumb:"t-green",title:"เกษตรอินทรีย์ในเมือง",desc:"ปลูกผักไฮโดรโปนิก 3 วัน สมัครได้ถึง 15 ก.ย. 67",cat:"เปิดรับสมัคร",catCls:"b-gold",area:"สวนสาธารณะเทศบาล",phone:"02-xxx-xxxx",ok:true},
+    {icon:"ti-device-laptop",thumb:"t-blue",title:"ทักษะดิจิทัลสำหรับผู้สูงวัย",desc:"เรียนใช้สมาร์ทโฟน โอนเงิน ซื้อของออนไลน์ ฟรี!",cat:"ฟรี",catCls:"b-green",area:"ศูนย์ผู้สูงอายุเทศบาล",phone:"02-xxx-xxxx",ok:true}
+  ],
+  "ข่าว":[
+    {icon:"ti-alert-triangle",thumb:"t-gold",title:"ปิดถนนซ่อมบำรุง ซอยหมู่ 2",desc:"ปิดเส้นทางชั่วคราว 3–5 ก.ย. 2567 โปรดใช้เส้นทางสำรองผ่านหมู่ 4",cat:"ด่วน",catCls:"b-gold",area:"เทศบาลบางรักน้อย",phone:"",ok:true},
+    {icon:"ti-calendar-event",thumb:"t-purple",title:"งานลอยกระทง บางรักน้อย 2567",desc:"20 พ.ย. 2567 ณ ท่าน้ำบางรักน้อย ประกวดกระทง มินิคอนเสิร์ต",cat:"กิจกรรม",catCls:"b-purple",area:"ท่าน้ำบางรักน้อย",phone:"",ok:true},
+    {icon:"ti-heart",thumb:"t-green",title:"ตรวจสุขภาพฟรี ประจำปี 2567",desc:"ลงทะเบียนฉีดวัคซีนและตรวจสุขภาพฟรีสำหรับผู้สูงอายุ",cat:"สาธารณสุข",catCls:"b-green",area:"คลินิกชุมชนเทศบาล",phone:"02-xxx-xxxx",ok:true}
+  ],
+  "สมัคร":[
+    {icon:"ti-building-store",thumb:"t-purple",title:"ลงทะเบียนร้านค้า/ผู้ให้บริการ",desc:"เพิ่มร้านของคุณในระบบ ให้คนหาเจอง่าย ฟรี ไม่มีค่าใช้จ่าย",cat:"เปิดรับสมัคร",catCls:"b-green",area:"",phone:"",ok:false},
+    {icon:"ti-tool",thumb:"t-gold",title:"ลงทะเบียนช่างในชุมชน",desc:"ช่างฝีมือทุกประเภท สมัครได้เลย เทศบาลตรวจสอบและเผยแพร่ให้",cat:"เปิดรับสมัคร",catCls:"b-green",area:"",phone:"",ok:false},
+    {icon:"ti-plant-2",thumb:"t-green",title:"ลงทะเบียนกลุ่มอาชีพ/OTOP",desc:"กลุ่มวิสาหกิจชุมชน สินค้า OTOP สมัครประชาสัมพันธ์ผ่านระบบ",cat:"เปิดรับสมัคร",catCls:"b-green",area:"",phone:"",ok:false}
+  ]
+};
+const ICONS={ช่าง:"ti-tool",ร้านอาหาร:"ti-bowl",ท่องเที่ยว:"ti-camera",อาชีพ:"ti-school",ข่าว:"ti-speakerphone",สมัคร:"ti-forms"};
+const TITLES={ช่าง:"ช่างในชุมชน",ร้านอาหาร:"ร้านอาหาร/ของดีชุมชน",ท่องเที่ยว:"เที่ยวบางรักน้อย",อาชีพ:"ฝึกอาชีพ/กิจกรรม",ข่าว:"ข่าวสารเทศบาล",สมัคร:"สมัครเข้าระบบ"};
+const AI_R={
+  "หาช่างไฟฟ้าใกล้บ้าน":"⚡ พบช่างไฟในระบบ 1 ราย<br><br><b>ช่างไฟ สมชาย อินทร์ทอง</b><br>หมู่ 3 บางรักน้อย | ✅ ผ่านการตรวจสอบ<br>โทร <span style='color:#6B21A8'>089-123-4567</span><br><br>💡 แนะนำโทรนัดก่อนนะครับ",
+  "ร้านอาหารเปิดเย็น":"🍜 ร้านที่เปิดช่วงเย็น-ค่ำ<br><br><b>คาเฟ่บางรักน้อย</b> — เปิดถึง 20.00 น.<br>ริมน้ำบางรักน้อย | โทร 091-789-0123<br><br><b>ต้มยำป้าเพิ่ม</b> — เปิดถึง 21.00 น.<br>ซอยวัดบางรักน้อย | โทร 086-890-1234",
+  "จุดเช็คอินบางรักน้อย":"📍 จุดเช็คอินยอดนิยม<br><br>1. <b>วัดบางรักน้อย</b> — ริมคลอง วิวสวยมาก<br>2. <b>ตลาดน้ำท่าอิฐ</b> — เสาร์-อาทิตย์ เช้า<br>3. <b>สวนสาธารณะเทศบาล</b> — ยามเย็นแสงดี",
+  "อบรมอาชีพฟรี":"🎓 หลักสูตรที่เปิดรับอยู่ตอนนี้<br><br>✅ <b>ตัดเย็บเสื้อผ้า</b> รุ่น 2/2567 — ฟรี<br>✅ <b>เกษตรอินทรีย์</b> — สมัครถึง 15 ก.ย.<br>✅ <b>ทักษะดิจิทัล</b> ผู้สูงวัย — ฟรี<br><br>ติดต่อ โทร 02-xxx-xxxx",
+  "ข่าวสารล่าสุด":"📢 ข่าวล่าสุด<br><br>⚠️ <b>ด่วน:</b> ปิดถนนซ่อมบำรุงหมู่ 2 วันที่ 3–5 ก.ย.<br>🎉 <b>งานลอยกระทง 2567</b> — 20 พ.ย. ท่าน้ำ<br>💊 <b>ตรวจสุขภาพฟรี</b> ลงทะเบียนได้แล้ว"
+};
+function renderCards(cat){
+  var items=DATA[cat]||[];
+  document.getElementById("listTitle").textContent=TITLES[cat];
+  document.getElementById("listIcon").className="ti "+(ICONS[cat]||"ti-list");
+  document.getElementById("cardList").innerHTML=items.map(function(d){
+    return '<div class="card"><div class="card-thumb '+d.thumb+'"><i class="ti '+d.icon+'"></i></div><div class="card-body"><h3>'+d.title+'</h3><p>'+d.desc+'</p><div class="card-meta"><span class="badge '+d.catCls+'">'+d.cat+'</span>'+
+    (d.ok?'<span class="verified"><i class="ti ti-circle-check" style="font-size:10px"></i> ตรวจสอบแล้ว</span>':'')+
+    (d.area?'<span class="badge b-gray"><i class="ti ti-map-pin" style="font-size:10px"></i> '+d.area+'</span>':'')+
+    (d.phone?'<a class="phone-link" href="tel:'+d.phone+'"><i class="ti ti-phone" style="font-size:11px"></i> '+d.phone+'</a>':'')+
+    '</div></div></div>';
+  }).join("");
+}
+function switchCat(el,cat){
+  document.querySelectorAll(".cat").forEach(function(c){c.classList.remove("active");});
+  el.classList.add("active");renderCards(cat);
+}
+function openAI(){
+  var p=document.getElementById("aiPanel");p.style.display="block";
+  document.getElementById("aiInput").focus();
+  p.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function closeAI(){document.getElementById("aiPanel").style.display="none";}
+function setQ(q){document.getElementById("aiInput").value=q;askAI();}
+function askAI(){
+  var q=document.getElementById("aiInput").value.trim();if(!q)return;
+  var el=document.getElementById("aiResult");
+  el.innerHTML=AI_R[q]||("🔍 ค้นหา <b>"+q+"</b>...<br><br>ไม่พบข้อมูลตรงกัน ลองคำอื่น หรือ <span style='color:#6B21A8;cursor:pointer'>แจ้งเพิ่มข้อมูล</span>");
+  el.classList.add("show");
+}
+function openMap(){alert("แผนที่ชุมชน\n\nจะ embed Google My Maps ที่นี่ครับ\nสร้างได้ที่ maps.google.com/mymaps");}
+function navTo(page,el){
+  document.querySelectorAll(".nav-btn").forEach(function(b){b.classList.remove("active");});
+  el.classList.add("active");
+  if(page==="search")openAI();
+  if(page==="map")openMap();
+  if(page==="news"){switchCat(document.querySelectorAll(".cat")[4],"ข่าว");}
+}
+document.getElementById("mainSearch").addEventListener("keyup",function(e){
+  if(e.key==="Enter"&&this.value.trim()){
+    document.getElementById("aiInput").value=this.value.trim();openAI();askAI();
+  }
+});
+renderCards("ช่าง");
+</script>
+</body>
+</html>
