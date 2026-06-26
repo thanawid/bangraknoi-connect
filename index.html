@@ -62,7 +62,7 @@ body{font-family:"Sarabun",sans-serif;background:#F5F3FF;color:#111827;min-heigh
 /* CATS */
 .section-label{font-size:11px;font-weight:600;color:#6B7280;letter-spacing:1px;padding:1.25rem 1.25rem 0.5rem;display:flex;align-items:center;gap:6px}
 .section-label::after{content:"";flex:1;height:0.5px;background:#E5E7EB}
-.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 1.25rem}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 1.25rem}
 .cat{background:#fff;border:1.5px solid #E5E7EB;border-radius:14px;padding:10px 6px 8px;text-align:center;cursor:pointer;transition:all 0.18s;position:relative;overflow:hidden}
 .cat:hover{border-color:#7C3AED;transform:translateY(-2px)}
 .cat.active{border-color:#6B21A8;background:#EDE9FE}
@@ -190,7 +190,7 @@ body{font-family:"Sarabun",sans-serif;background:#F5F3FF;color:#111827;min-heigh
 @media(min-width:640px){
   .hero-title{font-size:30px}
   .hero-mascot img{height:240px}
-  .cats{grid-template-columns:repeat(6,1fr)}
+  .cats{grid-template-columns:repeat(8,1fr)}
   .card-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .card-list .card{margin-bottom:0}
   .stat-n{font-size:26px}
@@ -283,7 +283,45 @@ body{font-family:"Sarabun",sans-serif;background:#F5F3FF;color:#111827;min-heigh
 <div class="cats reveal">
   <div class="cat active" onclick="switchCat(this,'ช่าง')">
     <img src="mascot_chang.png" alt="ช่าง">
-    <div class="cat-name">หาช่างใกล้บ้าน</div>
+    <div class="cat-name">หาช่าง</div>
+    <div class="cat-count">24 ราย</div>
+  </div>
+  <div class="cat" onclick="switchCat(this,'ร้านอาหาร')">
+    <img src="mascot_food.png" alt="ร้านอาหาร">
+    <div class="cat-name">ร้านอาหาร</div>
+    <div class="cat-count">38 ร้าน</div>
+  </div>
+  <div class="cat" onclick="switchCat(this,'อาชีพ')">
+    <img src="mascot_career.png" alt="ฝึกอาชีพ">
+    <div class="cat-name">ฝึกอาชีพ</div>
+    <div class="cat-count">8 หลักสูตร</div>
+  </div>
+  <div class="cat" onclick="switchCat(this,'ข่าว')">
+    <img src="mascot_news.png" alt="ข่าวสาร">
+    <div class="cat-name">ข่าวสาร</div>
+    <div class="cat-count">อัปเดตล่าสุด</div>
+  </div>
+  <div class="cat" onclick="switchCat(this,'บริการชุมชน')">
+    <img src="mascot_service.png" alt="บริการชุมชน">
+    <div class="cat-name">บริการชุมชน</div>
+    <div class="cat-count">ขอความช่วยเหลือ</div>
+  </div>
+  <div class="cat" onclick="switchCat(this,'สินค้า')">
+    <img src="mascot_product.png" alt="สินค้าท้องถิ่น">
+    <div class="cat-name">สินค้าท้องถิ่น</div>
+    <div class="cat-count">ของดีบางรักน้อย</div>
+  </div>
+  <div class="cat" onclick="switchCat(this,'กิจกรรม')">
+    <img src="mascot_event.png" alt="กิจกรรมชุมชน">
+    <div class="cat-name">กิจกรรม</div>
+    <div class="cat-count">ร่วมสนุกกัน</div>
+  </div>
+  <div class="cat" onclick="openRegModal()">
+    <img src="mascot_chat.png" alt="สมัครเข้าระบบ">
+    <div class="cat-name">สมัครเข้าระบบ</div>
+    <div class="cat-count">ลงทะเบียนฟรี</div>
+  </div>
+</div>
     <div class="cat-count">24 ราย</div>
   </div>
   <div class="cat" onclick="switchCat(this,'ร้านอาหาร')">
@@ -434,7 +472,7 @@ body{font-family:"Sarabun",sans-serif;background:#F5F3FF;color:#111827;min-heigh
 var SHEET_ID="1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM";
 var SHEET_CACHE={};
 var ICONS={ช่าง:"ti-tool",ร้านอาหาร:"ti-bowl",ท่องเที่ยว:"ti-camera",อาชีพ:"ti-school",ข่าว:"ti-speakerphone",สมัคร:"ti-forms"};
-var TITLES={ช่าง:"ช่างในชุมชน",ร้านอาหาร:"ร้านอาหาร/ของดีชุมชน",ท่องเที่ยว:"เที่ยวบางรักน้อย",อาชีพ:"ฝึกอาชีพ/กิจกรรม",ข่าว:"ข่าวสารเทศบาล",สมัคร:"สมัครเข้าระบบ"};
+var TITLES={ช่าง:"ช่างในชุมชน",ร้านอาหาร:"ร้านอาหาร/ของดี",อาชีพ:"ฝึกอาชีพ",ข่าว:"ข่าวสารเทศบาล",บริการชุมชน:"บริการชุมชน",สินค้า:"สินค้าท้องถิ่น",กิจกรรม:"กิจกรรมชุมชน",สมัคร:"สมัครเข้าระบบ"};
 var ICON_MAP={"ช่างไฟ":"ti-plug","ช่างประปา":"ti-droplet","ช่างแอร์":"ti-air-conditioning","ช่างยาง":"ti-car","อาหารตามสั่ง":"ti-bowl","คาเฟ่":"ti-coffee","อาหารไทย":"ti-fish","วัด":"ti-building-church","แลนด์มาร์ค":"ti-anchor","สวนสาธารณะ":"ti-trees","อบรม":"ti-school","กิจกรรม":"ti-calendar-event","ประกาศ":"ti-speakerphone","ข่าว":"ti-news"};
 var THUMB_MAP={"ช่างไฟ":"t-purple","ช่างประปา":"t-blue","ช่างแอร์":"t-green","ช่างยาง":"t-gold","อาหารตามสั่ง":"t-gold","คาเฟ่":"t-green","อาหารไทย":"t-blue","วัด":"t-gold","แลนด์มาร์ค":"t-blue","สวนสาธารณะ":"t-green","อบรม":"t-pink","กิจกรรม":"t-blue","ประกาศ":"t-gold","ข่าว":"t-purple"};
 var AI_R={"หาช่างไฟฟ้าใกล้บ้าน":"⚡ พบช่างไฟในระบบ<br><br><b>ช่างไฟ สมชาย</b> หมู่ 3 | โทร <span style='color:#6B21A8'>089-123-4567</span>","ร้านอาหารเปิดเย็น":"🍜 ร้านที่เปิดเย็น<br><br><b>คาเฟ่บางรักน้อย</b> เปิดถึง 20.00 น.<br><b>ต้มยำป้าเพิ่ม</b> เปิดถึง 21.00 น.","จุดเช็คอินบางรักน้อย":"📍 จุดยอดนิยม<br><br>1. วัดบางรักน้อย<br>2. ตลาดน้ำท่าอิฐ<br>3. สวนสาธารณะเทศบาล","อบรมอาชีพฟรี":"🎓 หลักสูตรเปิดรับ<br><br>✅ ตัดเย็บเสื้อผ้า รุ่น 2/2567<br>✅ เกษตรอินทรีย์<br>✅ ทักษะดิจิทัลผู้สูงวัย","ข่าวสารล่าสุด":"📢 ข่าวล่าสุด<br><br>⚠️ ปิดถนนซ่อมบำรุงหมู่ 2<br>🎉 งานลอยกระทง 2567<br>💊 ตรวจสุขภาพฟรีผู้สูงอายุ"};
