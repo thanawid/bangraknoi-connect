@@ -230,6 +230,44 @@ body{word-break:keep-all;overflow-wrap:break-word;font-family:'Sarabun',sans-ser
   .card-body h3{font-size:14px}
   .card-body p{font-size:13px}
 }
+
+/* ── FIX CARDS & RESPONSIVE ── */
+.card-list{overflow:hidden}
+.card{min-width:0;overflow:hidden}
+.card-body{min-width:0;overflow:hidden}
+.card-body h3{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card-body p{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.card-meta{flex-wrap:wrap;gap:4px}
+.badge,.phone-link,.verified{white-space:nowrap;flex-shrink:0}
+
+@media(min-width:640px){
+  .desktop-wrap{max-width:680px}
+  .bottom-nav{max-width:680px}
+}
+@media(min-width:960px){
+  .desktop-wrap{max-width:960px}
+  .bottom-nav{max-width:960px}
+  .card-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .card-list .card{margin-bottom:0}
+}
+@media(min-width:1200px){
+  .desktop-wrap{max-width:1200px}
+  .bottom-nav{max-width:1200px}
+  .card-list{grid-template-columns:1fr 1fr 1fr}
+}
+@media(min-width:1440px){
+  .desktop-wrap{max-width:1440px}
+  .bottom-nav{max-width:1440px}
+  .hero{padding:2rem 4rem 2.5rem}
+  .stats-bar{padding:1rem 4rem;gap:10rem}
+  .cats{padding:0 4rem}
+  .section-label{padding:1.5rem 4rem 0.5rem}
+  .list-head{padding:1.5rem 4rem 0.75rem}
+  .card-list{padding:0 4rem;grid-template-columns:repeat(4,1fr)}
+  .ai-panel,.map-block,.reg-block,.gold-divider{margin-left:4rem;margin-right:4rem}
+  .footer-note{padding:1.5rem 4rem}
+}
+
 </style>
 </head>
 <body>
@@ -239,7 +277,7 @@ body{word-break:keep-all;overflow-wrap:break-word;font-family:'Sarabun',sans-ser
   <div class="header-inner">
     <div class="logo-wrap"><img src="logo_BC.png" alt="โลโก้บางรักน้อย Connect"></div>
     <div class="header-text">
-      <h1>บางรักน้อย Connect <span style="font-size:10px;font-weight:400;background:rgba(255,255,255,0.2);border:0.5px solid rgba(255,255,255,0.35);border-radius:20px;padding:2px 8px;letter-spacing:0.5px;vertical-align:middle">v2.0</span></h1>
+      <h1>บางรักน้อย Connect</h1>
       <p>เทศบาลเมืองบางรักน้อย จ.นนทบุรี</p>
     </div>
     <div class="header-right">
@@ -250,7 +288,7 @@ body{word-break:keep-all;overflow-wrap:break-word;font-family:'Sarabun',sans-ser
 
 <div class="hero">
   <h1 class="hero-title">รู้จัก<span>บางรักน้อย</span><br>ให้มากขึ้น</h1>
-  <p class="hero-sub">ศูนย์รวมข้อมูลชุมชน ครบในที่เดียว<br>ช่าง ร้านอาหาร ท่องเที่ยว อาชีพ และข่าวสาร</p>
+  <p class="hero-sub">ศูนย์รวมข้อมูลชุมชน ครบในที่เดียว</p>
   <div class="search-wrap">
     <i class="ti ti-search search-icon"></i>
     <input type="text" id="mainSearch" placeholder="ค้นหา เช่น ช่างไฟ ร้านอาหาร วัด...">
@@ -406,7 +444,8 @@ function renderCards(cat){
 }
 function switchCat(el,cat){
   document.querySelectorAll(".cat").forEach(function(c){c.classList.remove("active");});
-  el.classList.add("active");renderCards(cat);
+  el.classList.add("active");
+  renderCardsFromSheet(cat);
 }
 function openAI(){
   var p=document.getElementById("aiPanel");p.style.display="block";
@@ -434,7 +473,91 @@ document.getElementById("mainSearch").addEventListener("keyup",function(e){
     document.getElementById("aiInput").value=this.value.trim();openAI();askAI();
   }
 });
-renderCards("ช่าง");
+
+// ── Google Sheets Integration ──
+var SHEET_ID = '1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM';
+var SHEET_NAMES = {
+  'ช่าง':'ช่าง','ร้านอาหาร':'ร้านอาหาร','ท่องเที่ยว':'ท่องเที่ยว',
+  'อาชีพ':'อาชีพ','ข่าว':'ข่าว','สมัคร':'สมัคร'
+};
+var SHEET_CACHE = {};
+var ICON_MAP = {
+  'ช่างไฟ':'ti-plug','ช่างประปา':'ti-droplet','ช่างแอร์':'ti-air-conditioning',
+  'ช่างยาง':'ti-car','ช่างทั่วไป':'ti-tool','ช่างฝีมือ':'ti-hammer',
+  'อาหารตามสั่ง':'ti-bowl','คาเฟ่':'ti-coffee','อาหารไทย':'ti-fish',
+  'ของฝาก':'ti-gift','ร้านค้า':'ti-building-store','เบเกอรี่':'ti-bread',
+  'วัด':'ti-building-church','แลนด์มาร์ค':'ti-anchor','สวนสาธารณะ':'ti-trees',
+  'ตลาด':'ti-shopping-cart','จุดเช็คอิน':'ti-camera',
+  'อบรม':'ti-school','กิจกรรม':'ti-calendar-event','อาชีพ':'ti-briefcase',
+  'ประกาศ':'ti-speakerphone','ข่าว':'ti-news','ด่วน':'ti-alert-triangle'
+};
+var THUMB_MAP = {
+  'ช่างไฟ':'t-purple','ช่างประปา':'t-blue','ช่างแอร์':'t-green',
+  'ช่างยาง':'t-gold','ช่างทั่วไป':'t-purple','ช่างฝีมือ':'t-gold',
+  'อาหารตามสั่ง':'t-gold','คาเฟ่':'t-green','อาหารไทย':'t-blue',
+  'ของฝาก':'t-pink','ร้านค้า':'t-purple','เบเกอรี่':'t-gold',
+  'วัด':'t-gold','แลนด์มาร์ค':'t-blue','สวนสาธารณะ':'t-green',
+  'ตลาด':'t-gold','จุดเช็คอิน':'t-blue',
+  'อบรม':'t-pink','กิจกรรม':'t-blue','อาชีพ':'t-purple',
+  'ประกาศ':'t-gold','ข่าว':'t-purple','ด่วน':'t-gold'
+};
+
+async function fetchSheet(cat) {
+  if (SHEET_CACHE[cat]) return SHEET_CACHE[cat];
+  var sheetName = SHEET_NAMES[cat];
+  if (!sheetName) return [];
+  var url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json&sheet=' + encodeURIComponent(sheetName);
+  try {
+    var res = await fetch(url);
+    var text = await res.text();
+    var match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/);
+    if (!match) return [];
+    var json = JSON.parse(match[1]);
+    var rows = json.table.rows || [];
+    var data = rows.map(function(r) {
+      var c = r.c || [];
+      var val = function(i) { return (c[i] && c[i].v) ? String(c[i].v) : ''; };
+      var catVal = val(1);
+      return {
+        title: val(0), cat: catVal, desc: val(2),
+        phone: val(3), area: val(4), social: val(5), status: val(6),
+        icon: ICON_MAP[catVal] || 'ti-star',
+        thumb: THUMB_MAP[catVal] || 't-purple',
+        ok: val(6).toLowerCase().indexOf('อนุมัติ') >= 0 || val(6).toLowerCase().indexOf('active') >= 0 || val(6) === ''
+      };
+    }).filter(function(r) { return r.title.trim(); });
+    SHEET_CACHE[cat] = data;
+    return data;
+  } catch(e) {
+    console.error('Sheet error:', e);
+    return [];
+  }
+}
+
+async function renderCardsFromSheet(cat) {
+  document.getElementById('listTitle').textContent = TITLES[cat] || cat;
+  document.getElementById('listIcon').className = 'ti ' + (ICONS[cat] || 'ti-list');
+  document.getElementById('cardList').innerHTML = '<div style="text-align:center;padding:2rem 1rem;color:#9CA3AF"><div style="font-size:32px;margin-bottom:8px">⏳</div>กำลังโหลดข้อมูล...</div>';
+  var items = await fetchSheet(cat);
+  if (!items.length) {
+    document.getElementById('cardList').innerHTML = '<div style="text-align:center;padding:2rem 1rem;color:#9CA3AF"><div style="font-size:32px;margin-bottom:8px">📭</div>ยังไม่มีข้อมูลในหมวดนี้<br><small style="font-size:11px">เจ้าหน้าที่กำลังรวบรวมข้อมูลครับ</small></div>';
+    return;
+  }
+  document.getElementById('cardList').innerHTML = items.map(function(d) {
+    return '<div class="card">' +
+      '<div class="card-thumb ' + d.thumb + '"><i class="ti ' + d.icon + '"></i></div>' +
+      '<div class="card-body"><h3>' + d.title + '</h3><p>' + d.desc + '</p>' +
+      '<div class="card-meta">' +
+      '<span class="badge b-purple">' + (d.cat||'บริการ') + '</span>' +
+      (d.ok ? '<span class="verified"><i class="ti ti-circle-check" style="font-size:10px"></i> ตรวจสอบแล้ว</span>' : '') +
+      (d.area ? '<span class="badge b-gray"><i class="ti ti-map-pin" style="font-size:10px"></i> ' + d.area + '</span>' : '') +
+      (d.phone ? '<a class="phone-link" href="tel:' + d.phone + '"><i class="ti ti-phone" style="font-size:11px"></i> ' + d.phone + '</a>' : '') +
+      '</div></div></div>';
+  }).join('');
+  if (typeof revealCards === 'function') revealCards();
+}
+
+renderCardsFromSheet("ช่าง");
 
 var _revObs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');_revObs.unobserve(x.target);}});},{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(function(el){_revObs.observe(el);});
