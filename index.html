@@ -248,6 +248,11 @@ body{word-break:keep-all;overflow-wrap:break-word;font-family:'Sarabun',sans-ser
   .hero-mascot{display:none}
 }
 
+
+.modal-overlay{display:none;width:100%;background:rgba(76,29,149,0.5);padding:1rem;min-height:100vh;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal-sheet{background:#fff;border-radius:20px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;padding:1.5rem 1.25rem 2rem;margin:auto}
+
 </style>
 </head>
 <body>
@@ -587,14 +592,15 @@ var _sb=document.querySelector('.stats-bar');if(_sb)_sObs.observe(_sb);
 
 
 function openRegModal(){
-  document.getElementById('regModal').classList.add('show');
-  document.body.style.overflow='hidden';
+  var m=document.getElementById('regModal');
+  m.classList.add('show');
   document.getElementById('regForm').style.display='block';
   document.getElementById('successBox').style.display='none';
+  setTimeout(function(){m.scrollIntoView({behavior:'smooth',block:'start'});},50);
 }
 function closeReg(){
   document.getElementById('regModal').classList.remove('show');
-  document.body.style.overflow='';
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 function closeRegOnOverlay(e){
   if(e.target===document.getElementById('regModal')) closeReg();
@@ -647,7 +653,7 @@ async function submitForm(){
 </div><!-- /desktop-wrap -->
 
 <!-- REGISTER MODAL -->
-<div class="modal-overlay" id="regModal" onclick="closeRegOnOverlay(event)">
+<div class="modal-overlay" id="regModal" onclick="closeRegOnOverlay(event)" style="position:relative;z-index:200">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
     <button class="modal-close" onclick="closeReg()"><i class="ti ti-x"></i></button>
