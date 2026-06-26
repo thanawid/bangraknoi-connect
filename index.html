@@ -412,10 +412,100 @@ body{font-family:'Sarabun',sans-serif;background:#F0EBFF;color:var(--blk);overfl
 @media(min-width:1440px){
   .cards-grid{grid-template-columns:repeat(4,1fr)}
 }
+
+/* ── ANIMATIONS ── */
+
+/* 1. TYPEWRITER */
+.hero-t2{overflow:hidden;white-space:nowrap;border-right:4px solid var(--o);
+  animation:typewriter 1.2s steps(9,end) 0.5s both,
+            blink-cursor 0.7s step-end 0.5s 3,
+            remove-cursor 0s 4.2s forwards}
+@keyframes typewriter{from{width:0}to{width:100%}}
+@keyframes blink-cursor{0%,100%{border-color:var(--o)}50%{border-color:transparent}}
+@keyframes remove-cursor{to{border-right-color:transparent;border-right-width:0}}
+
+/* 2. BOUNCE MASCOT */
+.hero-mascot img{animation:mascot-bounce-in 0.8s cubic-bezier(0.36,0.07,0.19,0.97) both,
+  mascot-bob 3s 1s ease-in-out infinite}
+@keyframes mascot-bounce-in{
+  0%{transform:translateY(120px) scale(0.5);opacity:0}
+  60%{transform:translateY(-20px) scale(1.05);opacity:1}
+  80%{transform:translateY(10px) scale(0.97)}
+  100%{transform:translateY(0) scale(1)}
+}
+@keyframes mascot-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+/* 3. CONFETTI */
+.confetti-container{position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:9999;display:none}
+.confetti-container.show{display:block}
+.confetti-piece{position:absolute;width:10px;height:10px;top:-10px;
+  animation:confetti-fall linear forwards}
+@keyframes confetti-fall{
+  0%{transform:translateY(0) rotate(0deg);opacity:1}
+  100%{transform:translateY(110vh) rotate(720deg);opacity:0}
+}
+
+/* 4. WAVE HERO */
+.hero-wave{position:absolute;bottom:-2px;left:0;right:0;z-index:3;line-height:0}
+.hero-wave svg{display:block;width:100%}
+
+/* wave bg animation */
+.hero::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,
+    rgba(245,158,11,0.06) 0%,transparent 50%,
+    rgba(245,158,11,0.04) 100%);
+  animation:wave-shift 6s ease-in-out infinite alternate;
+  pointer-events:none}
+@keyframes wave-shift{
+  0%{background-position:0% 0%}
+  100%{background-position:100% 100%}
+}
+
+/* 5. CARD FLIP */
+.card{perspective:1000px;transform-style:preserve-3d}
+.card:hover{transform:translate(-2px,-2px) rotateY(3deg) rotateX(-2deg);
+  box-shadow:6px 6px 0 #111}
+
+/* 6. SHAKE BUTTON */
+.btn-gold{animation:shake-attention 4s 3s ease-in-out infinite}
+@keyframes shake-attention{
+  0%,90%,100%{transform:translate(0,0)}
+  92%{transform:translate(-3px,-3px)}
+  94%{transform:translate(3px,3px)}
+  96%{transform:translate(-3px,0)}
+  98%{transform:translate(3px,-3px)}
+}
+.btn-gold:hover{animation:none;transform:translate(-2px,-2px);box-shadow:6px 6px 0 #111}
+
+/* CAT hover bounce */
+.cat-card:hover .cat-img{animation:img-bounce 0.4s ease}
+@keyframes img-bounce{
+  0%{transform:scale(1)}
+  40%{transform:scale(1.15) translateY(-5px)}
+  70%{transform:scale(0.95) translateY(2px)}
+  100%{transform:scale(1.08) translateY(-3px)}
+}
+
+/* STAT counter pop */
+.stat-n{transition:transform 0.3s,color 0.3s}
+.stat-n.pop{animation:stat-pop 0.4s ease}
+@keyframes stat-pop{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.3);color:var(--o)}
+  100%{transform:scale(1)}
+}
+
+/* CARD stagger reveal */
+.card{opacity:0;transform:translateY(20px) scale(0.97);
+  animation:card-in 0.4s ease forwards}
+@keyframes card-in{to{opacity:1;transform:translateY(0) scale(1)}}
+
 </style>
 </head>
 <body>
 
+<div class="confetti-container" id="confettiBox"></div>
 <header class="header" id="header">
   <div class="header-inner">
     <div class="logo-wrap"><img src="logo_BC.png" alt="BC"></div>
@@ -464,7 +554,13 @@ body{font-family:'Sarabun',sans-serif;background:#F0EBFF;color:var(--blk);overfl
       <img src="mascot_hero.png" alt="มาสคอต BC">
     </div>
   </div>
-  <div class="stats-bar">
+  <div class="hero-wave">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="#ffffff"/>
+    <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30" fill="none" stroke="#111" stroke-width="2.5"/>
+  </svg>
+</div>
+<div class="stats-bar">
     <div class="stat"><div class="stat-n" id="n1">0</div><div class="stat-l">ช่างในชุมชน</div></div>
     <div class="stat"><div class="stat-n" id="n2">0</div><div class="stat-l">ร้านค้า/บริการ</div></div>
     <div class="stat"><div class="stat-n" id="n3">0</div><div class="stat-l">สถานที่สำคัญ</div></div>
@@ -766,6 +862,7 @@ async function renderCards(cat){
         (d.phone?'<a class="phone-link" href="tel:'+d.phone+'"><i class="ti ti-phone" style="font-size:10px"></i> '+d.phone+'</a>':'')+
       '</div></div>';
   }).join('');
+  staggerCards();
 }
 
 function switchCat(el,cat){
@@ -813,7 +910,7 @@ async function submitForm(){
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify({'_subject':'[BC] สมัครใหม่: '+name,'ประเภท':type,'ชื่อ':name,
         'ผู้ประสานงาน':contact,'เบอร์':phone,'ที่อยู่':area,'LINE':social||'-','รายละเอียด':desc})});
-    if(res.ok){document.getElementById('regForm').style.display='none';document.getElementById('successBox').style.display='block';}
+    if(res.ok){document.getElementById('regForm').style.display='none';document.getElementById('successBox').style.display='block';launchConfetti();}
     else{alert('เกิดข้อผิดพลาด ลองใหม่ครับ');btn.textContent='ส่งข้อมูล';btn.disabled=false;}
   }catch(e){alert('ไม่สามารถส่งได้ ตรวจสอบอินเทอร์เน็ตครับ');btn.textContent='ส่งข้อมูล';btn.disabled=false;}
 }
@@ -837,9 +934,45 @@ var cObs=new IntersectionObserver(function(e){
   if(e[0].isIntersecting&&!cDone){cDone=true;
     function cnt(id,n){var el=document.getElementById(id),s=0,step=n/60,t=setInterval(function(){s+=step;if(s>=n){s=n;clearInterval(t);}el.textContent=Math.floor(s);},16);}
     cnt('n1',24);cnt('n2',38);cnt('n3',12);
+    setTimeout(popStats,1200);
   }
 },{threshold:0.3});
 cObs.observe(document.querySelector('.stats-bar'));
+
+
+// CONFETTI
+function launchConfetti(){
+  var box=document.getElementById('confettiBox');
+  box.innerHTML='';box.classList.add('show');
+  var colors=['#5B21B6','#F59E0B','#111','#fff','#7C3AED','#FCD34D'];
+  for(var i=0;i<80;i++){
+    var p=document.createElement('div');
+    p.className='confetti-piece';
+    var size=Math.random()*10+5;
+    p.style.cssText='left:'+Math.random()*100+'%;width:'+size+'px;height:'+size+'px;'+
+      'background:'+colors[Math.floor(Math.random()*colors.length)]+';'+
+      'border-radius:'+Math.random()*50+'%;'+
+      'animation-duration:'+(Math.random()*2+1.5)+'s;'+
+      'animation-delay:'+(Math.random()*0.8)+'s';
+    box.appendChild(p);
+  }
+  setTimeout(function(){box.classList.remove('show');box.innerHTML='';},4000);
+}
+
+// CARD STAGGER
+function staggerCards(){
+  document.querySelectorAll('#cardList .card').forEach(function(c,i){
+    c.style.animationDelay=(i*0.08)+'s';
+  });
+}
+
+// STAT POP
+function popStats(){
+  ['n1','n2','n3'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){el.classList.add('pop');setTimeout(function(){el.classList.remove('pop');},400);}
+  });
+}
 
 renderCards('ช่าง');
 </script>
