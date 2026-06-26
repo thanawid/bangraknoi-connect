@@ -23,6 +23,18 @@
 html{scroll-behavior:smooth}
 body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);overflow-x:hidden}
 
+
+/* HERO TITLE TYPOGRAPHY */
+.hero-title-wrap{position:relative;margin-bottom:1.5rem;line-height:1}
+.hero-t-main{font-size:clamp(64px,8vw,120px);font-weight:700;
+  background:linear-gradient(135deg,var(--gold),#FBBF24);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;line-height:1;display:block;
+  animation:fade-up 0.6s 0.1s ease both}
+.hero-t-small{font-size:clamp(28px,3.5vw,52px);font-weight:600;
+  color:#fff;display:block;animation:fade-up 0.6s ease both}
+.hero-t-right{text-align:right;animation-delay:0.2s}
+
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:#EDE9FE}
@@ -454,12 +466,12 @@ body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);o
   <div class="hero-content">
     <div class="hero-text">
       <div class="hero-tag"><i class="ti ti-map-pin"></i> ตำบลบางรักน้อย จ.นนทบุรี</div>
-      <h1 class="hero-title">
-        รู้จักชุมชน
-        <em class="line2">บางรักน้อย</em>
-        ให้มากขึ้น
-      </h1>
-      <p class="hero-sub">ศูนย์รวมข้อมูลชุมชน ช่าง ร้านอาหาร สถานที่ท่องเที่ยว อาชีพ และข่าวสาร ครบในที่เดียว</p>
+      <div class="hero-title-wrap">
+        <span class="hero-t-small">รู้จัก</span>
+        <div class="hero-t-main">บางรักน้อย</div>
+        <span class="hero-t-small hero-t-right">ให้มากขึ้น</span>
+      </div>
+      <p class="hero-sub">ศูนย์รวมข้อมูลชุมชน ครบในที่เดียว</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="document.querySelector('.cats-section').scrollIntoView({behavior:'smooth'})">
           <i class="ti ti-grid-dots"></i> ดูทุกหมวดหมู่
