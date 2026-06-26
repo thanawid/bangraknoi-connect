@@ -58,7 +58,14 @@ body{word-break:keep-all;overflow-wrap:break-word;font-family:'Sarabun',sans-ser
 .section-label{font-size:11px;font-weight:600;color:var(--gray-500);letter-spacing:1px;text-transform:uppercase;padding:1.25rem 1.25rem 0.5rem;display:flex;align-items:center;gap:6px}
 .section-label::after{content:'';flex:1;height:0.5px;background:var(--gray-200)}
 .cats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 1.25rem}
-.cat{background:#fff;border:1.5px solid var(--gray-200);border-radius:var(--radius-lg);padding:14px 8px 12px;text-align:center;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden}
+
+.cat{background:#fff;border:1.5px solid var(--gray-200);border-radius:var(--radius-lg);padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.18s;position:relative;overflow:hidden}
+.cat:hover{border-color:#7C3AED;transform:translateY(-2px)}
+.cat.active{border-color:#6B21A8;background:#EDE9FE}
+.cat.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#6B21A8,#F59E0B)}
+.cat img{transition:transform 0.2s}
+.cat:hover img{transform:scale(1.08)}
+
 .cat:hover{border-color:var(--purple-mid);background:var(--purple-light)}
 .cat.active{border-color:var(--purple);background:var(--purple-light)}
 .cat.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--gold-bright))}
@@ -234,6 +241,13 @@ body{word-break:keep-all;overflow-wrap:break-word;font-family:'Sarabun',sans-ser
   .hero-title{font-size:42px}
 }
 
+
+.hero-mascot{display:flex;align-items:flex-end;justify-content:center;padding:0 1rem;overflow:hidden}
+@media(max-width:600px){
+  .hero{grid-template-columns:1fr !important}
+  .hero-mascot{display:none}
+}
+
 </style>
 </head>
 <body>
@@ -259,6 +273,13 @@ body{word-break:keep-all;overflow-wrap:break-word;font-family:'Sarabun',sans-ser
     <i class="ti ti-search search-icon"></i>
     <input type="text" id="mainSearch" placeholder="ค้นหา เช่น ช่างไฟ ร้านอาหาร วัด...">
     <button class="search-ai-btn" onclick="openAI()"><i class="ti ti-sparkles"></i> AI</button>
+  </div>
+  </div>
+  <div style="display:flex;align-items:flex-end;justify-content:center;padding:0 1rem;overflow:hidden">
+    <img src="mascot_hero.png" alt="มาสคอต บางรักน้อย Connect" 
+         style="height:220px;width:auto;object-fit:contain;display:block;
+                filter:drop-shadow(0 8px 24px rgba(0,0,0,0.2));
+                animation:floatDot 3s ease-in-out infinite">
   </div>
 </div>
 
@@ -291,8 +312,37 @@ body{word-break:keep-all;overflow-wrap:break-word;font-family:'Sarabun',sans-ser
 
   <div class="section-label reveal">หมวดหมู่</div>
   <div class="cats">
-    <div class="cat c1 active" onclick="switchCat(this,'ช่าง')">
-      <i class="ti ti-tool cat-icon"></i><div class="cat-name">หาช่างใกล้บ้าน</div><div class="cat-count">24 ราย</div>
+  <div class="cat active" onclick="switchCat(this,'ช่าง')">
+    <img src="mascot_chang.png" alt="ช่าง" style="width:64px;height:64px;object-fit:contain;display:block;margin:0 auto 4px">
+    <div class="cat-name">หาช่างใกล้บ้าน</div>
+    <div class="cat-count">24 ราย</div>
+  </div>
+  <div class="cat c2" onclick="switchCat(this,'ร้านอาหาร')">
+    <img src="mascot_food.png" alt="ร้านอาหาร" style="width:64px;height:64px;object-fit:contain;display:block;margin:0 auto 4px">
+    <div class="cat-name">ร้านอาหาร/ของดี</div>
+    <div class="cat-count">38 ร้าน</div>
+  </div>
+  <div class="cat c3" onclick="switchCat(this,'ท่องเที่ยว')">
+    <img src="mascot_travel.png" alt="ท่องเที่ยว" style="width:64px;height:64px;object-fit:contain;display:block;margin:0 auto 4px">
+    <div class="cat-name">เที่ยวบางรักน้อย</div>
+    <div class="cat-count">12 จุด</div>
+  </div>
+  <div class="cat c4" onclick="switchCat(this,'อาชีพ')">
+    <img src="mascot_career.png" alt="ฝึกอาชีพ" style="width:64px;height:64px;object-fit:contain;display:block;margin:0 auto 4px">
+    <div class="cat-name">ฝึกอาชีพ/กิจกรรม</div>
+    <div class="cat-count">8 หลักสูตร</div>
+  </div>
+  <div class="cat c5" onclick="switchCat(this,'ข่าว')">
+    <img src="mascot_news.png" alt="ข่าวสาร" style="width:64px;height:64px;object-fit:contain;display:block;margin:0 auto 4px">
+    <div class="cat-name">ข่าวสารเทศบาล</div>
+    <div class="cat-count">อัปเดตล่าสุด</div>
+  </div>
+  <div class="cat c6" onclick="openRegModal()">
+    <img src="mascot_register.png" alt="สมัคร" style="width:64px;height:64px;object-fit:contain;display:block;margin:0 auto 4px">
+    <div class="cat-name">สมัครเข้าระบบ</div>
+    <div class="cat-count">เปิดรับสมัคร</div>
+  </div>
+</div><div class="cat-count">24 ราย</div>
     </div>
     <div class="cat c2" onclick="switchCat(this,'ร้านอาหาร')">
       <i class="ti ti-bowl cat-icon"></i><div class="cat-name">ร้านอาหาร/ของดี</div><div class="cat-count">38 ร้าน</div>
