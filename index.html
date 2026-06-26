@@ -4,406 +4,685 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>บางรักน้อย Connect — ศูนย์รวมข้อมูลชุมชน</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="logo_BC.png">
+<link rel="icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
+:root{
+  --purple:#6B21A8;--purple-dark:#4C1D95;--purple-deep:#3B0764;
+  --purple-light:#EDE9FE;--purple-mid:#7C3AED;
+  --gold:#F59E0B;--gold-dark:#D97706;--gold-light:#FEF3C7;
+  --white:#fff;--gray-50:#F9FAFB;--gray-100:#F3F4F6;
+  --gray-200:#E5E7EB;--gray-500:#6B7280;--gray-700:#374151;--gray-900:#111827;
+  --radius:12px;--radius-lg:16px;--radius-xl:24px;
+  --shadow:0 4px 24px rgba(107,33,168,0.12);
+  --shadow-lg:0 8px 40px rgba(107,33,168,0.18);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Sarabun",sans-serif;background:#F5F3FF;color:#111827;min-height:100vh;overflow-x:hidden;word-break:keep-all}
+html{scroll-behavior:smooth}
+body{font-family:'Sarabun',sans-serif;background:#F5F3FF;color:var(--gray-900);overflow-x:hidden}
 
-/* HEADER */
-.header{background:linear-gradient(135deg,#3B0764,#6B21A8);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(76,29,149,0.4)}
-.header-inner{max-width:100%;padding:0.75rem 1.5rem;display:flex;align-items:center;gap:12px}
-.logo-wrap{width:44px;height:44px;border-radius:10px;overflow:hidden;flex-shrink:0;background:transparent}
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#EDE9FE}
+::-webkit-scrollbar-thumb{background:var(--purple);border-radius:3px}
+
+/* ── HEADER ── */
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0}
+.header-inner{max-width:100%;padding:0.75rem 2rem;display:flex;align-items:center;gap:14px;
+  background:rgba(76,29,149,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:0.5px solid rgba(255,255,255,0.1);transition:all 0.3s}
+.header.scrolled .header-inner{padding:0.5rem 2rem;background:rgba(59,7,100,0.95)}
+.logo-wrap{width:42px;height:42px;border-radius:10px;overflow:hidden;flex-shrink:0}
 .logo-wrap img{width:100%;height:100%;object-fit:contain}
-.header-text h1{font-size:17px;font-weight:600;color:#fff}
-.header-text p{font-size:11px;color:rgba(255,255,255,0.7)}
-.header-badge{margin-left:auto;background:rgba(255,255,255,0.15);border:0.5px solid rgba(255,255,255,0.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#fff;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.header-brand h1{font-size:16px;font-weight:600;color:#fff;line-height:1.2}
+.header-brand p{font-size:10px;color:rgba(255,255,255,0.6)}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.live-badge{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.1);
+  border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 12px;font-size:11px;color:#fff}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(1.3)}}
 
-/* HERO */
-.hero{background:linear-gradient(135deg,#3B0764 0%,#6B21A8 100%);padding:2rem 1.5rem 0;display:flex;align-items:flex-end;gap:0;overflow:hidden;position:relative}
-.hero-text{flex:1;padding-bottom:2rem}
-.hero-title{font-size:26px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px}
-.hero-title em{color:#F59E0B;font-style:normal}
-.hero-sub{font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:1.25rem}
-.search-wrap{position:relative;max-width:480px}
-.search-wrap input{width:100%;background:#fff;border:none;border-radius:24px;padding:12px 50px 12px 44px;font-size:14px;font-family:"Sarabun",sans-serif;color:#111;outline:none;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
-.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#6B21A8;font-size:20px}
-.ai-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#4C1D95;color:#fff;border:none;border-radius:16px;padding:6px 14px;font-size:12px;font-family:"Sarabun",sans-serif;cursor:pointer}
-.hero-mascot{flex-shrink:0;align-self:flex-end;margin-right:-8px}
-.hero-mascot img{height:200px;width:auto;object-fit:contain;display:block;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.3))}
+/* ── HERO ── */
+.hero{min-height:100vh;background:linear-gradient(135deg,var(--purple-deep) 0%,var(--purple-dark) 40%,var(--purple) 70%,#8B21C8 100%);
+  display:flex;align-items:center;position:relative;overflow:hidden;padding:100px 0 0}
 
-/* STATS */
-.stats-bar{background:#fff;display:grid;grid-template-columns:repeat(3,1fr);border-bottom:0.5px solid #E5E7EB}
-.stat{text-align:center;padding:0.875rem 0.5rem}
-.stat-n{font-size:22px;font-weight:700;color:#6B21A8}
-.stat-l{font-size:10px;color:#6B7280;margin-top:2px}
+/* particles */
+.particles{position:absolute;inset:0;pointer-events:none}
+.particle{position:absolute;border-radius:50%;background:rgba(245,158,11,0.15);animation:float-particle linear infinite}
+@keyframes float-particle{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-100px) scale(1);opacity:0}}
 
-/* MAIN */
-.main{padding:0 0 80px}
+/* grid bg */
+.hero::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none}
 
-/* AI PANEL */
-.ai-panel{background:linear-gradient(135deg,#EDE9FE,#F0FDF4);border:1px solid rgba(107,33,168,0.15);border-radius:16px;margin:1rem 1.25rem;padding:1rem;display:none}
-.ai-panel.show{display:block}
-.ai-panel-head{display:flex;align-items:center;gap:8px;margin-bottom:0.75rem;font-size:14px;font-weight:500;color:#4C1D95}
-.ai-panel-head i{font-size:18px;color:#7C3AED}
-.close-ai{margin-left:auto;background:none;border:none;color:#9CA3AF;cursor:pointer;font-size:18px}
-.ai-row{display:flex;gap:8px;margin-bottom:0.75rem}
-.ai-row input{flex:1;border:1px solid rgba(107,33,168,0.25);border-radius:10px;padding:9px 12px;font-size:13px;font-family:"Sarabun",sans-serif;color:#111;background:#fff;outline:none}
-.ai-send{background:#6B21A8;color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:13px;font-family:"Sarabun",sans-serif;cursor:pointer}
-.ai-tags{display:flex;gap:6px;flex-wrap:wrap}
-.ai-tag{font-size:11px;padding:4px 10px;border-radius:20px;background:#fff;border:1px solid rgba(107,33,168,0.2);color:#6B21A8;cursor:pointer;font-family:"Sarabun",sans-serif}
-.ai-result{margin-top:0.75rem;background:#fff;border-radius:10px;padding:0.875rem;font-size:13px;line-height:1.7;color:#374151;border-left:3px solid #7C3AED;display:none}
-.ai-result.show{display:block}
+/* glow orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orb-float 8s ease-in-out infinite}
+.orb-1{width:400px;height:400px;background:rgba(245,158,11,0.12);top:-100px;right:-100px}
+.orb-2{width:300px;height:300px;background:rgba(124,58,237,0.2);bottom:50px;left:-50px;animation-delay:-4s}
+.orb-3{width:200px;height:200px;background:rgba(245,158,11,0.08);top:40%;left:30%;animation-delay:-2s}
+@keyframes orb-float{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
 
-/* CATS */
-.section-label{font-size:11px;font-weight:600;color:#6B7280;letter-spacing:1px;padding:1.25rem 1.25rem 0.5rem;display:flex;align-items:center;gap:6px}
-.section-label::after{content:"";flex:1;height:0.5px;background:#E5E7EB}
-.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 1.25rem}
-.cat{background:#fff;border:1.5px solid #E5E7EB;border-radius:14px;padding:10px 6px 8px;text-align:center;cursor:pointer;transition:all 0.18s;position:relative;overflow:hidden}
-.cat:hover{border-color:#7C3AED;transform:translateY(-2px)}
-.cat.active{border-color:#6B21A8;background:#EDE9FE}
-.cat.active::after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#6B21A8,#F59E0B)}
-.cat img{width:56px;height:56px;object-fit:contain;display:block;margin:0 auto 4px;transition:transform 0.2s}
-.cat:hover img{transform:scale(1.08)}
-.cat-name{font-size:10px;color:#374151;font-weight:500;line-height:1.3}
-.cat-count{font-size:9px;color:#9CA3AF;margin-top:1px}
+.hero-content{position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;align-items:flex-end;width:100%;max-width:100%;padding:0 3rem 0}
+.hero-text{padding-bottom:3rem}
 
-/* CARDS */
-.list-head{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.25rem 0.625rem}
-.list-head h2{font-size:15px;font-weight:600;color:#111;display:flex;align-items:center;gap:6px}
-.list-head h2 i{font-size:17px;color:#6B21A8}
-.list-head a{font-size:12px;color:#6B21A8;cursor:pointer;text-decoration:none}
-.card-list{padding:0 1.25rem}
-.card{background:#fff;border:1px solid #DDD6FE;border-radius:14px;padding:0.875rem 1rem;margin-bottom:10px;display:flex;gap:10px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(107,33,168,0.06);min-width:0;overflow:hidden}
-.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(107,33,168,0.12)}
-.card-thumb{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.15);
+  border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:6px 14px;
+  font-size:12px;color:var(--gold);margin-bottom:1.5rem;animation:fade-up 0.6s ease both}
+.hero-tag i{font-size:14px}
+
+.hero-title{font-size:clamp(36px,5vw,72px);font-weight:700;color:#fff;line-height:1.1;
+  margin-bottom:1.25rem;animation:fade-up 0.6s 0.1s ease both}
+.hero-title .line2{display:block;background:linear-gradient(135deg,var(--gold),#FBBF24);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.7);margin-bottom:2.5rem;
+  line-height:1.7;max-width:500px;animation:fade-up 0.6s 0.2s ease both}
+
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;animation:fade-up 0.6s 0.3s ease both}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;
+  border:none;border-radius:var(--radius);padding:14px 28px;font-size:15px;
+  font-family:'Sarabun',sans-serif;font-weight:600;cursor:pointer;
+  display:flex;align-items:center;gap:8px;transition:all 0.2s;
+  box-shadow:0 4px 20px rgba(245,158,11,0.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(245,158,11,0.5)}
+.btn-secondary{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.25);
+  border-radius:var(--radius);padding:14px 28px;font-size:15px;
+  font-family:'Sarabun',sans-serif;font-weight:500;cursor:pointer;
+  display:flex;align-items:center;gap:8px;transition:all 0.2s;backdrop-filter:blur(8px)}
+.btn-secondary:hover{background:rgba(255,255,255,0.2);transform:translateY(-2px)}
+
+/* hero search */
+.hero-search{margin-top:2rem;animation:fade-up 0.6s 0.4s ease both}
+.search-box{display:flex;align-items:center;background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.2);border-radius:50px;
+  padding:6px 6px 6px 20px;backdrop-filter:blur(16px);max-width:520px;
+  transition:all 0.3s}
+.search-box:focus-within{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.4);
+  box-shadow:0 0 0 4px rgba(245,158,11,0.2)}
+.search-box i{color:rgba(255,255,255,0.5);font-size:20px;margin-right:10px}
+.search-box input{flex:1;background:none;border:none;outline:none;font-size:15px;
+  font-family:'Sarabun',sans-serif;color:#fff;min-width:0}
+.search-box input::placeholder{color:rgba(255,255,255,0.4)}
+.search-submit{background:var(--gold);color:#fff;border:none;border-radius:40px;
+  padding:10px 20px;font-size:13px;font-family:'Sarabun',sans-serif;
+  font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s;
+  display:flex;align-items:center;gap:6px}
+.search-submit:hover{background:var(--gold-dark)}
+
+/* hero mascot */
+.hero-mascot{flex-shrink:0;align-self:flex-end;position:relative}
+.hero-mascot img{height:clamp(240px,30vw,420px);width:auto;object-fit:contain;
+  display:block;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+  animation:mascot-float 3s ease-in-out infinite}
+@keyframes mascot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+
+/* hero stats strip */
+.hero-stats{position:absolute;bottom:0;left:0;right:0;
+  background:rgba(255,255,255,0.06);backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,0.1);
+  display:grid;grid-template-columns:repeat(3,1fr);z-index:2}
+.hero-stat{padding:1.5rem 2rem;text-align:center;border-right:1px solid rgba(255,255,255,0.08)}
+.hero-stat:last-child{border-right:none}
+.hero-stat-n{font-size:36px;font-weight:700;color:#fff;line-height:1;display:block}
+.hero-stat-n span{background:linear-gradient(135deg,var(--gold),#FBBF24);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-stat-l{font-size:12px;color:rgba(255,255,255,0.55);margin-top:4px;display:block}
+
+@keyframes fade-up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTION COMMON ── */
+.section{padding:5rem 0}
+.section-inner{max-width:100%;padding:0 3rem}
+.section-tag{display:inline-flex;align-items:center;gap:6px;background:var(--purple-light);
+  border-radius:20px;padding:5px 14px;font-size:12px;color:var(--purple);
+  font-weight:500;margin-bottom:1rem}
+.section-tag i{font-size:14px}
+.section-title{font-size:clamp(24px,3vw,40px);font-weight:700;color:var(--gray-900);
+  margin-bottom:0.75rem;line-height:1.2}
+.section-title em{color:var(--purple);font-style:normal}
+.section-sub{font-size:15px;color:var(--gray-500);line-height:1.7;max-width:560px}
+
+/* ── CATEGORIES ── */
+.cats-section{background:#fff;padding:4rem 0}
+.cats-header{display:flex;justify-content:space-between;align-items:flex-end;
+  padding:0 3rem;margin-bottom:2rem}
+.view-all{font-size:13px;color:var(--purple);font-weight:500;cursor:pointer;
+  display:flex;align-items:center;gap:4px;text-decoration:none;
+  transition:gap 0.2s}
+.view-all:hover{gap:8px}
+
+.cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 3rem}
+.cat-card{background:var(--gray-50);border:1.5px solid var(--gray-200);
+  border-radius:var(--radius-lg);padding:1.5rem 1rem;text-align:center;
+  cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden}
+.cat-card::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--purple-dark),var(--purple));
+  opacity:0;transition:opacity 0.25s}
+.cat-card:hover,.cat-card.active{border-color:var(--purple);
+  box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.cat-card:hover::before,.cat-card.active::before{opacity:1}
+.cat-card:hover .cat-img,.cat-card.active .cat-img{transform:scale(1.1) translateY(-4px)}
+.cat-card:hover .cat-name,.cat-card.active .cat-name{color:#fff}
+.cat-card:hover .cat-count,.cat-card.active .cat-count{color:rgba(255,255,255,0.7)}
+.cat-card:hover .cat-badge,.cat-card.active .cat-badge{background:rgba(255,255,255,0.2);color:#fff}
+.cat-img-wrap{position:relative;z-index:1}
+.cat-img{width:72px;height:72px;object-fit:contain;display:block;
+  margin:0 auto 12px;transition:transform 0.3s}
+.cat-name{font-size:13px;font-weight:600;color:var(--gray-900);
+  margin-bottom:4px;position:relative;z-index:1;transition:color 0.25s}
+.cat-count{font-size:11px;color:var(--gray-500);position:relative;z-index:1;transition:color 0.25s}
+.cat-badge{display:inline-block;background:var(--purple-light);color:var(--purple);
+  border-radius:20px;padding:2px 8px;font-size:10px;font-weight:500;
+  margin-top:6px;position:relative;z-index:1;transition:all 0.25s}
+
+/* ── CARDS ── */
+.cards-section{padding:4rem 0;background:var(--gray-50)}
+.cards-header{display:flex;justify-content:space-between;align-items:center;
+  padding:0 3rem;margin-bottom:1.5rem}
+.cards-title{font-size:20px;font-weight:600;color:var(--gray-900);
+  display:flex;align-items:center;gap:8px}
+.cards-title i{font-size:22px;color:var(--purple)}
+
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 3rem}
+.card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);
+  padding:1.25rem;cursor:pointer;transition:all 0.25s;
+  box-shadow:0 1px 4px rgba(0,0,0,0.04);position:relative;overflow:hidden}
+.card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(135deg,var(--purple),var(--gold));
+  transform:scaleY(0);transition:transform 0.25s;transform-origin:bottom}
+.card:hover{border-color:rgba(107,33,168,0.3);box-shadow:var(--shadow);transform:translateY(-3px)}
+.card:hover::after{transform:scaleY(1)}
+.card-top{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.card-thumb{width:52px;height:52px;border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:24px}
 .t-purple{background:#EDE9FE;color:#7C3AED}
 .t-gold{background:#FEF3C7;color:#D97706}
 .t-green{background:#DCFCE7;color:#15803D}
 .t-blue{background:#E0F2FE;color:#0369A1}
 .t-pink{background:#FCE7F3;color:#BE185D}
-.card-body{flex:1;min-width:0}
-.card-body h3{font-size:13px;font-weight:600;color:#111;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.card-body p{font-size:11px;color:#6B7280;line-height:1.5;margin-bottom:5px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.card-meta{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
-.badge{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:500;white-space:nowrap}
+.card-info h3{font-size:14px;font-weight:600;color:var(--gray-900);margin-bottom:3px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card-info p{font-size:12px;color:var(--gray-500);line-height:1.5;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.card-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.badge{font-size:10px;padding:3px 8px;border-radius:20px;font-weight:500;white-space:nowrap}
 .b-purple{background:#EDE9FE;color:#4C1D95}
-.b-gold{background:#FEF3C7;color:#92400E}
 .b-green{background:#DCFCE7;color:#166534}
+.b-gold{background:#FEF3C7;color:#92400E}
 .b-blue{background:#E0F2FE;color:#1E40AF}
 .b-gray{background:#F3F4F6;color:#6B7280}
-.verified{font-size:9px;color:#15803D;background:#DCFCE7;padding:2px 6px;border-radius:20px;display:inline-flex;align-items:center;gap:2px;white-space:nowrap}
-.phone-link{font-size:10px;color:#6B21A8;display:flex;align-items:center;gap:2px;text-decoration:none;white-space:nowrap}
-.empty-state{text-align:center;padding:2rem 1rem;color:#9CA3AF}
-.empty-state .icon{font-size:32px;display:block;margin-bottom:8px}
-.empty-state p{font-size:13px}
+.verified{font-size:10px;color:#15803D;background:#DCFCE7;padding:3px 8px;
+  border-radius:20px;display:inline-flex;align-items:center;gap:3px}
+.phone-link{font-size:11px;color:var(--purple);display:flex;align-items:center;gap:3px;
+  text-decoration:none;font-weight:500}
+.loading-card{text-align:center;padding:3rem;color:var(--gray-500);
+  grid-column:1/-1;font-size:14px}
+.loading-card i{font-size:32px;display:block;margin-bottom:8px;color:var(--purple);
+  animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-card{text-align:center;padding:3rem;grid-column:1/-1}
+.empty-card i{font-size:48px;color:var(--gray-200);display:block;margin-bottom:12px}
+.empty-card p{font-size:14px;color:var(--gray-500)}
 
-/* MAP */
-.map-section{padding:0 1.25rem 1rem}
-.map-label{font-size:12px;font-weight:600;color:#6B7280;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.map-label i{color:#6B21A8;font-size:14px}
-.map-embed{width:100%;height:260px;border-radius:14px;border:none;box-shadow:0 2px 12px rgba(107,33,168,0.1)}
-.map-link{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#EDE9FE,#FEF3C7);border:1px solid rgba(107,33,168,0.15);border-radius:14px;padding:1rem 1.125rem;margin-top:8px;cursor:pointer;text-decoration:none}
-.map-link-icon{width:44px;height:44px;background:#6B21A8;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.map-link-icon i{font-size:22px;color:#fff}
-.map-link h3{font-size:13px;font-weight:600;color:#4C1D95}
-.map-link p{font-size:11px;color:#6B7280;margin-top:2px}
-.map-link i.arr{margin-left:auto;color:#6B21A8;font-size:18px}
+/* ── MAP SECTION ── */
+.map-section{padding:4rem 3rem;background:#fff}
+.map-wrap{border-radius:var(--radius-xl);overflow:hidden;
+  box-shadow:var(--shadow-lg);margin-top:1.5rem;position:relative}
+.map-embed{width:100%;height:380px;border:none;display:block}
+.map-overlay{position:absolute;bottom:1rem;left:1rem;right:1rem;
+  background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);
+  border-radius:var(--radius);padding:1rem 1.25rem;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.1)}
+.map-overlay-icon{width:40px;height:40px;background:var(--purple);
+  border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.map-overlay-icon i{font-size:20px;color:#fff}
+.map-overlay h3{font-size:14px;font-weight:600;color:var(--gray-900)}
+.map-overlay p{font-size:12px;color:var(--gray-500)}
+.map-overlay-arr{margin-left:auto;color:var(--purple)}
 
-/* REGISTER */
-.reg-block{margin:0.5rem 1.25rem;background:linear-gradient(135deg,#4C1D95,#6B21A8);border-radius:16px;padding:1.25rem;color:#fff;position:relative;overflow:hidden}
-.reg-block::before{content:"";position:absolute;top:-20px;right:-20px;width:100px;height:100px;background:rgba(255,255,255,0.05);border-radius:50%}
-.reg-block h3{font-size:14px;font-weight:600;margin-bottom:4px;position:relative}
-.reg-block p{font-size:12px;color:rgba(255,255,255,0.75);margin-bottom:1rem;line-height:1.5;position:relative}
-.reg-btns{display:flex;gap:8px;flex-wrap:wrap;position:relative}
-.btn-gold{background:#F59E0B;color:#fff;border:none;border-radius:10px;padding:8px 16px;font-size:12px;font-family:"Sarabun",sans-serif;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px}
-.btn-outline{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:10px;padding:8px 16px;font-size:12px;font-family:"Sarabun",sans-serif;cursor:pointer;display:flex;align-items:center;gap:5px}
+/* ── REGISTER SECTION ── */
+.reg-section{padding:5rem 3rem;background:linear-gradient(135deg,var(--purple-deep),var(--purple-dark),var(--purple));
+  position:relative;overflow:hidden}
+.reg-section::before{content:'';position:absolute;top:-100px;right:-100px;
+  width:500px;height:500px;border-radius:50%;
+  background:rgba(245,158,11,0.08);pointer-events:none}
+.reg-section::after{content:'';position:absolute;bottom:-80px;left:-60px;
+  width:300px;height:300px;border-radius:50%;
+  background:rgba(255,255,255,0.04);pointer-events:none}
+.reg-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:3rem}
+.reg-text h2{font-size:clamp(24px,3vw,40px);font-weight:700;color:#fff;margin-bottom:0.75rem}
+.reg-text h2 em{color:var(--gold);font-style:normal}
+.reg-text p{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:500px}
+.reg-features{display:flex;flex-direction:column;gap:10px;margin-top:1.5rem}
+.reg-feature{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.8)}
+.reg-feature i{color:var(--gold);font-size:16px}
+.reg-actions{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+.reg-mascot{position:absolute;right:3rem;bottom:0}
+.reg-mascot img{height:280px;width:auto;object-fit:contain;
+  filter:drop-shadow(0 10px 30px rgba(0,0,0,0.3))}
 
-/* FOOTER */
-.footer{text-align:center;padding:1.5rem 1.25rem 0.5rem;font-size:11px;color:#6B7280;line-height:1.9}
-.version-badge{display:inline-block;margin-top:8px;background:#EDE9FE;color:#6B21A8;border:1px solid rgba(107,33,168,0.2);border-radius:20px;padding:3px 14px;font-size:11px;font-weight:600}
+/* ── FOOTER ── */
+.footer{background:var(--purple-deep);padding:3rem;
+  border-top:1px solid rgba(255,255,255,0.08)}
+.footer-inner{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2rem}
+.footer-logo{display:flex;align-items:center;gap:10px}
+.footer-logo img{width:36px;height:36px;object-fit:contain}
+.footer-logo-text h3{font-size:15px;font-weight:600;color:#fff}
+.footer-logo-text p{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px}
+.footer-legal{font-size:11px;color:rgba(255,255,255,0.4);line-height:1.8;margin-top:1rem;max-width:600px}
+.footer-version{display:inline-block;background:rgba(245,158,11,0.15);
+  border:1px solid rgba(245,158,11,0.3);color:var(--gold);
+  border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;margin-top:0.75rem}
+.footer-right{text-align:right}
+.footer-right p{font-size:11px;color:rgba(255,255,255,0.3)}
 
-/* MODAL */
-.modal-overlay{display:none;background:rgba(76,29,149,0.4);padding:1rem;min-height:400px;align-items:flex-start;justify-content:center;padding-top:2rem}
+/* ── MODAL ── */
+.modal-overlay{display:none;padding:1rem;min-height:100vh;
+  align-items:flex-start;justify-content:center;padding-top:80px;
+  background:rgba(59,7,100,0.6);backdrop-filter:blur(8px)}
 .modal-overlay.show{display:flex}
-.modal-sheet{background:#fff;border-radius:20px;width:100%;max-width:560px;overflow:hidden}
-.modal-inner{padding:1.5rem 1.25rem 2rem;max-height:80vh;overflow-y:auto}
-.modal-handle{width:40px;height:4px;background:#E5E7EB;border-radius:4px;margin:0 auto 1.25rem}
-.modal-title{font-size:17px;font-weight:600;color:#111;margin-bottom:4px}
-.modal-sub{font-size:12px;color:#6B7280;margin-bottom:1.25rem;line-height:1.6}
-.modal-close{float:right;background:none;border:none;font-size:22px;color:#9CA3AF;cursor:pointer;margin-top:-4px}
-.disclaimer-box{background:#FEF3C7;border:1px solid #FDE68A;border-radius:10px;padding:0.875rem;margin-bottom:1rem;font-size:12px;color:#92400E;line-height:1.7}
-.legal-box{background:#EDE9FE;border:1px solid #DDD6FE;border-radius:10px;padding:0.875rem;margin-bottom:1rem;font-size:11px;color:#4C1D95;line-height:1.8}
-.form-group{margin-bottom:0.875rem}
-.form-label{font-size:13px;font-weight:500;color:#374151;margin-bottom:5px;display:block}
-.form-label span{color:#DC2626;margin-left:2px}
-.form-input,.form-select,.form-textarea{width:100%;border:1px solid #E5E7EB;border-radius:10px;padding:9px 12px;font-size:13px;font-family:"Sarabun",sans-serif;color:#111;outline:none;background:#fff}
-.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:#7C3AED}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-sheet{background:#fff;border-radius:var(--radius-xl);width:100%;max-width:580px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden}
+.modal-header{background:linear-gradient(135deg,var(--purple-dark),var(--purple));
+  padding:1.5rem 1.5rem 1.25rem;position:relative}
+.modal-header-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.15);
+  border:none;border-radius:8px;width:32px;height:32px;display:flex;align-items:center;
+  justify-content:center;cursor:pointer;color:#fff;font-size:18px}
+.modal-header h2{font-size:18px;font-weight:600;color:#fff;margin-bottom:4px}
+.modal-header p{font-size:12px;color:rgba(255,255,255,0.7)}
+.modal-body{padding:1.5rem;max-height:70vh;overflow-y:auto}
+.disclaimer{background:#FEF3C7;border-left:4px solid var(--gold);
+  border-radius:0 8px 8px 0;padding:0.875rem 1rem;margin-bottom:1.25rem;
+  font-size:12px;color:#92400E;line-height:1.7}
+.legal-box{background:var(--purple-light);border-radius:var(--radius);
+  padding:0.875rem 1rem;margin-bottom:1.25rem;font-size:11px;
+  color:var(--purple-dark);line-height:1.8}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{margin-bottom:1rem}
+.form-label{font-size:12px;font-weight:600;color:var(--gray-700);
+  margin-bottom:5px;display:flex;align-items:center;gap:4px}
+.req{color:#DC2626}
+.form-input,.form-select,.form-textarea{width:100%;border:1.5px solid var(--gray-200);
+  border-radius:10px;padding:10px 12px;font-size:13px;
+  font-family:'Sarabun',sans-serif;color:var(--gray-900);outline:none;
+  background:#fff;transition:border-color 0.2s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--purple-mid)}
 .form-textarea{resize:vertical;min-height:80px}
-.consent-box{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:10px;padding:0.875rem;margin-bottom:1.25rem}
-.consent-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.consent-wrap{background:var(--gray-50);border-radius:var(--radius);
+  padding:1rem;margin-bottom:1.25rem}
+.consent-item{display:flex;gap:10px;margin-bottom:10px}
 .consent-item:last-child{margin-bottom:0}
-.consent-item input[type=checkbox]{margin-top:3px;accent-color:#6B21A8;flex-shrink:0}
-.consent-item label{font-size:11px;color:#374151;line-height:1.6;cursor:pointer}
-.submit-btn{width:100%;background:linear-gradient(135deg,#4C1D95,#6B21A8);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-family:"Sarabun",sans-serif;font-weight:600;cursor:pointer}
-.submit-btn:disabled{opacity:0.5;cursor:not-allowed}
-.cancel-btn{width:100%;background:#F3F4F6;color:#6B7280;border:none;border-radius:12px;padding:12px;font-size:14px;font-family:"Sarabun",sans-serif;cursor:pointer;margin-top:8px}
-.success-box{text-align:center;padding:2rem 1rem;display:none}
-.success-box .icon{font-size:56px;margin-bottom:1rem;display:block}
-.success-box h3{font-size:18px;font-weight:600;color:#111;margin-bottom:8px}
-.success-box p{font-size:13px;color:#6B7280;line-height:1.7}
+.consent-item input{margin-top:3px;accent-color:var(--purple);flex-shrink:0}
+.consent-item label{font-size:11px;color:var(--gray-700);line-height:1.6}
+.modal-actions{display:flex;flex-direction:column;gap:8px}
+.btn-submit{width:100%;background:linear-gradient(135deg,var(--purple-dark),var(--purple));
+  color:#fff;border:none;border-radius:var(--radius);padding:14px;
+  font-size:15px;font-family:'Sarabun',sans-serif;font-weight:600;cursor:pointer;
+  transition:opacity 0.2s}
+.btn-submit:disabled{opacity:0.5;cursor:not-allowed}
+.btn-cancel{width:100%;background:var(--gray-100);color:var(--gray-500);
+  border:none;border-radius:var(--radius);padding:12px;
+  font-size:14px;font-family:'Sarabun',sans-serif;cursor:pointer}
+.success-state{text-align:center;padding:3rem 2rem;display:none}
+.success-state .s-icon{font-size:64px;display:block;margin-bottom:1rem}
+.success-state h3{font-size:20px;font-weight:700;color:var(--gray-900);margin-bottom:8px}
+.success-state p{font-size:14px;color:var(--gray-500);line-height:1.7}
 
-/* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:0.5px solid #E5E7EB;padding:0.5rem 0 0.75rem;z-index:100;box-shadow:0 -4px 16px rgba(0,0,0,0.06)}
-.bottom-nav-inner{max-width:100%;display:grid;grid-template-columns:repeat(4,1fr)}
-.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px;background:none;border:none;cursor:pointer;font-family:"Sarabun",sans-serif}
-.nav-btn i{font-size:22px;color:#6B7280}
-.nav-btn span{font-size:10px;color:#6B7280}
-.nav-btn.active i,.nav-btn.active span{color:#6B21A8}
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(20px);border-top:1px solid var(--gray-200);
+  padding:0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom));
+  z-index:100;display:none}
+.bottom-nav-inner{display:grid;grid-template-columns:repeat(4,1fr)}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:6px;background:none;border:none;cursor:pointer;
+  font-family:'Sarabun',sans-serif;transition:all 0.15s}
+.nav-btn i{font-size:22px;color:var(--gray-500)}
+.nav-btn span{font-size:10px;color:var(--gray-500)}
+.nav-btn.active i,.nav-btn.active span{color:var(--purple)}
 
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-@keyframes floatUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
-.hero-title{animation:fadeUp 0.6s ease both}
-.hero-sub{animation:fadeUp 0.6s 0.1s ease both}
-.search-wrap{animation:fadeUp 0.6s 0.2s ease both}
-.hero-mascot img{animation:floatUp 3s ease-in-out infinite}
-.header-badge{animation:pulse 3s ease-in-out infinite}
-.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease}
+/* ── AI PANEL ── */
+.ai-panel{display:none;background:var(--gray-50);
+  border-top:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);
+  padding:1.25rem 3rem}
+.ai-panel.show{display:block}
+.ai-panel-inner{max-width:680px}
+.ai-panel-head{display:flex;align-items:center;gap:8px;
+  font-size:14px;font-weight:600;color:var(--purple);margin-bottom:0.875rem}
+.ai-panel-head i{font-size:18px}
+.ai-close{margin-left:auto;background:none;border:none;
+  color:var(--gray-500);cursor:pointer;font-size:20px}
+.ai-row{display:flex;gap:8px;margin-bottom:0.75rem}
+.ai-row input{flex:1;border:1.5px solid var(--gray-200);border-radius:50px;
+  padding:10px 16px;font-size:13px;font-family:'Sarabun',sans-serif;
+  outline:none;color:var(--gray-900)}
+.ai-row input:focus{border-color:var(--purple-mid)}
+.ai-send{background:var(--purple);color:#fff;border:none;border-radius:50px;
+  padding:10px 20px;font-size:13px;font-family:'Sarabun',sans-serif;
+  font-weight:500;cursor:pointer;white-space:nowrap}
+.ai-tags{display:flex;gap:6px;flex-wrap:wrap}
+.ai-tag{font-size:11px;padding:5px 12px;border-radius:20px;background:#fff;
+  border:1px solid var(--gray-200);color:var(--gray-700);cursor:pointer;
+  font-family:'Sarabun',sans-serif;transition:all 0.15s}
+.ai-tag:hover{border-color:var(--purple);color:var(--purple);background:var(--purple-light)}
+.ai-result{margin-top:0.875rem;background:#fff;border-radius:var(--radius);
+  padding:1rem 1.25rem;font-size:13px;line-height:1.8;color:var(--gray-700);
+  border-left:4px solid var(--purple);display:none}
+.ai-result.show{display:block}
+
+/* ── ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(32px);
+  transition:opacity 0.6s ease,transform 0.6s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
 
-/* RESPONSIVE */
-@media(max-width:480px){
-  .hero{padding:1.5rem 1.25rem 0}
-  .hero-title{font-size:22px}
-  .hero-mascot img{height:160px}
-  .cats{grid-template-columns:repeat(3,1fr);gap:6px}
-  .cat img{width:44px;height:44px}
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .header-inner{padding:0.625rem 1.25rem}
+  .hero-content{grid-template-columns:1fr;padding:0 1.25rem 80px}
+  .hero-mascot{display:none}
+  .hero-stats{grid-template-columns:repeat(3,1fr)}
+  .hero-stat{padding:1rem}
+  .hero-stat-n{font-size:24px}
+  .cats-grid{grid-template-columns:repeat(4,1fr);padding:0 1.25rem;gap:10px}
+  .cats-header{padding:0 1.25rem}
+  .cat-img{width:52px;height:52px}
+  .cards-grid{grid-template-columns:1fr;padding:0 1.25rem}
+  .cards-header{padding:0 1.25rem}
+  .map-section{padding:3rem 1.25rem}
+  .reg-section{padding:3rem 1.25rem}
+  .reg-inner{grid-template-columns:1fr}
+  .reg-mascot{display:none}
+  .footer{padding:2rem 1.25rem}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-right{text-align:left}
+  .ai-panel{padding:1.25rem}
+  .bottom-nav{display:block}
+  .section-inner{padding:0 1.25rem}
+  .hero-title{font-size:32px}
+  .hero-sub{font-size:15px}
+  .btn-primary,.btn-secondary{padding:12px 20px;font-size:14px}
 }
-@media(min-width:640px){
-  .hero-title{font-size:30px}
-  .hero-mascot img{height:240px}
-  .cats{grid-template-columns:repeat(8,1fr)}
-  .card-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .card-list .card{margin-bottom:0}
-  .stat-n{font-size:26px}
+@media(min-width:769px) and (max-width:1024px){
+  .cats-grid{grid-template-columns:repeat(4,1fr)}
+  .cards-grid{grid-template-columns:repeat(2,1fr)}
 }
-@media(min-width:960px){
-  .hero-title{font-size:36px}
-  .hero-mascot img{height:280px}
-  .hero{padding:2.5rem 3rem 0}
-  .header-inner{padding:0.75rem 3rem}
-  .stats-bar{display:flex;justify-content:center;gap:8rem;padding:1rem 3rem}
-  .section-label{padding:1.5rem 3rem 0.5rem}
-  .list-head{padding:1.5rem 3rem 0.75rem}
-  .cats{padding:0 3rem;gap:12px}
-  .cat img{width:64px;height:64px}
-  .card-list{padding:0 3rem;grid-template-columns:1fr 1fr 1fr;gap:12px}
-  .ai-panel,.reg-block,.map-section{margin-left:3rem;margin-right:3rem}
-  .footer{padding:1.5rem 3rem}
+@media(min-width:1024px){
+  .cats-grid{grid-template-columns:repeat(8,1fr)}
+  .cards-grid{grid-template-columns:repeat(3,1fr)}
 }
-@media(min-width:1280px){
-  .hero{padding:3rem 5rem 0}
-  .header-inner{padding:0.75rem 4rem}
-  .stats-bar{gap:12rem;padding:1rem 5rem}
-  .section-label{padding:1.5rem 5rem 0.5rem}
-  .list-head{padding:1.5rem 5rem 0.75rem}
-  .cats{padding:0 5rem}
-  .card-list{padding:0 5rem;grid-template-columns:repeat(4,1fr)}
-  .ai-panel,.reg-block,.map-section{margin-left:5rem;margin-right:5rem}
-  .footer{padding:1.5rem 5rem}
-  .hero-mascot img{height:320px}
-  .hero-title{font-size:42px}
+@media(min-width:1440px){
+  .cards-grid{grid-template-columns:repeat(4,1fr)}
+  .section-inner,.cats-header,.cards-header,.map-section,
+  .reg-section,.footer,.ai-panel{max-width:1440px;margin-left:auto;margin-right:auto}
 }
 </style>
 </head>
 <body>
 
-<div class="header">
+<!-- HEADER -->
+<header class="header" id="header">
   <div class="header-inner">
-    <div class="logo-wrap"><img src="logo_BC.png" alt="โลโก้บางรักน้อย Connect"></div>
-    <div class="header-text">
+    <div class="logo-wrap"><img src="logo_BC.png" alt="BC"></div>
+    <div class="header-brand">
       <h1>บางรักน้อย Connect</h1>
       <p>เทศบาลเมืองบางรักน้อย จ.นนทบุรี</p>
     </div>
-    <div class="header-badge"><i class="ti ti-circle-filled" style="font-size:8px;color:#4ADE80"></i> เปิดให้บริการ</div>
-  </div>
-</div>
-
-<div class="hero">
-  <div class="hero-text">
-    <h1 class="hero-title">รู้จัก<em>บางรักน้อย</em>ให้มากขึ้น</h1>
-    <p class="hero-sub">ศูนย์รวมข้อมูลชุมชน ครบในที่เดียว</p>
-    <div class="search-wrap">
-      <i class="ti ti-search search-icon"></i>
-      <input type="text" id="mainSearch" placeholder="ค้นหา เช่น ช่างไฟ ร้านอาหาร วัด...">
-      <button class="ai-btn" onclick="openAI()">✦ AI</button>
+    <div class="header-right">
+      <div class="live-badge">
+        <span class="live-dot"></span>
+        เปิดให้บริการ
+      </div>
     </div>
   </div>
-  <div class="hero-mascot">
-    <img src="mascot_hero.png" alt="มาสคอต บางรักน้อย Connect">
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="particles" id="particles"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-tag"><i class="ti ti-map-pin"></i> ตำบลบางรักน้อย จ.นนทบุรี</div>
+      <h1 class="hero-title">
+        รู้จักชุมชน
+        <em class="line2">บางรักน้อย</em>
+        ให้มากขึ้น
+      </h1>
+      <p class="hero-sub">ศูนย์รวมข้อมูลชุมชน ช่าง ร้านอาหาร สถานที่ท่องเที่ยว อาชีพ และข่าวสาร ครบในที่เดียว</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.querySelector('.cats-section').scrollIntoView({behavior:'smooth'})">
+          <i class="ti ti-grid-dots"></i> ดูทุกหมวดหมู่
+        </button>
+        <button class="btn-secondary" onclick="openAI()">
+          <i class="ti ti-sparkles"></i> ถาม AI
+        </button>
+      </div>
+      <div class="hero-search">
+        <div class="search-box">
+          <i class="ti ti-search"></i>
+          <input type="text" id="mainSearch" placeholder="ค้นหา เช่น ช่างไฟ ร้านข้าวต้ม วัดบางรักน้อย...">
+          <button class="search-submit" onclick="doSearch()">
+            <i class="ti ti-sparkles"></i> AI ค้นหา
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-mascot">
+      <img src="mascot_hero.png" alt="มาสคอต BC">
+    </div>
   </div>
-</div>
 
-<div class="stats-bar">
-  <div class="stat"><div class="stat-n" id="statCraft">24</div><div class="stat-l">ช่างในชุมชน</div></div>
-  <div class="stat"><div class="stat-n" id="statShop">38</div><div class="stat-l">ร้านค้า/บริการ</div></div>
-  <div class="stat"><div class="stat-n" id="statPlace">12</div><div class="stat-l">สถานที่สำคัญ</div></div>
-</div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-n"><span id="n1">0</span>+</span>
+      <span class="hero-stat-l">ช่างในชุมชน</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-n"><span id="n2">0</span>+</span>
+      <span class="hero-stat-l">ร้านค้า/บริการ</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-n"><span id="n3">0</span>+</span>
+      <span class="hero-stat-l">สถานที่สำคัญ</span>
+    </div>
+  </div>
+</section>
 
-<div class="main">
-
+<!-- AI PANEL -->
 <div class="ai-panel" id="aiPanel">
-  <div class="ai-panel-head">
-    <i class="ti ti-sparkles"></i> ผู้ช่วย AI — ถามอะไรก็ได้เกี่ยวกับชุมชน
-    <button class="close-ai" onclick="closeAI()"><i class="ti ti-x"></i></button>
-  </div>
-  <div class="ai-row">
-    <input type="text" id="aiInput" placeholder="เช่น หาช่างประปาด่วน...">
-    <button class="ai-send" onclick="askAI()">ถาม</button>
-  </div>
-  <div class="ai-tags">
-    <span class="ai-tag" onclick="setQ('หาช่างไฟฟ้าใกล้บ้าน')">⚡ ช่างไฟ</span>
-    <span class="ai-tag" onclick="setQ('ร้านอาหารเปิดเย็น')">🍜 ร้านเย็น</span>
-    <span class="ai-tag" onclick="setQ('จุดเช็คอินบางรักน้อย')">📍 เช็คอิน</span>
-    <span class="ai-tag" onclick="setQ('อบรมอาชีพฟรี')">🎓 อบรมฟรี</span>
-    <span class="ai-tag" onclick="setQ('ข่าวสารล่าสุด')">📢 ข่าว</span>
-  </div>
-  <div class="ai-result" id="aiResult"></div>
-</div>
-
-<div class="section-label reveal">หมวดหมู่</div>
-<div class="cats reveal">
-  <div class="cat active" onclick="switchCat(this,'ช่าง')">
-    <img src="mascot_chang.png" alt="ช่าง">
-    <div class="cat-name">หาช่าง</div>
-    <div class="cat-count">24 ราย</div>
-  </div>
-  <div class="cat" onclick="switchCat(this,'ร้านอาหาร')">
-    <img src="mascot_food.png" alt="ร้านอาหาร">
-    <div class="cat-name">ร้านอาหาร</div>
-    <div class="cat-count">38 ร้าน</div>
-  </div>
-  <div class="cat" onclick="switchCat(this,'อาชีพ')">
-    <img src="mascot_career.png" alt="ฝึกอาชีพ">
-    <div class="cat-name">ฝึกอาชีพ</div>
-    <div class="cat-count">8 หลักสูตร</div>
-  </div>
-  <div class="cat" onclick="switchCat(this,'ข่าว')">
-    <img src="mascot_news.png" alt="ข่าวสาร">
-    <div class="cat-name">ข่าวสาร</div>
-    <div class="cat-count">อัปเดตล่าสุด</div>
-  </div>
-  <div class="cat" onclick="switchCat(this,'บริการชุมชน')">
-    <img src="mascot_service.png" alt="บริการชุมชน">
-    <div class="cat-name">บริการชุมชน</div>
-    <div class="cat-count">ขอความช่วยเหลือ</div>
-  </div>
-  <div class="cat" onclick="switchCat(this,'สินค้า')">
-    <img src="mascot_product.png" alt="สินค้าท้องถิ่น">
-    <div class="cat-name">สินค้าท้องถิ่น</div>
-    <div class="cat-count">ของดีบางรักน้อย</div>
-  </div>
-  <div class="cat" onclick="switchCat(this,'กิจกรรม')">
-    <img src="mascot_event.png" alt="กิจกรรมชุมชน">
-    <div class="cat-name">กิจกรรม</div>
-    <div class="cat-count">ร่วมสนุกกัน</div>
-  </div>
-  <div class="cat" onclick="openRegModal()">
-    <img src="mascot_chat.png" alt="สมัครเข้าระบบ">
-    <div class="cat-name">สมัครเข้าระบบ</div>
-    <div class="cat-count">ลงทะเบียนฟรี</div>
-  </div>
-</div>
-    <div class="cat-count">24 ราย</div>
-  </div>
-  <div class="cat" onclick="switchCat(this,'ร้านอาหาร')">
-    <img src="mascot_food.png" alt="ร้านอาหาร">
-    <div class="cat-name">ร้านอาหาร/ของดี</div>
-    <div class="cat-count">38 ร้าน</div>
-  </div>
-  <div class="cat" onclick="switchCat(this,'ท่องเที่ยว')">
-    <img src="mascot_travel.png" alt="ท่องเที่ยว">
-    <div class="cat-name">เที่ยวบางรักน้อย</div>
-    <div class="cat-count">12 จุด</div>
-  </div>
-  <div class="cat" onclick="switchCat(this,'อาชีพ')">
-    <img src="mascot_career.png" alt="ฝึกอาชีพ">
-    <div class="cat-name">ฝึกอาชีพ/กิจกรรม</div>
-    <div class="cat-count">8 หลักสูตร</div>
-  </div>
-  <div class="cat" onclick="switchCat(this,'ข่าว')">
-    <img src="mascot_news.png" alt="ข่าวสาร">
-    <div class="cat-name">ข่าวสารเทศบาล</div>
-    <div class="cat-count">อัปเดตล่าสุด</div>
-  </div>
-  <div class="cat" onclick="openRegModal()">
-    <img src="mascot_register.png" alt="สมัคร">
-    <div class="cat-name">สมัครเข้าระบบ</div>
-    <div class="cat-count">เปิดรับสมัคร</div>
-  </div>
-</div>
-
-<div class="list-head reveal">
-  <h2><i class="ti ti-tool" id="listIcon"></i><span id="listTitle">ช่างในชุมชน</span></h2>
-  <a>ดูทั้งหมด</a>
-</div>
-<div class="card-list reveal" id="cardList"></div>
-
-<div class="map-section reveal">
-  <div class="map-label"><i class="ti ti-map-pin"></i> แผนที่ชุมชนบางรักน้อย</div>
-  <iframe class="map-embed"
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15495.123456!2d100.4833!3d13.8833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29d8000000001%3A0x1!2z4LiQ4LiZ4LiR4Li04LiZ4Lir4Liy4LiH4LiBIOC4meC4o-C4suC4p-C4tOC4l-C4o-C5jA!5e0!3m2!1sth!2sth!4v1234567890"
-    allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-    title="แผนที่ชุมชนบางรักน้อย"></iframe>
-  <a class="map-link" href="#" onclick="return false">
-    <div class="map-link-icon"><i class="ti ti-map-2"></i></div>
-    <div>
-      <h3>แผนที่ชุมชนบางรักน้อย</h3>
-      <p>ดูตำแหน่งช่าง ร้านอาหาร และสถานที่ทั้งหมดบนแผนที่</p>
+  <div class="ai-panel-inner">
+    <div class="ai-panel-head">
+      <i class="ti ti-sparkles"></i> ผู้ช่วย AI — ถามอะไรก็ได้เกี่ยวกับบางรักน้อย
+      <button class="ai-close" onclick="closeAI()"><i class="ti ti-x"></i></button>
     </div>
-    <i class="ti ti-chevron-right arr"></i>
-  </a>
-</div>
-
-<div class="reg-block reveal">
-  <h3>✨ ร้านค้า ช่าง กลุ่มอาชีพ — ลงทะเบียนฟรี</h3>
-  <p>เพิ่มข้อมูลของคุณเข้าระบบ ให้คนในชุมชนค้นหาเจอ<br>ไม่มีค่าใช้จ่าย ดูแลโดยเทศบาลเมืองบางรักน้อย</p>
-  <div class="reg-btns">
-    <button class="btn-gold" onclick="openRegModal()"><i class="ti ti-forms"></i> สมัครเข้าระบบ</button>
-    <button class="btn-outline"><i class="ti ti-brand-line"></i> LINE OA</button>
+    <div class="ai-row">
+      <input type="text" id="aiInput" placeholder="เช่น หาช่างประปาด่วน หรือ ร้านอาหารเปิดเย็น...">
+      <button class="ai-send" onclick="askAI()">ถาม</button>
+    </div>
+    <div class="ai-tags">
+      <span class="ai-tag" onclick="setQ('หาช่างไฟฟ้าใกล้บ้าน')">⚡ ช่างไฟ</span>
+      <span class="ai-tag" onclick="setQ('ร้านอาหารเปิดเย็น')">🍜 ร้านเย็น</span>
+      <span class="ai-tag" onclick="setQ('จุดเช็คอินบางรักน้อย')">📍 เช็คอิน</span>
+      <span class="ai-tag" onclick="setQ('อบรมอาชีพฟรี')">🎓 อบรมฟรี</span>
+      <span class="ai-tag" onclick="setQ('ข่าวสารล่าสุด')">📢 ข่าว</span>
+    </div>
+    <div class="ai-result" id="aiResult"></div>
   </div>
 </div>
 
-<div class="footer">
-  ข้อมูลนี้จัดทำเพื่ออำนวยความสะดวกแก่ประชาชน ผ่านการตรวจสอบเบื้องต้นโดยเทศบาลเมืองบางรักน้อย<br>
-  การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างผู้รับบริการกับผู้ให้บริการโดยตรง<br>
-  เทศบาลสงวนสิทธิ์ระงับหรือถอดข้อมูลที่ไม่เหมาะสมโดยไม่ต้องแจ้งล่วงหน้า<br>
-  <strong style="color:#6B21A8">เทศบาลเมืองบางรักน้อย</strong> อ.เมืองนนทบุรี จ.นนทบุรี
-  <div><span class="version-badge">v3.0 © 2569 บางรักน้อย Connect</span></div>
-</div>
+<!-- CATEGORIES -->
+<section class="cats-section reveal">
+  <div class="cats-header">
+    <div>
+      <div class="section-tag"><i class="ti ti-grid-dots"></i> หมวดหมู่</div>
+      <div class="section-title">ค้นหาตาม<em>หมวดหมู่</em></div>
+    </div>
+    <a class="view-all" href="#">ดูทั้งหมด <i class="ti ti-arrow-right"></i></a>
+  </div>
+  <div class="cats-grid">
+    <div class="cat-card active reveal reveal-delay-1" onclick="switchCat(this,'ช่าง')">
+      <div class="cat-img-wrap"><img class="cat-img" src="mascot_chang.png" alt="ช่าง"></div>
+      <div class="cat-name">หาช่าง</div>
+      <div class="cat-count">24 ราย</div>
+      <div class="cat-badge">พร้อมให้บริการ</div>
+    </div>
+    <div class="cat-card reveal reveal-delay-1" onclick="switchCat(this,'ร้านอาหาร')">
+      <div class="cat-img-wrap"><img class="cat-img" src="mascot_food.png" alt="ร้านอาหาร"></div>
+      <div class="cat-name">ร้านอาหาร</div>
+      <div class="cat-count">38 ร้าน</div>
+      <div class="cat-badge">อร่อยใกล้บ้าน</div>
+    </div>
+    <div class="cat-card reveal reveal-delay-2" onclick="switchCat(this,'อาชีพ')">
+      <div class="cat-img-wrap"><img class="cat-img" src="mascot_career.png" alt="ฝึกอาชีพ"></div>
+      <div class="cat-name">ฝึกอาชีพ</div>
+      <div class="cat-count">8 หลักสูตร</div>
+      <div class="cat-badge">ฟรี!</div>
+    </div>
+    <div class="cat-card reveal reveal-delay-2" onclick="switchCat(this,'ข่าว')">
+      <div class="cat-img-wrap"><img class="cat-img" src="mascot_news.png" alt="ข่าวสาร"></div>
+      <div class="cat-name">ข่าวสาร</div>
+      <div class="cat-count">อัปเดตล่าสุด</div>
+      <div class="cat-badge">ล่าสุด</div>
+    </div>
+    <div class="cat-card reveal reveal-delay-3" onclick="switchCat(this,'บริการชุมชน')">
+      <div class="cat-img-wrap"><img class="cat-img" src="mascot_service.png" alt="บริการชุมชน"></div>
+      <div class="cat-name">บริการชุมชน</div>
+      <div class="cat-count">ขอความช่วยเหลือ</div>
+      <div class="cat-badge">บริการภาครัฐ</div>
+    </div>
+    <div class="cat-card reveal reveal-delay-3" onclick="switchCat(this,'สินค้า')">
+      <div class="cat-img-wrap"><img class="cat-img" src="mascot_product.png" alt="สินค้าท้องถิ่น"></div>
+      <div class="cat-name">สินค้าท้องถิ่น</div>
+      <div class="cat-count">ของดีบางรักน้อย</div>
+      <div class="cat-badge">OTOP</div>
+    </div>
+    <div class="cat-card reveal reveal-delay-3" onclick="switchCat(this,'กิจกรรม')">
+      <div class="cat-img-wrap"><img class="cat-img" src="mascot_event.png" alt="กิจกรรม"></div>
+      <div class="cat-name">กิจกรรม</div>
+      <div class="cat-count">ร่วมสนุกกัน</div>
+      <div class="cat-badge">งานประเพณี</div>
+    </div>
+    <div class="cat-card reveal reveal-delay-3" onclick="openRegModal()">
+      <div class="cat-img-wrap"><img class="cat-img" src="mascot_chat.png" alt="สมัคร"></div>
+      <div class="cat-name">สมัครเข้าระบบ</div>
+      <div class="cat-count">ลงทะเบียนฟรี</div>
+      <div class="cat-badge">เปิดรับสมัคร</div>
+    </div>
+  </div>
+</section>
 
-</div>
+<!-- CARDS -->
+<section class="cards-section">
+  <div class="cards-header reveal">
+    <div class="cards-title">
+      <i class="ti ti-tool" id="listIcon"></i>
+      <span id="listTitle">ช่างในชุมชน</span>
+    </div>
+    <a class="view-all" href="#">ดูทั้งหมด <i class="ti ti-arrow-right"></i></a>
+  </div>
+  <div class="cards-grid reveal" id="cardList">
+    <div class="loading-card"><i class="ti ti-loader"></i> กำลังโหลดข้อมูล...</div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section reveal">
+  <div class="section-tag"><i class="ti ti-map-pin"></i> แผนที่ชุมชน</div>
+  <div class="section-title">แผนที่<em>บางรักน้อย</em></div>
+  <div class="map-wrap">
+    <iframe class="map-embed"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15495.123456!2d100.4833!3d13.8833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29d8000000001%3A0x1!2z4LiQ4LiZ4LiR4Li04LiZ4Lir4Liy4LiH4LiBIOC4meC4o-C4suC4p-C4tOC4l-C4o-C5jA!5e0!3m2!1sth!2sth!4v1234567890"
+      allowfullscreen loading="lazy" title="แผนที่บางรักน้อย">
+    </iframe>
+    <div class="map-overlay">
+      <div class="map-overlay-icon"><i class="ti ti-map-2"></i></div>
+      <div>
+        <h3>แผนที่ชุมชนบางรักน้อย</h3>
+        <p>ดูตำแหน่งช่าง ร้านอาหาร และสถานที่ทั้งหมด</p>
+      </div>
+      <i class="ti ti-chevron-right map-overlay-arr"></i>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section class="reg-section reveal">
+  <div class="reg-inner">
+    <div class="reg-text">
+      <div class="section-tag" style="background:rgba(245,158,11,0.15);color:var(--gold)">
+        <i class="ti ti-star"></i> ลงทะเบียนฟรี
+      </div>
+      <h2>ให้คนบางรักน้อย<br><em>ค้นเจอคุณ</em>ง่ายขึ้น</h2>
+      <p>ร้านค้า ช่าง กลุ่มอาชีพ สมัครเข้าระบบ ให้ชาวบ้านค้นหาเจอง่ายขึ้น ไม่มีค่าใช้จ่าย ดูแลโดยเทศบาลเมืองบางรักน้อย</p>
+      <div class="reg-features">
+        <div class="reg-feature"><i class="ti ti-check"></i> ไม่มีค่าใช้จ่ายใดๆ ทั้งสิ้น</div>
+        <div class="reg-feature"><i class="ti ti-check"></i> ผ่านการตรวจสอบโดยเทศบาล</div>
+        <div class="reg-feature"><i class="ti ti-check"></i> ชาวบ้านค้นหาเจอได้ทันที</div>
+        <div class="reg-feature"><i class="ti ti-check"></i> แก้ไขข้อมูลได้ตลอดเวลา</div>
+      </div>
+      <div class="hero-actions" style="margin-top:1.5rem">
+        <button class="btn-primary" onclick="openRegModal()">
+          <i class="ti ti-forms"></i> สมัครเข้าระบบ
+        </button>
+        <button class="btn-secondary">
+          <i class="ti ti-brand-line"></i> LINE OA
+        </button>
+      </div>
+    </div>
+    <div class="reg-mascot">
+      <img src="mascot_hero.png" alt="มาสคอต">
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">
+        <img src="logo_BC.png" alt="BC">
+        <div class="footer-logo-text">
+          <h3>บางรักน้อย Connect</h3>
+          <p>เทศบาลเมืองบางรักน้อย อ.เมืองนนทบุรี จ.นนทบุรี</p>
+        </div>
+      </div>
+      <div class="footer-legal">
+        ข้อมูลนี้จัดทำเพื่ออำนวยความสะดวกแก่ประชาชน ผ่านการตรวจสอบเบื้องต้นโดยเทศบาลเมืองบางรักน้อย<br>
+        การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างผู้รับบริการกับผู้ให้บริการโดยตรง<br>
+        เทศบาลสงวนสิทธิ์ระงับหรือถอดข้อมูลที่ไม่เหมาะสมโดยไม่ต้องแจ้งล่วงหน้า
+        <div><span class="footer-version">v3.0 © 2569 บางรักน้อย Connect</span></div>
+      </div>
+    </div>
+    <div class="footer-right">
+      <p>Powered by เทศบาลเมืองบางรักน้อย</p>
+    </div>
+  </div>
+</footer>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="regModal">
   <div class="modal-sheet">
-    <div class="modal-inner">
+    <div class="modal-header">
+      <button class="modal-header-close" onclick="closeReg()"><i class="ti ti-x"></i></button>
+      <h2>📋 สมัครเข้าระบบบางรักน้อย Connect</h2>
+      <p>กรอกข้อมูลเพื่อให้เทศบาลตรวจสอบและเผยแพร่ในระบบ ฟรี!</p>
+    </div>
+    <div class="modal-body">
       <div id="regForm">
-        <button class="modal-close" onclick="closeReg()"><i class="ti ti-x"></i></button>
-        <div class="modal-handle"></div>
-        <div class="modal-title">📋 สมัครเข้าระบบบางรักน้อย Connect</div>
-        <div class="modal-sub">กรอกข้อมูลเพื่อให้เทศบาลตรวจสอบและเผยแพร่ในระบบ<br>ไม่มีค่าใช้จ่ายใดๆ ทั้งสิ้น</div>
-        <div class="disclaimer-box"><strong>⚠️ ข้อมูลสำคัญก่อนสมัคร</strong><br>ข้อมูลที่ท่านกรอกจะผ่านการตรวจสอบเบื้องต้นโดยเจ้าหน้าที่เทศบาล และจะถูกเผยแพร่ต่อสาธารณะบนระบบ "บางรักน้อย Connect"</div>
+        <div class="disclaimer">⚠️ ข้อมูลที่กรอกจะถูกเผยแพร่ต่อสาธารณะหลังผ่านการตรวจสอบจากเจ้าหน้าที่เทศบาล</div>
         <div class="form-group">
-          <label class="form-label">ประเภทที่สมัคร <span>*</span></label>
+          <label class="form-label">ประเภท <span class="req">*</span></label>
           <select class="form-select" id="regType">
             <option value="">-- เลือกประเภท --</option>
             <option value="craft">ช่างในชุมชน</option>
@@ -415,191 +694,219 @@ body{font-family:"Sarabun",sans-serif;background:#F5F3FF;color:#111827;min-heigh
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">ชื่อร้าน / ชื่อช่าง / ชื่อกลุ่ม <span>*</span></label>
+          <label class="form-label">ชื่อร้าน / ชื่อช่าง <span class="req">*</span></label>
           <input class="form-input" id="regName" type="text" placeholder="เช่น ช่างไฟสมชาย">
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">ชื่อผู้ประสานงาน <span>*</span></label>
+            <label class="form-label">ชื่อผู้ประสานงาน <span class="req">*</span></label>
             <input class="form-input" id="regContact" type="text" placeholder="ชื่อ-สกุล">
           </div>
           <div class="form-group">
-            <label class="form-label">เบอร์โทรศัพท์ <span>*</span></label>
+            <label class="form-label">เบอร์โทร <span class="req">*</span></label>
             <input class="form-input" id="regPhone" type="tel" placeholder="08x-xxx-xxxx">
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">ที่อยู่ / หมู่ / ชุมชน <span>*</span></label>
+          <label class="form-label">ที่อยู่ / หมู่บ้าน <span class="req">*</span></label>
           <input class="form-input" id="regArea" type="text" placeholder="เช่น หมู่ 3 ต.บางรักน้อย">
         </div>
         <div class="form-group">
-          <label class="form-label">LINE / Facebook / เว็บไซต์</label>
-          <input class="form-input" id="regSocial" type="text" placeholder="(ถ้ามี)">
+          <label class="form-label">LINE / Facebook</label>
+          <input class="form-input" id="regSocial" placeholder="(ถ้ามี)">
         </div>
         <div class="form-group">
-          <label class="form-label">คำอธิบายสั้นๆ <span>*</span></label>
-          <textarea class="form-textarea" id="regDesc" placeholder="อธิบายบริการหรือสินค้าไม่เกิน 200 ตัวอักษร"></textarea>
+          <label class="form-label">คำอธิบาย <span class="req">*</span></label>
+          <textarea class="form-textarea" id="regDesc" placeholder="อธิบายบริการหรือสินค้าสั้นๆ"></textarea>
         </div>
-        <div class="legal-box"><strong>📜 ข้อสงวนสิทธิ์</strong><br>ระบบ "บางรักน้อย Connect" จัดทำโดยเทศบาลเมืองบางรักน้อย เพื่อเป็นศูนย์รวมข้อมูล โดยมีบทบาทเป็นผู้จัดระบบข้อมูลเท่านั้น การติดต่อว่าจ้างเป็นความรับผิดชอบระหว่างประชาชนกับผู้ให้บริการโดยตรง</div>
-        <div class="consent-box">
-          <div class="consent-item"><input type="checkbox" id="c1" onchange="checkConsent()"><label for="c1">ยินยอมให้เทศบาลเผยแพร่ข้อมูลชื่อ เบอร์โทร ที่อยู่ และข้อมูลบริการต่อสาธารณะบนระบบ "บางรักน้อย Connect"</label></div>
-          <div class="consent-item"><input type="checkbox" id="c2" onchange="checkConsent()"><label for="c2">รับทราบว่าเทศบาลทำหน้าที่เป็นตัวกลางข้อมูลเท่านั้น และไม่รับผิดชอบต่อผลของการติดต่อว่าจ้างใดๆ</label></div>
-          <div class="consent-item"><input type="checkbox" id="c3" onchange="checkConsent()"><label for="c3">รับทราบว่าเทศบาลมีสิทธิ์แก้ไขหรือถอดข้อมูลได้หากพบว่าไม่ถูกต้องหรือมีข้อร้องเรียน</label></div>
+        <div class="legal-box">📜 เทศบาลทำหน้าที่เป็นตัวกลางข้อมูลเท่านั้น ไม่รับผิดชอบต่อผลของการติดต่อว่าจ้างใดๆ และสงวนสิทธิ์ถอดข้อมูลที่ไม่เหมาะสมโดยไม่ต้องแจ้งล่วงหน้า</div>
+        <div class="consent-wrap">
+          <div class="consent-item"><input type="checkbox" id="c1" onchange="checkConsent()"><label for="c1">ยินยอมให้เทศบาลเผยแพร่ข้อมูลของข้าพเจ้าต่อสาธารณะบนระบบ "บางรักน้อย Connect"</label></div>
+          <div class="consent-item"><input type="checkbox" id="c2" onchange="checkConsent()"><label for="c2">รับทราบว่าเทศบาลไม่รับผิดชอบต่อผลของการติดต่อว่าจ้างใดๆ ที่เกิดจากข้อมูลในระบบ</label></div>
+          <div class="consent-item"><input type="checkbox" id="c3" onchange="checkConsent()"><label for="c3">รับทราบว่าเทศบาลมีสิทธิ์ถอดข้อมูลได้หากพบว่าไม่ถูกต้องหรือมีข้อร้องเรียน</label></div>
         </div>
-        <button class="submit-btn" id="submitBtn" disabled onclick="submitForm()">ส่งข้อมูลเพื่อรอการตรวจสอบ</button>
-        <button class="cancel-btn" onclick="closeReg()">ยกเลิก</button>
+        <div class="modal-actions">
+          <button class="btn-submit" id="submitBtn" disabled onclick="submitForm()">ส่งข้อมูลเพื่อรอการตรวจสอบ</button>
+          <button class="btn-cancel" onclick="closeReg()">ยกเลิก</button>
+        </div>
       </div>
-      <div class="success-box" id="successBox">
-        <span class="icon">✅</span>
+      <div class="success-state" id="successBox">
+        <span class="s-icon">✅</span>
         <h3>ส่งข้อมูลเรียบร้อยแล้ว!</h3>
-        <p>เจ้าหน้าที่เทศบาลจะตรวจสอบข้อมูลของท่าน<br>และแจ้งผลภายใน 3–5 วันทำการ<br><br><strong>ขอบคุณที่ร่วมเป็นส่วนหนึ่งของชุมชน 🙏</strong></p>
-        <button class="submit-btn" style="margin-top:1.5rem" onclick="closeReg()">กลับหน้าหลัก</button>
+        <p>เจ้าหน้าที่จะตรวจสอบและแจ้งผลภายใน 3–5 วันทำการ<br><br><strong>ขอบคุณที่ร่วมเป็นส่วนหนึ่งของชุมชน 🙏</strong></p>
+        <button class="btn-submit" style="margin-top:1.5rem" onclick="closeReg()">กลับหน้าหลัก</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="bottom-nav">
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
   <div class="bottom-nav-inner">
     <button class="nav-btn active" onclick="navTo('home',this)"><i class="ti ti-home"></i><span>หน้าหลัก</span></button>
     <button class="nav-btn" onclick="navTo('search',this)"><i class="ti ti-search"></i><span>ค้นหา</span></button>
     <button class="nav-btn" onclick="navTo('map',this)"><i class="ti ti-map-pin"></i><span>แผนที่</span></button>
-    <button class="nav-btn" onclick="navTo('news',this)"><i class="ti ti-speakerphone"></i><span>ข่าวสาร</span></button>
+    <button class="nav-btn" onclick="navTo('reg',this)"><i class="ti ti-forms"></i><span>สมัคร</span></button>
   </div>
-</div>
+</nav>
 
 <script>
 var SHEET_ID="1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM";
-var SHEET_CACHE={};
-var ICONS={ช่าง:"ti-tool",ร้านอาหาร:"ti-bowl",ท่องเที่ยว:"ti-camera",อาชีพ:"ti-school",ข่าว:"ti-speakerphone",สมัคร:"ti-forms"};
-var TITLES={ช่าง:"ช่างในชุมชน",ร้านอาหาร:"ร้านอาหาร/ของดี",อาชีพ:"ฝึกอาชีพ",ข่าว:"ข่าวสารเทศบาล",บริการชุมชน:"บริการชุมชน",สินค้า:"สินค้าท้องถิ่น",กิจกรรม:"กิจกรรมชุมชน",สมัคร:"สมัครเข้าระบบ"};
-var ICON_MAP={"ช่างไฟ":"ti-plug","ช่างประปา":"ti-droplet","ช่างแอร์":"ti-air-conditioning","ช่างยาง":"ti-car","อาหารตามสั่ง":"ti-bowl","คาเฟ่":"ti-coffee","อาหารไทย":"ti-fish","วัด":"ti-building-church","แลนด์มาร์ค":"ti-anchor","สวนสาธารณะ":"ti-trees","อบรม":"ti-school","กิจกรรม":"ti-calendar-event","ประกาศ":"ti-speakerphone","ข่าว":"ti-news"};
-var THUMB_MAP={"ช่างไฟ":"t-purple","ช่างประปา":"t-blue","ช่างแอร์":"t-green","ช่างยาง":"t-gold","อาหารตามสั่ง":"t-gold","คาเฟ่":"t-green","อาหารไทย":"t-blue","วัด":"t-gold","แลนด์มาร์ค":"t-blue","สวนสาธารณะ":"t-green","อบรม":"t-pink","กิจกรรม":"t-blue","ประกาศ":"t-gold","ข่าว":"t-purple"};
-var AI_R={"หาช่างไฟฟ้าใกล้บ้าน":"⚡ พบช่างไฟในระบบ<br><br><b>ช่างไฟ สมชาย</b> หมู่ 3 | โทร <span style='color:#6B21A8'>089-123-4567</span>","ร้านอาหารเปิดเย็น":"🍜 ร้านที่เปิดเย็น<br><br><b>คาเฟ่บางรักน้อย</b> เปิดถึง 20.00 น.<br><b>ต้มยำป้าเพิ่ม</b> เปิดถึง 21.00 น.","จุดเช็คอินบางรักน้อย":"📍 จุดยอดนิยม<br><br>1. วัดบางรักน้อย<br>2. ตลาดน้ำท่าอิฐ<br>3. สวนสาธารณะเทศบาล","อบรมอาชีพฟรี":"🎓 หลักสูตรเปิดรับ<br><br>✅ ตัดเย็บเสื้อผ้า รุ่น 2/2567<br>✅ เกษตรอินทรีย์<br>✅ ทักษะดิจิทัลผู้สูงวัย","ข่าวสารล่าสุด":"📢 ข่าวล่าสุด<br><br>⚠️ ปิดถนนซ่อมบำรุงหมู่ 2<br>🎉 งานลอยกระทง 2567<br>💊 ตรวจสุขภาพฟรีผู้สูงอายุ"};
+var CACHE={};
+var ICONS={ช่าง:"ti-tool",ร้านอาหาร:"ti-bowl","ท่องเที่ยว":"ti-camera",อาชีพ:"ti-school",ข่าว:"ti-speakerphone",บริการชุมชน:"ti-home",สินค้า:"ti-shopping-bag",กิจกรรม:"ti-calendar-event"};
+var TITLES={ช่าง:"ช่างในชุมชน",ร้านอาหาร:"ร้านอาหาร/ของดี",ท่องเที่ยว:"เที่ยวบางรักน้อย",อาชีพ:"ฝึกอาชีพ",ข่าว:"ข่าวสารเทศบาล",บริการชุมชน:"บริการชุมชน",สินค้า:"สินค้าท้องถิ่น",กิจกรรม:"กิจกรรมชุมชน"};
+var IMAP={"ช่างไฟ":"ti-plug","ช่างประปา":"ti-droplet","ช่างแอร์":"ti-air-conditioning","ช่างยาง":"ti-car","อาหารตามสั่ง":"ti-bowl","คาเฟ่":"ti-coffee","อาหารไทย":"ti-fish","วัด":"ti-building-church","ตลาด":"ti-shopping-cart","สวนสาธารณะ":"ti-trees","อบรม":"ti-school","กิจกรรม":"ti-calendar-event","ประกาศ":"ti-speakerphone"};
+var TMAP={"ช่างไฟ":"t-purple","ช่างประปา":"t-blue","ช่างแอร์":"t-green","ช่างยาง":"t-gold","อาหารตามสั่ง":"t-gold","คาเฟ่":"t-green","อาหารไทย":"t-blue","วัด":"t-gold","ตลาด":"t-gold","สวนสาธารณะ":"t-green","อบรม":"t-pink","กิจกรรม":"t-blue","ประกาศ":"t-purple"};
+var AIR={"หาช่างไฟฟ้าใกล้บ้าน":"⚡ พบช่างไฟในระบบ<br><br><b>ช่างไฟ สมชาย</b> — หมู่ 3<br>โทร <span style='color:var(--purple)'>089-123-4567</span> | ✅ ตรวจสอบแล้ว","ร้านอาหารเปิดเย็น":"🍜 ร้านที่เปิดช่วงเย็น<br><br><b>คาเฟ่บางรักน้อย</b> เปิดถึง 20.00 น.<br><b>ต้มยำป้าเพิ่ม</b> เปิดถึง 21.00 น.","จุดเช็คอินบางรักน้อย":"📍 จุดยอดนิยม<br><br>1. วัดบางรักน้อย<br>2. ตลาดน้ำท่าอิฐ<br>3. สวนสาธารณะเทศบาล","อบรมอาชีพฟรี":"🎓 หลักสูตรเปิดรับ<br><br>✅ ตัดเย็บเสื้อผ้า รุ่น 2/2567<br>✅ เกษตรอินทรีย์<br>✅ ทักษะดิจิทัลผู้สูงวัย","ข่าวสารล่าสุด":"📢 ข่าวล่าสุด<br><br>⚠️ ปิดถนนซ่อมบำรุงหมู่ 2<br>🎉 งานลอยกระทง 20 พ.ย.<br>💊 ตรวจสุขภาพฟรีผู้สูงอายุ"};
 
+// HEADER SCROLL
+window.addEventListener('scroll',function(){
+  var h=document.getElementById('header');
+  if(window.scrollY>50)h.classList.add('scrolled');
+  else h.classList.remove('scrolled');
+});
+
+// PARTICLES
+(function(){
+  var p=document.getElementById('particles');
+  for(var i=0;i<12;i++){
+    var d=document.createElement('div');
+    d.className='particle';
+    var s=Math.random()*60+20;
+    d.style.cssText='width:'+s+'px;height:'+s+'px;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*15+10)+'s;animation-delay:'+(Math.random()*10)+'s';
+    p.appendChild(d);
+  }
+})();
+
+// COUNTER
+function cnt(id,n,d){
+  var el=document.getElementById(id);if(!el)return;
+  var s=0,step=n/(d/16),t=setInterval(function(){
+    s+=step;if(s>=n){s=n;clearInterval(t);}
+    el.textContent=Math.floor(s);
+  },16);
+}
+var cntDone=false;
+var cObs=new IntersectionObserver(function(e){
+  if(e[0].isIntersecting&&!cntDone){
+    cntDone=true;cnt('n1',24,1200);cnt('n2',38,1400);cnt('n3',12,1000);
+  }
+},{threshold:0.3});
+cObs.observe(document.querySelector('.hero-stats'));
+
+// REVEAL
+var rObs=new IntersectionObserver(function(e){
+  e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');rObs.unobserve(x.target);}});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(function(el){rObs.observe(el);});
+
+// SHEETS
 async function fetchSheet(cat){
-  if(SHEET_CACHE[cat])return SHEET_CACHE[cat];
-  var url="https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?tqx=out:json&sheet="+encodeURIComponent(cat);
+  if(CACHE[cat])return CACHE[cat];
+  var url='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json&sheet='+encodeURIComponent(cat);
   try{
-    var res=await fetch(url);
-    var text=await res.text();
-    var match=text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/);
-    if(!match)return[];
-    var json=JSON.parse(match[1]);
-    var rows=json.table.rows||[];
+    var res=await fetch(url),text=await res.text();
+    var m=text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/);
+    if(!m)return[];
+    var rows=JSON.parse(m[1]).table.rows||[];
     var data=rows.map(function(r){
-      var c=r.c||[];
-      var v=function(i){return(c[i]&&c[i].v)?String(c[i].v):"";};
+      var c=r.c||[],v=function(i){return(c[i]&&c[i].v)?String(c[i].v):''};
       var ct=v(1);
       return{title:v(0),cat:ct,desc:v(2),phone:v(3),area:v(4),social:v(5),status:v(6),
-        icon:ICON_MAP[ct]||"ti-star",thumb:THUMB_MAP[ct]||"t-purple",
-        ok:v(6)===""||v(6).indexOf("อนุมัติ")>=0};
-    }).filter(function(r){return r.title&&r.title!=="ชื่อ";});
-    SHEET_CACHE[cat]=data;
-    return data;
+        icon:IMAP[ct]||'ti-star',thumb:TMAP[ct]||'t-purple',
+        ok:v(6)===''||v(6).indexOf('อนุมัติ')>=0};
+    }).filter(function(r){return r.title&&r.title!=='ชื่อ';});
+    CACHE[cat]=data;return data;
   }catch(e){return[];}
 }
 
-async function renderCardsFromSheet(cat){
-  document.getElementById("listTitle").textContent=TITLES[cat]||cat;
-  document.getElementById("listIcon").className="ti "+(ICONS[cat]||"ti-list");
-  document.getElementById("cardList").innerHTML="<div class='empty-state'><span class='icon'>⏳</span><p>กำลังโหลดข้อมูล...</p></div>";
+async function renderCards(cat){
+  var cl=document.getElementById('cardList');
+  document.getElementById('listTitle').textContent=TITLES[cat]||cat;
+  document.getElementById('listIcon').className='ti '+(ICONS[cat]||'ti-list');
+  cl.innerHTML='<div class="loading-card"><i class="ti ti-loader"></i> กำลังโหลดข้อมูล...</div>';
   var items=await fetchSheet(cat);
   if(!items.length){
-    document.getElementById("cardList").innerHTML="<div class='empty-state'><span class='icon'>📭</span><p>ยังไม่มีข้อมูลในหมวดนี้<br><small>เจ้าหน้าที่กำลังรวบรวมข้อมูลครับ</small></p></div>";
+    cl.innerHTML='<div class="empty-card"><i class="ti ti-database-off"></i><p>ยังไม่มีข้อมูลในหมวดนี้<br><small>เจ้าหน้าที่กำลังรวบรวมข้อมูลครับ</small></p></div>';
     return;
   }
-  document.getElementById("cardList").innerHTML=items.map(function(d){
-    return"<div class='card'>"+
-      "<div class='card-thumb "+d.thumb+"'><i class='ti "+d.icon+"'></i></div>"+
-      "<div class='card-body'><h3>"+d.title+"</h3><p>"+d.desc+"</p>"+
-      "<div class='card-meta'><span class='badge b-purple'>"+d.cat+"</span>"+
-      (d.ok?"<span class='verified'><i class='ti ti-circle-check' style='font-size:9px'></i> ตรวจสอบแล้ว</span>":"")+
-      (d.area?"<span class='badge b-gray'><i class='ti ti-map-pin' style='font-size:9px'></i> "+d.area+"</span>":"")+
-      (d.phone?"<a class='phone-link' href='tel:"+d.phone+"'><i class='ti ti-phone' style='font-size:10px'></i> "+d.phone+"</a>":"")+
-      "</div></div></div>";
-  }).join("");
+  cl.innerHTML=items.map(function(d){
+    return'<div class="card">'+
+      '<div class="card-top">'+
+        '<div class="card-thumb '+d.thumb+'"><i class="ti '+d.icon+'"></i></div>'+
+        '<div class="card-info"><h3>'+d.title+'</h3><p>'+d.desc+'</p></div>'+
+      '</div>'+
+      '<div class="card-meta">'+
+        '<span class="badge b-purple">'+d.cat+'</span>'+
+        (d.ok?'<span class="verified"><i class="ti ti-circle-check" style="font-size:10px"></i> ตรวจสอบแล้ว</span>':'')+
+        (d.area?'<span class="badge b-gray"><i class="ti ti-map-pin" style="font-size:9px"></i> '+d.area+'</span>':'')+
+        (d.phone?'<a class="phone-link" href="tel:'+d.phone+'"><i class="ti ti-phone" style="font-size:10px"></i> '+d.phone+'</a>':'')+
+      '</div></div>';
+  }).join('');
 }
 
 function switchCat(el,cat){
-  document.querySelectorAll(".cat").forEach(function(c){c.classList.remove("active");});
-  el.classList.add("active");
-  renderCardsFromSheet(cat);
+  document.querySelectorAll('.cat-card').forEach(function(c){c.classList.remove('active');});
+  el.classList.add('active');
+  renderCards(cat);
+  document.querySelector('.cards-section').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function openAI(){var p=document.getElementById("aiPanel");p.classList.add("show");document.getElementById("aiInput").focus();}
-function closeAI(){document.getElementById("aiPanel").classList.remove("show");}
-function setQ(q){document.getElementById("aiInput").value=q;askAI();}
+// AI
+function openAI(){var p=document.getElementById('aiPanel');p.classList.add('show');document.getElementById('aiInput').focus();}
+function closeAI(){document.getElementById('aiPanel').classList.remove('show');}
+function setQ(q){document.getElementById('aiInput').value=q;askAI();}
+function doSearch(){var q=document.getElementById('mainSearch').value.trim();if(q){document.getElementById('aiInput').value=q;openAI();askAI();}}
 function askAI(){
-  var q=document.getElementById("aiInput").value.trim();if(!q)return;
-  var el=document.getElementById("aiResult");
-  el.innerHTML=AI_R[q]||("🔍 ค้นหา <b>"+q+"</b>...<br><br>ไม่พบข้อมูลตรงกัน ลองคำอื่นได้เลยครับ");
-  el.classList.add("show");
+  var q=document.getElementById('aiInput').value.trim();if(!q)return;
+  var el=document.getElementById('aiResult');
+  el.innerHTML=AIR[q]||('🔍 ค้นหา <b>'+q+'</b>...<br><br>ไม่พบข้อมูลตรงกัน ลองคำอื่นได้เลยครับ');
+  el.classList.add('show');
 }
+document.getElementById('mainSearch').addEventListener('keyup',function(e){if(e.key==='Enter')doSearch();});
+document.getElementById('aiInput').addEventListener('keyup',function(e){if(e.key==='Enter')askAI();});
 
+// MODAL
 function openRegModal(){
-  var m=document.getElementById("regModal");
-  m.classList.add("show");
-  document.getElementById("regForm").style.display="block";
-  document.getElementById("successBox").style.display="none";
-  setTimeout(function(){m.scrollIntoView({behavior:"smooth",block:"start"});},50);
+  var m=document.getElementById('regModal');m.classList.add('show');
+  document.getElementById('regForm').style.display='block';
+  document.getElementById('successBox').style.display='none';
+  setTimeout(function(){m.scrollIntoView({behavior:'smooth',block:'start'});},50);
 }
-function closeReg(){
-  document.getElementById("regModal").classList.remove("show");
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
+function closeReg(){document.getElementById('regModal').classList.remove('show');}
+document.getElementById('regModal').addEventListener('click',function(e){if(e.target===this)closeReg();});
 function checkConsent(){
-  var ok=document.getElementById("c1").checked&&document.getElementById("c2").checked&&document.getElementById("c3").checked;
-  document.getElementById("submitBtn").disabled=!ok;
+  var ok=document.getElementById('c1').checked&&document.getElementById('c2').checked&&document.getElementById('c3').checked;
+  document.getElementById('submitBtn').disabled=!ok;
 }
-
 async function submitForm(){
-  var type=document.getElementById("regType").value;
-  var name=document.getElementById("regName").value.trim();
-  var contact=document.getElementById("regContact").value.trim();
-  var phone=document.getElementById("regPhone").value.trim();
-  var area=document.getElementById("regArea").value.trim();
-  var social=document.getElementById("regSocial").value.trim();
-  var desc=document.getElementById("regDesc").value.trim();
-  if(!type||!name||!contact||!phone||!area||!desc){alert("กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบถ้วนครับ");return;}
-  var btn=document.getElementById("submitBtn");
-  btn.textContent="กำลังส่งข้อมูล...";btn.disabled=true;
+  var type=document.getElementById('regType').value,name=document.getElementById('regName').value.trim(),
+    contact=document.getElementById('regContact').value.trim(),phone=document.getElementById('regPhone').value.trim(),
+    area=document.getElementById('regArea').value.trim(),social=document.getElementById('regSocial').value.trim(),
+    desc=document.getElementById('regDesc').value.trim();
+  if(!type||!name||!contact||!phone||!area||!desc){alert('กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบถ้วนครับ');return;}
+  var btn=document.getElementById('submitBtn');btn.textContent='กำลังส่ง...';btn.disabled=true;
   try{
-    var res=await fetch("https://formspree.io/f/mlgyjlyo",{
-      method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
-      body:JSON.stringify({"_subject":"[บางรักน้อย Connect] สมัครใหม่: "+name,"ประเภท":type,"ชื่อ":name,"ผู้ประสานงาน":contact,"เบอร์โทร":phone,"ที่อยู่":area,"LINE/Facebook":social||"-","คำอธิบาย":desc,"email":"bangraknoi2022@gmail.com"})
-    });
-    if(res.ok){document.getElementById("regForm").style.display="none";document.getElementById("successBox").style.display="block";}
-    else{alert("เกิดข้อผิดพลาด กรุณาลองใหม่ครับ");btn.textContent="ส่งข้อมูลเพื่อรอการตรวจสอบ";btn.disabled=false;}
-  }catch(e){alert("ไม่สามารถส่งได้ กรุณาตรวจสอบอินเทอร์เน็ตครับ");btn.textContent="ส่งข้อมูลเพื่อรอการตรวจสอบ";btn.disabled=false;}
+    var res=await fetch('https://formspree.io/f/mlgyjlyo',{method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({'_subject':'[BC] สมัครใหม่: '+name,'ประเภท':type,'ชื่อ':name,
+        'ผู้ประสานงาน':contact,'เบอร์':phone,'ที่อยู่':area,'LINE':social||'-','รายละเอียด':desc})});
+    if(res.ok){document.getElementById('regForm').style.display='none';document.getElementById('successBox').style.display='block';}
+    else{alert('เกิดข้อผิดพลาด ลองใหม่ครับ');btn.textContent='ส่งข้อมูล';btn.disabled=false;}
+  }catch(e){alert('ไม่สามารถส่งได้ ตรวจสอบอินเทอร์เน็ตครับ');btn.textContent='ส่งข้อมูล';btn.disabled=false;}
 }
 
+// NAV
 function navTo(page,el){
-  document.querySelectorAll(".nav-btn").forEach(function(b){b.classList.remove("active");});
-  el.classList.add("active");
-  if(page==="search")openAI();
-  if(page==="news"){switchCat(document.querySelectorAll(".cat")[4],"ข่าว");}
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  el.classList.add('active');
+  if(page==='home')window.scrollTo({top:0,behavior:'smooth'});
+  else if(page==='search')openAI();
+  else if(page==='map')document.querySelector('.map-section').scrollIntoView({behavior:'smooth'});
+  else if(page==='reg')openRegModal();
 }
 
-document.getElementById("mainSearch").addEventListener("keyup",function(e){
-  if(e.key==="Enter"&&this.value.trim()){
-    document.getElementById("aiInput").value=this.value.trim();openAI();askAI();
-  }
-});
-
-var revObs=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");revObs.unobserve(e.target);}});
-},{threshold:0.1});
-document.querySelectorAll(".reveal").forEach(function(el){revObs.observe(el);});
-
-function cnt(el,n,d){if(!el)return;var s=0,step=n/(d/16),t=setInterval(function(){s+=step;if(s>=n){s=n;clearInterval(t);}el.textContent=Math.floor(s);},16);}
-var sObs=new IntersectionObserver(function(e){
-  if(e[0].isIntersecting){cnt(document.getElementById("statCraft"),24,1200);cnt(document.getElementById("statShop"),38,1400);cnt(document.getElementById("statPlace"),12,1000);sObs.disconnect();}
-},{threshold:0.3});
-var sb=document.querySelector(".stats-bar");if(sb)sObs.observe(sb);
-
-renderCardsFromSheet("ช่าง");
+renderCards('ช่าง');
 </script>
 </body>
 </html>
