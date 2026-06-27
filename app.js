@@ -175,8 +175,10 @@ function bindEvents() {
 
   $('#joinButton').addEventListener('click', showMemberDialog);
   $('#loginButton').addEventListener('click', showMemberDialog);
-  $('#dialogClose').addEventListener('click', () => els.memberDialog.close());
-  els.memberDialog.addEventListener('click', (event) => { if (event.target === els.memberDialog) els.memberDialog.close(); });
+  $('#dialogClose').addEventListener('click', () => closeRegisterDialog());
+  $('#regDoneBtn').addEventListener('click', () => closeRegisterDialog());
+  els.memberDialog.addEventListener('click', (event) => { if (event.target === els.memberDialog) closeRegisterDialog(); });
+  $('#regSubmitBtn').addEventListener('click', () => submitRegistration());
   window.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeDrawer();
     if (event.key === '/' && document.activeElement !== els.globalSearch) { event.preventDefault(); $('#search').scrollIntoView(); els.globalSearch.focus(); }
@@ -189,6 +191,80 @@ async function registerServiceWorker() {
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
     try { await navigator.serviceWorker.register('./sw.js'); }
     catch (error) { console.warn('Offline mode unavailable', error); }
+  }
+}
+
+// ============================================================
+// REGISTRATION — Google Sheet + Email Notification
+// ============================================================
+// 🔧 ใส่ URL ของ Google Apps Script Web App ที่นี่
+// (ดูคำแนะนำใน README.md ส่วน "ตั้งค่า Google Sheet")
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzv5WMeM5cSxl7Ot6QCjbqkxGaxPMAfsvc6lDj2rQe4UYKIjwnZMxa-Sxq6VtN9b51Q/exec';
+
+function closeRegisterDialog() {
+  els.memberDialog.close();
+  // Reset form back to step 1 after close
+  setTimeout(() => {
+    $('#registerStep1').hidden = false;
+    $('#registerStep2').hidden = true;
+    ['reg-name','reg-phone','reg-contact','reg-social','reg-area','reg-desc'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    const cat = document.getElementById('reg-category'); if (cat) cat.value = '';
+    const consent = document.getElementById('reg-consent'); if (consent) consent.checked = false;
+    const err = $('#registerError'); if (err) { err.hidden = true; err.textContent = ''; }
+    const btn = $('#regBtnLabel'); if (btn) btn.textContent = '📨 ส่งข้อมูลสมัคร';
+    $('#regSubmitBtn').disabled = false;
+  }, 300);
+}
+
+async function submitRegistration() {
+  const name     = document.getElementById('reg-name')?.value.trim();
+  const category = document.getElementById('reg-category')?.value;
+  const phone    = document.getElementById('reg-phone')?.value.trim();
+  const line     = document.getElementById('reg-contact')?.value.trim();
+  const social   = document.getElementById('reg-social')?.value.trim();
+  const area     = document.getElementById('reg-area')?.value.trim();
+  const desc     = document.getElementById('reg-desc')?.value.trim();
+  const consent  = document.getElementById('reg-consent')?.checked;
+  const errEl    = $('#registerError');
+
+  const showErr = (msg) => { errEl.textContent = msg; errEl.hidden = false; };
+
+  if (!name)     return showErr('⚠️ กรุณากรอกชื่อร้าน / ชื่อช่าง / กลุ่มอาชีพ');
+  if (!category) return showErr('⚠️ กรุณาเลือกประเภทบริการ');
+  if (!phone)    return showErr('⚠️ กรุณากรอกเบอร์โทรศัพท์ติดต่อ');
+  if (!area)     return showErr('⚠️ กรุณากรอกที่อยู่ / ชุมชน');
+  if (!consent)  return showErr('⚠️ กรุณายอมรับข้อตกลงและเงื่อนไขก่อนส่งข้อมูล');
+  errEl.hidden = true;
+
+  const btn = $('#regSubmitBtn');
+  const label = $('#regBtnLabel');
+  btn.disabled = true;
+  label.textContent = '⏳ กำลังส่งข้อมูล...';
+
+  const payload = {
+    name, category, phone,
+    line,       // คอลัมน์ F ใน Sheet
+    contact: social,  // คอลัมน์ I ใน Sheet (FB/เว็บ)
+    area, desc,
+    timestamp: new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })
+  };
+
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    document.getElementById('successName').textContent = `"${name}" — ${category}`;
+    $('#registerStep1').hidden = true;
+    $('#registerStep2').hidden = false;
+  } catch (err) {
+    showErr('❌ ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง หรือติดต่อเทศบาลโดยตรง โทร 02-193-4512-3');
+    console.error('Register error:', err);
+    btn.disabled = false;
+    label.textContent = '📨 ส่งข้อมูลสมัคร';
   }
 }
 
