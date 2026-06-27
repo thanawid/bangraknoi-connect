@@ -15,6 +15,17 @@ const TRAVEL = {
 };
 
 const ICONS = { craft: '🔧', food: '🍴', travel: '📷', learn: '🎓', news: '📣', event: '▣', market: '🛍', chat: '💬', service: '🏛' };
+const MASCOTS = {
+  craft:   'assets/mascot_chang.png',
+  food:    'assets/mascot_food.png',
+  travel:  'assets/mascot_hero.png',
+  learn:   'assets/mascot_career.png',
+  news:    'assets/mascot_news.png',
+  event:   'assets/mascot_event.png',
+  market:  'assets/mascot_product.png',
+  chat:    'assets/mascot_chat.png',
+  service: 'assets/mascot_service.png',
+};
 const SUBTITLES = {
   craft: 'ค้นหาบนแผนที่', food: 'ร้านใกล้บ้าน', travel: 'สถานที่แนะนำ', learn: 'หลักสูตรและคู่มือ',
   news: 'ประกาศทางการ', event: 'ปฏิทินชุมชน', market: 'ของดีท้องถิ่น', chat: '4 ช่องทาง'
@@ -45,7 +56,10 @@ function renderCategories() {
     button.className = 'category-card';
     button.dataset.category = id;
     button.setAttribute('aria-label', `เปิดหมวด${category.label}`);
-    button.innerHTML = `<span class="category-icon" aria-hidden="true">${ICONS[id]}</span><b>${category.label}</b><small>${SUBTITLES[id]}</small>`;
+    const mascotSrc = MASCOTS[id];
+    button.innerHTML = mascotSrc
+      ? `<div class="card-mascot-wrap"><img class="card-mascot" src="${mascotSrc}" alt="" loading="lazy"><div class="card-mascot-shadow"></div></div><b>${category.label}</b><small>${SUBTITLES[id]}</small>`
+      : `<span class="category-icon" aria-hidden="true">${ICONS[id]}</span><b>${category.label}</b><small>${SUBTITLES[id]}</small>`;
     button.addEventListener('click', () => openDrawer(id));
     gridFragment.append(button);
   });
