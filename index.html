@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>บางรักน้อย Connect</title>
   <meta name="description" content="ศูนย์รวมข้อมูลบริการ ชุมชน และเศรษฐกิจท้องถิ่น เทศบาลเมืองบางรักน้อย" />
-  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -27,8 +31,12 @@
     <main id="home">
       <section class="hero scene" id="scene">
         <img class="town-bg" src="assets/bg-town.png" alt="ภาพเมืองบางรักน้อยแบบ 2D" />
-        <div class="sky fx-sun"></div><div class="rain" id="rain"></div>
-        <div class="train"></div><div class="boat boat-a"></div><div class="duck duck-a">🦆</div><div class="bird bird-a">⌁</div>
+        <div class="city-icons" aria-hidden="true">
+          <span class="city-icon icon-food">🍜</span>
+          <span class="city-icon icon-tool">🔧</span>
+          <span class="city-icon icon-news">📣</span>
+          <span class="city-icon icon-shop">🛍️</span>
+        </div>
         <div class="hero-copy">
           <img class="hero-logo" src="assets/logo-bc.png" alt="โลโก้ BC" />
           <div class="pill" id="timePill">เมืองเปลี่ยนตามเวลาจริง</div>
@@ -39,9 +47,9 @@
             <a class="btn ghost" href="#join">เพิ่มข้อมูลร้าน/บริการ</a>
           </div>
         </div>
-        <div class="bc-guide" id="bcGuide">
-          <img src="assets/mascot-main.png" alt="BC ไกด์" />
-          <div class="speech" id="bcSpeech">สวัสดีครับ 😊 วันนี้คลองสวยนะครับ</div>
+        <div class="bc-corner-card" id="bcGuide">
+          <img src="assets/logo-bc.png" alt="โลโก้ BC" />
+          <div class="speech" id="bcSpeech">บางรักน้อย Connect พร้อมใช้จริง</div>
         </div>
       </section>
 
