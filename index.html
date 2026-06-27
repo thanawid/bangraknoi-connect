@@ -1,122 +1,134 @@
 <!doctype html>
 <html lang="th">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>บางรักน้อย Connect — Living Community</title>
-<meta name="description" content="เมืองการ์ตูนมีชีวิตของบางรักน้อย — เมืองคืออินเทอร์เฟซ">
-<link rel="icon" href="assets/bc-logo.png">
+<meta name="description" content="บางรักน้อย Connect — เมืองการ์ตูนที่รวบรวมข้อมูลชุมชนไว้ในที่เดียว" />
+<link rel="icon" href="assets/favicon.png" />
 <style>
 :root{
-  --purple:#5b21b6;--purple2:#7c3aed;--gold:#f59e0b;--ink:#2b174a;
-  --unit:min(1vw,1.7vh);
-  --daySky1:#65c8ff;--daySky2:#dff6ff;
+  --purple:#5526b6;
+  --purple2:#7c3aed;
+  --gold:#f7b733;
+  --ink:#251046;
+  --glass:rgba(255,255,255,.78);
+  --shadow:0 18px 50px rgba(24,12,60,.24);
 }
-*{box-sizing:border-box;margin:0;padding:0} html,body{height:100%;overflow:hidden;font-family:system-ui,'Sarabun',sans-serif;background:#73cdf6;color:var(--ink)}
-button{font-family:inherit}
-.world{position:relative;width:100vw;height:100dvh;overflow:hidden;background:linear-gradient(var(--daySky1),var(--daySky2) 46%,#a7e4ff 47%,#0e8fc1 100%);isolation:isolate;touch-action:none}
-.world.night{background:linear-gradient(#10204a,#2a245f 47%,#17315f 48%,#091c36)}
-/* Camera stage: this is the game world, not one single background */
-.stage{position:absolute;left:50%;top:50%;width:177.78vh;height:100vh;min-width:100vw;min-height:56.25vw;transform:translate(-50%,-50%);transform-origin:center;overflow:hidden}
-@media (max-aspect-ratio:16/9){.stage{width:100vw;height:56.25vw;min-height:100vh;min-width:177.78vh}.camera{transform:translateX(var(--pan,0px))}}
-.camera{position:absolute;inset:0;transition:transform .7s cubic-bezier(.2,.9,.2,1)}
-.layer{position:absolute;pointer-events:none;user-select:none}
-.sky-glow{inset:0;background:radial-gradient(circle at 12% 12%,rgba(255,235,150,.8),rgba(255,255,255,0) 18%),linear-gradient(to bottom,rgba(255,255,255,.25),rgba(255,255,255,0) 35%);z-index:1}
-.world.night .sky-glow{background:radial-gradient(circle at 82% 14%,rgba(255,255,220,.9),rgba(255,255,255,0) 5%),linear-gradient(to bottom,rgba(3,5,20,.55),rgba(3,5,20,.2) 48%,rgba(3,5,20,.6));}
-/* SVG-like CSS layers */
-.sun{width:10%;aspect-ratio:1;border-radius:50%;left:8%;top:8%;background:radial-gradient(#fff8bc,#ffd166 55%,rgba(255,209,102,0) 70%);filter:blur(.2px);z-index:2;animation:sunPulse 5s ease-in-out infinite}
-@keyframes sunPulse{50%{transform:scale(1.04)}}
-.cloud{z-index:5;border-radius:999px;background:rgba(255,255,255,.9);filter:drop-shadow(0 8px 18px rgba(85,120,160,.16));animation:drift linear infinite}.cloud:before,.cloud:after{content:"";position:absolute;background:inherit;border-radius:50%}.cloud:before{width:48%;aspect-ratio:1;left:12%;top:-55%}.cloud:after{width:62%;aspect-ratio:1;right:12%;top:-75%}.c1{width:12%;height:4%;left:-20%;top:9%;animation-duration:78s}.c2{width:8%;height:3%;left:-16%;top:20%;animation-delay:18s;animation-duration:92s;opacity:.75}.c3{width:14%;height:4.5%;left:-22%;top:5%;animation-delay:40s;animation-duration:105s;opacity:.8}@keyframes drift{to{transform:translateX(135vw)}}
-.bird{z-index:10;font-size:calc(var(--unit)*1.6);opacity:.65;animation:birdfly linear infinite}.b1{left:-5%;top:16%;animation-duration:28s}.b2{left:-7%;top:12%;animation-duration:38s;animation-delay:12s}.b3{left:-10%;top:23%;animation-duration:45s;animation-delay:22s}@keyframes birdfly{to{transform:translate(115vw,-4vh)}}
-.horizon{left:-5%;right:-5%;top:32%;height:20%;z-index:3;background:linear-gradient(to bottom,rgba(35,135,75,.65),rgba(81,162,82,.9));clip-path:polygon(0 45%,10% 40%,22% 52%,34% 34%,48% 50%,60% 42%,76% 56%,90% 39%,100% 45%,100% 100%,0 100%)}
-.houses{left:0;right:0;top:35%;height:20%;z-index:6;background-image:linear-gradient(135deg,transparent 0 46%,#b45309 47% 54%,transparent 55%),linear-gradient(#fff7ed,#fff7ed);background-size:8% 42%,8% 34%;background-position:2% 0,2% 22%;opacity:.65;mask-image:linear-gradient(to right,transparent,#000 10%,#000 92%,transparent)}
-.rail{left:50%;top:24%;width:118%;height:15%;transform:translateX(-50%);z-index:16}.train{left:-42%;top:26%;width:34%;z-index:23;animation:trainRun 58s linear infinite;filter:drop-shadow(0 10px 10px rgba(40,20,80,.25))}@keyframes trainRun{0%{transform:translateX(-20%)}100%{transform:translateX(420%)}}
-/* Main land/river */
-.river{left:-8%;right:-8%;bottom:0;height:45%;z-index:14;background:linear-gradient(180deg,#27a5d8,#086fa6 72%,#044f7d);clip-path:polygon(0 12%,100% 0,100% 100%,0 100%)}.world.night .river{filter:brightness(.55) saturate(.8)}
-.wave{left:0;right:0;bottom:18%;height:8%;z-index:18;background:url('assets/wave.svg') repeat-x;background-size:22% 100%;opacity:.65;animation:waveMove 12s linear infinite}.wave.w2{bottom:7%;opacity:.4;animation-duration:18s}@keyframes waveMove{to{background-position-x:22%}}
-.frontwalk{left:0;right:0;bottom:0;height:18%;z-index:28;background:linear-gradient(#d2b48c,#b98c5d);clip-path:polygon(0 58%,32% 48%,55% 65%,100% 45%,100% 100%,0 100%)}.frontwalk:before{content:"";position:absolute;inset:8% 0 auto 0;height:6px;background:rgba(255,255,255,.38)}
-.plants{left:0;right:0;bottom:12%;height:8%;z-index:31;background:radial-gradient(circle,#ff71ad 0 9%,transparent 10%) 0 0/6% 80%,radial-gradient(circle,#facc15 0 8%,transparent 9%) 3% 12%/7% 80%,linear-gradient(to top,#166534,#22c55e);mask-image:linear-gradient(to bottom,transparent,#000 38%)}
-/* Land strip across river */
-.prom{left:0;right:0;top:48%;height:13%;z-index:35;background:linear-gradient(#e0c089,#b98c5d);box-shadow:0 10px 0 rgba(80,45,25,.25)}
-.prom:after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:15px;background:repeating-linear-gradient(90deg,#f1e4cf 0 28px,#d6b17d 28px 34px)}
-/* World kit assets */
-.temple{left:4%;top:24%;width:34%;z-index:42;filter:drop-shadow(0 12px 20px rgba(80,30,10,.24))}.hall{left:36%;top:28%;width:30%;z-index:43;filter:drop-shadow(0 12px 18px rgba(80,30,10,.24))}.market{right:5%;top:39%;width:31%;z-index:44;filter:drop-shadow(0 12px 18px rgba(80,30,10,.24))}.orchard{left:-2%;bottom:8%;width:19%;z-index:50;filter:drop-shadow(0 8px 12px rgba(0,0,0,.2))}.pier{right:4%;bottom:22%;width:23%;height:10%;z-index:48;border:10px solid #7c4a22;border-top:18px solid #8b5a2b;border-radius:8px;transform:skewX(-12deg);opacity:.92}.pier:before,.pier:after{content:"";position:absolute;background:#714115}.pier:before{left:12%;right:12%;top:34%;height:8px}.pier:after{left:28%;right:28%;bottom:-28px;height:42px}
-.boat{width:22%;z-index:36;left:-22%;bottom:18%;animation:boatRun 44s linear infinite;filter:drop-shadow(0 14px 14px rgba(0,25,50,.24))}.boat.small{width:10%;bottom:29%;animation-duration:62s;animation-delay:18s;opacity:.9}@keyframes boatRun{0%{transform:translateX(-10%) translateY(0)}25%{transform:translateX(125vw) translateY(-4vh)}25.01%{transform:translateX(125vw) translateY(-4vh) scaleX(-1)}50%{transform:translateX(-30vw) translateY(4vh) scaleX(-1)}50.01%{transform:translateX(-30vw) translateY(4vh) scaleX(1)}100%{transform:translateX(125vw) translateY(-4vh)}}
-.duck{width:5%;z-index:38;left:42%;bottom:22%;animation:duckSwim 18s ease-in-out infinite alternate}.duck.d2{left:48%;bottom:18%;width:3.8%;animation-duration:23s}@keyframes duckSwim{to{transform:translateX(12vw) translateY(-2vh)}}
-.treeShade{left:0;top:0;width:24%;height:43%;z-index:60;background:radial-gradient(circle at 18% 18%,#17642a 0 32%,transparent 33%),radial-gradient(circle at 35% 5%,#1f8f3a 0 27%,transparent 28%);filter:drop-shadow(0 8px 12px rgba(0,0,0,.28));opacity:.95}.treeShade:before{content:"";position:absolute;left:5%;top:0;width:6%;height:100%;background:#5a351d;transform:rotate(18deg);border-radius:40px}
-/* interactive places, subtle chips emerge from place (not big UI) */
-.place{position:absolute;z-index:75;border:0;border-radius:999px;padding:.55em .85em;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(40,20,80,.18);font-weight:800;color:#3b1579;cursor:pointer;font-size:clamp(11px,1.1vw,15px);display:flex;gap:.35em;align-items:center;opacity:0;transform:translateY(14px) scale(.86);transition:.22s}.world.ready .place{opacity:1;transform:none}.place:hover{transform:translateY(-5px) scale(1.05);background:#fff}.p-food{right:14%;top:48%;transition-delay:.15s}.p-craft{right:3%;top:48%;transition-delay:.25s}.p-market{right:20%;top:39%;transition-delay:.35s}.p-service{left:47%;top:40%;transition-delay:.45s}.p-news{left:54%;top:18%;transition-delay:.55s}.p-event{left:45%;bottom:22%;transition-delay:.65s}.p-learn{left:17%;top:40%;transition-delay:.75s}.p-chat{right:26%;bottom:19%;transition-delay:.85s}
-/* BC guide */
-.bc{left:-14%;bottom:8%;width:11%;min-width:84px;z-index:78;filter:drop-shadow(0 14px 20px rgba(30,10,60,.3));animation:bcEnter 4s cubic-bezier(.2,.9,.2,1) 1s forwards,bcIdle 2.6s ease-in-out 5.1s infinite}@keyframes bcEnter{0%{left:-15%;transform:translateY(0)}25%{transform:translateY(-8px)}50%{transform:translateY(4px)}100%{left:11%;transform:translateY(0)}}@keyframes bcIdle{50%{transform:translateY(-8px)}}
-.speech{position:absolute;left:20%;bottom:20%;z-index:80;max-width:320px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-radius:22px 22px 22px 6px;padding:12px 16px;box-shadow:0 12px 34px rgba(40,20,80,.22);font-weight:800;color:#35136e;font-size:clamp(13px,1.3vw,17px);opacity:0;transform:translateY(8px);pointer-events:none}.speech.show{animation:say 3.2s ease both}@keyframes say{0%{opacity:0;transform:translateY(8px)}12%,78%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-6px)}}
-/* small page icons */
-.logo{position:absolute;left:18px;top:18px;width:54px;height:54px;z-index:100;border-radius:16px;background:rgba(255,255,255,.55);backdrop-filter:blur(14px);box-shadow:0 8px 24px rgba(30,10,60,.18);display:grid;place-items:center}.logo img{max-width:82%;max-height:82%;object-fit:contain}.tools{position:absolute;right:18px;top:18px;z-index:100;display:flex;gap:10px}.tools button{width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.58);backdrop-filter:blur(14px);color:#4c1d95;font-size:20px;font-weight:900;box-shadow:0 8px 24px rgba(30,10,60,.16);cursor:pointer;transition:.18s}.tools button:hover{transform:translateY(-3px);background:#fff}
-/* Place info as a tiny in-world sheet, not dashboard */
-.sheet{position:absolute;right:2.5%;bottom:5%;z-index:120;width:min(340px,88vw);background:rgba(255,255,255,.86);backdrop-filter:blur(16px);border-radius:24px;padding:18px;box-shadow:0 18px 50px rgba(30,10,60,.25);opacity:0;pointer-events:none;transform:translateY(18px);transition:.25s}.sheet.on{opacity:1;pointer-events:auto;transform:none}.sheet h2{font-size:21px;margin-bottom:4px;color:#3b1579}.sheet p{font-size:13px;color:#6b5b80;margin-bottom:12px}.items{display:grid;gap:8px}.item{display:flex;gap:10px;align-items:center;background:#f5f0ff;border-radius:16px;padding:10px}.item i{width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,#5b21b6,#f59e0b);display:grid;place-items:center;font-style:normal}.item span{font-size:13px;font-weight:800}.close{position:absolute;right:12px;top:12px;border:0;border-radius:50%;background:#ede9fe;color:#4c1d95;width:28px;height:28px;font-size:18px;cursor:pointer}
-/* weather/time modes */
-.world.evening{filter:hue-rotate(-8deg) saturate(.98)}.world.evening .sky-glow{background:radial-gradient(circle at 12% 18%,rgba(255,150,80,.55),rgba(255,255,255,0) 24%)}.world.night .stage{filter:brightness(.63) saturate(.82)}.world.night .place,.world.night .speech,.world.night .sheet{background:rgba(255,255,255,.82)}
-/* mobile */
-@media(max-width:760px){.logo{width:46px;height:46px}.tools button{width:39px;height:39px}.place{font-size:11px;padding:.5em .7em}.bc{width:14%;bottom:7%}.speech{left:18%;bottom:22%;max-width:220px}.temple{width:38%;left:1%;top:25%}.hall{width:33%;left:35%;top:29%}.market{width:36%;right:0;top:41%}.p-food{right:12%;top:50%}.p-craft{right:1%;top:51%}.p-news{left:56%;top:20%}.p-event{left:43%;bottom:24%}.p-chat{right:26%;bottom:22%}}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;font-family:system-ui,-apple-system,"Sarabun","Noto Sans Thai",sans-serif;background:#8dd7ff;color:#fff}
+button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
+
+/* ===== WORLD VIEWPORT ===== */
+.app{position:relative;width:100vw;height:100dvh;overflow:hidden;background:#8dd7ff}
+.world-scroll{position:absolute;inset:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;overscroll-behavior:none;touch-action:pan-x}
+.world-scroll::-webkit-scrollbar{display:none}
+.stage{position:relative;height:100dvh;width:max(100vw,177.777dvh);min-width:100vw;overflow:hidden;isolation:isolate;background:#86d8ff}
+.scene{position:absolute;inset:0;background:url('assets/master-scene.png') center center/cover no-repeat;transform:translateZ(0);z-index:1}
+.scene::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,.05),rgba(23,12,80,.08));pointer-events:none}
+
+/* day/night from JS */
+.app.night .scene{filter:brightness(.48) saturate(.75) hue-rotate(12deg)}
+.app.evening .scene{filter:brightness(.86) saturate(1.05) sepia(.12)}
+.app.morning .scene{filter:brightness(1.05) saturate(1.04)}
+.app.night{background:#090927}
+
+/* ===== LIVING FX ===== */
+.sky-fx,.water-fx,.life-fx,.ui,.world-ui,.mascot-layer{position:absolute;inset:0;pointer-events:none}
+.sky-fx{z-index:4}.water-fx{z-index:8}.life-fx{z-index:9}.mascot-layer{z-index:30}.world-ui{z-index:45}.ui{z-index:70}
+.cloud{position:absolute;width:11vw;height:3.2vw;min-width:90px;min-height:26px;background:rgba(255,255,255,.75);border-radius:999px;filter:blur(.2px);animation:cloudMove linear infinite}
+.cloud:before,.cloud:after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud:before{width:52%;height:145%;left:13%;top:-80%}.cloud:after{width:62%;height:175%;right:10%;top:-105%}
+.c1{top:9%;left:-14%;animation-duration:68s}.c2{top:16%;left:-18%;animation-duration:92s;animation-delay:16s;opacity:.55}.c3{top:7%;left:-20%;animation-duration:76s;animation-delay:38s;opacity:.45}.c4{top:24%;left:-15%;animation-duration:110s;animation-delay:54s;opacity:.35}
+@keyframes cloudMove{to{transform:translateX(125vw)}}
+.bird{position:absolute;font-size:clamp(14px,1.8vw,26px);opacity:.72;animation:birdFly linear infinite;text-shadow:0 2px 3px rgba(0,0,0,.08)}
+.b1{top:12%;left:-5%;animation-duration:22s}.b2{top:22%;left:-8%;animation-duration:31s;animation-delay:9s;font-size:clamp(11px,1.2vw,18px)}.b3{top:8%;left:-8%;animation-duration:42s;animation-delay:19s;font-size:clamp(12px,1.3vw,20px)}
+@keyframes birdFly{to{transform:translate(122vw,-4vw)}}
+.water-shimmer{position:absolute;left:0;right:0;bottom:0;height:42%;background:repeating-linear-gradient(108deg,rgba(255,255,255,0) 0 26px,rgba(255,255,255,.18) 27px 29px,rgba(255,255,255,0) 30px 70px);mix-blend-mode:screen;opacity:.38;animation:shimmer 8s linear infinite}
+.wave-lines{position:absolute;left:0;right:0;bottom:0;height:34%;background:radial-gradient(ellipse at 32% 40%,rgba(255,255,255,.24),transparent 17%),radial-gradient(ellipse at 64% 52%,rgba(255,255,255,.18),transparent 14%);opacity:.38;animation:waterDrift 7s ease-in-out infinite alternate}
+@keyframes shimmer{to{background-position:220px 0}}@keyframes waterDrift{to{transform:translateX(2.4vw)}}
+
+.train{position:absolute;top:26.6%;left:-34%;width:26%;height:4.8%;z-index:11;animation:trainRun 40s linear infinite 3s;filter:drop-shadow(0 7px 8px rgba(20,10,50,.2))}
+.train-body{position:absolute;inset:16% 0 12%;border-radius:1.2vw;background:linear-gradient(180deg,#ffffff,#d9d2ff 42%,#8d45dc 43%,#5c259e);border:2px solid rgba(62,36,116,.35);overflow:hidden}
+.train-body:before{content:"";position:absolute;left:7%;right:13%;top:17%;height:30%;background:repeating-linear-gradient(90deg,#182239 0 6%,#bdeaff 6.5% 12%,#182239 12.5% 14%);border-radius:3px}.train-body:after{content:"";position:absolute;right:3%;top:12%;width:10%;height:55%;background:#12192d;border-radius:18px 26px 20px 9px}
+@keyframes trainRun{0%{transform:translateX(0)}100%{transform:translateX(160vw)}}
+
+.boat{position:absolute;bottom:22%;left:-16%;width:16%;height:7%;z-index:12;animation:boatSail 42s linear infinite 8s;filter:drop-shadow(0 9px 7px rgba(5,50,70,.25))}
+.boat .roof{position:absolute;left:26%;right:26%;top:-10%;height:45%;background:#7b3fe4;border-radius:10px 10px 0 0;border-bottom:4px solid #5c2cb2}.boat .hull{position:absolute;left:0;right:0;bottom:8%;height:42%;background:linear-gradient(#9a5a2b,#6a3316);clip-path:polygon(4% 0,96% 0,82% 100%,18% 100%)}.boat:after{content:"";position:absolute;left:13%;right:13%;bottom:-8%;height:12%;border-radius:999px;background:rgba(255,255,255,.55);filter:blur(2px)}
+.boat.small{width:12%;bottom:16%;animation-duration:55s;animation-delay:25s;opacity:.88}.boat.small .roof{display:none}
+@keyframes boatSail{0%{transform:translateX(0)}100%{transform:translateX(128vw)}}
+.duck{position:absolute;z-index:13;bottom:22%;left:48%;font-size:clamp(18px,2vw,34px);animation:duck 10s ease-in-out infinite;filter:drop-shadow(0 2px 2px rgba(0,0,0,.1))}.duck.d2{left:52%;bottom:19%;font-size:clamp(14px,1.5vw,25px);animation-delay:2s}
+@keyframes duck{50%{transform:translate(2.4vw,-.25vw)}}
+
+.leaf{position:absolute;top:-30px;z-index:12;font-size:18px;opacity:.75;animation:leafFall linear infinite}.l1{left:6%;animation-duration:16s}.l2{left:18%;animation-duration:21s;animation-delay:5s}.l3{right:8%;animation-duration:18s;animation-delay:9s}
+@keyframes leafFall{to{transform:translate(50px,110vh) rotate(540deg);opacity:0}}
+
+/* ===== UI ===== */
+.logo{position:fixed;left:max(14px,env(safe-area-inset-left));top:max(14px,env(safe-area-inset-top));width:54px;height:54px;border-radius:16px;background:rgba(255,255,255,.78);backdrop-filter:blur(16px);display:grid;place-items:center;box-shadow:var(--shadow);z-index:90}.logo img{width:42px;height:42px;object-fit:contain}.tools{position:fixed;right:max(14px,env(safe-area-inset-right));top:max(14px,env(safe-area-inset-top));display:flex;gap:10px;z-index:90}.tool{width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,.78);backdrop-filter:blur(16px);display:grid;place-items:center;color:var(--purple);box-shadow:0 10px 30px rgba(20,10,70,.16);font-size:20px}.tool:active{transform:scale(.95)}
+
+/* ===== MASCOT ===== */
+.mascot{position:absolute;left:6%;bottom:3.5%;width:clamp(98px,9.5vw,165px);z-index:35;transform:translateX(-150%) scale(.98);animation:bcEnter 2.2s cubic-bezier(.18,.8,.18,1) 1.4s forwards}.mascot img{width:100%;filter:drop-shadow(0 16px 22px rgba(35,15,80,.35));animation:bcBob 2.4s ease-in-out infinite 4s}.mascot.hide{animation:bcExit 1.2s ease forwards}.bubble{position:absolute;left:calc(6% + clamp(92px,9vw,155px));bottom:13%;max-width:min(360px,48vw);background:rgba(255,255,255,.92);color:#35176b;border-radius:24px 24px 24px 7px;padding:12px 16px;font-weight:800;line-height:1.45;box-shadow:var(--shadow);z-index:36;opacity:0;transform:translateY(8px) scale(.97);backdrop-filter:blur(14px)}.bubble.show{animation:bubbleIn .3s ease forwards}.bubble.out{animation:bubbleOut .28s ease forwards}
+@keyframes bcEnter{to{transform:translateX(0) scale(1)}}@keyframes bcExit{to{transform:translateX(-150%) scale(.92);opacity:0}}@keyframes bcBob{50%{transform:translateY(-7px)}}@keyframes bubbleIn{to{opacity:1;transform:translateY(0) scale(1)}}@keyframes bubbleOut{to{opacity:0;transform:translateY(-8px) scale(.96)}}
+
+/* ===== 8 PLACES: small, staged, not a dashboard ===== */
+.places{position:absolute;inset:0;z-index:42;pointer-events:none}.place{position:absolute;display:flex;align-items:center;gap:7px;min-height:34px;padding:6px 10px 6px 7px;border-radius:999px;background:rgba(255,255,255,.86);color:#38136e;box-shadow:0 8px 22px rgba(20,10,70,.18);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.7);font-weight:900;font-size:clamp(11px,1vw,14px);opacity:0;transform:translateY(16px) scale(.85);transition:transform .18s ease,box-shadow .18s ease;background .18s ease;pointer-events:auto}.place .ico{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#6d28d9,#f59e0b);color:#fff;font-size:13px}.place:hover,.place.active{transform:translateY(-5px) scale(1.05)!important;background:#fff;box-shadow:0 16px 36px rgba(60,20,100,.25)}.places.awake .place{animation:placePop .52s cubic-bezier(.14,1.55,.42,1) forwards}.p-service{left:45%;top:46%;animation-delay:.1s}.p-food{left:73%;top:55%;animation-delay:.24s}.p-market{left:66%;top:45%;animation-delay:.38s}.p-craft{left:84%;top:53%;animation-delay:.52s}.p-news{left:55%;top:25%;animation-delay:.66s}.p-event{left:48%;top:68%;animation-delay:.8s}.p-learn{left:16%;top:49%;animation-delay:.94s}.p-chat{left:67%;top:76%;animation-delay:1.08s}
+@keyframes placePop{to{opacity:1;transform:translateY(0) scale(1)}}
+
+.info{position:fixed;right:18px;bottom:18px;width:min(410px,calc(100vw - 36px));border-radius:28px;background:rgba(255,255,255,.9);backdrop-filter:blur(22px);box-shadow:var(--shadow);z-index:95;color:#271151;transform:translateY(calc(100% + 30px));transition:transform .38s cubic-bezier(.2,.8,.2,1);overflow:hidden}.info.open{transform:translateY(0)}.info-head{display:flex;align-items:center;gap:12px;padding:15px 16px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff}.info-head .big{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.2);font-size:23px}.info h2{font-size:18px;line-height:1.2}.info p{font-size:12px;opacity:.78}.x{margin-left:auto;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.17);font-size:22px}.info-body{padding:14px}.search{width:100%;height:42px;border:0;border-radius:18px;background:#f3ecff;padding:0 14px;font:inherit;color:#2d1559;outline:none;margin-bottom:10px}.sample{display:grid;gap:8px}.row{display:flex;gap:10px;padding:10px;border-radius:16px;background:#fbf9ff}.row b{font-size:13px}.row span{display:block;font-size:11px;color:#7c6a91;margin-top:2px}.thumb{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#6d28d9,#f59e0b);display:grid;place-items:center;color:#fff;font-size:21px;flex:0 0 auto}
+
+@media (max-width: 760px){
+ .stage{width:177.777dvh}.logo{width:46px;height:46px;border-radius:14px}.logo img{width:35px;height:35px}.tool{width:39px;height:39px}.bubble{left:25%;bottom:13%;max-width:62vw;font-size:12px}.place{font-size:10px;padding:5px 8px}.place .ico{width:22px;height:22px}.info{left:10px;right:10px;bottom:10px;width:auto}.mascot{width:92px;bottom:4%}
+}
+@media (prefers-reduced-motion: reduce){*,*:before,*:after{animation:none!important;transition:none!important}.mascot{transform:translateX(0)}}
 </style>
 </head>
 <body>
-<main class="world" id="world" aria-label="บางรักน้อย Connect เมืองการ์ตูนมีชีวิต">
-  <section class="stage" id="stage">
-    <div class="camera" id="camera">
-      <div class="layer sky-glow"></div><div class="layer sun"></div>
-      <div class="layer cloud c1"></div><div class="layer cloud c2"></div><div class="layer cloud c3"></div>
-      <div class="layer bird b1">⌁</div><div class="layer bird b2">⌁</div><div class="layer bird b3">⌁</div>
-      <div class="layer horizon"></div><div class="layer houses"></div>
-      <img class="layer rail" src="assets/rail.svg" alt=""><img class="layer train" src="assets/train.svg" alt="รถไฟฟ้าวิ่งผ่าน">
-      <div class="layer river"></div><div class="layer wave"></div><div class="layer wave w2"></div>
-      <div class="layer prom"></div>
-      <img class="layer temple" src="assets/temple-buddha.svg" alt="วัดบางรักน้อยและพระใหญ่">
-      <img class="layer hall" src="assets/townhall.svg" alt="เทศบาลเมืองบางรักน้อย">
-      <img class="layer market" src="assets/market.svg" alt="ตลาด ร้านอาหาร และร้านช่าง">
-      <div class="layer pier"></div>
-      <img class="layer orchard" src="assets/tree.svg" alt="สวนทุเรียนและสวนผลไม้">
-      <img class="layer boat" src="assets/boat.svg" alt="เรือในคลองอ้อมนนท์"><img class="layer boat small" src="assets/boat-small.svg" alt="เรือเล็ก">
-      <img class="layer duck" src="assets/duck.svg" alt="เป็ดว่ายน้ำ"><img class="layer duck d2" src="assets/duck.svg" alt="เป็ดว่ายน้ำ">
-      <div class="layer frontwalk"></div><div class="layer plants"></div><div class="layer treeShade"></div>
-      <button class="place p-learn" data-zone="learn">🎓 ฝึกอาชีพ</button>
-      <button class="place p-service" data-zone="service">❤️ บริการ</button>
-      <button class="place p-news" data-zone="news">📢 ข่าวสาร</button>
-      <button class="place p-market" data-zone="market">🛍️ ตลาด</button>
-      <button class="place p-food" data-zone="food">🍜 ร้านอาหาร</button>
-      <button class="place p-craft" data-zone="craft">🔧 หาช่าง</button>
-      <button class="place p-event" data-zone="event">🎉 กิจกรรม</button>
-      <button class="place p-chat" data-zone="chat">💬 พูดคุย</button>
-      <img class="layer bc" id="bc" src="assets/bc-guide.svg" alt="มาสคอต BC">
-      <div class="speech" id="speech"></div>
-    </div>
-  </section>
-  <a class="logo" href="#" aria-label="บางรักน้อย Connect"><img src="assets/bc-logo.png" alt="BC"></a>
-  <div class="tools"><button id="home" title="กลับหน้าเมือง">⌂</button><button id="sound" title="เสียง">♪</button><button id="menu" title="เมนู">☰</button></div>
-  <aside class="sheet" id="sheet"><button class="close" id="close">×</button><h2 id="title"></h2><p id="sub"></p><div class="items" id="items"></div></aside>
-</main>
+<div class="app" id="app">
+  <div class="world-scroll" id="scroll">
+    <main class="stage" id="stage" aria-label="บางรักน้อย Connect Living Community">
+      <div class="scene"></div>
+      <div class="sky-fx"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div><div class="bird b1">⌁</div><div class="bird b2">⌁</div><div class="bird b3">⌁</div></div>
+      <div class="water-fx"><div class="water-shimmer"></div><div class="wave-lines"></div><div class="boat"><div class="roof"></div><div class="hull"></div></div><div class="boat small"><div class="roof"></div><div class="hull"></div></div><div class="duck">🦆</div><div class="duck d2">🦆</div></div>
+      <div class="life-fx"><div class="train"><div class="train-body"></div></div><div class="leaf l1">🍃</div><div class="leaf l2">🍃</div><div class="leaf l3">🍂</div></div>
+      <section class="places" id="places" aria-label="สถานที่ในเมือง">
+        <button class="place p-service" data-zone="service"><span class="ico">♥</span>บริการ</button>
+        <button class="place p-food" data-zone="food"><span class="ico">🍜</span>ร้านอาหาร</button>
+        <button class="place p-market" data-zone="market"><span class="ico">🛍</span>ตลาด</button>
+        <button class="place p-craft" data-zone="craft"><span class="ico">🔧</span>หาช่าง</button>
+        <button class="place p-news" data-zone="news"><span class="ico">📢</span>ข่าวสาร</button>
+        <button class="place p-event" data-zone="event"><span class="ico">🎉</span>กิจกรรม</button>
+        <button class="place p-learn" data-zone="learn"><span class="ico">🎓</span>ฝึกอาชีพ</button>
+        <button class="place p-chat" data-zone="chat"><span class="ico">💬</span>พูดคุย</button>
+      </section>
+      <div class="mascot-layer"><div class="mascot" id="mascot"><img src="assets/bc-mascot.png" alt="BC Mascot"></div><div class="bubble" id="bubble"></div></div>
+    </main>
+  </div>
+  <a class="logo" href="#" aria-label="Bangraknoi Connect"><img src="assets/bc-logo.png" alt="BC"></a>
+  <div class="tools"><button class="tool" id="home" aria-label="กลับหน้าแรก">⌂</button><button class="tool" id="sound" aria-label="เสียง">♪</button><button class="tool" id="menu" aria-label="เมนู">☰</button></div>
+  <aside class="info" id="info" aria-live="polite"><div class="info-head"><div class="big" id="infoIcon">🍜</div><div><h2 id="infoTitle">ร้านอาหาร</h2><p id="infoSub">ของอร่อยใกล้บ้าน</p></div><button class="x" id="close">×</button></div><div class="info-body"><input class="search" id="search" placeholder="ค้นหาในหมวดนี้..."><div class="sample" id="sample"></div></div></aside>
+</div>
 <script>
-const zones={
- food:['ร้านอาหาร','ของอร่อยริมคลอง ร้านแนะนำ และร้านใกล้บ้าน',[['🍜','ก๋วยเตี๋ยวเรือ / อาหารตามสั่ง'],['☕','คาเฟ่ริมคลอง'],['⭐','ร้านแนะนำของชุมชน']]],
- craft:['หาช่าง','ช่างในพื้นที่ หาง่าย ติดต่อไว',[['🔧','ช่างทั่วไป'],['⚡','ช่างไฟ'],['💧','ช่างประปา']]],
- market:['ตลาด / สินค้า','สินค้าและบริการท้องถิ่น',[['🛍️','ตลาดบางรักน้อย'],['🌳','ผลไม้ตามฤดูกาล'],['🎁','สินค้าและบริการชุมชน']]],
- service:['บริการชุมชน','บริการและช่องทางช่วยเหลือประชาชน',[['🏛️','ติดต่อหน่วยงาน'],['📍','แจ้งปัญหาในพื้นที่'],['📋','ข้อมูลบริการ']]],
- news:['ข่าวสาร','ประกาศ ข่าว และแจ้งเตือนสำคัญ',[['📢','ข่าวประชาสัมพันธ์'],['⚠️','แจ้งเตือน'],['🚇','การเดินทาง / รถไฟฟ้า']]],
- event:['กิจกรรม','กิจกรรมในชุมชนและพื้นที่ใกล้บ้าน',[['🎉','กิจกรรมประจำเดือน'],['🏃','สุขภาพ / กีฬา'],['🛕','งานวัด / งานประเพณี']]],
- learn:['ฝึกอาชีพ','เรียนรู้ทักษะใหม่ สร้างรายได้',[['🎓','หลักสูตรฝึกอาชีพ'],['💻','ทักษะดิจิทัล'],['🌿','เกษตร / สวนผลไม้']]],
- chat:['พูดคุย','พื้นที่แลกเปลี่ยนของคนในชุมชน',[['💬','ถาม-ตอบ'],['🤝','ช่วยเหลือกัน'],['❤️','เรื่องดี ๆ ในบางรักน้อย']]]
+const app=document.getElementById('app'), scroll=document.getElementById('scroll'), places=document.getElementById('places'), bubble=document.getElementById('bubble'), info=document.getElementById('info');
+const data={
+ service:['♥','บริการชุมชน','แจ้งปัญหา ติดต่อหน่วยงาน บริการใกล้ตัว',['แจ้งเหตุ/แจ้งปัญหา','บริการเทศบาล','ช่องทางติดต่อ']],
+ food:['🍜','ร้านอาหาร','ร้านอร่อย คาเฟ่ ของกินในบางรักน้อย',['ก๋วยเตี๋ยวริมคลอง','ร้านอาหารตามสั่ง','คาเฟ่ริมน้ำ']],
+ market:['🛍','ตลาด / สินค้า','ของดี ของฝาก สินค้าท้องถิ่น',['ตลาดบางรักน้อย','สินค้า/บริการท้องถิ่น','ผลไม้ตามฤดูกาล']],
+ craft:['🔧','หาช่าง','ช่างใกล้บ้าน งานซ่อม งานบริการ',['ช่างไฟฟ้า','ช่างประปา','ช่างทั่วไป']],
+ news:['📢','ข่าวสาร','ประกาศและเรื่องสำคัญของชุมชน',['ประกาศชุมชน','แจ้งเตือน','ข่าวประชาสัมพันธ์']],
+ event:['🎉','กิจกรรมชุมชน','งานประเพณี กิจกรรม และนัดหมาย',['กิจกรรมประจำเดือน','งานชุมชน','รับสมัครอาสา']],
+ learn:['🎓','ฝึกอาชีพ','เรียนรู้ทักษะใหม่ สร้างรายได้',['อบรมอาชีพ','ทักษะดิจิทัล','เวิร์กช็อปชุมชน']],
+ chat:['💬','พูดคุย แลกเปลี่ยน','พื้นที่ถามตอบ เสนอแนะ และช่วยกัน',['ถาม-ตอบชุมชน','แลกเปลี่ยนของดี','ข้อเสนอแนะ']]
 };
-const world=document.getElementById('world'), cam=document.getElementById('camera'), speech=document.getElementById('speech'), sheet=document.getElementById('sheet');
-function timeMode(){const h=new Date().getHours();world.classList.toggle('night',h>=18||h<6);world.classList.toggle('evening',h>=16&&h<18)}timeMode();setInterval(timeMode,60000);
-function say(t,delay=0){setTimeout(()=>{speech.innerHTML=t;speech.classList.remove('show');void speech.offsetWidth;speech.classList.add('show')},delay)}
-window.addEventListener('load',()=>{setTimeout(()=>say('สวัสดีครับ 😊'),1800);setTimeout(()=>say('ยินดีต้อนรับสู่บางรักน้อย Connect'),5200);setTimeout(()=>say('วันนี้...จะพาไปไหนดีครับ?'),8800);setTimeout(()=>world.classList.add('ready'),9800)});
-function openZone(key){const z=zones[key];if(!z)return;document.getElementById('title').textContent=z[0];document.getElementById('sub').textContent=z[1];document.getElementById('items').innerHTML=z[2].map(x=>`<div class="item"><i>${x[0]}</i><span>${x[1]}</span></div>`).join('');sheet.classList.add('on');const moves={learn:'translateX(10%) scale(1.06)',service:'scale(1.06)',news:'translateY(4%) scale(1.04)',market:'translateX(-10%) scale(1.06)',food:'translateX(-12%) scale(1.08)',craft:'translateX(-18%) scale(1.08)',event:'translateY(-6%) scale(1.05)',chat:'translateX(-8%) translateY(-3%) scale(1.05)'};cam.style.transform=moves[key]||''}
-document.querySelectorAll('.place').forEach(b=>b.addEventListener('click',e=>openZone(e.currentTarget.dataset.zone)));
-document.getElementById('close').onclick=()=>{sheet.classList.remove('on');cam.style.transform=''};
-document.getElementById('home').onclick=()=>{sheet.classList.remove('on');cam.style.transform='';say('ลองเดินดูในเมืองได้เลยครับ 😊')};
-document.getElementById('sound').onclick=()=>say('เสียงเมืองจะปลูกในรอบถัดไปครับ ♪');
-document.getElementById('menu').onclick=()=>world.classList.toggle('ready');
-// mobile pan
-let startX=0,pan=0;const stage=document.getElementById('stage');stage.addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});stage.addEventListener('touchmove',e=>{if(innerWidth>760)return;const dx=e.touches[0].clientX-startX;pan=Math.max(-260,Math.min(260,pan+dx*.08));stage.style.setProperty('--pan',pan+'px')},{passive:true});
+function timeMode(){const h=new Date().getHours(); if(h<6||h>=19)app.classList.add('night'); else if(h>=17)app.classList.add('evening'); else if(h<10)app.classList.add('morning')} timeMode();
+function say(text,ms=2100){return new Promise(res=>{bubble.innerHTML=text;bubble.className='bubble show';setTimeout(()=>{bubble.className='bubble out';setTimeout(res,280)},ms)})}
+async function intro(){await new Promise(r=>setTimeout(r,1200)); await say('สวัสดีครับ 😊',1700); await say('ยินดีต้อนรับสู่<br><b>บางรักน้อย Connect</b>',2200); await say('เมืองที่รวมทุกเรื่องของชุมชน<br>ไว้ในที่เดียว',2300); await say('วันนี้...จะพาไปไหนดีครับ?',2300); places.classList.add('awake')}
+window.addEventListener('load',()=>{setTimeout(()=>{const max=scroll.scrollWidth-scroll.clientWidth;scroll.scrollLeft=Math.max(0,max*.22)},250);intro()});
+function openZone(zone){const d=data[zone]; if(!d)return; document.querySelectorAll('.place').forEach(p=>p.classList.toggle('active',p.dataset.zone===zone)); document.getElementById('infoIcon').textContent=d[0]; document.getElementById('infoTitle').textContent=d[1]; document.getElementById('infoSub').textContent=d[2]; document.getElementById('sample').innerHTML=d[3].map((x,i)=>`<div class="row"><div class="thumb">${d[0]}</div><div><b>${x}</b><span>ข้อมูลตัวอย่าง — พร้อมเชื่อมฐานข้อมูลจริง</span></div></div>`).join(''); info.classList.add('open'); const target=document.querySelector(`[data-zone="${zone}"]`); if(target){const r=target.getBoundingClientRect(), s=scroll.getBoundingClientRect(); scroll.scrollTo({left:scroll.scrollLeft+r.left-s.left-scroll.clientWidth*.45,behavior:'smooth'});} }
+document.querySelectorAll('.place').forEach(b=>b.addEventListener('click',()=>openZone(b.dataset.zone)));
+document.getElementById('close').onclick=()=>info.classList.remove('open');
+document.getElementById('home').onclick=()=>{info.classList.remove('open');scroll.scrollTo({left:(scroll.scrollWidth-scroll.clientWidth)*.22,behavior:'smooth'});};
+document.getElementById('menu').onclick=()=>{places.classList.add('awake');say('เลือกสถานที่ในเมืองได้เลยครับ',1600)};
+let soundOn=false,audioCtx,osc,gain;document.getElementById('sound').onclick=()=>{soundOn=!soundOn;if(soundOn){audioCtx=new(window.AudioContext||window.webkitAudioContext)();osc=audioCtx.createOscillator();gain=audioCtx.createGain();osc.type='sine';osc.frequency.value=220;gain.gain.value=.015;osc.connect(gain);gain.connect(audioCtx.destination);osc.start();document.getElementById('sound').textContent='♫'}else{try{osc.stop();audioCtx.close()}catch(e){}document.getElementById('sound').textContent='♪'}};
 </script>
 </body>
 </html>
