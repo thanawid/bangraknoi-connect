@@ -1,8 +1,6 @@
-# Bangraknoi Connect — Living Community Clean V1
+# Bangraknoi Connect — Living Community Clean V1.1 BC Logo
 
-- Responsive 2D master scene
-- No explanatory bottom text
-- Tiny page icons only
-- Scene supports animated train and boat as separate layers
-- BC is separate NPC layer
-- Time of day follows device time automatically
+- ใช้โลโก้ BC อย่างเดียวบนหน้าเว็บ
+- เพิ่ม favicon / app icon จากโลโก้ BC
+- คงฉากเมือง 2D และไอคอนเล็กด้านบน
+- รองรับ responsive ทุกอุปกรณ์

@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>บางรักน้อย Connect — Living Community</title>
 <meta name="description" content="บางรักน้อย Connect — เมืองการ์ตูนที่มีชีวิต" />
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
 <style>
 :root{
   --purple:#4b178f;
@@ -72,9 +75,9 @@ button{font:inherit}
 @keyframes boat{0%{transform:translateX(-220px)}100%{transform:translateX(125vw)}}
 
 /* brand and tiny page icons */
-.brand{position:absolute;top:18px;left:18px;z-index:50;display:flex;align-items:center;gap:8px;padding:7px 13px 7px 7px;border-radius:999px;background:rgba(255,255,255,.58);backdrop-filter:blur(14px);box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.65)}
-.brand img{width:36px;height:36px;object-fit:contain;border-radius:10px}.brand strong{display:block;font-size:13px;line-height:1;color:#3a1379}.brand span{display:block;margin-top:3px;font-size:10px;color:#6e5b8e}.icons{position:absolute;top:18px;right:18px;z-index:50;display:flex;gap:10px}.ico{width:42px;height:42px;border:0;border-radius:50%;background:rgba(255,255,255,.72);backdrop-filter:blur(12px);box-shadow:0 10px 28px rgba(30,20,80,.18);display:grid;place-items:center;color:#35106c;cursor:pointer;transition:transform .18s ease,background .18s}.ico:hover{transform:translateY(-2px) scale(1.04);background:#fff}.ico svg{width:22px;height:22px;display:block}
-@media(max-width:620px){.brand{top:12px;left:12px;padding:6px}.brand img{width:32px;height:32px}.brand strong,.brand span{display:none}.icons{top:12px;right:12px;gap:8px}.ico{width:38px;height:38px}}
+.brand{position:absolute;top:18px;left:18px;z-index:50;display:grid;place-items:center;width:54px;height:54px;border-radius:18px;background:rgba(255,255,255,.62);backdrop-filter:blur(14px);box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.68)}
+.brand img{width:44px;height:44px;object-fit:contain}.icons{position:absolute;top:18px;right:18px;z-index:50;display:flex;gap:10px}.ico{width:42px;height:42px;border:0;border-radius:50%;background:rgba(255,255,255,.72);backdrop-filter:blur(12px);box-shadow:0 10px 28px rgba(30,20,80,.18);display:grid;place-items:center;color:#35106c;cursor:pointer;transition:transform .18s ease,background .18s}.ico:hover{transform:translateY(-2px) scale(1.04);background:#fff}.ico svg{width:22px;height:22px;display:block}
+@media(max-width:620px){.brand{top:12px;left:12px;width:46px;height:46px;border-radius:15px}.brand img{width:38px;height:38px}.icons{top:12px;right:12px;gap:8px}.ico{width:38px;height:38px}}
 
 /* mascot NPC */
 .mascot{position:absolute;z-index:45;left:9%;bottom:6%;width:min(150px,18vw);min-width:78px;transform:translateX(-150%) scale(.95);animation:mascot-in 2.5s cubic-bezier(.2,.8,.2,1) 1.4s forwards}.mascot img{width:100%;display:block;filter:drop-shadow(0 14px 22px rgba(30,20,70,.28));animation:bob 2.4s ease-in-out infinite 4s}.mascot::after{content:"";position:absolute;left:18%;right:18%;bottom:2px;height:12px;background:rgba(0,0,0,.18);border-radius:50%;filter:blur(5px);z-index:-1}@keyframes mascot-in{0%{transform:translateX(-150%) scale(.9)}70%{transform:translateX(10%) scale(1.02)}100%{transform:translateX(0) scale(1)}}@keyframes bob{50%{transform:translateY(-7px)}}
@@ -103,7 +106,7 @@ button{font:inherit}
   <div class="boat" aria-hidden="true"></div><div class="boat small" aria-hidden="true"></div>
 
   <div class="brand" aria-label="บางรักน้อย Connect">
-    <img src="assets/logo.png" alt="BC"><div><strong>บางรักน้อย Connect</strong><span>Living Community</span></div>
+    <img src="assets/logo.png" alt="BC">
   </div>
   <nav class="icons" aria-label="เมนูหลักขนาดเล็ก">
     <button class="ico" title="หน้าหลัก" aria-label="หน้าหลัก"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M9.5 20v-6h5v6"/></svg></button>
