@@ -1,11 +1,8 @@
-# Bangraknoi Connect — Genesis V1 Guided Living Start
+# Bangraknoi Connect — Living Community Clean V1
 
-เมืองคืออินเทอร์เฟซ ไม่ใช่ Dashboard
-
-## Flow
-เปิดเว็บ → เห็นเมือง → BC เดินเข้ามา → ทัก → ถามจะพาไปไหนดี → สถานที่/หมวดเด้งขึ้น → กดแล้วข้อมูลโผล่เท่าที่จำเป็น
-
-## ไฟล์
-- index.html
-- assets/playmap-master.png
-- assets/logo-bc.png
+- Responsive 2D master scene
+- No explanatory bottom text
+- Tiny page icons only
+- Scene supports animated train and boat as separate layers
+- BC is separate NPC layer
+- Time of day follows device time automatically
