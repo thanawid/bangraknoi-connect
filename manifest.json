@@ -1,1 +1,13 @@
-{"name":"บางรักน้อย Connect","short_name":"BC Connect","start_url":"index.html","display":"standalone","background_color":"#f7f4ff","theme_color":"#6b35c9","icons":[{"src":"assets/favicon.png","sizes":"32x32","type":"image/png"}]}
+{
+  "name": "บางรักน้อย Connect",
+  "short_name": "BC Connect",
+  "description": "ศูนย์รวมข้อมูลชุมชนบางรักน้อย",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#3D1A7A",
+  "theme_color": "#6B35C9",
+  "icons": [
+    { "src": "favicon.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" }
+  ]
+}
