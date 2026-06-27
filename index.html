@@ -1,133 +1,122 @@
 <!doctype html>
 <html lang="th">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>บางรักน้อย Connect — Living Community</title>
-<meta name="description" content="บางรักน้อย Connect — เมืองการ์ตูนที่บังเอิญเป็นเว็บ" />
-<link rel="icon" href="assets/favicon.png" />
+<meta name="description" content="เมืองการ์ตูนมีชีวิตของบางรักน้อย — เมืองคืออินเทอร์เฟซ">
+<link rel="icon" href="assets/bc-logo.png">
 <style>
 :root{
-  --purple:#5922b8;
-  --purple2:#7c3aed;
-  --gold:#f6a51a;
-  --white:#fff;
-  --shadow:0 18px 50px rgba(28,17,64,.25);
-  --scene-w:100vw;
-  --scene-x:0px;
-  --tone:brightness(1) saturate(1.02);
+  --purple:#5b21b6;--purple2:#7c3aed;--gold:#f59e0b;--ink:#2b174a;
+  --unit:min(1vw,1.7vh);
+  --daySky1:#65c8ff;--daySky2:#dff6ff;
 }
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;font-family:"Sarabun",system-ui,-apple-system,Segoe UI,sans-serif;background:#8bd7ff;color:#2f195f}
-button{font:inherit}
-.world{position:relative;width:100vw;height:100dvh;overflow:hidden;background:#8bd7ff;touch-action:none;isolation:isolate}
-.scene{position:absolute;left:0;top:0;width:var(--scene-w);height:100%;transform:translate3d(var(--scene-x),0,0);transition:transform .9s cubic-bezier(.2,.8,.2,1),filter 1.2s;transform-origin:center center;filter:var(--tone);will-change:transform,filter}
-.bg{position:absolute;inset:0;background:url('assets/master-scene-world.png') center center/cover no-repeat;z-index:1}
-.vignette{position:absolute;inset:0;z-index:9;pointer-events:none;background:linear-gradient(to bottom,rgba(255,255,255,.05),rgba(0,0,0,0) 55%,rgba(11,35,62,.18));mix-blend-mode:multiply}
-/* Day phases */
-.world.morning{--tone:brightness(1.04) saturate(1.05)}
-.world.noon{--tone:brightness(1.06) saturate(1.04)}
-.world.evening{--tone:brightness(.92) saturate(1.08) sepia(.09)}
-.world.night{--tone:brightness(.45) saturate(.78) hue-rotate(10deg)}
-.world.night .night{opacity:1}.night{position:absolute;inset:0;background:radial-gradient(circle at 80% 8%,rgba(255,242,190,.22),transparent 9%),linear-gradient(to bottom,rgba(6,10,49,.58),rgba(9,5,38,.35));z-index:8;opacity:0;pointer-events:none;transition:opacity 1.5s}
-.world.night .shop-light,.world.night .temple-light,.world.night .hall-light{opacity:.95}
-/* Minimal top icons */
-.logo{position:fixed;z-index:90;left:clamp(12px,2vw,24px);top:calc(12px + env(safe-area-inset-top));display:flex;align-items:center;justify-content:center;width:clamp(46px,5vw,62px);height:clamp(46px,5vw,62px);border-radius:18px;background:rgba(255,255,255,.52);backdrop-filter:blur(14px);box-shadow:0 8px 30px rgba(49,23,102,.18);border:1px solid rgba(255,255,255,.65)}
-.logo img{width:78%;height:78%;object-fit:contain}.top-icons{position:fixed;right:clamp(12px,2vw,22px);top:calc(14px + env(safe-area-inset-top));z-index:90;display:flex;gap:10px}.top-icons button{width:42px;height:42px;border:0;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.58);backdrop-filter:blur(14px);box-shadow:0 8px 28px rgba(49,23,102,.18);color:var(--purple);cursor:pointer;font-size:20px}.top-icons button:hover{transform:translateY(-2px)}
-/* Living sky */
-.cloud{position:absolute;z-index:11;background:rgba(255,255,255,.86);border-radius:999px;filter:drop-shadow(0 8px 10px rgba(80,130,180,.06));pointer-events:none;animation:cloud linear infinite}.cloud:before,.cloud:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.92)}.c1{width:130px;height:38px;left:-12%;top:11%;animation-duration:70s}.c1:before{width:66px;height:66px;left:22px;top:-32px}.c1:after{width:82px;height:82px;right:10px;top:-45px}.c2{width:92px;height:28px;left:-20%;top:22%;opacity:.66;animation-delay:26s;animation-duration:92s}.c2:before{width:48px;height:48px;left:16px;top:-22px}.c2:after{width:58px;height:58px;right:8px;top:-31px}.c3{width:150px;height:42px;left:-18%;top:5%;opacity:.76;animation-delay:46s;animation-duration:110s}.c3:before{width:76px;height:76px;left:24px;top:-36px}.c3:after{width:88px;height:88px;right:14px;top:-50px}@keyframes cloud{to{transform:translateX(calc(var(--scene-w) + 30vw))}}
-.bird{position:absolute;z-index:12;pointer-events:none;opacity:.72;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.22);animation:bird linear infinite}.b1{left:-5%;top:9%;font-size:18px;animation-duration:24s}.b2{left:-8%;top:15%;font-size:13px;animation-delay:7s;animation-duration:32s}.b3{left:-6%;top:7%;font-size:14px;animation-delay:16s;animation-duration:42s}@keyframes bird{to{transform:translate(calc(var(--scene-w) + 20vw),-34px)}}
-.leaf{position:absolute;z-index:13;top:-36px;pointer-events:none;opacity:.65;font-size:18px;animation:leaf linear infinite}.l1{left:8%;animation-duration:15s}.l2{left:32%;animation-delay:7s;animation-duration:21s}.l3{right:9%;animation-delay:13s;animation-duration:18s}@keyframes leaf{to{transform:translate(60px,110vh) rotate(420deg);opacity:0}}
-/* Train sprite, background only has rail */
-.train{position:absolute;z-index:16;right:-34%;top:24.4%;width:min(360px,26vw);height:34px;border-radius:18px 22px 22px 18px;background:linear-gradient(#f7f2ff 0 35%,#8a45db 36% 100%);box-shadow:0 6px 8px rgba(36,20,80,.18);animation:train 44s linear infinite}.train:before{content:"";position:absolute;inset:8px 30px 8px 18px;background:repeating-linear-gradient(90deg,#14213d 0 20px,#e8f3ff 21px 32px);border-radius:7px}.train:after{content:"";position:absolute;right:9px;top:8px;width:22px;height:18px;border-radius:4px 12px 12px 4px;background:#1c2450}@keyframes train{0%{transform:translateX(0)}100%{transform:translateX(calc(-1 * (var(--scene-w) + 70vw)))}}
-/* River sprites */
-.water-shine{position:absolute;z-index:15;left:0;right:0;bottom:20%;height:28%;pointer-events:none;background:repeating-linear-gradient(110deg,transparent 0 48px,rgba(255,255,255,.12) 50px 52px,transparent 55px 110px);opacity:.45;animation:water 12s linear infinite}@keyframes water{to{background-position:180px 0}}
-.boat{position:absolute;z-index:18;bottom:18%;left:-18%;width:180px;height:56px;animation:boat 48s linear infinite}.boat:before{content:"";position:absolute;left:0;right:0;bottom:0;height:24px;background:#8a4a22;border-radius:8px 8px 45px 45px;transform:skewX(-16deg)}.boat:after{content:"";position:absolute;left:28px;top:0;width:116px;height:32px;background:#7d3fd4;border-radius:18px 18px 6px 6px;box-shadow:inset 0 -8px rgba(255,255,255,.18)}@keyframes boat{0%{transform:translateX(0) translateY(0)}48%{transform:translateX(calc(var(--scene-w) + 28vw)) translateY(-26px)}49%{opacity:0}52%{transform:translateX(-22vw) translateY(8px);opacity:0}55%{opacity:1}100%{transform:translateX(0) translateY(0)}}
-.duck{position:absolute;z-index:19;bottom:20%;left:42%;font-size:22px;animation:duck 16s ease-in-out infinite;pointer-events:none}@keyframes duck{50%{transform:translate(90px,-8px)}}.fish{position:absolute;z-index:18;bottom:29%;left:54%;font-size:16px;opacity:0;animation:fish 9s ease-in-out infinite;pointer-events:none}@keyframes fish{0%,80%,100%{opacity:0;transform:translateY(0)}10%,25%{opacity:1;transform:translateY(-12px)}}
-/* Lights / breath */
-.shop-light,.temple-light,.hall-light{position:absolute;z-index:17;pointer-events:none;opacity:0;transition:opacity 1s;background:radial-gradient(circle,rgba(255,204,82,.75),transparent 65%);mix-blend-mode:screen}.shop-light{right:9%;top:46%;width:270px;height:170px}.hall-light{left:41%;top:39%;width:230px;height:130px}.temple-light{left:8%;top:38%;width:240px;height:160px}.smoke{position:absolute;z-index:20;right:13%;top:48%;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.4);box-shadow:18px -18px 0 3px rgba(255,255,255,.28),34px -42px 0 6px rgba(255,255,255,.18);animation:smoke 5s ease-in-out infinite;pointer-events:none}@keyframes smoke{50%{transform:translateY(-18px) scale(1.25);opacity:.5}100%{transform:translateY(-36px) scale(1.7);opacity:0}}
-/* BC NPC */
-.bc{position:absolute;z-index:45;bottom:3.5%;left:-130px;width:clamp(92px,11vw,150px);animation:bcWalk 4.8s cubic-bezier(.2,.8,.2,1) 1.2s forwards}.bc img{width:100%;filter:drop-shadow(0 14px 24px rgba(26,13,53,.35));animation:bob 1.1s ease-in-out infinite}.bc.idle img{animation:bob 2s ease-in-out infinite}.bc-bubble{position:absolute;left:calc(100% - 10px);bottom:70%;width:max-content;max-width:260px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.75);border-radius:22px 22px 22px 6px;padding:10px 14px;font-weight:800;color:#37176e;box-shadow:var(--shadow);opacity:0;transform:translateY(10px) scale(.94);pointer-events:none}.bc-bubble.show{animation:talk 2.8s ease both}.bc-bubble.ask{animation:ask .5s ease forwards}@keyframes bcWalk{0%{left:-130px;transform:translateY(0) rotate(-2deg)}70%{left:8%;transform:translateY(0) rotate(1deg)}100%{left:8%;transform:translateY(0) rotate(0)}}@keyframes bob{50%{transform:translateY(-5px)}}@keyframes talk{10%,80%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-8px) scale(.98)}}@keyframes ask{to{opacity:1;transform:translateY(0) scale(1)}}
-/* 8 places: subtle, small, born from city after intro */
-.places{position:absolute;inset:0;z-index:50;pointer-events:none}.place{position:absolute;display:flex;align-items:center;gap:7px;border:0;border-radius:999px;padding:8px 11px;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);box-shadow:0 9px 26px rgba(45,24,90,.20);color:#3b1579;font-weight:900;font-size:clamp(11px,1.1vw,14px);cursor:pointer;opacity:0;transform:translateY(20px) scale(.75);transition:transform .18s,background .18s,box-shadow .18s;pointer-events:none}.place i{font-style:normal;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--purple2),var(--gold));color:#fff}.places.ready .place{animation:rise .65s cubic-bezier(.12,1.45,.28,1) forwards;pointer-events:auto}.place:hover,.place:focus-visible{background:#fff;transform:translateY(-5px) scale(1.05)!important;box-shadow:0 16px 34px rgba(45,24,90,.30);outline:none}.p-food{right:13%;top:52%;animation-delay:.04s}.p-craft{right:3.2%;top:51%;animation-delay:.12s}.p-market{right:18%;top:43%;animation-delay:.2s}.p-service{left:45%;top:43%;animation-delay:.28s}.p-news{left:49%;top:21%;animation-delay:.36s}.p-event{left:42%;bottom:22%;animation-delay:.44s}.p-learn{left:13%;top:48%;animation-delay:.52s}.p-chat{right:20%;bottom:17%;animation-delay:.6s}@keyframes rise{to{opacity:1;transform:translateY(0) scale(1)}}
-/* Place focus rings - visual path, no boxes */
-.scene.focus-food{transform:translate3d(var(--scene-x),0,0) scale(1.08);--scene-x:-5vw}.scene.focus-craft{transform:translate3d(var(--scene-x),0,0) scale(1.08);--scene-x:-8vw}.scene.focus-market{transform:translate3d(var(--scene-x),0,0) scale(1.06);--scene-x:-4vw}.scene.focus-service{transform:translate3d(var(--scene-x),0,0) scale(1.05)}.scene.focus-learn{transform:translate3d(var(--scene-x),0,0) scale(1.08);--scene-x:4vw}.scene.focus-event{transform:translate3d(var(--scene-x),0,0) scale(1.05)}
-.info{position:fixed;z-index:100;right:clamp(12px,2vw,24px);bottom:calc(14px + env(safe-area-inset-bottom));width:min(360px,calc(100vw - 24px));background:rgba(255,255,255,.84);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.78);border-radius:24px;box-shadow:var(--shadow);padding:14px;transform:translateY(130%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}.info.open{transform:translateY(0)}.info-head{display:flex;align-items:center;gap:10px}.info-ico{width:42px;height:42px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple2),var(--gold));color:#fff;font-size:22px;flex:0 0 auto}.info h2{font-size:18px;color:#2e1265}.info p{font-size:12px;color:#6c5a8b;margin-top:3px}.info ul{margin-top:10px;display:grid;gap:6px;list-style:none}.info li{font-size:12px;padding:8px 10px;background:rgba(91,33,182,.08);border-radius:12px;color:#3b1579}.close{position:absolute;right:10px;top:10px;border:0;background:rgba(91,33,182,.1);color:#3b1579;border-radius:50%;width:26px;height:26px;cursor:pointer}.hint{position:fixed;z-index:92;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);background:rgba(255,255,255,.72);backdrop-filter:blur(16px);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;color:#3b1579;box-shadow:0 10px 24px rgba(45,24,90,.18);opacity:0;animation:hint 5s ease 7s both;pointer-events:none}@keyframes hint{10%,70%{opacity:1}100%{opacity:0}}
-@media (max-width:800px){:root{--scene-w:230vw}.scene{height:100%;width:var(--scene-w)}.bg{background-size:cover;background-position:center center}.logo{width:44px;height:44px;border-radius:14px}.top-icons button{width:38px;height:38px}.train{top:25%;width:220px;height:25px}.train:before{inset:6px 24px 6px 13px;background:repeating-linear-gradient(90deg,#14213d 0 14px,#e8f3ff 15px 23px)}.boat{width:130px;bottom:23%}.bc{width:96px}.bc-bubble{font-size:12px;max-width:200px}.place span{display:none}.place{padding:8px}.place i{width:30px;height:30px}.p-food{right:20%;top:55%}.p-craft{right:6%;top:54%}.p-market{right:26%;top:47%}.p-service{left:48%;top:44%}.p-news{left:61%;top:22%}.p-event{left:40%;bottom:25%}.p-learn{left:18%;top:50%}.p-chat{right:26%;bottom:20%}.hint{font-size:11px;white-space:nowrap}.info{left:12px;right:12px;width:auto}}
-@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.places .place{opacity:1;transform:none;pointer-events:auto}.bc{left:8%;animation:none}.bc-bubble.ask{opacity:1;transform:none}}
+*{box-sizing:border-box;margin:0;padding:0} html,body{height:100%;overflow:hidden;font-family:system-ui,'Sarabun',sans-serif;background:#73cdf6;color:var(--ink)}
+button{font-family:inherit}
+.world{position:relative;width:100vw;height:100dvh;overflow:hidden;background:linear-gradient(var(--daySky1),var(--daySky2) 46%,#a7e4ff 47%,#0e8fc1 100%);isolation:isolate;touch-action:none}
+.world.night{background:linear-gradient(#10204a,#2a245f 47%,#17315f 48%,#091c36)}
+/* Camera stage: this is the game world, not one single background */
+.stage{position:absolute;left:50%;top:50%;width:177.78vh;height:100vh;min-width:100vw;min-height:56.25vw;transform:translate(-50%,-50%);transform-origin:center;overflow:hidden}
+@media (max-aspect-ratio:16/9){.stage{width:100vw;height:56.25vw;min-height:100vh;min-width:177.78vh}.camera{transform:translateX(var(--pan,0px))}}
+.camera{position:absolute;inset:0;transition:transform .7s cubic-bezier(.2,.9,.2,1)}
+.layer{position:absolute;pointer-events:none;user-select:none}
+.sky-glow{inset:0;background:radial-gradient(circle at 12% 12%,rgba(255,235,150,.8),rgba(255,255,255,0) 18%),linear-gradient(to bottom,rgba(255,255,255,.25),rgba(255,255,255,0) 35%);z-index:1}
+.world.night .sky-glow{background:radial-gradient(circle at 82% 14%,rgba(255,255,220,.9),rgba(255,255,255,0) 5%),linear-gradient(to bottom,rgba(3,5,20,.55),rgba(3,5,20,.2) 48%,rgba(3,5,20,.6));}
+/* SVG-like CSS layers */
+.sun{width:10%;aspect-ratio:1;border-radius:50%;left:8%;top:8%;background:radial-gradient(#fff8bc,#ffd166 55%,rgba(255,209,102,0) 70%);filter:blur(.2px);z-index:2;animation:sunPulse 5s ease-in-out infinite}
+@keyframes sunPulse{50%{transform:scale(1.04)}}
+.cloud{z-index:5;border-radius:999px;background:rgba(255,255,255,.9);filter:drop-shadow(0 8px 18px rgba(85,120,160,.16));animation:drift linear infinite}.cloud:before,.cloud:after{content:"";position:absolute;background:inherit;border-radius:50%}.cloud:before{width:48%;aspect-ratio:1;left:12%;top:-55%}.cloud:after{width:62%;aspect-ratio:1;right:12%;top:-75%}.c1{width:12%;height:4%;left:-20%;top:9%;animation-duration:78s}.c2{width:8%;height:3%;left:-16%;top:20%;animation-delay:18s;animation-duration:92s;opacity:.75}.c3{width:14%;height:4.5%;left:-22%;top:5%;animation-delay:40s;animation-duration:105s;opacity:.8}@keyframes drift{to{transform:translateX(135vw)}}
+.bird{z-index:10;font-size:calc(var(--unit)*1.6);opacity:.65;animation:birdfly linear infinite}.b1{left:-5%;top:16%;animation-duration:28s}.b2{left:-7%;top:12%;animation-duration:38s;animation-delay:12s}.b3{left:-10%;top:23%;animation-duration:45s;animation-delay:22s}@keyframes birdfly{to{transform:translate(115vw,-4vh)}}
+.horizon{left:-5%;right:-5%;top:32%;height:20%;z-index:3;background:linear-gradient(to bottom,rgba(35,135,75,.65),rgba(81,162,82,.9));clip-path:polygon(0 45%,10% 40%,22% 52%,34% 34%,48% 50%,60% 42%,76% 56%,90% 39%,100% 45%,100% 100%,0 100%)}
+.houses{left:0;right:0;top:35%;height:20%;z-index:6;background-image:linear-gradient(135deg,transparent 0 46%,#b45309 47% 54%,transparent 55%),linear-gradient(#fff7ed,#fff7ed);background-size:8% 42%,8% 34%;background-position:2% 0,2% 22%;opacity:.65;mask-image:linear-gradient(to right,transparent,#000 10%,#000 92%,transparent)}
+.rail{left:50%;top:24%;width:118%;height:15%;transform:translateX(-50%);z-index:16}.train{left:-42%;top:26%;width:34%;z-index:23;animation:trainRun 58s linear infinite;filter:drop-shadow(0 10px 10px rgba(40,20,80,.25))}@keyframes trainRun{0%{transform:translateX(-20%)}100%{transform:translateX(420%)}}
+/* Main land/river */
+.river{left:-8%;right:-8%;bottom:0;height:45%;z-index:14;background:linear-gradient(180deg,#27a5d8,#086fa6 72%,#044f7d);clip-path:polygon(0 12%,100% 0,100% 100%,0 100%)}.world.night .river{filter:brightness(.55) saturate(.8)}
+.wave{left:0;right:0;bottom:18%;height:8%;z-index:18;background:url('assets/wave.svg') repeat-x;background-size:22% 100%;opacity:.65;animation:waveMove 12s linear infinite}.wave.w2{bottom:7%;opacity:.4;animation-duration:18s}@keyframes waveMove{to{background-position-x:22%}}
+.frontwalk{left:0;right:0;bottom:0;height:18%;z-index:28;background:linear-gradient(#d2b48c,#b98c5d);clip-path:polygon(0 58%,32% 48%,55% 65%,100% 45%,100% 100%,0 100%)}.frontwalk:before{content:"";position:absolute;inset:8% 0 auto 0;height:6px;background:rgba(255,255,255,.38)}
+.plants{left:0;right:0;bottom:12%;height:8%;z-index:31;background:radial-gradient(circle,#ff71ad 0 9%,transparent 10%) 0 0/6% 80%,radial-gradient(circle,#facc15 0 8%,transparent 9%) 3% 12%/7% 80%,linear-gradient(to top,#166534,#22c55e);mask-image:linear-gradient(to bottom,transparent,#000 38%)}
+/* Land strip across river */
+.prom{left:0;right:0;top:48%;height:13%;z-index:35;background:linear-gradient(#e0c089,#b98c5d);box-shadow:0 10px 0 rgba(80,45,25,.25)}
+.prom:after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:15px;background:repeating-linear-gradient(90deg,#f1e4cf 0 28px,#d6b17d 28px 34px)}
+/* World kit assets */
+.temple{left:4%;top:24%;width:34%;z-index:42;filter:drop-shadow(0 12px 20px rgba(80,30,10,.24))}.hall{left:36%;top:28%;width:30%;z-index:43;filter:drop-shadow(0 12px 18px rgba(80,30,10,.24))}.market{right:5%;top:39%;width:31%;z-index:44;filter:drop-shadow(0 12px 18px rgba(80,30,10,.24))}.orchard{left:-2%;bottom:8%;width:19%;z-index:50;filter:drop-shadow(0 8px 12px rgba(0,0,0,.2))}.pier{right:4%;bottom:22%;width:23%;height:10%;z-index:48;border:10px solid #7c4a22;border-top:18px solid #8b5a2b;border-radius:8px;transform:skewX(-12deg);opacity:.92}.pier:before,.pier:after{content:"";position:absolute;background:#714115}.pier:before{left:12%;right:12%;top:34%;height:8px}.pier:after{left:28%;right:28%;bottom:-28px;height:42px}
+.boat{width:22%;z-index:36;left:-22%;bottom:18%;animation:boatRun 44s linear infinite;filter:drop-shadow(0 14px 14px rgba(0,25,50,.24))}.boat.small{width:10%;bottom:29%;animation-duration:62s;animation-delay:18s;opacity:.9}@keyframes boatRun{0%{transform:translateX(-10%) translateY(0)}25%{transform:translateX(125vw) translateY(-4vh)}25.01%{transform:translateX(125vw) translateY(-4vh) scaleX(-1)}50%{transform:translateX(-30vw) translateY(4vh) scaleX(-1)}50.01%{transform:translateX(-30vw) translateY(4vh) scaleX(1)}100%{transform:translateX(125vw) translateY(-4vh)}}
+.duck{width:5%;z-index:38;left:42%;bottom:22%;animation:duckSwim 18s ease-in-out infinite alternate}.duck.d2{left:48%;bottom:18%;width:3.8%;animation-duration:23s}@keyframes duckSwim{to{transform:translateX(12vw) translateY(-2vh)}}
+.treeShade{left:0;top:0;width:24%;height:43%;z-index:60;background:radial-gradient(circle at 18% 18%,#17642a 0 32%,transparent 33%),radial-gradient(circle at 35% 5%,#1f8f3a 0 27%,transparent 28%);filter:drop-shadow(0 8px 12px rgba(0,0,0,.28));opacity:.95}.treeShade:before{content:"";position:absolute;left:5%;top:0;width:6%;height:100%;background:#5a351d;transform:rotate(18deg);border-radius:40px}
+/* interactive places, subtle chips emerge from place (not big UI) */
+.place{position:absolute;z-index:75;border:0;border-radius:999px;padding:.55em .85em;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(40,20,80,.18);font-weight:800;color:#3b1579;cursor:pointer;font-size:clamp(11px,1.1vw,15px);display:flex;gap:.35em;align-items:center;opacity:0;transform:translateY(14px) scale(.86);transition:.22s}.world.ready .place{opacity:1;transform:none}.place:hover{transform:translateY(-5px) scale(1.05);background:#fff}.p-food{right:14%;top:48%;transition-delay:.15s}.p-craft{right:3%;top:48%;transition-delay:.25s}.p-market{right:20%;top:39%;transition-delay:.35s}.p-service{left:47%;top:40%;transition-delay:.45s}.p-news{left:54%;top:18%;transition-delay:.55s}.p-event{left:45%;bottom:22%;transition-delay:.65s}.p-learn{left:17%;top:40%;transition-delay:.75s}.p-chat{right:26%;bottom:19%;transition-delay:.85s}
+/* BC guide */
+.bc{left:-14%;bottom:8%;width:11%;min-width:84px;z-index:78;filter:drop-shadow(0 14px 20px rgba(30,10,60,.3));animation:bcEnter 4s cubic-bezier(.2,.9,.2,1) 1s forwards,bcIdle 2.6s ease-in-out 5.1s infinite}@keyframes bcEnter{0%{left:-15%;transform:translateY(0)}25%{transform:translateY(-8px)}50%{transform:translateY(4px)}100%{left:11%;transform:translateY(0)}}@keyframes bcIdle{50%{transform:translateY(-8px)}}
+.speech{position:absolute;left:20%;bottom:20%;z-index:80;max-width:320px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-radius:22px 22px 22px 6px;padding:12px 16px;box-shadow:0 12px 34px rgba(40,20,80,.22);font-weight:800;color:#35136e;font-size:clamp(13px,1.3vw,17px);opacity:0;transform:translateY(8px);pointer-events:none}.speech.show{animation:say 3.2s ease both}@keyframes say{0%{opacity:0;transform:translateY(8px)}12%,78%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-6px)}}
+/* small page icons */
+.logo{position:absolute;left:18px;top:18px;width:54px;height:54px;z-index:100;border-radius:16px;background:rgba(255,255,255,.55);backdrop-filter:blur(14px);box-shadow:0 8px 24px rgba(30,10,60,.18);display:grid;place-items:center}.logo img{max-width:82%;max-height:82%;object-fit:contain}.tools{position:absolute;right:18px;top:18px;z-index:100;display:flex;gap:10px}.tools button{width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.58);backdrop-filter:blur(14px);color:#4c1d95;font-size:20px;font-weight:900;box-shadow:0 8px 24px rgba(30,10,60,.16);cursor:pointer;transition:.18s}.tools button:hover{transform:translateY(-3px);background:#fff}
+/* Place info as a tiny in-world sheet, not dashboard */
+.sheet{position:absolute;right:2.5%;bottom:5%;z-index:120;width:min(340px,88vw);background:rgba(255,255,255,.86);backdrop-filter:blur(16px);border-radius:24px;padding:18px;box-shadow:0 18px 50px rgba(30,10,60,.25);opacity:0;pointer-events:none;transform:translateY(18px);transition:.25s}.sheet.on{opacity:1;pointer-events:auto;transform:none}.sheet h2{font-size:21px;margin-bottom:4px;color:#3b1579}.sheet p{font-size:13px;color:#6b5b80;margin-bottom:12px}.items{display:grid;gap:8px}.item{display:flex;gap:10px;align-items:center;background:#f5f0ff;border-radius:16px;padding:10px}.item i{width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,#5b21b6,#f59e0b);display:grid;place-items:center;font-style:normal}.item span{font-size:13px;font-weight:800}.close{position:absolute;right:12px;top:12px;border:0;border-radius:50%;background:#ede9fe;color:#4c1d95;width:28px;height:28px;font-size:18px;cursor:pointer}
+/* weather/time modes */
+.world.evening{filter:hue-rotate(-8deg) saturate(.98)}.world.evening .sky-glow{background:radial-gradient(circle at 12% 18%,rgba(255,150,80,.55),rgba(255,255,255,0) 24%)}.world.night .stage{filter:brightness(.63) saturate(.82)}.world.night .place,.world.night .speech,.world.night .sheet{background:rgba(255,255,255,.82)}
+/* mobile */
+@media(max-width:760px){.logo{width:46px;height:46px}.tools button{width:39px;height:39px}.place{font-size:11px;padding:.5em .7em}.bc{width:14%;bottom:7%}.speech{left:18%;bottom:22%;max-width:220px}.temple{width:38%;left:1%;top:25%}.hall{width:33%;left:35%;top:29%}.market{width:36%;right:0;top:41%}.p-food{right:12%;top:50%}.p-craft{right:1%;top:51%}.p-news{left:56%;top:20%}.p-event{left:43%;bottom:24%}.p-chat{right:26%;bottom:22%}}
 </style>
 </head>
 <body>
-<div class="world" id="world">
-  <div class="scene" id="scene">
-    <div class="bg"></div>
-    <div class="night"></div>
-    <div class="vignette"></div>
-    <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
-    <div class="bird b1">⌁</div><div class="bird b2">⌁</div><div class="bird b3">⌁</div>
-    <div class="leaf l1">🍃</div><div class="leaf l2">🍃</div><div class="leaf l3">🍃</div>
-    <div class="train" aria-hidden="true"></div>
-    <div class="water-shine"></div>
-    <div class="boat" aria-hidden="true"></div>
-    <div class="duck">🦆</div><div class="fish">🐟</div>
-    <div class="temple-light"></div><div class="hall-light"></div><div class="shop-light"></div><div class="smoke"></div>
-    <div class="places" id="places" aria-label="สถานที่ในเมือง">
-      <button class="place p-food" data-place="food"><i>🍜</i><span>ร้านอาหาร</span></button>
-      <button class="place p-craft" data-place="craft"><i>🔧</i><span>หาช่าง</span></button>
-      <button class="place p-market" data-place="market"><i>🛍</i><span>ตลาด</span></button>
-      <button class="place p-service" data-place="service"><i>❤️</i><span>บริการ</span></button>
-      <button class="place p-news" data-place="news"><i>📢</i><span>ข่าวสาร</span></button>
-      <button class="place p-event" data-place="event"><i>🎉</i><span>กิจกรรม</span></button>
-      <button class="place p-learn" data-place="learn"><i>🎓</i><span>ฝึกอาชีพ</span></button>
-      <button class="place p-chat" data-place="chat"><i>💬</i><span>พูดคุย</span></button>
+<main class="world" id="world" aria-label="บางรักน้อย Connect เมืองการ์ตูนมีชีวิต">
+  <section class="stage" id="stage">
+    <div class="camera" id="camera">
+      <div class="layer sky-glow"></div><div class="layer sun"></div>
+      <div class="layer cloud c1"></div><div class="layer cloud c2"></div><div class="layer cloud c3"></div>
+      <div class="layer bird b1">⌁</div><div class="layer bird b2">⌁</div><div class="layer bird b3">⌁</div>
+      <div class="layer horizon"></div><div class="layer houses"></div>
+      <img class="layer rail" src="assets/rail.svg" alt=""><img class="layer train" src="assets/train.svg" alt="รถไฟฟ้าวิ่งผ่าน">
+      <div class="layer river"></div><div class="layer wave"></div><div class="layer wave w2"></div>
+      <div class="layer prom"></div>
+      <img class="layer temple" src="assets/temple-buddha.svg" alt="วัดบางรักน้อยและพระใหญ่">
+      <img class="layer hall" src="assets/townhall.svg" alt="เทศบาลเมืองบางรักน้อย">
+      <img class="layer market" src="assets/market.svg" alt="ตลาด ร้านอาหาร และร้านช่าง">
+      <div class="layer pier"></div>
+      <img class="layer orchard" src="assets/tree.svg" alt="สวนทุเรียนและสวนผลไม้">
+      <img class="layer boat" src="assets/boat.svg" alt="เรือในคลองอ้อมนนท์"><img class="layer boat small" src="assets/boat-small.svg" alt="เรือเล็ก">
+      <img class="layer duck" src="assets/duck.svg" alt="เป็ดว่ายน้ำ"><img class="layer duck d2" src="assets/duck.svg" alt="เป็ดว่ายน้ำ">
+      <div class="layer frontwalk"></div><div class="layer plants"></div><div class="layer treeShade"></div>
+      <button class="place p-learn" data-zone="learn">🎓 ฝึกอาชีพ</button>
+      <button class="place p-service" data-zone="service">❤️ บริการ</button>
+      <button class="place p-news" data-zone="news">📢 ข่าวสาร</button>
+      <button class="place p-market" data-zone="market">🛍️ ตลาด</button>
+      <button class="place p-food" data-zone="food">🍜 ร้านอาหาร</button>
+      <button class="place p-craft" data-zone="craft">🔧 หาช่าง</button>
+      <button class="place p-event" data-zone="event">🎉 กิจกรรม</button>
+      <button class="place p-chat" data-zone="chat">💬 พูดคุย</button>
+      <img class="layer bc" id="bc" src="assets/bc-guide.svg" alt="มาสคอต BC">
+      <div class="speech" id="speech"></div>
     </div>
-    <div class="bc" id="bc"><img src="assets/mascot-bc.png" alt="BC"><div class="bc-bubble" id="talk">สวัสดีครับ 😊</div></div>
-  </div>
-  <a class="logo" href="#" aria-label="บางรักน้อย Connect"><img src="assets/logo-bc.png" alt="BC"></a>
-  <div class="top-icons">
-    <button id="homeBtn" aria-label="กลับหน้าเมือง">⌂</button>
-    <button id="soundBtn" aria-label="เสียง">♪</button>
-    <button id="menuBtn" aria-label="เมนู">☰</button>
-  </div>
-  <div class="hint">แตะสถานที่ในเมือง เพื่อดูข้อมูลชุมชน</div>
-  <section class="info" id="info" aria-live="polite">
-    <button class="close" id="closeInfo">×</button>
-    <div class="info-head"><div class="info-ico" id="infoIco">🍜</div><div><h2 id="infoTitle">ร้านอาหาร</h2><p id="infoSub">ข้อมูลจะโผล่เมื่อผู้ใช้ต้องการ</p></div></div>
-    <ul id="infoList"></ul>
   </section>
-</div>
+  <a class="logo" href="#" aria-label="บางรักน้อย Connect"><img src="assets/bc-logo.png" alt="BC"></a>
+  <div class="tools"><button id="home" title="กลับหน้าเมือง">⌂</button><button id="sound" title="เสียง">♪</button><button id="menu" title="เมนู">☰</button></div>
+  <aside class="sheet" id="sheet"><button class="close" id="close">×</button><h2 id="title"></h2><p id="sub"></p><div class="items" id="items"></div></aside>
+</main>
 <script>
-const world=document.getElementById('world');
-const scene=document.getElementById('scene');
-const places=document.getElementById('places');
-const talk=document.getElementById('talk');
-const info=document.getElementById('info');
-const data={
- food:['🍜','ร้านอาหาร','ร้านอร่อยริมคลองและในชุมชน',['ก๋วยเตี๋ยว / อาหารตามสั่ง','คาเฟ่ / เครื่องดื่ม','ร้านแนะนำใกล้บ้าน']],
- craft:['🔧','หาช่าง','ช่างในพื้นที่สำหรับงานบ้าน',['ช่างไฟ / ประปา','ช่างแอร์ / ซ่อมเครื่องใช้','ช่างทั่วไปใกล้บ้าน']],
- market:['🛍','ตลาด / สินค้า','ของกิน ของใช้ ของดีชุมชน',['ตลาดบางรักน้อย','สินค้าและบริการท้องถิ่น','ผลไม้ตามฤดูกาล']],
- service:['❤️','บริการชุมชน','บริการและความช่วยเหลือใกล้ตัว',['แจ้งเหตุ / ติดต่อหน่วยงาน','บริการสาธารณะ','ข้อมูลประชาชน']],
- news:['📢','ข่าวสาร','ประกาศและเรื่องสำคัญในพื้นที่',['ข่าวประชาสัมพันธ์','แจ้งเตือน / ประกาศด่วน','เรื่องควรรู้ประจำวัน']],
- event:['🎉','กิจกรรม','กิจกรรมของคนบางรักน้อย',['งานชุมชน / งานประเพณี','สุขภาพ / กีฬา','กิจกรรมครอบครัว']],
- learn:['🎓','ฝึกอาชีพ','พัฒนาทักษะ สร้างรายได้',['อบรมอาชีพ','ทักษะดิจิทัล','กลุ่มอาชีพชุมชน']],
- chat:['💬','พูดคุย','พื้นที่แลกเปลี่ยนของชุมชน',['ถาม-ตอบในพื้นที่','ข้อเสนอแนะ','รวมกลุ่มช่วยเหลือกัน']]
+const zones={
+ food:['ร้านอาหาร','ของอร่อยริมคลอง ร้านแนะนำ และร้านใกล้บ้าน',[['🍜','ก๋วยเตี๋ยวเรือ / อาหารตามสั่ง'],['☕','คาเฟ่ริมคลอง'],['⭐','ร้านแนะนำของชุมชน']]],
+ craft:['หาช่าง','ช่างในพื้นที่ หาง่าย ติดต่อไว',[['🔧','ช่างทั่วไป'],['⚡','ช่างไฟ'],['💧','ช่างประปา']]],
+ market:['ตลาด / สินค้า','สินค้าและบริการท้องถิ่น',[['🛍️','ตลาดบางรักน้อย'],['🌳','ผลไม้ตามฤดูกาล'],['🎁','สินค้าและบริการชุมชน']]],
+ service:['บริการชุมชน','บริการและช่องทางช่วยเหลือประชาชน',[['🏛️','ติดต่อหน่วยงาน'],['📍','แจ้งปัญหาในพื้นที่'],['📋','ข้อมูลบริการ']]],
+ news:['ข่าวสาร','ประกาศ ข่าว และแจ้งเตือนสำคัญ',[['📢','ข่าวประชาสัมพันธ์'],['⚠️','แจ้งเตือน'],['🚇','การเดินทาง / รถไฟฟ้า']]],
+ event:['กิจกรรม','กิจกรรมในชุมชนและพื้นที่ใกล้บ้าน',[['🎉','กิจกรรมประจำเดือน'],['🏃','สุขภาพ / กีฬา'],['🛕','งานวัด / งานประเพณี']]],
+ learn:['ฝึกอาชีพ','เรียนรู้ทักษะใหม่ สร้างรายได้',[['🎓','หลักสูตรฝึกอาชีพ'],['💻','ทักษะดิจิทัล'],['🌿','เกษตร / สวนผลไม้']]],
+ chat:['พูดคุย','พื้นที่แลกเปลี่ยนของคนในชุมชน',[['💬','ถาม-ตอบ'],['🤝','ช่วยเหลือกัน'],['❤️','เรื่องดี ๆ ในบางรักน้อย']]]
 };
-function setTimeTone(){const h=new Date().getHours();world.className='world '+(h>=18||h<6?'night':h<10?'morning':h<16?'noon':'evening')}
-setTimeTone();setInterval(setTimeTone,60000);
-setTimeout(()=>{talk.classList.add('show')},2300);
-setTimeout(()=>{talk.textContent='วันนี้...จะพาไปไหนดีครับ?';talk.classList.remove('show');talk.classList.add('ask');places.classList.add('ready')},5900);
-function openPlace(key){const d=data[key];if(!d)return;scene.className='scene focus-'+key;document.getElementById('infoIco').textContent=d[0];document.getElementById('infoTitle').textContent=d[1];document.getElementById('infoSub').textContent=d[2];document.getElementById('infoList').innerHTML=d[3].map(x=>'<li>'+x+'</li>').join('');info.classList.add('open')}
-document.querySelectorAll('[data-place]').forEach(b=>b.addEventListener('click',e=>openPlace(e.currentTarget.dataset.place)));
-document.getElementById('closeInfo').onclick=()=>{info.classList.remove('open');scene.className='scene'};
-document.getElementById('homeBtn').onclick=()=>{info.classList.remove('open');scene.className='scene'};
-let muted=false;document.getElementById('soundBtn').onclick=()=>{muted=!muted;document.getElementById('soundBtn').textContent=muted?'♪':'♫'};
-document.getElementById('menuBtn').onclick=()=>{places.classList.toggle('ready')};
-// mobile drag pan
-let startX=0,base=0,drag=false;
-function maxPan(){return Math.min(0,window.innerWidth - scene.offsetWidth)}
-world.addEventListener('pointerdown',e=>{if(e.target.closest('button,.info,.logo'))return;drag=true;startX=e.clientX;base=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scene-x'))||0;world.setPointerCapture(e.pointerId)});
-world.addEventListener('pointermove',e=>{if(!drag||scene.offsetWidth<=innerWidth+5)return;let x=base+(e.clientX-startX);x=Math.max(maxPan(),Math.min(0,x));document.documentElement.style.setProperty('--scene-x',x+'px')});
-world.addEventListener('pointerup',()=>drag=false);world.addEventListener('pointercancel',()=>drag=false);
+const world=document.getElementById('world'), cam=document.getElementById('camera'), speech=document.getElementById('speech'), sheet=document.getElementById('sheet');
+function timeMode(){const h=new Date().getHours();world.classList.toggle('night',h>=18||h<6);world.classList.toggle('evening',h>=16&&h<18)}timeMode();setInterval(timeMode,60000);
+function say(t,delay=0){setTimeout(()=>{speech.innerHTML=t;speech.classList.remove('show');void speech.offsetWidth;speech.classList.add('show')},delay)}
+window.addEventListener('load',()=>{setTimeout(()=>say('สวัสดีครับ 😊'),1800);setTimeout(()=>say('ยินดีต้อนรับสู่บางรักน้อย Connect'),5200);setTimeout(()=>say('วันนี้...จะพาไปไหนดีครับ?'),8800);setTimeout(()=>world.classList.add('ready'),9800)});
+function openZone(key){const z=zones[key];if(!z)return;document.getElementById('title').textContent=z[0];document.getElementById('sub').textContent=z[1];document.getElementById('items').innerHTML=z[2].map(x=>`<div class="item"><i>${x[0]}</i><span>${x[1]}</span></div>`).join('');sheet.classList.add('on');const moves={learn:'translateX(10%) scale(1.06)',service:'scale(1.06)',news:'translateY(4%) scale(1.04)',market:'translateX(-10%) scale(1.06)',food:'translateX(-12%) scale(1.08)',craft:'translateX(-18%) scale(1.08)',event:'translateY(-6%) scale(1.05)',chat:'translateX(-8%) translateY(-3%) scale(1.05)'};cam.style.transform=moves[key]||''}
+document.querySelectorAll('.place').forEach(b=>b.addEventListener('click',e=>openZone(e.currentTarget.dataset.zone)));
+document.getElementById('close').onclick=()=>{sheet.classList.remove('on');cam.style.transform=''};
+document.getElementById('home').onclick=()=>{sheet.classList.remove('on');cam.style.transform='';say('ลองเดินดูในเมืองได้เลยครับ 😊')};
+document.getElementById('sound').onclick=()=>say('เสียงเมืองจะปลูกในรอบถัดไปครับ ♪');
+document.getElementById('menu').onclick=()=>world.classList.toggle('ready');
+// mobile pan
+let startX=0,pan=0;const stage=document.getElementById('stage');stage.addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});stage.addEventListener('touchmove',e=>{if(innerWidth>760)return;const dx=e.touches[0].clientX-startX;pan=Math.max(-260,Math.min(260,pan+dx*.08));stage.style.setProperty('--pan',pan+'px')},{passive:true});
 </script>
 </body>
 </html>

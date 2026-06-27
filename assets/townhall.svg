@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+<defs><filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity=".25"/></filter><linearGradient id="r" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9b61e9"/><stop offset="1" stop-color="#4c1d95"/></linearGradient></defs>
+<g filter="url(#s)">
+<path d="M80 190h740v260H80z" fill="#f2d28c" stroke="#976321" stroke-width="8"/>
+<path d="M35 190L450 70l415 120z" fill="url(#r)" stroke="#e4c987" stroke-width="8"/>
+<path d="M360 120h180l60 70H300z" fill="#ffd76a" stroke="#94641c" stroke-width="6"/>
+<circle cx="450" cy="154" r="32" fill="#fff7d2" stroke="#835e18" stroke-width="5"/>
+<path d="M100 250h150v110H100zM295 250h120v110H295zM485 250h120v110H485zM650 250h150v110H650z" fill="#b7e4ff" stroke="#7a501a" stroke-width="5"/>
+<path d="M390 365h120v85H390z" fill="#5b3418"/>
+<path d="M75 450h750v46H75z" fill="#c99b52"/>
+<rect x="240" y="185" width="420" height="55" rx="10" fill="#4c1d95"/>
+<text x="450" y="222" text-anchor="middle" font-size="34" font-family="Tahoma, Arial" fill="#fff" font-weight="700">เทศบาลเมืองบางรักน้อย</text>
+</g>
+</svg>
