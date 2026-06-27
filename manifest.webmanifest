@@ -1,0 +1,15 @@
+{
+  "name": "บางรักน้อย Connect",
+  "short_name": "BRN Connect",
+  "description": "ศูนย์รวมข้อมูล บริการ และเศรษฐกิจชุมชนบางรักน้อย",
+  "lang": "th",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#6f2dbd",
+  "icons": [
+    { "src": "assets/bc-logo.png", "sizes": "1200x1200", "type": "image/png", "purpose": "any" }
+  ]
+}
