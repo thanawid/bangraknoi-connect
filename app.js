@@ -275,7 +275,7 @@ function setupNavigation() {
     els.mainNav.classList.remove('open');
     els.navToggle.setAttribute('aria-expanded', 'false');
   }));
-  const sections = ['top','search','categories','news','activities','about']
+  const sections = ['top','search','categories','news','about']
     .map((id) => document.getElementById(id)).filter(Boolean);
   const navLinks = $$('.main-nav a');
   new IntersectionObserver((entries) => {
@@ -328,6 +328,11 @@ function bindEvents() {
 
   const actBtn = $('#activityDrawerBtn');
   if (actBtn) actBtn.addEventListener('click', () => openDrawer('service'));
+
+  // Parade mascot buttons → open drawer
+  $$('.parade-item[data-category]').forEach((btn) => {
+    btn.addEventListener('click', () => openDrawer(btn.dataset.category));
+  });
 
   const joinBtn = $('#joinButton');  if (joinBtn) joinBtn.addEventListener('click', showMemberDialog);
   const loginBtn = $('#loginButton'); if (loginBtn) loginBtn.addEventListener('click', showMemberDialog);

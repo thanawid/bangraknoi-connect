@@ -30,7 +30,6 @@
         <a href="#search">ค้นหา</a>
         <a href="#categories">หมวดหมู่</a>
         <a href="#news">แนะนำ</a>
-        <a href="#activities">กิจกรรม</a>
         <a href="#about">เกี่ยวกับเรา</a>
       </nav>
 
@@ -180,8 +179,8 @@
         <div class="activity-copy">
           <span class="section-icon orange">✦</span>
           <div>
-            <b>ค้นหาบริการ แจ้งเรื่อง และติดต่อชุมชน</b>
-            <p>ช่าง · ร้านอาหาร · ท่องเที่ยว · ฝึกอาชีพ<br>สินค้า · บริการ · ทุกอย่างในที่เดียว</p>
+            <b>บริการชุมชน · แจ้งเรื่อง · ข่าวสาร · กิจกรรม</b>
+            <p>แจ้งปัญหาออนไลน์ ดูข่าวประกาศ ปฏิทินกิจกรรม<br>และติดต่อชุมชนได้ในที่เดียว</p>
           </div>
         </div>
         <button class="activity-cta-btn" id="activityDrawerBtn" type="button">
@@ -218,70 +217,41 @@
       </div>
     </section>
 
-    <!-- ── MASCOT ANIMATION (แทน LINE section) ── -->
-    <section class="mascot-parade-section" aria-hidden="true">
-      <div class="mascot-parade-track">
-        <!-- ชุดที่ 1 -->
-        <div class="parade-item" style="--delay:0s">
-          <img src="assets/mascot_chang.png"   alt="ช่าง">
-          <span>บ้านช่าง</span>
-        </div>
-        <div class="parade-item" style="--delay:0.8s">
-          <img src="assets/mascot_food.png"    alt="อาหาร">
-          <span>ร้านอาหาร</span>
-        </div>
-        <div class="parade-item" style="--delay:1.6s">
-          <img src="assets/mascot_travel.png"  alt="ท่องเที่ยว">
-          <span>ท่องเที่ยว</span>
-        </div>
-        <div class="parade-item" style="--delay:2.4s">
-          <img src="assets/mascot_career.png"  alt="ฝึกอาชีพ">
-          <span>ฝึกอาชีพ</span>
-        </div>
-        <div class="parade-item" style="--delay:3.2s">
-          <img src="assets/mascot_product.png" alt="สินค้า">
-          <span>สินค้าและตลาด</span>
-        </div>
-        <div class="parade-item" style="--delay:4.0s">
-          <img src="assets/mascot_service.png" alt="บริการ">
-          <span>บริการชุมชน</span>
-        </div>
-        <div class="parade-item" style="--delay:4.8s">
-          <img src="assets/mascot_chat.png"    alt="ติดต่อ">
-          <span>ติดต่อ–แสดงความเห็น</span>
-        </div>
-        <!-- ชุดที่ 2 (loop) -->
-        <div class="parade-item" style="--delay:0s">
-          <img src="assets/mascot_chang.png"   alt="">
-          <span>บ้านช่าง</span>
-        </div>
-        <div class="parade-item" style="--delay:0.8s">
-          <img src="assets/mascot_food.png"    alt="">
-          <span>ร้านอาหาร</span>
-        </div>
-        <div class="parade-item" style="--delay:1.6s">
-          <img src="assets/mascot_travel.png"  alt="">
-          <span>ท่องเที่ยว</span>
-        </div>
-        <div class="parade-item" style="--delay:2.4s">
-          <img src="assets/mascot_career.png"  alt="">
-          <span>ฝึกอาชีพ</span>
-        </div>
-        <div class="parade-item" style="--delay:3.2s">
-          <img src="assets/mascot_product.png" alt="">
-          <span>สินค้าและตลาด</span>
-        </div>
-        <div class="parade-item" style="--delay:4.0s">
-          <img src="assets/mascot_service.png" alt="">
-          <span>บริการชุมชน</span>
-        </div>
-        <div class="parade-item" style="--delay:4.8s">
-          <img src="assets/mascot_chat.png"    alt="">
-          <span>ติดต่อ–แสดงความเห็น</span>
-        </div>
+    <!-- ── MASCOT PARADE (คลิกเปิดหมวดได้) ── -->
+    <section class="mascot-parade-section">
+      <div class="parade-heading">
+        <span>✦</span> เลือกหมวดหมู่ที่ต้องการ
       </div>
-      <div class="parade-overlay-left"></div>
-      <div class="parade-overlay-right"></div>
+      <div class="mascot-parade-track" id="paradeTrack">
+        <button type="button" class="parade-item" data-category="craft">
+          <img src="assets/mascot_chang.png" alt="บ้านช่าง">
+          <span>🔧 บ้านช่าง</span>
+        </button>
+        <button type="button" class="parade-item" data-category="food">
+          <img src="assets/mascot_food.png" alt="ร้านอาหาร">
+          <span>🍜 ร้านอาหาร</span>
+        </button>
+        <button type="button" class="parade-item" data-category="travel">
+          <img src="assets/mascot_travel.png" alt="ท่องเที่ยว">
+          <span>📷 ท่องเที่ยว</span>
+        </button>
+        <button type="button" class="parade-item" data-category="learn">
+          <img src="assets/mascot_career.png" alt="ฝึกอาชีพ">
+          <span>🎓 ฝึกอาชีพ</span>
+        </button>
+        <button type="button" class="parade-item" data-category="market">
+          <img src="assets/mascot_product.png" alt="สินค้าและตลาด">
+          <span>🛍 สินค้าและตลาด</span>
+        </button>
+        <button type="button" class="parade-item" data-category="service">
+          <img src="assets/mascot_service.png" alt="บริการชุมชน">
+          <span>🏛 บริการชุมชน</span>
+        </button>
+        <button type="button" class="parade-item" data-category="chat">
+          <img src="assets/mascot_chat.png" alt="ติดต่อ">
+          <span>💬 ติดต่อ–แสดงความเห็น</span>
+        </button>
+      </div>
     </section>
 
   </main>

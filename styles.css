@@ -458,87 +458,102 @@ img { max-width: 100%; }
   display: block;
 }
 
-/* ── Mascot parade section (แทน LINE) ── */
-.mascot-parade-section {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--purple-950) 0%, #3a0d6e 50%, #1a0535 100%);
-  padding: 10px 0;
-  border-top: 1px solid rgba(255,255,255,.06);
-  border-bottom: 1px solid rgba(255,255,255,.06);
+  .parade-item { animation: none; }
 }
+
+/* ══════════════════════════════════════════════
+   MASCOT PARADE — คลิกได้ เปิด drawer
+   ══════════════════════════════════════════════ */
+.mascot-parade-section {
+  background: linear-gradient(160deg, var(--purple-950) 0%, #2d0a55 60%, #1a0535 100%);
+  padding: 28px 0 32px;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+
+.parade-heading {
+  text-align: center;
+  color: rgba(255,255,255,.55);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.parade-heading span { color: var(--orange); margin-right: 6px; }
 
 .mascot-parade-track {
   display: flex;
-  gap: 0;
-  /* total 14 items × ~140px = ~1960px, animate scroll left */
-  animation: parade-scroll 28s linear infinite;
-  will-change: transform;
-  width: max-content;
-}
-.mascot-parade-section:hover .mascot-parade-track {
-  animation-play-state: paused;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 4px;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-@keyframes parade-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); } /* 50% = แค่ชุดแรก เพราะมี 2 ชุด */
-}
-
+/* Each mascot button */
 .parade-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 18px 22px 20px;
-  width: 140px;
-  flex-shrink: 0;
-  animation: parade-bob 2.4s ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
+  gap: 10px;
+  padding: 16px 12px 14px;
+  width: 148px;
+  border: 0;
+  border-radius: 20px;
+  background: rgba(255,255,255,.04);
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+  animation: parade-bob 2.8s ease-in-out infinite;
 }
+.parade-item:nth-child(1) { animation-delay: 0s; }
+.parade-item:nth-child(2) { animation-delay: .4s; }
+.parade-item:nth-child(3) { animation-delay: .8s; }
+.parade-item:nth-child(4) { animation-delay: 1.2s; }
+.parade-item:nth-child(5) { animation-delay: 1.6s; }
+.parade-item:nth-child(6) { animation-delay: 2.0s; }
+.parade-item:nth-child(7) { animation-delay: 2.4s; }
+
+.parade-item:hover, .parade-item:focus-visible {
+  background: rgba(255,255,255,.12);
+  transform: translateY(-6px) scale(1.04);
+  animation-play-state: paused;
+  outline: none;
+}
+.parade-item:active { transform: scale(.97); }
 
 @keyframes parade-bob {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-8px); }
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-7px); }
 }
 
 .parade-item img {
-  width: 90px;
-  height: 100px;
+  width: 110px;
+  height: 130px;
   object-fit: contain;
   object-position: bottom center;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,.4));
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
+  pointer-events: none;
 }
 
 .parade-item span {
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 700;
-  color: rgba(255,255,255,.75);
+  color: rgba(255,255,255,.85);
   text-align: center;
-  white-space: nowrap;
-  letter-spacing: .03em;
+  line-height: 1.35;
+  pointer-events: none;
 }
 
-/* Fade edges */
-.parade-overlay-left,
-.parade-overlay-right {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 80px;
-  pointer-events: none;
-  z-index: 2;
-}
-.parade-overlay-left {
-  left: 0;
-  background: linear-gradient(90deg, var(--purple-950), transparent);
-}
-.parade-overlay-right {
-  right: 0;
-  background: linear-gradient(270deg, #1a0535, transparent);
+/* Mobile — 3 or 4 per row */
+@media (max-width: 640px) {
+  .parade-item { width: calc(33% - 8px); padding: 12px 8px 10px; }
+  .parade-item img { width: 80px; height: 95px; }
+  .parade-item span { font-size: 10px; }
 }
 
 /* Reduce motion */
 @media (prefers-reduced-motion: reduce) {
-  .mascot-parade-track { animation: none; }
-  .parade-item { animation: none; }
+  .parade-item { animation: none !important; }
+  .parade-item:hover { transform: none; }
 }
