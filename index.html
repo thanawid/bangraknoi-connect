@@ -21,41 +21,43 @@
         <span><b>บางรักน้อย</b><strong>Connect</strong></span>
       </a>
 
-      <button class="nav-toggle" id="navToggle" type="button" aria-label="เปิดเมนู" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="เปิดเมนู" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
       <nav class="main-nav" id="mainNav" aria-label="เมนูหลัก">
         <a class="active" href="#top">หน้าแรก</a>
         <a href="#search">ค้นหา</a>
         <a href="#categories">หมวดหมู่</a>
-        <a href="#news">ข่าวสาร</a>
+        <a href="#news">แนะนำ</a>
         <a href="#activities">กิจกรรม</a>
         <a href="#about">เกี่ยวกับเรา</a>
       </nav>
 
       <div class="nav-actions">
         <button class="button button-outline" id="joinButton" type="button">สมัครเข้าร่วมระบบ</button>
-
       </div>
     </div>
   </header>
 
   <main id="main">
+
+    <!-- ── HERO ── -->
     <section class="hero" aria-labelledby="heroTitle">
       <div class="hero-scene" aria-hidden="true"></div>
-      <div class="hero-fade" aria-hidden="true"></div>
-      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-fade"  aria-hidden="true"></div>
+      <div class="hero-glow"  aria-hidden="true"></div>
       <div class="hero-content container">
         <div class="hero-copy">
           <p class="eyebrow">ศูนย์รวมข้อมูลบริการ ชุมชน<br>และเศรษฐกิจท้องถิ่น</p>
           <h1 id="heroTitle"><span>บางรักน้อย</span> <strong>Connect</strong></h1>
-          <p class="hero-lead">ค้นหาช่าง ร้านอาหาร แหล่งท่องเที่ยว<br>งานฝึกอาชีพ และกิจกรรมชุมชน<br>ได้ง่าย ๆ ในที่เดียว</p>
-
-          <div class="trust-list" aria-label="จุดเด่นของบริการ">
+          <p class="hero-lead">ค้นหาช่าง ร้านอาหาร แหล่งท่องเที่ยว<br>ฝึกอาชีพ และบริการเทศบาล<br>ได้ง่าย ๆ ในที่เดียว</p>
+          <div class="trust-list" aria-label="จุดเด่น">
             <div><i>♟</i><span><b>ข้อมูลเชื่อถือได้</b><small>เชื่อมต่อช่องทางเทศบาล</small></span></div>
             <div><i>⌾</i><span><b>ใช้งานง่าย</b><small>สะดวก รวดเร็ว ทุกอุปกรณ์</small></span></div>
             <div><i>⌂</i><span><b>สนับสนุนชุมชน</b><small>เศรษฐกิจท้องถิ่นเข้มแข็ง</small></span></div>
           </div>
         </div>
-
         <div class="hero-mascot">
           <div class="mascot-halo"></div>
           <img src="assets/mascot_hero.png" alt="น้อง BC ชวนรู้จักบางรักน้อย Connect" width="1086" height="1448">
@@ -63,13 +65,15 @@
       </div>
     </section>
 
+    <!-- ── SEARCH ── -->
     <section class="search-section container" id="search" aria-label="ค้นหาในบางรักน้อย">
       <form class="search-box" id="searchForm">
         <label class="search-input">
           <span aria-hidden="true">⌕</span>
-          <input id="globalSearch" type="search" autocomplete="off" placeholder="ค้นหาอะไรดี? เช่น ช่างไฟ, ร้านอาหาร, คาเฟ่, วัด, อบรมอาชีพ">
+          <input id="globalSearch" type="search" autocomplete="off"
+            placeholder="ค้นหาอะไรดี? เช่น ช่างไฟ, ร้านอาหาร, คาเฟ่, แจ้งเรื่อง, ฝึกอาชีพ">
         </label>
-        <label class="category-select" id="categorySelectLabel">
+        <label class="category-select">
           <span class="sr-only">เลือกหมวดหมู่</span>
           <select id="categorySelect"><option value="all">ทุกหมวดหมู่</option></select>
         </label>
@@ -78,23 +82,26 @@
           <b>ยอดนิยม:</b>
           <button type="button" data-query="ช่างไฟ">ช่างไฟ</button>
           <button type="button" data-query="ร้านอาหาร">ร้านอาหาร</button>
-          <button type="button" data-query="คาเฟ่">ร้านกาแฟ</button>
-          <button type="button" data-query="เทศบาล">เทศบาล</button>
+          <button type="button" data-query="คาเฟ่">คาเฟ่</button>
+          <button type="button" data-query="แจ้งเรื่อง">แจ้งเรื่อง</button>
           <button type="button" data-query="ฝึกอาชีพ">ฝึกอาชีพ</button>
-          <button type="button" data-query="กิจกรรม">กิจกรรมชุมชน</button>
+          <button type="button" data-query="ตลาด">ตลาด</button>
+          <button type="button" data-query="กิจกรรม">กิจกรรม</button>
         </div>
       </form>
       <div class="search-results" id="searchResults" aria-live="polite" hidden></div>
     </section>
 
+    <!-- ── CATEGORIES ── -->
     <section class="categories section container" id="categories" aria-labelledby="categoryTitle">
       <div class="section-head">
         <h2 id="categoryTitle"><span class="section-icon purple">✦</span> หมวดหมู่บริการ</h2>
-        <button class="text-link" id="allCategories" type="button">ดูทั้งหมด <span>›</span></button>
+        <button class="text-link" id="allCategories" type="button">ค้นหาทั้งหมด <span>›</span></button>
       </div>
       <div class="category-grid" id="categoryGrid"></div>
     </section>
 
+    <!-- ── RECOMMENDED ── -->
     <section class="recommended section" id="news" aria-labelledby="recommendedTitle">
       <div class="container">
         <div class="section-head">
@@ -104,68 +111,135 @@
         <div class="recommend-row" id="recommendRow">
           <a class="recommend-card" href="https://www.google.com/maps/search/?api=1&query=ช่างไฟฟ้า+บางรักน้อย+นนทบุรี" target="_blank" rel="noopener noreferrer">
             <div class="card-image crop-houses"><span class="card-tag orange-tag">ช่าง</span></div>
-            <div class="card-content"><h3>ช่างไฟฟ้าใกล้บ้าน</h3><p>⌖ บางรักน้อย</p><b class="rating">★ 4.9 <small>(ค้นหาบนแผนที่)</small></b><span class="card-meta">☎ เปิดดูเบอร์และเส้นทาง</span></div>
+            <div class="card-content">
+              <h3>ช่างไฟฟ้าใกล้บ้าน</h3>
+              <p>⌖ บางรักน้อย</p>
+              <b class="rating">★ 4.9 <small>(ค้นหาบนแผนที่)</small></b>
+              <span class="card-meta">☎ เปิดดูเบอร์และเส้นทาง</span>
+            </div>
           </a>
           <a class="recommend-card" href="https://www.google.com/maps/search/?api=1&query=ร้านอาหาร+บางรักน้อย+นนทบุรี" target="_blank" rel="noopener noreferrer">
             <div class="card-image crop-market"><span class="card-tag orange-tag">ร้านอาหาร</span></div>
-            <div class="card-content"><h3>ครัวริมน้ำบางรักน้อย</h3><p>⌖ ริมคลองอ้อมนนท์</p><b class="rating">★ 4.7 <small>(ดูร้านใกล้เคียง)</small></b><span class="card-meta green">◉ ดูเวลาเปิดบนแผนที่</span></div>
+            <div class="card-content">
+              <h3>ครัวริมน้ำบางรักน้อย</h3>
+              <p>⌖ ริมคลองอ้อมนนท์</p>
+              <b class="rating">★ 4.7 <small>(ดูร้านใกล้เคียง)</small></b>
+              <span class="card-meta green">◉ ดูเวลาเปิดบนแผนที่</span>
+            </div>
           </a>
           <a class="recommend-card" href="https://www.google.com/maps/search/?api=1&query=วัดบางรักน้อย+นนทบุรี" target="_blank" rel="noopener noreferrer">
             <div class="card-image crop-temple"><span class="card-tag pink-tag">ท่องเที่ยว</span></div>
-            <div class="card-content"><h3>วัดบางรักน้อย</h3><p>⌖ บางรักน้อย</p><b class="rating">★ 4.8 <small>(ดูเส้นทาง)</small></b><span class="card-meta green">◉ เปิดแผนที่สถานที่</span></div>
+            <div class="card-content">
+              <h3>วัดบางรักน้อย</h3>
+              <p>⌖ บางรักน้อย</p>
+              <b class="rating">★ 4.8 <small>(ดูเส้นทาง)</small></b>
+              <span class="card-meta green">◉ เปิดแผนที่สถานที่</span>
+            </div>
           </a>
           <a class="recommend-card" href="https://www.dsd.go.th/" target="_blank" rel="noopener noreferrer">
             <div class="card-image" style="background-image:url('assets/mascot_career_market.png');background-size:cover;background-position:center top"><span class="card-tag gold-tag">ฝึกอาชีพ</span></div>
-            <div class="card-content"><h3>อบรมทำขนมไทย</h3><p>⌖ ศูนย์ฝึกอาชีพใกล้บ้าน</p><b class="rating">★ หลักสูตรภาครัฐ</b><span class="card-meta">▣ ตรวจสอบรอบอบรม</span></div>
+            <div class="card-content">
+              <h3>อบรมทำขนมไทย</h3>
+              <p>⌖ ศูนย์ฝึกอาชีพใกล้บ้าน</p>
+              <b class="rating">★ หลักสูตรภาครัฐ</b>
+              <span class="card-meta">▣ ตรวจสอบรอบอบรม</span>
+            </div>
           </a>
           <a class="recommend-card" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener noreferrer">
             <div class="card-image crop-municipality"><span class="card-tag purple-tag">ข่าวสาร</span></div>
-            <div class="card-content"><h3>ประกาศเทศบาลล่าสุด</h3><p>⌖ เทศบาลเมืองบางรักน้อย</p><b class="rating purple-text">ข้อมูลทางการ</b><span class="card-meta">▣ เปิดข่าวประชาสัมพันธ์</span></div>
+            <div class="card-content">
+              <h3>ประกาศเทศบาลล่าสุด</h3>
+              <p>⌖ เทศบาลเมืองบางรักน้อย</p>
+              <b class="rating purple-text">ข้อมูลทางการ</b>
+              <span class="card-meta">▣ เปิดข่าวประชาสัมพันธ์</span>
+            </div>
           </a>
         </div>
       </div>
     </section>
 
+    <!-- ── ACTIVITIES ── -->
     <section class="activity-section section container" id="activities">
       <div class="activity-banner">
-        <div class="activity-copy"><span class="section-icon orange">✦</span><div><b>กิจกรรมชุมชนประจำเดือน</b><p>เช็กปฏิทิน งานประเพณี<br>และกิจกรรมใกล้บ้าน</p></div></div>
-        <a href="https://www.brn.go.th/calendar.php" target="_blank" rel="noopener noreferrer">เปิดปฏิทินกิจกรรม <span>↗</span></a>
+        <div class="activity-copy">
+          <span class="section-icon orange">✦</span>
+          <div>
+            <b>กิจกรรมชุมชนและข่าวสารประจำเดือน</b>
+            <p>ปฏิทินงานประเพณี ประกาศเทศบาล<br>และข่าวสำคัญใกล้บ้าน</p>
+          </div>
+        </div>
+        <!-- เปลี่ยนจาก <a> ภายนอกเปล่าๆ → ปุ่มเปิด drawer "บริการชุมชน" -->
+        <button class="activity-cta-btn" id="activityDrawerBtn" type="button">
+          ดูกิจกรรมและข่าว <span>›</span>
+        </button>
       </div>
     </section>
 
+    <!-- ── ABOUT ── -->
     <section class="about-section section" id="about">
       <div class="container about-grid">
-        <div><span class="about-kicker">BANGRAKNOI CONNECT</span><h2>เรื่องใกล้บ้าน<br><em>หาได้ง่ายขึ้น</em></h2></div>
-        <p>ข้อมูลในระบบผ่านการตรวจสอบเบื้องต้นโดยเทศบาล<br>เพื่ออำนวยความสะดวกแก่ประชาชน<br>การติดต่อว่าจ้างเป็นความรับผิดชอบ<br>ระหว่างผู้รับบริการกับผู้ให้บริการโดยตรง<br>เทศบาลสงวนสิทธิ์ถอดข้อมูลที่ไม่เหมาะสม<br>โดยไม่ต้องแจ้งล่วงหน้า</p>
-        <div class="contact-mini"><b>เทศบาลเมืองบางรักน้อย</b><a href="tel:021934512">02-193-4512-3</a><a href="https://www.brn.go.th/home" target="_blank" rel="noopener noreferrer">www.brn.go.th ↗</a></div>
+        <div>
+          <span class="about-kicker">BANGRAKNOI CONNECT</span>
+          <h2>เรื่องใกล้บ้าน<br><em>หาได้ง่ายขึ้น</em></h2>
+        </div>
+        <p>ข้อมูลในระบบผ่านการตรวจสอบเบื้องต้นโดยเทศบาล<br>
+        เพื่ออำนวยความสะดวกแก่ประชาชน<br>
+        การติดต่อว่าจ้างเป็นความรับผิดชอบ<br>
+        ระหว่างผู้รับบริการกับผู้ให้บริการโดยตรง<br>
+        เทศบาลสงวนสิทธิ์ถอดข้อมูลที่ไม่เหมาะสม<br>
+        โดยไม่ต้องแจ้งล่วงหน้า</p>
+        <div class="contact-mini">
+          <b>เทศบาลเมืองบางรักน้อย</b>
+          <a href="tel:021934512">02-193-4512-3</a>
+          <a href="https://www.brn.go.th/home" target="_blank" rel="noopener noreferrer">www.brn.go.th ↗</a>
+        </div>
       </div>
     </section>
 
+    <!-- ── LINE ── -->
     <section class="line-section container">
       <div class="line-banner">
         <span class="line-logo">LINE</span>
-        <div><h2>เป็นเพื่อนกับ<br>บางรักน้อย Connect</h2><p>รับข่าวสาร แจ้งเตือนกิจกรรม<br>และสิทธิประโยชน์ก่อนใคร</p></div>
+        <div>
+          <h2>เป็นเพื่อนกับ<br>บางรักน้อย Connect</h2>
+          <p>รับข่าวสาร แจ้งเตือนกิจกรรม<br>และสิทธิประโยชน์ก่อนใคร</p>
+        </div>
         <a href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener noreferrer">เพิ่มเพื่อนใน LINE <span>↗</span></a>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
-    <div class="container"><div class="footer-brand"><img src="assets/bc-logo.png" alt="" width="44" height="44"><span><b>บางรักน้อย Connect</b><small>A Living Community</small></span></div><p>© 2026 บางรักน้อย Connect<br>ข้อมูลบริการเชื่อมต่อจากแหล่งทางการ</p><a href="#top">กลับด้านบน ↑</a></div>
+    <div class="container">
+      <div class="footer-brand">
+        <img src="assets/bc-logo.png" alt="" width="44" height="44">
+        <span><b>บางรักน้อย Connect</b><small>A Living Community</small></span>
+      </div>
+      <p>© 2026 บางรักน้อย Connect<br>ข้อมูลบริการเชื่อมต่อจากแหล่งทางการ</p>
+      <a href="#top">กลับด้านบน ↑</a>
+    </div>
   </footer>
 
+  <!-- Drawer backdrop -->
   <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+
+  <!-- Service drawer -->
   <aside class="service-drawer" id="serviceDrawer" aria-labelledby="drawerTitle" aria-hidden="true">
     <div class="drawer-head">
       <div class="drawer-icon" id="drawerIcon">✦</div>
-      <div><span>หมวดหมู่บริการ</span><h2 id="drawerTitle">บริการชุมชน</h2><p id="drawerDescription"></p></div>
+      <div>
+        <span>หมวดหมู่บริการ</span>
+        <h2 id="drawerTitle">บริการชุมชน</h2>
+        <p id="drawerDescription"></p>
+      </div>
       <button id="drawerClose" type="button" aria-label="ปิด">×</button>
     </div>
     <div class="drawer-list" id="drawerList"></div>
     <p class="drawer-source" id="drawerSource"></p>
   </aside>
 
-  <!-- Registration Dialog -->
+  <!-- Registration dialog -->
   <dialog class="member-dialog register-dialog" id="memberDialog">
     <button class="dialog-close" id="dialogClose" type="button" aria-label="ปิด">×</button>
     <img src="assets/bc-logo.png" alt="" width="60" height="60">
@@ -184,11 +258,11 @@
         <select id="reg-category" required>
           <option value="">-- เลือกหมวดหมู่ --</option>
           <option value="บ้านช่าง">🔧 บ้านช่าง (ช่างไฟ ช่างประปา ช่างแอร์ ฯลฯ)</option>
-          <option value="ร้านอาหาร">🍜 ร้านอาหาร / คาเฟ่ / ของกิน</option>
+          <option value="ร้านอาหาร">🍜 ร้านอาหาร / คาเฟ่ / เบเกอรี่</option>
           <option value="สินค้าและตลาด">🛍️ สินค้าชุมชน / ตลาด / OTOP</option>
           <option value="ฝึกอาชีพ">🎓 กลุ่มอาชีพ / ฝึกอาชีพ / สอนทักษะ</option>
+          <option value="ท่องเที่ยว">📷 ท่องเที่ยว / โฮมสเตย์ / คาแรคเตอร์</option>
           <option value="บริการชุมชน">🏛️ บริการชุมชน / บริการอื่น ๆ</option>
-          <option value="ท่องเที่ยว">📷 ท่องเที่ยว / โฮมสเตย์ / สถานที่</option>
         </select>
       </div>
       <div class="form-field">
@@ -197,7 +271,7 @@
       </div>
       <div class="form-field">
         <label for="reg-contact">LINE ID <small style="font-weight:400;color:#888">(ถ้ามี)</small></label>
-        <input type="text" id="reg-contact" placeholder="@lineID หรือ line ID ของร้าน" maxlength="80">
+        <input type="text" id="reg-contact" placeholder="@lineID หรือ LINE ID ของร้าน" maxlength="80">
       </div>
       <div class="form-field">
         <label for="reg-social">Facebook / เว็บไซต์ <small style="font-weight:400;color:#888">(ถ้ามี)</small></label>
@@ -209,10 +283,10 @@
       </div>
       <div class="form-field">
         <label for="reg-desc">รายละเอียดบริการ / สินค้า (ไม่เกิน 300 ตัวอักษร)</label>
-        <textarea id="reg-desc" rows="3" maxlength="300" placeholder="บอกเล่าสั้น ๆ ว่าคุณให้บริการอะไร ราคาเริ่มต้น เวลาทำการ ฯลฯ"></textarea>
+        <textarea id="reg-desc" rows="3" maxlength="300"
+          placeholder="บอกเล่าสั้น ๆ ว่าให้บริการอะไร ราคาเริ่มต้น เวลาทำการ ฯลฯ"></textarea>
       </div>
 
-      <!-- Legal Disclaimer Box -->
       <div class="legal-box">
         <div class="legal-title">📋 ข้อตกลงและเงื่อนไขการเข้าร่วมระบบ</div>
         <div class="legal-scroll">
@@ -227,7 +301,7 @@
           <p><strong>5. เกณฑ์การพิจารณา</strong><br>
           เทศบาลขอสงวนสิทธิ์ในการพิจารณาตรวจสอบข้อมูลก่อนเผยแพร่ และอาจปฏิเสธหรือระงับข้อมูลที่ไม่เกี่ยวข้องกับพื้นที่ ไม่เหมาะสม หรือขัดต่อกฎหมายและนโยบายของเทศบาล</p>
           <p><strong>6. ข้อจำกัดความรับผิด</strong><br>
-          เทศบาลไม่รับผิดชอบต่อความเสียหายใด ๆ ที่เกิดจากการใช้บริการของผู้ประกอบการที่ลงทะเบียนในระบบ ไม่ว่ากรณีใดทั้งสิ้น ประชาชนควรตรวจสอบข้อมูลเพิ่มเติมและตัดสินใจด้วยความรอบคอบ</p>
+          เทศบาลไม่รับผิดชอบต่อความเสียหายใด ๆ ที่เกิดจากการใช้บริการของผู้ประกอบการที่ลงทะเบียนในระบบ ไม่ว่ากรณีใดทั้งสิ้น</p>
         </div>
         <label class="consent-check">
           <input type="checkbox" id="reg-consent" required>
@@ -247,7 +321,7 @@
     <div id="registerStep2" hidden class="register-success">
       <div class="success-icon">✅</div>
       <h3>ส่งข้อมูลสำเร็จแล้ว!</h3>
-      <p>เจ้าหน้าที่เทศบาลจะตรวจสอบข้อมูลของคุณและติดต่อกลับภายใน 3-5 วันทำการ</p>
+      <p>เจ้าหน้าที่เทศบาลจะตรวจสอบข้อมูลของคุณและติดต่อกลับภายใน 3–5 วันทำการ</p>
       <p class="success-name" id="successName"></p>
       <button class="button button-outline" id="regDoneBtn" type="button">ปิด</button>
     </div>
