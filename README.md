@@ -1,91 +1,58 @@
-# Bangraknoi Connect — Genesis V1
+# บางรักน้อย Connect — Genesis V1.1 Video City
 
-Interactive City Web App แบบ HTML + SVG + Vanilla JavaScript สำหรับ deploy บน GitHub Pages โดยไม่ใช้ framework และไม่พึ่ง CDN
+Interactive City Web App สำหรับบางรักน้อย Connect ใช้คลิปเมืองเป็นฉากหลัก และวางจุดคลิกทับบนสถานที่สำคัญเพื่อเปิดข้อมูลจาก `data.js` โดยตรง
 
-## สิ่งที่ทำใน V1
+## แนวคิดหลัก
 
-- ใช้ `assets/master-scene.png` เป็นเมืองหลัก
-- วาง SVG Hotspot ทับเมืองให้คลิกสถานที่ได้
-- ข้อมูลทุกสถานที่อ่านจาก `data.js`
-- มีข้อมูลตั้งต้น 13 จุด: วัด พระใหญ่ เทศบาล ตลาด ร้านอาหาร หาช่าง ท่องเที่ยว รถไฟฟ้า ชุมชน กิจกรรม ฝึกอาชีพ ข่าวสาร และสมัครเข้าร่วมระบบ
-- เปิดข้อมูลแบบ bottom tray ไม่ใช้ popup กลางจอ และไม่ทำ card ใหญ่บังเมือง
-- มีระบบเวลาอัตโนมัติจากเครื่องผู้ใช้: เช้า / กลางวัน / เย็น / กลางคืน
-- มีระบบฤดูกาลเบื้องต้นจากเดือนของเครื่องผู้ใช้
-- มีมาสคอต BC เดินเข้ามาและทักทาย
-- รองรับ Desktop / Tablet / Mobile
-- ใช้ได้กับ GitHub Pages ทันที
+- เมืองคืออินเทอร์เฟซ ไม่ใช่แค่พื้นหลัง
+- คลิกอาคาร/สถานที่ในเมืองเพื่อเปิดข้อมูลบริการ
+- ข้อมูลมาจาก `data.js` แก้ไขได้จากไฟล์เดียว
+- ใช้ HTML + CSS + JavaScript ล้วน ไม่พึ่ง framework
+- Deploy ได้บน GitHub Pages
 
-## โครงไฟล์
+## สิ่งที่เพิ่มใน V1.1
 
-```txt
-bangraknoi-connect-genesis-v1/
-├── index.html
-├── styles.css
-├── app.js
-├── data.js
-├── README.md
-└── assets/
-    ├── master-scene.png
-    ├── bc-guide.png
-    ├── icon-repair.png
-    ├── icon-food.png
-    ├── icon-training.png
-    ├── icon-news.png
-    ├── icon-service.png
-    ├── icon-local.png
-    ├── icon-activity.png
-    ├── icon-chat.png
-    ├── icon-tourism.png
-    └── favicon.svg
-└── .nojekyll
+- ใช้ `assets/city-loop.mp4` เป็นเมืองเคลื่อนไหวหน้าแรก
+- เพิ่ม poster สำรอง `assets/city-video-poster.jpg`
+- เพิ่มจุดคลิกบนเมือง 7 จุด: วัด/พระใหญ่, เทศบาล, ตลาด, ร้านอาหาร, หาช่าง, ฝึกอาชีพ, พูดคุย
+- เพิ่มแผงข้อมูลล่างซ้ายแบบไม่บังเมืองมากเกินไป
+- ปรับโลโก้ BC ตามไฟล์ล่าสุด
+- ถอดสคริปต์ QR ภายนอกออก เหลือระบบ static ล้วน
+- เพิ่ม `.nojekyll` สำหรับ GitHub Pages
+
+## โครงสร้างสำคัญ
+
+```text
+index.html          โครงหน้าเว็บและจุดคลิกเมือง
+styles.css          งานภาพ/Responsive/Animation
+app.js              ระบบคลิกเมือง ค้นหา Drawer สมัครเข้าระบบ
+data.js             ฐานข้อมูลหมวดหมู่และลิงก์บริการ
+assets/city-loop.mp4
+assets/city-video-poster.jpg
+assets/bc-logo.png
+.nojekyll
 ```
 
-## วิธีแก้ข้อมูลสถานที่
+## วิธีแก้ข้อมูล
 
-เปิดไฟล์ `data.js` แล้วแก้ใน `window.BC_DATA.places`
+แก้ที่ `data.js` เป็นหลัก เช่น ชื่อหมวด รายการบริการ รายละเอียด และลิงก์ปลายทาง
 
-ตัวอย่างโครงข้อมูล:
+## วิธี Deploy บน GitHub Pages
 
-```js
-{
-  id: "food",
-  label: "ร้านอาหาร",
-  title: "ร้านอาหาร",
-  category: "กินอะไรดี",
-  summary: "ข้อความแนะนำสถานที่",
-  facts: ["ร้านอาหาร", "เมนูเด่น"],
-  icon: "assets/icon-food.png",
-  point: [1390, 537],
-  hotspot: "1300,440 1456,432 1510,492 1500,654 1346,668 1276,610 1280,488",
-  view: { x: 1395, y: 540, scale: 1.22 }
-}
+1. แตก ZIP
+2. อัปโหลดไฟล์ทั้งหมดในโฟลเดอร์นี้ขึ้น repository
+3. ไปที่ Settings → Pages
+4. เลือก branch `main` และ root
+5. เปิดลิงก์ GitHub Pages ที่ระบบสร้างให้
+
+## วิธีทดสอบในเครื่อง
+
+```powershell
+python -m http.server 4173
 ```
 
-## วิธีแก้จุดคลิกบนภาพ
+จากนั้นเปิด
 
-- ภาพ master มีขนาด 1672 x 941 px
-- `point` คือพิกัดหมุด
-- `hotspot` คือพิกัด polygon ของพื้นที่คลิก
-- `view` คือจุดที่เมืองจะ zoom ไปเมื่อคลิก
-
-ถ้าจะปรับพิกัด ให้เปิดภาพในโปรแกรมออกแบบที่ดูตำแหน่ง X/Y ได้ เช่น Figma, Photoshop, Photopea หรือเครื่องมือวัดพิกัดภาพ แล้วแก้เลขใน `data.js`
-
-## หมวดข้อมูลตั้งต้น
-
-V1 วางหมุดและพื้นที่คลิกสำหรับสถานที่หลักของเมือง ได้แก่ วัดบางรักน้อย, พระใหญ่, เทศบาลเมืองบางรักน้อย, ตลาด, ร้านอาหาร, หาช่าง, ท่องเที่ยวคลองอ้อมนนท์, รถไฟฟ้าสายสีม่วง, ชุมชน, กิจกรรม, ฝึกอาชีพ, ข่าวสารเทศบาล และสมัครเข้าร่วมระบบ
-
-## วิธี deploy บน GitHub Pages
-
-1. แตก ZIP นี้
-2. อัปโหลดทุกไฟล์ขึ้น repository เช่น `bangraknoi-connect`
-3. ไปที่ GitHub repository → Settings → Pages
-4. เลือก Branch: `main` และ Folder: `/root`
-5. กด Save
-6. เปิด URL ที่ GitHub Pages ให้มา
-
-## หมายเหตุสำคัญ
-
-- อย่าเปลี่ยนชื่อไฟล์ `index.html` เพราะ GitHub Pages ใช้เป็นหน้าแรก
-- เว็บนี้ไม่ใช้ React / Vue / Bootstrap / Tailwind / CDN
-- ข้อมูลจริงควรเติมใน `data.js` ก่อนเปิดใช้งานจริง
-- หากจะต่อ API ภายหลัง ให้คงหลักการเดิม: เมืองเป็นอินเทอร์เฟซ ข้อมูลโผล่เมื่อผู้ใช้ต้องการ
+```text
+http://localhost:4173
+```

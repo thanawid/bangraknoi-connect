@@ -1,7 +1,7 @@
-const CACHE = 'brn-connect-v6';
+const CACHE = 'brn-connect-genesis-v1-1';
 const CORE = [
   './', './index.html', './styles.css', './app.js', './data.js', './manifest.webmanifest',
-  './assets/master-scene.png', './assets/mascot_hero.png', './assets/bc-logo.png', './assets/favicon.png',
+  './assets/master-scene.png', './assets/city-video-poster.jpg', './assets/city-loop.mp4', './assets/mascot_hero.png', './assets/bc-logo.png', './assets/favicon.png',
   './assets/mascot_chang.png', './assets/mascot_food.png', './assets/mascot_travel.png',
   './assets/mascot_career.png', './assets/mascot_news.png', './assets/mascot_event.png',
   './assets/mascot_product.png', './assets/mascot_chat.png', './assets/mascot_service.png',
