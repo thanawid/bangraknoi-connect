@@ -28,9 +28,10 @@ const MASCOTS = {
 };
 const SUBTITLES = {
   craft: 'ค้นหาบนแผนที่', food: 'ร้านใกล้บ้าน', travel: 'สถานที่แนะนำ', learn: 'หลักสูตรและคู่มือ',
-  news: 'ประกาศทางการ', event: 'ปฏิทินชุมชน', market: 'ของดีท้องถิ่น', chat: '4 ช่องทาง'
+  news: 'ประกาศทางการ', event: 'ปฏิทินชุมชน', market: 'ของดีท้องถิ่น', chat: '4 ช่องทาง',
+  service: 'บริการประชาชน'
 };
-const CATEGORY_ORDER = ['craft', 'food', 'travel', 'learn', 'news', 'event', 'market', 'chat'];
+const CATEGORY_ORDER = ['craft', 'food', 'travel', 'learn', 'news', 'event', 'market', 'chat', 'service'];
 const categoryById = (id) => id === 'travel' ? TRAVEL : getZone(id);
 
 const els = {
@@ -47,6 +48,7 @@ function renderCategories() {
 
   CATEGORY_ORDER.forEach((id) => {
     const category = categoryById(id);
+    if (!category) return;
     const option = document.createElement('option');
     option.value = id; option.textContent = category.label;
     selectFragment.append(option);
@@ -56,7 +58,7 @@ function renderCategories() {
     button.className = 'category-card';
     button.dataset.category = id;
     button.setAttribute('aria-label', `เปิดหมวด${category.label}`);
-    button.innerHTML = `<img class="card-mascot" src="${MASCOTS[id] || ''}" alt="" loading="lazy"><b>${category.label}</b><small>${SUBTITLES[id]}</small>`;
+    button.innerHTML = `<img class="card-mascot" src="${MASCOTS[id] || ''}" alt="" loading="lazy"><b>${category.label}</b><small>${SUBTITLES[id] || ''}</small>`;
     button.addEventListener('click', () => openDrawer(id));
     gridFragment.append(button);
   });
@@ -66,7 +68,7 @@ function renderCategories() {
 
 function buildDrawerItem(item) {
   const link = document.createElement('a');
-  link.className = 'drawer-item';
+  link.className = 'drawer-item' + (item.primary ? ' drawer-item-primary' : '');
   link.href = item.href;
   if (item.href.startsWith('http')) { link.target = '_blank'; link.rel = 'noopener noreferrer'; }
   link.innerHTML = `<span aria-hidden="true">${item.icon}</span><div><b>${item.title}</b><small>${item.detail}</small></div><i>${item.action} ›</i>`;
@@ -76,7 +78,7 @@ function buildDrawerItem(item) {
 function openDrawer(id) {
   const category = categoryById(id);
   if (!category) return;
-  els.drawerIcon.textContent = ICONS[id] || category.icon;
+  els.drawerIcon.textContent = ICONS[id] || category.icon || '✦';
   els.drawerTitle.textContent = category.label;
   els.drawerDescription.textContent = category.description;
   els.drawerSource.textContent = category.source;
@@ -98,8 +100,8 @@ function closeDrawer() {
 function getSearchRows() {
   const categories = [...ZONES, TRAVEL];
   return categories.flatMap((category) => [
-    { type: 'category', categoryId: category.id, title: category.label, detail: category.description, icon: ICONS[category.id] || category.icon, keywords: `${category.label} ${category.short || ''} ${category.description}` },
-    ...category.items.map((item) => ({ type: 'item', categoryId: category.id, title: item.title, detail: item.detail, icon: item.icon, href: item.href, keywords: `${item.title} ${item.detail} ${item.tag} ${category.label}` }))
+    { type: 'category', categoryId: category.id, title: category.label, detail: category.description, icon: ICONS[category.id] || category.icon || '✦', keywords: `${category.label} ${category.short || ''} ${category.description}` },
+    ...category.items.map((item) => ({ type: 'item', categoryId: category.id, title: item.title, detail: item.detail, icon: item.icon, href: item.href, keywords: `${item.title} ${item.detail} ${item.tag || ''} ${category.label}` }))
   ]);
 }
 
@@ -119,7 +121,7 @@ function renderSearchResults(rows, query) {
   if (!rows.length) {
     const empty = document.createElement('div');
     empty.className = 'search-empty';
-    empty.textContent = `ยังไม่พบ “${query}” ลองค้นหาด้วยคำสั้น ๆ เช่น ช่าง อาหาร ข่าว หรือกิจกรรม`;
+    empty.textContent = `ยังไม่พบ "${query}" ลองค้นหาด้วยคำสั้น ๆ เช่น ช่าง อาหาร ข่าว หรือกิจกรรม`;
     els.searchResults.append(empty);
   } else {
     rows.forEach((row) => {
@@ -128,8 +130,8 @@ function renderSearchResults(rows, query) {
       button.innerHTML = `<span aria-hidden="true">${row.icon}</span><span><b>${row.title}</b><small>${row.detail}</small></span><i>เปิด ›</i>`;
       button.addEventListener('click', () => {
         if (row.type === 'category') openDrawer(row.categoryId);
-        else if (row.href.startsWith('tel:')) location.href = row.href;
-        else window.open(row.href, '_blank', 'noopener,noreferrer');
+        else if (row.href && row.href.startsWith('tel:')) location.href = row.href;
+        else if (row.href) window.open(row.href, '_blank', 'noopener,noreferrer');
         els.searchResults.hidden = true;
       });
       els.searchResults.append(button);
@@ -147,7 +149,7 @@ function showToast(message) {
   els.toast.textContent = message;
   els.toast.classList.add('show');
   clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => els.toast.classList.remove('show'), 2200);
+  showToast.timer = setTimeout(() => els.toast.classList.remove('show'), 2400);
 }
 
 function syncOnlineStatus() { els.offlineBadge.hidden = navigator.onLine; }
@@ -173,27 +175,81 @@ function setupNavigation() {
 }
 
 function bindEvents() {
+  // Search
   els.searchForm.addEventListener('submit', (event) => { event.preventDefault(); performSearch(); });
-  els.globalSearch.addEventListener('input', () => { if (els.globalSearch.value.trim().length >= 2) performSearch(); else els.searchResults.hidden = true; });
-  els.categorySelect.addEventListener('change', performSearch);
-  $$('.popular button').forEach((button) => button.addEventListener('click', () => { els.globalSearch.value = button.dataset.query; performSearch(); }));
-  document.addEventListener('click', (event) => { if (!event.target.closest('.search-section')) els.searchResults.hidden = true; });
+  els.globalSearch.addEventListener('input', () => {
+    if (els.globalSearch.value.trim().length >= 2) performSearch();
+    else els.searchResults.hidden = true;
+  });
+  els.categorySelect.addEventListener('change', () => {
+    performSearch();
+    // Show category filter chip on mobile
+    const val = els.categorySelect.value;
+    if (val !== 'all') {
+      const cat = categoryById(val);
+      if (cat) showToast(`กรอง: ${cat.label}`);
+    }
+  });
+  $$('.popular button').forEach((button) => button.addEventListener('click', () => {
+    els.globalSearch.value = button.dataset.query;
+    performSearch();
+    els.globalSearch.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }));
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.search-section')) els.searchResults.hidden = true;
+  });
 
+  // Drawer
   $('#drawerClose').addEventListener('click', closeDrawer);
   els.backdrop.addEventListener('click', closeDrawer);
-  $('#allCategories').addEventListener('click', () => { els.globalSearch.value = ''; els.categorySelect.value = 'all'; performSearch(); $('#search').scrollIntoView({ behavior: 'smooth' }); });
-  $('#allRecommended').addEventListener('click', () => { $('#recommendRow').scrollIntoView({ behavior: 'smooth', block: 'center' }); showToast('เลื่อนดูรายการแนะนำได้ทางซ้าย–ขวา'); });
 
-  $('#joinButton').addEventListener('click', showMemberDialog);
-  $('#loginButton').addEventListener('click', showMemberDialog);
+  // Section CTAs
+  $('#allCategories').addEventListener('click', () => {
+    $('#search').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      els.globalSearch.value = '';
+      els.categorySelect.value = 'all';
+      performSearch();
+      els.globalSearch.focus();
+    }, 400);
+  });
+  $('#allRecommended').addEventListener('click', () => {
+    const row = $('#recommendRow');
+    if (row) {
+      row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      // Also scroll the row itself to start
+      setTimeout(() => { row.scrollLeft = 0; }, 300);
+    }
+    showToast('เลื่อนดูรายการแนะนำได้ทางซ้าย–ขวา 👉');
+  });
+
+  // Registration dialog
+  const joinBtn = $('#joinButton');
+  if (joinBtn) joinBtn.addEventListener('click', showMemberDialog);
+  // loginButton may or may not exist in HTML — guard it
+  const loginBtn = $('#loginButton');
+  if (loginBtn) loginBtn.addEventListener('click', showMemberDialog);
+
   $('#dialogClose').addEventListener('click', () => closeRegisterDialog());
   $('#regDoneBtn').addEventListener('click', () => closeRegisterDialog());
-  els.memberDialog.addEventListener('click', (event) => { if (event.target === els.memberDialog) closeRegisterDialog(); });
-  $('#regSubmitBtn').addEventListener('click', () => submitRegistration());
-  window.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeDrawer();
-    if (event.key === '/' && document.activeElement !== els.globalSearch) { event.preventDefault(); $('#search').scrollIntoView(); els.globalSearch.focus(); }
+  els.memberDialog.addEventListener('click', (event) => {
+    if (event.target === els.memberDialog) closeRegisterDialog();
   });
+  $('#regSubmitBtn').addEventListener('click', () => submitRegistration());
+
+  // Keyboard shortcuts
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeDrawer();
+      if (els.memberDialog.open) closeRegisterDialog();
+    }
+    if (event.key === '/' && document.activeElement !== els.globalSearch && !els.memberDialog.open) {
+      event.preventDefault();
+      $('#search').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => els.globalSearch.focus(), 400);
+    }
+  });
+
   window.addEventListener('online', syncOnlineStatus);
   window.addEventListener('offline', syncOnlineStatus);
 }
@@ -208,22 +264,28 @@ async function registerServiceWorker() {
 // ============================================================
 // REGISTRATION — Google Sheet + Email Notification
 // ============================================================
-// 🔧 ใส่ URL ของ Google Apps Script Web App ที่นี่
-// (ดูคำแนะนำใน README.md ส่วน "ตั้งค่า Google Sheet")
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzv5WMeM5cSxl7Ot6QCjbqkxGaxPMAfsvc6lDj2rQe4UYKIjwnZMxa-Sxq6VtN9b51Q/exec';
 
 function closeRegisterDialog() {
-  els.memberDialog.close();
-  // Reset form back to step 1 after close
+  if (els.memberDialog.close) els.memberDialog.close();
+  else els.memberDialog.removeAttribute('open');
   setTimeout(() => {
     $('#registerStep1').hidden = false;
     $('#registerStep2').hidden = true;
-    ['reg-name','reg-phone','reg-contact','reg-social','reg-area','reg-desc'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-    const cat = document.getElementById('reg-category'); if (cat) cat.value = '';
-    const consent = document.getElementById('reg-consent'); if (consent) consent.checked = false;
-    const err = $('#registerError'); if (err) { err.hidden = true; err.textContent = ''; }
-    const btn = $('#regBtnLabel'); if (btn) btn.textContent = '📨 ส่งข้อมูลสมัคร';
-    $('#regSubmitBtn').disabled = false;
+    ['reg-name','reg-phone','reg-contact','reg-social','reg-area','reg-desc'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    const cat = document.getElementById('reg-category');
+    if (cat) cat.value = '';
+    const consent = document.getElementById('reg-consent');
+    if (consent) consent.checked = false;
+    const err = $('#registerError');
+    if (err) { err.hidden = true; err.textContent = ''; }
+    const btn = $('#regBtnLabel');
+    if (btn) btn.textContent = '📨 ส่งข้อมูลสมัคร';
+    const submitBtn = $('#regSubmitBtn');
+    if (submitBtn) submitBtn.disabled = false;
   }, 300);
 }
 
@@ -238,11 +300,16 @@ async function submitRegistration() {
   const consent  = document.getElementById('reg-consent')?.checked;
   const errEl    = $('#registerError');
 
-  const showErr = (msg) => { errEl.textContent = msg; errEl.hidden = false; };
+  const showErr = (msg) => {
+    errEl.textContent = msg;
+    errEl.hidden = false;
+    errEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
 
   if (!name)     return showErr('⚠️ กรุณากรอกชื่อร้าน / ชื่อช่าง / กลุ่มอาชีพ');
   if (!category) return showErr('⚠️ กรุณาเลือกประเภทบริการ');
   if (!phone)    return showErr('⚠️ กรุณากรอกเบอร์โทรศัพท์ติดต่อ');
+  if (!/^[0-9\-\+\s]{8,20}$/.test(phone)) return showErr('⚠️ กรุณากรอกเบอร์โทรให้ถูกต้อง เช่น 081-234-5678');
   if (!area)     return showErr('⚠️ กรุณากรอกที่อยู่ / ชุมชน');
   if (!consent)  return showErr('⚠️ กรุณายอมรับข้อตกลงและเงื่อนไขก่อนส่งข้อมูล');
   errEl.hidden = true;
@@ -254,8 +321,8 @@ async function submitRegistration() {
 
   const payload = {
     name, category, phone,
-    line,       // คอลัมน์ F ใน Sheet
-    contact: social,  // คอลัมน์ I ใน Sheet (FB/เว็บ)
+    line,
+    contact: social,
     area, desc,
     timestamp: new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })
   };
@@ -272,13 +339,14 @@ async function submitRegistration() {
     $('#registerStep1').hidden = true;
     $('#registerStep2').hidden = false;
   } catch (err) {
-    showErr('❌ ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง หรือติดต่อเทศบาลโดยตรง โทร 02-193-4512-3');
+    showErr('❌ ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่ หรือติดต่อเทศบาลโดยตรง โทร 02-193-4512-3');
     console.error('Register error:', err);
     btn.disabled = false;
     label.textContent = '📨 ส่งข้อมูลสมัคร';
   }
 }
 
+// Init
 renderCategories();
 setupNavigation();
 bindEvents();
