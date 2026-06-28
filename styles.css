@@ -449,3 +449,96 @@ img { max-width: 100%; }
   .about-qr-block { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
   .qr-wrap { flex-direction: row; align-items: center; }
 }
+
+/* ── QR code div wrapper ── */
+#qrcode img, #qrcode canvas {
+  border-radius: 10px;
+  padding: 8px;
+  background: #fff;
+  display: block;
+}
+
+/* ── Mascot parade section (แทน LINE) ── */
+.mascot-parade-section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--purple-950) 0%, #3a0d6e 50%, #1a0535 100%);
+  padding: 10px 0;
+  border-top: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.mascot-parade-track {
+  display: flex;
+  gap: 0;
+  /* total 14 items × ~140px = ~1960px, animate scroll left */
+  animation: parade-scroll 28s linear infinite;
+  will-change: transform;
+  width: max-content;
+}
+.mascot-parade-section:hover .mascot-parade-track {
+  animation-play-state: paused;
+}
+
+@keyframes parade-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* 50% = แค่ชุดแรก เพราะมี 2 ชุด */
+}
+
+.parade-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 22px 20px;
+  width: 140px;
+  flex-shrink: 0;
+  animation: parade-bob 2.4s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes parade-bob {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+.parade-item img {
+  width: 90px;
+  height: 100px;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,.4));
+}
+
+.parade-item span {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,.75);
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: .03em;
+}
+
+/* Fade edges */
+.parade-overlay-left,
+.parade-overlay-right {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  pointer-events: none;
+  z-index: 2;
+}
+.parade-overlay-left {
+  left: 0;
+  background: linear-gradient(90deg, var(--purple-950), transparent);
+}
+.parade-overlay-right {
+  right: 0;
+  background: linear-gradient(270deg, #1a0535, transparent);
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .mascot-parade-track { animation: none; }
+  .parade-item { animation: none; }
+}

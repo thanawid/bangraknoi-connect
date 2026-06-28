@@ -180,13 +180,12 @@
         <div class="activity-copy">
           <span class="section-icon orange">✦</span>
           <div>
-            <b>กิจกรรมชุมชนและข่าวสารประจำเดือน</b>
-            <p>ปฏิทินงานประเพณี ประกาศเทศบาล<br>และข่าวสำคัญใกล้บ้าน</p>
+            <b>ค้นหาบริการ แจ้งเรื่อง และติดต่อชุมชน</b>
+            <p>ช่าง · ร้านอาหาร · ท่องเที่ยว · ฝึกอาชีพ<br>สินค้า · บริการ · ทุกอย่างในที่เดียว</p>
           </div>
         </div>
-        <!-- เปลี่ยนจาก <a> ภายนอกเปล่าๆ → ปุ่มเปิด drawer "บริการชุมชน" -->
         <button class="activity-cta-btn" id="activityDrawerBtn" type="button">
-          ดูกิจกรรมและข่าว <span>›</span>
+          เปิดหมวดหมู่ทั้งหมด <span>›</span>
         </button>
       </div>
     </section>
@@ -212,23 +211,77 @@
             </div>
           </div>
           <div class="qr-wrap">
-            <canvas id="qrCanvas" width="120" height="120" aria-label="QR Code เข้าเว็บไซต์"></canvas>
+            <div id="qrcode"></div>
             <span>สแกนเพื่อเข้าเว็บ</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── LINE ── -->
-    <section class="line-section container">
-      <div class="line-banner">
-        <span class="line-logo">LINE</span>
-        <div>
-          <h2>เป็นเพื่อนกับ<br>บางรักน้อย Connect</h2>
-          <p>รับข่าวสาร แจ้งเตือนกิจกรรม<br>และสิทธิประโยชน์ก่อนใคร</p>
+    <!-- ── MASCOT ANIMATION (แทน LINE section) ── -->
+    <section class="mascot-parade-section" aria-hidden="true">
+      <div class="mascot-parade-track">
+        <!-- ชุดที่ 1 -->
+        <div class="parade-item" style="--delay:0s">
+          <img src="assets/mascot_chang.png"   alt="ช่าง">
+          <span>บ้านช่าง</span>
         </div>
-        <a href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener noreferrer">เพิ่มเพื่อนใน LINE <span>↗</span></a>
+        <div class="parade-item" style="--delay:0.8s">
+          <img src="assets/mascot_food.png"    alt="อาหาร">
+          <span>ร้านอาหาร</span>
+        </div>
+        <div class="parade-item" style="--delay:1.6s">
+          <img src="assets/mascot_travel.png"  alt="ท่องเที่ยว">
+          <span>ท่องเที่ยว</span>
+        </div>
+        <div class="parade-item" style="--delay:2.4s">
+          <img src="assets/mascot_career.png"  alt="ฝึกอาชีพ">
+          <span>ฝึกอาชีพ</span>
+        </div>
+        <div class="parade-item" style="--delay:3.2s">
+          <img src="assets/mascot_product.png" alt="สินค้า">
+          <span>สินค้าและตลาด</span>
+        </div>
+        <div class="parade-item" style="--delay:4.0s">
+          <img src="assets/mascot_service.png" alt="บริการ">
+          <span>บริการชุมชน</span>
+        </div>
+        <div class="parade-item" style="--delay:4.8s">
+          <img src="assets/mascot_chat.png"    alt="ติดต่อ">
+          <span>ติดต่อ–แสดงความเห็น</span>
+        </div>
+        <!-- ชุดที่ 2 (loop) -->
+        <div class="parade-item" style="--delay:0s">
+          <img src="assets/mascot_chang.png"   alt="">
+          <span>บ้านช่าง</span>
+        </div>
+        <div class="parade-item" style="--delay:0.8s">
+          <img src="assets/mascot_food.png"    alt="">
+          <span>ร้านอาหาร</span>
+        </div>
+        <div class="parade-item" style="--delay:1.6s">
+          <img src="assets/mascot_travel.png"  alt="">
+          <span>ท่องเที่ยว</span>
+        </div>
+        <div class="parade-item" style="--delay:2.4s">
+          <img src="assets/mascot_career.png"  alt="">
+          <span>ฝึกอาชีพ</span>
+        </div>
+        <div class="parade-item" style="--delay:3.2s">
+          <img src="assets/mascot_product.png" alt="">
+          <span>สินค้าและตลาด</span>
+        </div>
+        <div class="parade-item" style="--delay:4.0s">
+          <img src="assets/mascot_service.png" alt="">
+          <span>บริการชุมชน</span>
+        </div>
+        <div class="parade-item" style="--delay:4.8s">
+          <img src="assets/mascot_chat.png"    alt="">
+          <span>ติดต่อ–แสดงความเห็น</span>
+        </div>
       </div>
+      <div class="parade-overlay-left"></div>
+      <div class="parade-overlay-right"></div>
     </section>
 
   </main>
@@ -353,17 +406,15 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="offline-badge" id="offlineBadge" hidden>ออฟไลน์ · ข้อมูลที่บันทึกไว้ยังเปิดได้</div>
   <noscript><div class="noscript">กรุณาเปิด JavaScript เพื่อใช้บางรักน้อย Connect</div></noscript>
-  <!-- QR Code library (lightweight, no dependencies) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script type="module" src="app.js"></script>
   <script>
-    // Generate QR after page load
     window.addEventListener('load', () => {
-      const canvas = document.getElementById('qrCanvas');
-      if (!canvas || typeof QRCode === 'undefined') return;
-      new QRCode(canvas, {
-        text: 'https://thanawid.github.io/bangraknoi-connect/',
-        width: 120, height: 120,
+      const el = document.getElementById('qrcode');
+      if (!el || typeof QRCode === 'undefined') return;
+      new QRCode(el, {
+        text: location.href.split('#')[0],
+        width: 116, height: 116,
         colorDark: '#6f2dbd',
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.M
