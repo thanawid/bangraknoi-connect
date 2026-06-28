@@ -388,3 +388,64 @@ img { max-width: 100%; }
   gap: 0;
   padding: 12px 14px 18px;
 }
+
+/* ── About section — logo + QR block ── */
+.about-qr-block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+.about-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.about-logo-row img {
+  border-radius: 12px;
+  background: rgba(255,255,255,.1);
+  padding: 4px;
+  flex-shrink: 0;
+}
+.about-logo-row b {
+  display: block;
+  font-size: 14px;
+  color: #f4eafb;
+}
+.about-logo-row small {
+  display: block;
+  font-size: 10px;
+  color: var(--gold);
+  margin-top: 3px;
+}
+.qr-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.qr-wrap canvas,
+.qr-wrap img {
+  border-radius: 12px;
+  padding: 8px;
+  background: #fff;
+  display: block;
+}
+.qr-wrap span {
+  font-size: 10px;
+  color: rgba(255,255,255,.65);
+  letter-spacing: .06em;
+}
+
+/* ── Recommend cards — use cover images, remove old crop classes ── */
+.recommend-row .card-image {
+  height: 160px;
+}
+@media (max-width: 900px) {
+  .recommend-row .card-image { height: 150px; }
+}
+@media (max-width: 640px) {
+  .recommend-row .card-image { height: 170px; }
+  .about-qr-block { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+  .qr-wrap { flex-direction: row; align-items: center; }
+}
