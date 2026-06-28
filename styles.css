@@ -54,7 +54,18 @@ img { max-width: 100%; }
 
 /* Hero */
 .hero { position: relative; min-height: 640px; overflow: hidden; background: #f3e8fb; isolation: isolate; }
-.hero-scene { position: absolute; z-index: -4; inset: 0; background: url("assets/master-scene.png") 62% 47% / cover no-repeat; filter: saturate(1.16) contrast(1.03) sepia(.14) hue-rotate(-5deg); transform: scale(1.015); }
+/* Hero video background */
+.hero-video {
+  position: absolute;
+  z-index: -4;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: saturate(1.1) contrast(1.02);
+  transform: scale(1.01); /* ป้องกัน edge flicker */
+}
 .hero-glow { position: absolute; z-index: -3; inset: 0; background: linear-gradient(180deg,rgba(105,39,163,.28),rgba(255,143,45,.16) 58%,rgba(90,24,130,.1)), linear-gradient(120deg,rgba(126,45,194,.12),transparent 48%), radial-gradient(circle at 64% 25%,rgba(255,195,103,.42),transparent 34%); }
 .hero-fade { position: absolute; z-index: -2; inset: 0; background: linear-gradient(90deg,#fff 0%,rgba(255,255,255,.97) 23%,rgba(255,255,255,.75) 40%,rgba(255,255,255,.06) 68%); }
 .hero::after { content: ""; position: absolute; z-index: -1; inset: auto 0 0; height: 32%; background: linear-gradient(0deg,rgba(255,255,255,.42),transparent); }
