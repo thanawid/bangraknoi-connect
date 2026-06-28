@@ -201,3 +201,108 @@ img { max-width: 100%; }
   .register-dialog { padding: 22px 18px 20px; border-radius: 20px; }
   .legal-scroll { max-height: 120px; }
 }
+
+/* ============================================================
+   PATCH — missing variables, card mascot, mobile fixes
+   ============================================================ */
+
+:root {
+  --purple-500: #8245d1;
+  --purple-300: #c4a0ef;
+  --purple-200: #ddd0f7;
+  --purple-150: #ede4fb;
+}
+
+/* Category card mascot images */
+.card-mascot {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  object-position: 50% 10%;
+  border-radius: 14px;
+  margin-bottom: 8px;
+  display: block;
+  background: var(--purple-150);
+}
+@media (max-width: 640px) {
+  .card-mascot { height: 82px; border-radius: 11px; }
+}
+
+/* Primary drawer item highlight */
+.drawer-item-primary {
+  border-color: var(--purple-300);
+  background: linear-gradient(135deg, #f8f2ff, #fff4ea);
+}
+.drawer-item-primary:hover {
+  border-color: var(--purple-600);
+}
+
+/* Show category select on ALL screen sizes — was hidden on mobile */
+@media (max-width: 640px) {
+  .category-select { display: flex !important; }
+  .search-box { grid-template-columns: 1fr; }
+  .search-input { border-radius: 11px; border-bottom: 1px solid #e5dfeb; }
+  .category-select {
+    border: 1px solid #e5dfeb !important;
+    border-radius: 11px !important;
+    margin-top: 8px;
+  }
+  .category-select select { border-radius: 11px; }
+}
+
+/* Recommend row — smooth horizontal scroll with dots indicator hint */
+.recommend-row {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.recommend-row::-webkit-scrollbar { display: none; }
+.recommend-card { scroll-snap-align: start; }
+
+/* Toast animation improvement */
+.toast {
+  font-size: 13px;
+  padding: 12px 20px;
+  max-width: calc(100vw - 40px);
+  text-align: center;
+}
+
+/* Focus improvements for form fields */
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--purple-500);
+  box-shadow: 0 0 0 3px rgba(130, 69, 209, 0.13);
+}
+
+/* Register dialog — ensure dialog-close position is absolute within dialog */
+.register-dialog { position: relative; }
+.register-dialog .dialog-close {
+  position: sticky;
+  top: 0;
+  right: 0;
+  float: right;
+  margin: -8px -8px 4px auto;
+  z-index: 10;
+}
+
+/* Active nav highlight for mobile */
+@media (max-width: 900px) {
+  .main-nav a.active { color: var(--purple-700); background: var(--purple-100); }
+}
+
+/* Category grid — 4 cols on tablet, 3 on small mobile */
+@media (max-width: 480px) {
+  .category-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .category-card { min-height: 130px; }
+  .card-mascot { height: 68px; }
+  .category-card b { font-size: 10px; }
+  .category-card small { font-size: 9px; }
+}
+
+/* Smooth open/close for drawer on touch */
+@media (hover: none) {
+  .drawer-item:hover { transform: none; border-color: var(--purple-300); }
+  .category-card:hover { transform: none; }
+}
