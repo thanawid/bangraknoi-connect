@@ -1,15 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#5b21b6">
   <meta name="description" content="บางรักน้อย Connect — เมืองที่มีชีวิต">
   <title>บางรักน้อย Connect</title>
-  <link rel="icon" href="assets/favicon.ico">
+  <link rel="icon" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon-180x180.png">
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700;900&display=swap" rel="stylesheet">
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,419 +19,415 @@
       --purple-mid: #7c3aed;
       --purple-light: #ede9fe;
       --orange: #f59e0b;
-      --panel-w: min(420px, 90vw);
+      --panel-w: min(420px, 94vw);
     }
 
     html, body {
       width: 100%; height: 100%;
-      font-family: 'Noto Sans Thai', sans-serif;
+      font-family: 'Noto Sans Thai', system-ui, sans-serif;
       overflow: hidden;
       background: #0f172a;
       color: #1e1b4b;
-      user-select: none;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Sky ── */
-    #sky {
+    /* ── VIDEO BACKGROUND เต็มจอ ── */
+    #videoBg {
       position: fixed; inset: 0; z-index: 0;
-      background: linear-gradient(180deg, #1e90ff 0%, #87ceeb 50%, #bfdbfe 100%);
-      transition: background 3s ease;
-    }
-
-    /* ── Clouds ── */
-    #clouds { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
-    .cloud {
-      position: absolute; border-radius: 50px;
-      background: rgba(255,255,255,0.82); filter: blur(3px);
-      animation: cloudFloat linear infinite;
-    }
-    @keyframes cloudFloat {
-      from { transform: translateX(-220px); }
-      to   { transform: translateX(calc(100vw + 220px)); }
-    }
-
-    /* ── Stars ── */
-    #stars { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity 2s; }
-    #stars.show { opacity: 1; }
-    .star { position: absolute; background: white; border-radius: 50%; animation: twinkle ease-in-out infinite; }
-    @keyframes twinkle {
-      0%,100% { opacity: 0.3; } 50% { opacity: 1; }
-    }
-
-    /* ── City Scene ── */
-    #cityScene {
-      position: fixed; inset: 0; z-index: 2;
-      overflow: hidden;
-    }
-
-    /* ภาพเมือง — cover เต็มจอ */
-    #cityImg {
-      position: absolute;
       width: 100%; height: 100%;
       object-fit: cover;
       object-position: center center;
-      display: block;
     }
 
-    /* ── SVG Hotspot layer ── */
-    #hotspotSvg {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      pointer-events: all;
-    }
-
-    .hotspot {
-      cursor: pointer;
-      fill: transparent;
-      stroke: transparent;
-      stroke-width: 2;
-      transition: fill 0.2s, stroke 0.2s;
-    }
-    .hotspot:hover, .hotspot.active {
-      fill: rgba(245,158,11,0.18);
-      stroke: rgba(245,158,11,0.9);
-      filter: drop-shadow(0 0 6px #f59e0b);
-    }
-
-    /* Label tooltip เมื่อ hover */
-    .hs-label {
-      font-family: 'Noto Sans Thai', sans-serif;
-      font-size: 3px;
-      font-weight: 700;
-      fill: white;
+    /* Overlay บางๆ เพื่อให้อ่านข้อความได้ */
+    #videoOverlay {
+      position: fixed; inset: 0; z-index: 1;
+      background: linear-gradient(
+        180deg,
+        rgba(15,0,40,0.35) 0%,
+        rgba(15,0,40,0.10) 40%,
+        rgba(15,0,40,0.10) 70%,
+        rgba(15,0,40,0.55) 100%
+      );
       pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s;
-      paint-order: stroke fill;
-      stroke: rgba(0,0,0,0.8);
-      stroke-width: 0.5px;
     }
-    .hotspot:hover ~ .hs-label,
-    .hotspot.active ~ .hs-label { opacity: 1; }
 
-    /* ── Train ── */
-    #trainAnim {
+    /* ── MAP PINS ── */
+    #pins {
+      position: fixed; inset: 0; z-index: 5;
+      pointer-events: none;
+    }
+
+    .pin {
       position: absolute;
-      top: 11%;
-      font-size: 28px;
-      line-height: 1;
-      pointer-events: none;
-      animation: trainRide 15s linear infinite;
-      z-index: 5;
+      display: flex; flex-direction: column; align-items: center;
+      cursor: pointer; pointer-events: all;
+      transform: translate(-50%, -100%);
+      transition: transform 0.2s;
+      animation: pinBounce 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
     }
-    @keyframes trainRide {
-      from { left: -80px; }
-      to   { left: calc(100% + 80px); }
+    .pin:hover { transform: translate(-50%,-100%) scale(1.1); }
+    .pin:active { transform: translate(-50%,-100%) scale(0.95); }
+
+    @keyframes pinBounce {
+      from { opacity:0; transform: translate(-50%,-80%); }
+      to   { opacity:1; transform: translate(-50%,-100%); }
     }
 
-    /* ── Boats ── */
-    .boat-anim {
-      position: absolute; pointer-events: none; z-index: 5;
-      animation: boatSail linear infinite;
+    .pin-bubble {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border: 2px solid var(--purple);
+      border-radius: 22px;
+      padding: 6px 13px;
+      font-size: 12px; font-weight: 700;
+      color: var(--purple);
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(91,33,182,0.3);
+      display: flex; align-items: center; gap: 5px;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
-    .boat-anim img { height: 44px; opacity: 0.85; }
-    @keyframes boatSail {
-      from { left: -140px; }
-      to   { left: calc(100% + 140px); }
+    .pin:hover .pin-bubble,
+    .pin.active .pin-bubble {
+      background: var(--purple);
+      color: white;
     }
-    .boat-rev {
-      position: absolute; pointer-events: none; z-index: 5;
-      animation: boatRev linear infinite;
+    .pin-bubble .pin-icon { font-size: 15px; }
+
+    .pin-tail {
+      width: 0; height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 9px solid var(--purple);
+      margin-top: -1px;
     }
-    .boat-rev img { height: 34px; opacity: 0.75; transform: scaleX(-1); }
-    @keyframes boatRev {
-      from { right: -100px; }
-      to   { right: calc(100% + 100px); }
+    .pin:hover .pin-tail,
+    .pin.active .pin-tail {
+      border-top-color: var(--purple);
     }
 
-    /* ── Birds ── */
-    .bird {
-      position: absolute; pointer-events: none; z-index: 5;
-      animation: birdFly linear infinite;
-    }
-    @keyframes birdFly {
-      from { left: -40px; }
-      to   { left: calc(100% + 40px); }
-    }
-
-    /* ── BC Mascot ── */
+    /* ── BC MASCOT ── */
     #bcMascot {
-      position: absolute;
-      bottom: 14%; left: 50%;
-      transform: translateX(-50%);
-      height: 100px;
-      z-index: 10;
+      position: fixed;
+      bottom: 13%; right: 4%;
+      height: 110px; z-index: 6;
       pointer-events: none;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
-      animation: mascotIdle 3s ease-in-out infinite;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.5));
+      animation: mascotFloat 3.5s ease-in-out infinite;
     }
-    @keyframes mascotIdle {
-      0%,100% { transform: translateX(-50%) translateY(0) rotate(-1deg); }
-      50%      { transform: translateX(-50%) translateY(-6px) rotate(1deg); }
+    @keyframes mascotFloat {
+      0%,100% { transform: translateY(0) rotate(-1deg); }
+      50%      { transform: translateY(-8px) rotate(1deg); }
     }
 
-    /* ── Speech Bubble ── */
-    #speechBubble {
-      position: absolute;
-      bottom: calc(14% + 108px); left: 50%;
-      transform: translateX(-40%);
+    /* ── SPEECH BUBBLE ── */
+    #speech {
+      position: fixed;
+      bottom: calc(13% + 118px); right: calc(4% + 20px);
       background: white;
-      border-radius: 16px 16px 16px 4px;
-      padding: 10px 16px;
-      box-shadow: 0 4px 20px rgba(91,33,182,0.25);
+      border-radius: 14px 14px 4px 14px;
+      padding: 10px 15px;
       font-size: 13px; font-weight: 700; color: #4c1d95;
-      white-space: nowrap; z-index: 11; pointer-events: none;
-      opacity: 0; transition: opacity 0.4s, transform 0.4s;
+      white-space: nowrap; z-index: 7; pointer-events: none;
+      box-shadow: 0 4px 20px rgba(91,33,182,0.22);
       border: 2px solid #ede9fe;
+      opacity: 0; transition: opacity 0.35s;
+      max-width: 220px; white-space: normal; text-align: center;
     }
-    #speechBubble.show { opacity: 1; }
-    #speechBubble::after {
-      content: ''; position: absolute;
-      left: 18px; bottom: -10px;
-      border: 5px solid transparent;
-      border-top-color: white;
-    }
+    #speech.show { opacity: 1; }
 
-    /* ── Top Bar ── */
+    /* ── TOP BAR ── */
     #topBar {
-      position: fixed; top: 0; left: 0; right: 0; height: 54px;
-      z-index: 20;
+      position: fixed; top: 0; left: 0; right: 0; height: 56px; z-index: 20;
       display: flex; align-items: center; padding: 0 16px; gap: 10px;
-      background: linear-gradient(180deg, rgba(91,33,182,0.92) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(30,0,70,0.75) 0%, transparent 100%);
     }
-    #logoArea { display: flex; align-items: center; gap: 8px; flex: 1; }
-    #logoArea img { height: 34px; }
-    #logoArea span { font-size: 15px; font-weight: 900; color: white; text-shadow: 0 2px 6px rgba(0,0,0,0.4); }
+    #logoArea { display: flex; align-items: center; gap: 9px; flex: 1; }
+    #logoArea img { height: 36px; border-radius: 8px; }
+    #logoArea span { font-size: 15px; font-weight: 900; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.6); letter-spacing: -0.02em; }
+
     #timeBadge {
-      background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.2); border-radius: 20px;
-      padding: 4px 12px; color: white; font-size: 13px; font-weight: 600;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
+      padding: 4px 13px; color: white; font-size: 12px; font-weight: 600;
     }
 
-    /* ── Bottom Nav ── */
+    /* join button */
+    #joinBtn {
+      background: linear-gradient(135deg, var(--orange), #f97316);
+      color: white; border: none; border-radius: 20px;
+      padding: 6px 16px; font-size: 12px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      box-shadow: 0 2px 10px rgba(249,115,22,0.4);
+      transition: transform 0.2s;
+    }
+    #joinBtn:hover { transform: scale(1.05); }
+
+    /* ── BOTTOM NAV ── */
     #bottomNav {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      z-index: 20; padding: 8px 12px 14px;
-      background: linear-gradient(0deg, rgba(0,0,0,0.55) 0%, transparent 100%);
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
+      padding: 8px 12px 16px;
+      background: linear-gradient(0deg, rgba(10,0,30,0.7) 0%, transparent 100%);
     }
     #navScroll {
-      display: flex; gap: 7px; overflow-x: auto;
-      scrollbar-width: none; padding: 2px 0;
+      display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none;
+      justify-content: center;
     }
     #navScroll::-webkit-scrollbar { display: none; }
+
     .nav-btn {
       flex: 0 0 auto;
       display: flex; flex-direction: column; align-items: center; gap: 3px;
-      background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);
-      border: 1.5px solid rgba(255,255,255,0.2); border-radius: 12px;
-      padding: 7px 10px; cursor: pointer; color: white; min-width: 64px;
+      background: rgba(255,255,255,0.12); backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(255,255,255,0.2); border-radius: 13px;
+      padding: 7px 10px; cursor: pointer; color: white; min-width: 60px;
       transition: all 0.2s;
     }
     .nav-btn:hover, .nav-btn.active {
-      background: rgba(245,158,11,0.28); border-color: var(--orange);
+      background: rgba(124,58,237,0.45);
+      border-color: rgba(167,139,250,0.6);
       transform: translateY(-2px);
     }
-    .nav-btn .nb-icon { font-size: 18px; }
-    .nav-btn .nb-label { font-size: 10px; font-weight: 600; white-space: nowrap; }
+    .nav-btn .nb-icon { font-size: 20px; line-height: 1; }
+    .nav-btn .nb-label { font-size: 10px; font-weight: 700; white-space: nowrap; }
 
-    /* ── Side Panel ── */
-    #sidePanel {
+    /* ── BACKDROP ── */
+    #backdrop {
+      position: fixed; inset: 0; z-index: 25;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(3px);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    #backdrop.show { opacity: 1; pointer-events: all; }
+
+    /* ── SIDE PANEL ── */
+    #panel {
       position: fixed; top: 0; right: -100%;
       width: var(--panel-w); height: 100%; z-index: 30;
-      background: white; box-shadow: -8px 0 40px rgba(0,0,0,0.3);
+      background: white; box-shadow: -10px 0 50px rgba(0,0,0,0.35);
       display: flex; flex-direction: column;
       transition: right 0.35s cubic-bezier(0.32,0.72,0,1);
       overflow: hidden;
     }
-    #sidePanel.open { right: 0; }
+    #panel.open { right: 0; }
 
-    #panelHeader {
-      flex: 0 0 auto; padding: 20px 20px 16px;
+    #panelHead {
+      flex: 0 0 auto; padding: 20px 18px 16px;
       background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 100%);
       position: relative;
     }
     #panelClose {
       position: absolute; top: 14px; right: 14px;
-      width: 30px; height: 30px; border: none;
+      width: 32px; height: 32px; border: none;
       background: rgba(255,255,255,0.2); border-radius: 50%;
-      cursor: pointer; font-size: 16px; color: white;
+      cursor: pointer; font-size: 18px; color: white;
       display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
     }
     #panelClose:hover { background: rgba(255,255,255,0.35); }
-    #panelMascot { height: 72px; margin-bottom: 6px; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3)); }
-    #panelIcon { font-size: 26px; margin-bottom: 3px; }
-    #panelTitle { font-size: 21px; font-weight: 900; color: white; line-height: 1.2; }
-    #panelDesc { font-size: 13px; color: rgba(255,255,255,0.85); margin-top: 5px; line-height: 1.5; }
+
+    #panelMascot { height: 76px; margin-bottom: 8px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); display: block; }
+    #panelIcon { font-size: 28px; margin-bottom: 4px; }
+    #panelTitle { font-size: 22px; font-weight: 900; color: white; line-height: 1.2; }
+    #panelDesc { font-size: 13px; color: rgba(255,255,255,0.85); margin-top: 6px; line-height: 1.6; }
 
     #panelBody { flex: 1; overflow-y: auto; padding: 14px; }
 
-    .panel-item {
-      display: flex; align-items: center; gap: 10px;
+    .p-item {
+      display: flex; align-items: center; gap: 11px;
       padding: 13px 14px; margin-bottom: 8px;
       background: #f8f7ff; border: 1.5px solid #ede9fe;
-      border-radius: 12px; cursor: pointer; text-decoration: none; color: inherit;
+      border-radius: 13px; text-decoration: none; color: inherit;
       transition: all 0.2s;
     }
-    .panel-item:hover { background: #ede9fe; border-color: var(--purple-mid); transform: translateX(3px); }
-    .panel-item .pi-icon { font-size: 22px; flex: 0 0 auto; }
-    .panel-item .pi-text { flex: 1; }
-    .panel-item .pi-title { font-size: 14px; font-weight: 700; color: #2d1d6e; }
-    .panel-item .pi-detail { font-size: 11px; color: #6b7280; margin-top: 2px; }
-    .panel-item .pi-action {
-      font-size: 11px; font-weight: 600; color: var(--purple-mid);
+    .p-item:hover {
+      background: #ede9fe; border-color: var(--purple-mid);
+      transform: translateX(3px);
+    }
+    .p-item .pi { font-size: 22px; flex: 0 0 auto; }
+    .p-item .pt { flex: 1; min-width: 0; }
+    .p-item .pt b { font-size: 14px; color: #2d1d6e; display: block; }
+    .p-item .pt small { font-size: 11px; color: #6b7280; display: block; margin-top: 2px; }
+    .p-item .pa {
+      font-size: 11px; font-weight: 700; color: var(--purple-mid);
       background: var(--purple-light); padding: 4px 9px; border-radius: 20px;
-      white-space: nowrap;
+      white-space: nowrap; flex: 0 0 auto;
     }
 
-    /* ── Backdrop ── */
-    #backdrop {
-      position: fixed; inset: 0; z-index: 25;
-      background: rgba(0,0,0,0.4); backdrop-filter: blur(2px);
-      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    /* ── DRAWER (เดิม) ── */
+    .drawer-backdrop { position: fixed; inset: 0; z-index: 28; background: rgba(0,0,0,0.45); backdrop-filter: blur(2px); }
+    .service-drawer {
+      position: fixed; z-index: 29; bottom: 0; left: 0; right: 0;
+      max-height: 80vh; overflow-y: auto;
+      background: white; border-radius: 24px 24px 0 0;
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.25);
+      transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.32,0.72,0,1);
     }
-    #backdrop.show { opacity: 1; pointer-events: all; }
+    .service-drawer.open { transform: translateY(0); }
+    .drawer-head { display: flex; align-items: flex-start; gap: 14px; padding: 20px 20px 14px; border-bottom: 1px solid #ede9fe; }
+    .drawer-icon { width: 46px; height: 46px; border-radius: 14px; background: linear-gradient(135deg,var(--purple),var(--purple-mid)); color: white; font-size: 22px; display: grid; place-items: center; flex-shrink: 0; }
+    .drawer-head > div { flex: 1; }
+    .drawer-head span { font-size: 11px; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .drawer-head h2 { font-size: 20px; font-weight: 900; color: #1e1b4b; margin: 2px 0 4px; }
+    .drawer-head p { font-size: 13px; color: #666; margin: 0; line-height: 1.5; }
+    #drawerClose { width: 32px; height: 32px; border: none; background: #f3f0fa; border-radius: 50%; cursor: pointer; font-size: 18px; color: #555; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .drawer-list { padding: 12px 16px; }
+    .drawer-group { margin-bottom: 14px; }
+    .drawer-group-label { font-size: 11px; font-weight: 800; color: var(--purple); text-transform: uppercase; letter-spacing: 0.08em; padding: 6px 0 8px; border-bottom: 1px solid #ede9fe; margin-bottom: 6px; }
+    .drawer-item { display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 12px; text-decoration: none; color: inherit; transition: background 0.18s; margin-bottom: 4px; }
+    .drawer-item:hover { background: #f5f0fe; }
+    .drawer-item-primary { background: #f5f0fe; }
+    .drawer-item > span:first-child { width: 38px; height: 38px; border-radius: 11px; background: linear-gradient(135deg,var(--purple),var(--purple-mid)); color: white; font-size: 18px; display: grid; place-items: center; flex-shrink: 0; }
+    .drawer-item > div { flex: 1; min-width: 0; }
+    .drawer-item b { display: block; font-size: 13px; color: #1e1b4b; }
+    .drawer-item small { display: block; font-size: 11px; color: #888; margin-top: 2px; }
+    .drawer-item i { color: var(--purple); font-style: normal; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .drawer-source { font-size: 11px; color: #aaa; padding: 0 16px 16px; }
 
-    /* ── Welcome ── */
+    /* ── MEMBER DIALOG ── */
+    .member-dialog { border: none; border-radius: 20px; padding: 28px 24px; max-width: 500px; width: 92vw; box-shadow: 0 24px 80px rgba(91,33,182,0.3); }
+    .member-dialog::backdrop { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
+    .dialog-close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border: none; background: #f3f0fa; border-radius: 50%; cursor: pointer; font-size: 20px; color: #555; display: flex; align-items: center; justify-content: center; }
+    .member-dialog img { display: block; width: 56px; height: 56px; margin: 0 auto 8px; }
+    .member-dialog span { display: block; text-align: center; font-size: 12px; color: #888; font-weight: 600; }
+    .member-dialog h2 { text-align: center; font-size: 20px; font-weight: 900; color: var(--purple); margin: 8px 0 4px; }
+    .dialog-sub { text-align: center; font-size: 13px; color: #666; margin-bottom: 18px; line-height: 1.5; }
+    .form-field { margin-bottom: 14px; }
+    .form-field label { display: block; font-size: 12px; font-weight: 700; color: #444; margin-bottom: 5px; }
+    .form-field input, .form-field select, .form-field textarea { width: 100%; padding: 10px 13px; border: 1.5px solid #ddd; border-radius: 10px; font-size: 13px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--purple); }
+    .req { color: #e53e3e; }
+    .legal-box { border: 1px solid #e2d9f3; border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+    .legal-title { background: #f5f0fe; padding: 10px 14px; font-size: 12px; font-weight: 700; color: var(--purple); }
+    .legal-scroll { max-height: 150px; overflow-y: auto; padding: 12px 14px; font-size: 11px; color: #555; line-height: 1.6; }
+    .legal-scroll p { margin-bottom: 10px; }
+    .consent-check { display: flex; align-items: flex-start; gap: 9px; padding: 10px 14px; background: #fafafa; font-size: 12px; color: #333; cursor: pointer; }
+    .consent-check input { flex-shrink: 0; margin-top: 2px; width: 16px; height: 16px; accent-color: var(--purple); }
+    .register-error { background: #fff0f0; color: #c0392b; border: 1px solid #fca5a5; border-radius: 10px; padding: 10px 14px; font-size: 12px; margin-bottom: 12px; }
+    .reg-submit-btn { width: 100%; min-height: 46px; font-size: 15px; font-weight: 700; color: white; background: linear-gradient(135deg,var(--purple),var(--purple-mid)); border: none; border-radius: 12px; cursor: pointer; font-family: inherit; box-shadow: 0 6px 20px rgba(91,33,182,0.35); }
+    .dialog-note { display: block; text-align: center; font-size: 11px; color: #aaa; margin-top: 10px; }
+    .register-success { text-align: center; padding: 10px 0; }
+    .success-icon { font-size: 48px; margin-bottom: 12px; }
+    .register-success h3 { font-size: 18px; font-weight: 900; color: #22c55e; margin-bottom: 8px; }
+    .register-success p { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 8px; }
+    .success-name { font-weight: 700; color: var(--purple); }
+    .button-outline { min-height: 42px; padding: 0 24px; border-radius: 10px; font-size: 14px; font-weight: 700; color: var(--purple); background: white; border: 2px solid var(--purple); cursor: pointer; font-family: inherit; margin-top: 12px; }
+
+    /* ── WELCOME ── */
     #welcome {
       position: fixed; inset: 0; z-index: 50;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(15,23,42,0.65); backdrop-filter: blur(5px);
+      background: rgba(5,0,20,0.7); backdrop-filter: blur(6px);
     }
-    #welcomeCard {
-      background: white; border-radius: 22px; padding: 28px 24px;
+    #wCard {
+      background: white; border-radius: 24px; padding: 30px 26px;
       max-width: 320px; width: 90%; text-align: center;
-      box-shadow: 0 20px 60px rgba(91,33,182,0.4);
+      box-shadow: 0 24px 80px rgba(91,33,182,0.45);
       animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1);
     }
     @keyframes popIn {
-      from { transform: scale(0.75) translateY(30px); opacity: 0; }
+      from { transform: scale(0.7) translateY(40px); opacity: 0; }
       to   { transform: scale(1) translateY(0); opacity: 1; }
     }
-    #welcomeCard img { height: 90px; margin-bottom: 6px; }
-    #welcomeCard h1 { font-size: 19px; font-weight: 900; color: var(--purple); margin-bottom: 6px; }
-    #welcomeCard p { font-size: 13px; color: #6b7280; line-height: 1.6; margin-bottom: 18px; }
-    #welcomeBtn {
-      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 100%);
-      color: white; border: none; border-radius: 12px;
-      padding: 13px 28px; font-size: 15px; font-weight: 700;
+    #wCard img { height: 95px; margin-bottom: 8px; }
+    #wCard h1 { font-size: 19px; font-weight: 900; color: var(--purple); margin-bottom: 6px; }
+    #wCard p { font-size: 13px; color: #6b7280; line-height: 1.7; margin-bottom: 20px; }
+    #wBtn {
+      background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+      color: white; border: none; border-radius: 14px;
+      padding: 14px 28px; font-size: 16px; font-weight: 700;
       cursor: pointer; font-family: inherit; width: 100%;
-      box-shadow: 0 4px 18px rgba(91,33,182,0.4);
+      box-shadow: 0 6px 24px rgba(91,33,182,0.42);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    #welcomeBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(91,33,182,0.5); }
+    #wBtn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(91,33,182,0.5); }
 
-    /* ── Hint ── */
-    #zoomHint {
-      position: fixed; bottom: 78px; left: 50%; transform: translateX(-50%);
-      z-index: 15; pointer-events: none;
-      background: rgba(0,0,0,0.5); color: white;
-      font-size: 12px; font-weight: 600;
-      padding: 5px 14px; border-radius: 20px;
-      opacity: 0; transition: opacity 0.4s; white-space: nowrap;
-    }
-    #zoomHint.show { opacity: 1; }
+    /* toast */
+    .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); z-index: 99; background: #1e1b4b; color: white; padding: 10px 20px; border-radius: 22px; font-size: 13px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.3s; white-space: nowrap; }
+    .toast.show { opacity: 1; }
 
     @media (max-width: 480px) {
-      #bcMascot { height: 72px; }
-      .nav-btn { min-width: 54px; padding: 6px 7px; }
+      #bcMascot { height: 80px; right: 2%; }
+      #speech { right: calc(2% + 14px); font-size: 12px; }
+      .pin-bubble { font-size: 11px; padding: 5px 10px; }
+      .nav-btn { min-width: 52px; }
     }
   </style>
 </head>
 <body>
 
-<div id="sky"></div>
-<div id="stars"></div>
-<div id="clouds"></div>
+<!-- VIDEO BACKGROUND -->
+<video id="videoBg" autoplay loop muted playsinline poster="assets/hero_bg.png">
+  <source src="assets/hero-bg.mp4" type="video/mp4">
+</video>
+<div id="videoOverlay"></div>
 
-<div id="cityScene">
-  <!-- ภาพเมือง — ลอง city-genesis ก่อน ถ้าไม่ได้ใช้ hero_bg -->
-  <picture>
-    <source srcset="assets/city-genesis.webp" type="image/webp">
-    <img id="cityImg" src="assets/hero_bg.webp" alt="เมืองบางรักน้อย">
-  </picture>
-
-  <!-- SVG Hotspots — viewBox 0 0 100 100 = percentage coordinates -->
-  <svg id="hotspotSvg" viewBox="0 0 100 100" preserveAspectRatio="none"
-       xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:all;">
-
-    <!-- วัดบางรักน้อย -->
-    <rect class="hotspot" id="hs-temple" x="4" y="25" width="20" height="60" rx="2" data-id="temple"/>
-    <text class="hs-label" x="14" y="23" text-anchor="middle">🛕 วัดบางรักน้อย</text>
-
-    <!-- เทศบาล -->
-    <rect class="hotspot" id="hs-municipality" x="30" y="23" width="20" height="58" rx="2" data-id="municipality"/>
-    <text class="hs-label" x="40" y="21" text-anchor="middle">🏛 เทศบาล</text>
-
-    <!-- ตลาด — ปรับขนาดให้เล็กลง -->
-    <rect class="hotspot" id="hs-market" x="54" y="30" width="15" height="42" rx="2" data-id="market"/>
-    <text class="hs-label" x="61" y="28" text-anchor="middle">🛒 ตลาด</text>
-
-    <!-- ร้านอาหาร -->
-    <rect class="hotspot" id="hs-restaurant" x="70" y="32" width="11" height="40" rx="2" data-id="restaurant"/>
-    <text class="hs-label" x="75" y="30" text-anchor="middle">🍛 ร้านอาหาร</text>
-
-    <!-- บ้านช่าง -->
-    <rect class="hotspot" id="hs-craft" x="82" y="32" width="12" height="40" rx="2" data-id="craft"/>
-    <text class="hs-label" x="88" y="30" text-anchor="middle">🔧 ช่าง</text>
-
-    <!-- คลอง — แถบล่างสุด ไม่ใหญ่เกินไป -->
-    <rect class="hotspot" id="hs-canal" x="0" y="80" width="100" height="20" rx="0" data-id="canal"/>
-    <text class="hs-label" x="50" y="78" text-anchor="middle">🚤 คลองอ้อมนนท์</text>
-
-    <!-- รถไฟฟ้า — แถบบนสุด -->
-    <rect class="hotspot" id="hs-bts" x="40" y="0" width="58" height="18" rx="2" data-id="bts"/>
-    <text class="hs-label" x="69" y="22" text-anchor="middle">🚇 รถไฟฟ้าสายสีม่วง</text>
-  </svg>
-
-  <!-- Train — ขนาดเล็กลง -->
-  <div id="trainAnim">🚇</div>
-
-  <!-- Boats -->
-  <div class="boat-anim" style="animation-duration:20s;bottom:7%;animation-delay:-6s;">
-    <img src="assets/boat.svg" alt="" onerror="this.style.display='none'">
+<!-- MAP PINS -->
+<div id="pins">
+  <div class="pin" style="left:13%;bottom:50%;" data-id="temple">
+    <div class="pin-bubble"><span class="pin-icon">🛕</span>วัดบางรักน้อย</div>
+    <div class="pin-tail"></div>
   </div>
-  <div class="boat-rev" style="animation-duration:28s;bottom:10%;animation-delay:-14s;">
-    <img src="assets/boat-small.svg" alt="" onerror="this.style.display='none'">
+  <div class="pin" style="left:36%;bottom:55%;" data-id="municipality" data-delay="100">
+    <div class="pin-bubble"><span class="pin-icon">🏛</span>เทศบาล</div>
+    <div class="pin-tail"></div>
   </div>
-
-  <!-- Birds -->
-  <div class="bird" style="top:20%;font-size:16px;animation-duration:24s;animation-delay:-8s;">🕊</div>
-  <div class="bird" style="top:14%;font-size:12px;animation-duration:32s;animation-delay:-18s;">🐦</div>
-
-  <!-- Mascot -->
-  <div id="speechBubble">สวัสดีครับ! วันนี้จะไปไหนดีครับ?</div>
-  <img id="bcMascot" src="assets/mascot-main.webp" alt="BC"
-       onerror="this.src='assets/bc-mascot.webp'">
+  <div class="pin" style="left:57%;bottom:52%;" data-id="market" data-delay="180">
+    <div class="pin-bubble"><span class="pin-icon">🛒</span>ตลาด</div>
+    <div class="pin-tail"></div>
+  </div>
+  <div class="pin" style="left:72%;bottom:48%;" data-id="food" data-delay="250">
+    <div class="pin-bubble"><span class="pin-icon">🍜</span>ร้านอาหาร</div>
+    <div class="pin-tail"></div>
+  </div>
+  <div class="pin" style="left:86%;bottom:48%;" data-id="craft" data-delay="320">
+    <div class="pin-bubble"><span class="pin-icon">🔧</span>หาช่าง</div>
+    <div class="pin-tail"></div>
+  </div>
+  <div class="pin" style="left:28%;bottom:32%;" data-id="travel" data-delay="150">
+    <div class="pin-bubble"><span class="pin-icon">🚤</span>คลอง</div>
+    <div class="pin-tail"></div>
+  </div>
+  <div class="pin" style="left:63%;bottom:74%;" data-id="service" data-delay="200">
+    <div class="pin-bubble"><span class="pin-icon">🚇</span>รถไฟฟ้า MRT</div>
+    <div class="pin-tail"></div>
+  </div>
 </div>
+
+<!-- BC Mascot -->
+<div id="speech"></div>
+<img id="bcMascot" src="assets/mascot_hero.png" alt="BC"
+     onerror="this.src='assets/bc-mascot.png'">
 
 <!-- Top Bar -->
 <div id="topBar">
   <div id="logoArea">
-    <img src="assets/bc-logo.webp" alt="BC" onerror="this.style.display='none'">
+    <img src="assets/bc-logo.png" alt="BC">
     <span>บางรักน้อย Connect</span>
   </div>
-  <div id="timeBadge">🌤 08:30</div>
+  <div id="timeBadge">☀️ 08:00</div>
+  <button id="joinBtn">+ สมัคร</button>
 </div>
 
 <!-- Bottom Nav -->
 <div id="bottomNav">
   <div id="navScroll">
-    <button class="nav-btn" data-id="temple"><span class="nb-icon">🛕</span><span class="nb-label">วัด</span></button>
-    <button class="nav-btn" data-id="municipality"><span class="nb-icon">🏛</span><span class="nb-label">เทศบาล</span></button>
-    <button class="nav-btn" data-id="market"><span class="nb-icon">🛒</span><span class="nb-label">ตลาด</span></button>
-    <button class="nav-btn" data-id="restaurant"><span class="nb-icon">🍛</span><span class="nb-label">ร้านอาหาร</span></button>
     <button class="nav-btn" data-id="craft"><span class="nb-icon">🔧</span><span class="nb-label">หาช่าง</span></button>
-    <button class="nav-btn" data-id="canal"><span class="nb-icon">🚤</span><span class="nb-label">คลอง</span></button>
-    <button class="nav-btn" data-id="bts"><span class="nb-icon">🚇</span><span class="nb-label">รถไฟฟ้า</span></button>
+    <button class="nav-btn" data-id="food"><span class="nb-icon">🍜</span><span class="nb-label">ร้านอาหาร</span></button>
+    <button class="nav-btn" data-id="travel"><span class="nb-icon">📷</span><span class="nb-label">ท่องเที่ยว</span></button>
+    <button class="nav-btn" data-id="learn"><span class="nb-icon">🎓</span><span class="nb-label">ฝึกอาชีพ</span></button>
+    <button class="nav-btn" data-id="market"><span class="nb-icon">🛍</span><span class="nb-label">สินค้า</span></button>
+    <button class="nav-btn" data-id="service"><span class="nb-icon">🏛</span><span class="nb-label">บริการ</span></button>
+    <button class="nav-btn" data-id="chat"><span class="nb-icon">💬</span><span class="nb-label">ติดต่อ</span></button>
   </div>
 </div>
 
+<!-- Backdrop -->
 <div id="backdrop"></div>
 
-<!-- Side Panel -->
-<div id="sidePanel" aria-hidden="true">
-  <div id="panelHeader">
-    <button id="panelClose" aria-label="ปิด">✕</button>
+<!-- Side Panel (สำหรับ pins) -->
+<div id="panel">
+  <div id="panelHead">
+    <button id="panelClose">✕</button>
     <img id="panelMascot" src="" alt="">
     <div id="panelIcon"></div>
     <div id="panelTitle"></div>
@@ -439,137 +436,241 @@
   <div id="panelBody"></div>
 </div>
 
-<div id="zoomHint">👆 แตะที่อาคารเพื่อดูข้อมูล</div>
+<!-- Drawer (สำหรับ nav btn — ใช้ระบบเดิม) -->
+<div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+<aside class="service-drawer" id="serviceDrawer" aria-labelledby="drawerTitle" aria-hidden="true">
+  <div class="drawer-head">
+    <div class="drawer-icon" id="drawerIcon">✦</div>
+    <div>
+      <span>หมวดหมู่บริการ</span>
+      <h2 id="drawerTitle"></h2>
+      <p id="drawerDescription"></p>
+    </div>
+    <button id="drawerClose" type="button" aria-label="ปิด">×</button>
+  </div>
+  <div class="drawer-list" id="drawerList"></div>
+  <p class="drawer-source" id="drawerSource"></p>
+</aside>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Member Dialog -->
+<dialog class="member-dialog register-dialog" id="memberDialog">
+  <button class="dialog-close" id="dialogClose" type="button">×</button>
+  <img src="assets/bc-logo.png" alt="" width="60" height="60">
+  <span>บางรักน้อย Connect</span>
+  <h2>สมัครเข้าร่วมระบบ</h2>
+  <p class="dialog-sub">กรอกข้อมูลเพื่อลงทะเบียน<br>ร้านค้า / ช่าง / กลุ่มอาชีพ</p>
+  <div id="registerStep1">
+    <div class="form-field"><label>ชื่อร้าน / ช่าง / กลุ่มอาชีพ <span class="req">*</span></label><input type="text" id="reg-name" placeholder="เช่น ร้านก๋วยเตี๋ยวน้าติ่ง / ช่างสมชาย" maxlength="80"></div>
+    <div class="form-field"><label>ประเภทบริการ <span class="req">*</span></label>
+      <select id="reg-category"><option value="">-- เลือกหมวดหมู่ --</option><option value="บ้านช่าง">🔧 บ้านช่าง</option><option value="ร้านอาหาร">🍜 ร้านอาหาร / คาเฟ่</option><option value="สินค้าและตลาด">🛍️ สินค้า / ตลาด</option><option value="ฝึกอาชีพ">🎓 ฝึกอาชีพ</option><option value="ท่องเที่ยว">📷 ท่องเที่ยว</option><option value="บริการชุมชน">🏛️ บริการชุมชน</option></select>
+    </div>
+    <div class="form-field"><label>เบอร์โทร <span class="req">*</span></label><input type="tel" id="reg-phone" placeholder="0XX-XXX-XXXX" maxlength="20"></div>
+    <div class="form-field"><label>LINE ID</label><input type="text" id="reg-contact" placeholder="@lineID" maxlength="80"></div>
+    <div class="form-field"><label>Facebook / เว็บไซต์</label><input type="text" id="reg-social" placeholder="facebook.com/..." maxlength="160"></div>
+    <div class="form-field"><label>ที่อยู่ / ชุมชน <span class="req">*</span></label><input type="text" id="reg-area" placeholder="เช่น หมู่ 3 ชุมชนวัดบางรักน้อย" maxlength="150"></div>
+    <div class="form-field"><label>รายละเอียด</label><textarea id="reg-desc" rows="3" maxlength="300" placeholder="บอกเล่าบริการสั้นๆ..."></textarea></div>
+    <div class="legal-box">
+      <div class="legal-title">📋 ข้อตกลงการเข้าร่วมระบบ</div>
+      <div class="legal-scroll"><p>เทศบาลเมืองบางรักน้อยทำหน้าที่จัดระบบข้อมูลเท่านั้น การติดต่อว่าจ้างเป็นเรื่องระหว่างประชาชนกับผู้ให้บริการโดยตรง ผู้สมัครยินยอมเผยแพร่ข้อมูลบนระบบ และรับรองว่าข้อมูลเป็นความจริง ข้อมูลที่ไม่เหมาะสมจะถูกถอดออกทันที โดยไม่แจ้งล่วงหน้า</p></div>
+      <label class="consent-check"><input type="checkbox" id="reg-consent"><span>ยอมรับข้อตกลง <span class="req">*</span></span></label>
+    </div>
+    <div id="registerError" class="register-error" hidden></div>
+    <button class="reg-submit-btn" id="regSubmitBtn" type="button"><span id="regBtnLabel">📨 ส่งข้อมูลสมัคร</span></button>
+    <small class="dialog-note">ข้อมูลจะถูกตรวจสอบก่อนเผยแพร่</small>
+  </div>
+  <div id="registerStep2" hidden class="register-success">
+    <div class="success-icon">✅</div>
+    <h3>ส่งข้อมูลสำเร็จ!</h3>
+    <p>เจ้าหน้าที่จะตรวจสอบและติดต่อกลับภายใน 3–5 วันทำการ</p>
+    <p class="success-name" id="successName"></p>
+    <button class="button-outline" id="regDoneBtn">ปิด</button>
+  </div>
+</dialog>
 
 <!-- Welcome -->
 <div id="welcome">
-  <div id="welcomeCard">
-    <img src="assets/mascot-main.webp" alt="BC" onerror="this.src='assets/bc-mascot.webp'">
+  <div id="wCard">
+    <img src="assets/mascot_hero.png" alt="BC" onerror="this.src='assets/bc-mascot.png'">
     <h1>สวัสดีครับ!</h1>
-    <p>ยินดีต้อนรับสู่<br><strong>บางรักน้อย Connect</strong><br>เมืองที่มีชีวิต — แตะอาคารเพื่อสำรวจ</p>
-    <button id="welcomeBtn">🚶 เดินเข้าเมือง</button>
+    <p>ยินดีต้อนรับสู่<br><strong>บางรักน้อย Connect</strong><br>แตะ pin บนแผนที่หรือปุ่มด้านล่างเพื่อสำรวจ</p>
+    <button id="wBtn">🚶 เดินเข้าเมือง</button>
   </div>
 </div>
 
 <script type="module">
-import { BUILDINGS } from './data.js';
+import { ZONES, getZone } from './data.js';
 
-// ── Time & Sky ────────────────────────────────────────────────────────────────
-const SKIES = {
-  dawn:  'linear-gradient(180deg,#fba5a5 0%,#fde68a 40%,#fed7aa 100%)',
-  day:   'linear-gradient(180deg,#1e90ff 0%,#87ceeb 50%,#bfdbfe 100%)',
-  noon:  'linear-gradient(180deg,#0369a1 0%,#38bdf8 50%,#bae6fd 100%)',
-  dusk:  'linear-gradient(180deg,#c026d3 0%,#f97316 40%,#fde68a 100%)',
-  night: 'linear-gradient(180deg,#0f172a 0%,#1e3a5f 50%,#312e81 100%)',
+// ── Time ──────────────────────────────────────────────────────────────────────
+const TICONS = { dawn:'🌅', day:'☀️', noon:'🌤', dusk:'🌇', night:'🌙' };
+function skyKey(h){ return h>=5&&h<7?'dawn':h>=7&&h<12?'day':h>=12&&h<17?'noon':h>=17&&h<20?'dusk':'night'; }
+function tick(){
+  const n=new Date(), h=n.getHours(), m=String(n.getMinutes()).padStart(2,'0');
+  document.getElementById('timeBadge').textContent=`${TICONS[skyKey(h)]} ${h}:${m}`;
+}
+tick(); setInterval(tick,30000);
+
+// ── PIN → PANEL ──────────────────────────────────────────────────────────────
+const MASCOTS = {
+  craft:'assets/mascot_chang.png', food:'assets/mascot_food.png',
+  travel:'assets/mascot_travel.png', learn:'assets/mascot_career.png',
+  market:'assets/mascot_product.png', service:'assets/mascot_service.png',
+  chat:'assets/mascot_chat.png', temple:'assets/mascot_service.png',
+  municipality:'assets/mascot_service.png'
 };
-const ICONS = { dawn:'🌅', day:'☀️', noon:'🌤', dusk:'🌇', night:'🌙' };
+const PIN_DATA = {
+  temple: { label:'วัดบางรักน้อย', icon:'🛕', desc:'วัดเก่าแก่คู่ชุมชน มีพระใหญ่ทองคำ ศูนย์รวมจิตใจของชาวบางรักน้อย',
+    mascot:'assets/mascot_service.png',
+    items:[
+      {icon:'📍',title:'ดูแผนที่',detail:'วัดบางรักน้อย ริมคลองอ้อมนนท์',action:'เปิดแผนที่',href:'https://maps.google.com/?q=วัดบางรักน้อย+นนทบุรี'},
+      {icon:'📅',title:'ตารางทำบุญ',detail:'วันพระ ทำบุญตักบาตร เวลา 07.00 น.',action:'ดู',href:'https://www.brn.go.th/home'},
+      {icon:'☎️',title:'ติดต่อวัด',detail:'สอบถามข้อมูลเพิ่มเติม',action:'โทร',href:'tel:025252727'},
+    ]},
+  municipality: { label:'เทศบาลเมืองบางรักน้อย', icon:'🏛', desc:'ศูนย์บริการชุมชน แจ้งเรื่อง ข่าวสาร กิจกรรม และบริการสาธารณะ',
+    mascot:'assets/mascot_service.png',
+    items:[
+      {icon:'📋',title:'แจ้งเรื่องร้องทุกข์',detail:'ไฟดับ ถนนชำรุด ขยะ น้ำท่วม',action:'แจ้งเรื่อง',href:'https://www.brn.go.th/home'},
+      {icon:'📰',title:'ข่าวเทศบาล',detail:'ประกาศและข่าวสารล่าสุด',action:'อ่านข่าว',href:'https://www.brn.go.th/news_obt.php?id=2'},
+      {icon:'☎️',title:'โทรเทศบาล',detail:'02-193-4512 ถึง 3 จ.–ศ. 08.30–16.30',action:'โทร',href:'tel:021934512'},
+      {icon:'🗺',title:'ดูแผนที่เทศบาล',detail:'72/3 หมู่ 2 ต.บางรักน้อย อ.เมือง นนทบุรี',action:'เปิดแผนที่',href:'https://maps.google.com/?q=เทศบาลเมืองบางรักน้อย'},
+    ]},
+};
 
-function skyKey(h) {
-  if (h>=5&&h<7)  return 'dawn';
-  if (h>=7&&h<12) return 'day';
-  if (h>=12&&h<17)return 'noon';
-  if (h>=17&&h<20)return 'dusk';
-  return 'night';
-}
-function updateTime() {
-  const now=new Date(), h=now.getHours(), m=String(now.getMinutes()).padStart(2,'0');
-  const k=skyKey(h);
-  document.getElementById('sky').style.background = SKIES[k];
-  document.getElementById('timeBadge').textContent = `${ICONS[k]} ${h}:${m}`;
-  document.getElementById('stars').classList.toggle('show', k==='night');
-}
-updateTime();
-setInterval(updateTime,30000);
-
-// ── Stars ─────────────────────────────────────────────────────────────────────
-const starsEl=document.getElementById('stars');
-for(let i=0;i<55;i++){
-  const s=document.createElement('div'); s.className='star';
-  const sz=Math.random()*2.5+0.8;
-  s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*60}%;animation-duration:${2+Math.random()*3}s;animation-delay:-${Math.random()*5}s;`;
-  starsEl.appendChild(s);
-}
-
-// ── Clouds ────────────────────────────────────────────────────────────────────
-const cloudsEl=document.getElementById('clouds');
-[[120,38,'7%','38s','-10s',0.8],[80,26,'16%','52s','-30s',0.6],[150,44,'4%','44s','-6s',0.72],[60,18,'21%','62s','-42s',0.5],[100,30,'12%','42s','-22s',0.68]].forEach(([w,h,top,dur,del,op])=>{
-  const el=document.createElement('div'); el.className='cloud';
-  el.style.cssText=`width:${w}px;height:${h}px;top:${top};opacity:${op};animation-duration:${dur};animation-delay:${del};`;
-  cloudsEl.appendChild(el);
-});
-
-// ── Building map ──────────────────────────────────────────────────────────────
-const bldMap={};
-BUILDINGS.forEach(b=>{ bldMap[b.id]=b; });
-
-// ── Panel ─────────────────────────────────────────────────────────────────────
-const panel=document.getElementById('sidePanel');
+const panel=document.getElementById('panel');
 const backdrop=document.getElementById('backdrop');
-let activeHs=null;
+let activePin=null;
 
 function openPanel(id){
-  const b=bldMap[id]; if(!b) return;
-  const mascot=document.getElementById('panelMascot');
-  mascot.src=b.mascot||''; mascot.style.display=b.mascot?'block':'none';
-  document.getElementById('panelIcon').textContent=b.icon;
-  document.getElementById('panelTitle').textContent=b.label;
-  document.getElementById('panelDesc').textContent=b.description;
-  const body=document.getElementById('panelBody'); body.innerHTML='';
-  b.items.forEach(item=>{
-    const a=document.createElement('a');
-    a.className='panel-item'; a.href=item.href||'#';
-    if(item.href&&item.href.startsWith('http')){ a.target='_blank'; a.rel='noopener noreferrer'; }
-    a.innerHTML=`<span class="pi-icon">${item.icon}</span><div class="pi-text"><div class="pi-title">${item.title}</div><div class="pi-detail">${item.detail}</div></div><span class="pi-action">${item.action} →</span>`;
-    body.appendChild(a);
-  });
-  panel.classList.add('open'); panel.setAttribute('aria-hidden','false');
-  backdrop.classList.add('show');
-  if(activeHs) activeHs.classList.remove('active');
-  const hs=document.getElementById('hs-'+id);
-  if(hs){ hs.classList.add('active'); activeHs=hs; }
+  // ถ้ามีข้อมูลใน PIN_DATA ใช้ pin panel
+  if(PIN_DATA[id]){
+    const d=PIN_DATA[id];
+    document.getElementById('panelMascot').src=d.mascot||'';
+    document.getElementById('panelIcon').textContent=d.icon;
+    document.getElementById('panelTitle').textContent=d.label;
+    document.getElementById('panelDesc').textContent=d.desc;
+    const body=document.getElementById('panelBody'); body.innerHTML='';
+    d.items.forEach(item=>{
+      const a=document.createElement('a'); a.className='p-item';
+      a.href=item.href||'#';
+      if(item.href?.startsWith('http')){ a.target='_blank'; a.rel='noopener noreferrer'; }
+      a.innerHTML=`<span class="pi">${item.icon}</span><div class="pt"><b>${item.title}</b><small>${item.detail}</small></div><span class="pa">${item.action} →</span>`;
+      body.appendChild(a);
+    });
+    panel.classList.add('open'); backdrop.classList.add('show');
+    say(`มาดู${d.label}กันเลยครับ! 🙏`);
+  } else {
+    // ใช้ drawer ระบบเดิม
+    openDrawer(id);
+  }
+  if(activePin) activePin.classList.remove('active');
+  activePin=document.querySelector(`.pin[data-id="${id}"]`);
+  if(activePin) activePin.classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id));
-  sayBubble(`มาดู${b.label}กันเลยครับ! 🏡`);
 }
 
 function closePanel(){
-  panel.classList.remove('open'); panel.setAttribute('aria-hidden','true');
-  backdrop.classList.remove('show');
-  if(activeHs){ activeHs.classList.remove('active'); activeHs=null; }
+  panel.classList.remove('open'); backdrop.classList.remove('show');
+  if(activePin){ activePin.classList.remove('active'); activePin=null; }
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
 }
 
-document.querySelectorAll('.hotspot').forEach(hs=>hs.addEventListener('click',()=>openPanel(hs.dataset.id)));
-document.querySelectorAll('.nav-btn').forEach(btn=>btn.addEventListener('click',()=>openPanel(btn.dataset.id)));
+document.querySelectorAll('.pin').forEach(p=>p.addEventListener('click',()=>openPanel(p.dataset.id)));
+document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>openPanel(b.dataset.id)));
 document.getElementById('panelClose').addEventListener('click',closePanel);
 backdrop.addEventListener('click',closePanel);
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePanel(); });
 
-// ── Speech ─────────────────────────────────────────────────────────────────────
-const bubble=document.getElementById('speechBubble');
-let st=null;
-function sayBubble(text){
-  bubble.textContent=text; bubble.classList.add('show');
-  clearTimeout(st); st=setTimeout(()=>bubble.classList.remove('show'),3500);
+// ── DRAWER (ระบบเดิม) ────────────────────────────────────────────────────────
+const ICONS={craft:'⚒',food:'🍜',travel:'📷',learn:'🎓',market:'🛍',service:'🏛',chat:'💬'};
+
+function buildDrawerItem(item){
+  const a=document.createElement('a'); a.className='drawer-item'+(item.primary?' drawer-item-primary':'');
+  a.href=item.href; if(item.href?.startsWith('http')){a.target='_blank';a.rel='noopener noreferrer';}
+  a.innerHTML=`<span>${item.icon}</span><div><b>${item.title}</b><small>${item.detail}</small></div><i>${item.action} ›</i>`;
+  return a;
 }
+function openDrawer(id){
+  const cat=getZone(id); if(!cat) return;
+  document.getElementById('drawerIcon').textContent=ICONS[id]||'✦';
+  document.getElementById('drawerTitle').textContent=cat.label;
+  document.getElementById('drawerDescription').textContent=cat.description;
+  document.getElementById('drawerSource').textContent=cat.source;
+  const list=document.getElementById('drawerList'); list.innerHTML='';
+  if(cat.groups) cat.groups.forEach(g=>{
+    const sec=document.createElement('div'); sec.className='drawer-group';
+    const lbl=document.createElement('div'); lbl.className='drawer-group-label'; lbl.textContent=g.label;
+    sec.appendChild(lbl); g.items.forEach(item=>sec.appendChild(buildDrawerItem(item)));
+    list.appendChild(sec);
+  });
+  else cat.items.forEach(item=>list.appendChild(buildDrawerItem(item)));
+  const db=document.getElementById('drawerBackdrop'); db.hidden=false;
+  const dr=document.getElementById('serviceDrawer');
+  requestAnimationFrame(()=>dr.classList.add('open'));
+  say(`เปิดหมวด${cat.label}แล้วครับ!`);
+}
+function closeDrawer(){
+  document.getElementById('serviceDrawer').classList.remove('open');
+  setTimeout(()=>{ document.getElementById('drawerBackdrop').hidden=true; },350);
+  if(activePin){ activePin.classList.remove('active'); activePin=null; }
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+}
+document.getElementById('drawerClose').addEventListener('click',closeDrawer);
+document.getElementById('drawerBackdrop').addEventListener('click',closeDrawer);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closePanel(); closeDrawer(); } });
 
-// ── Welcome ───────────────────────────────────────────────────────────────────
-const PHRASES=['อยากหาช่าง? กดที่หาช่างได้เลยครับ 🔧','ร้านอาหารอร่อยๆ มีหลายร้านนะครับ 🍛','เทศบาลเปิด จันทร์–ศุกร์ 08.30–16.30 ครับ','วันนี้อากาศดีมากเลยครับ! ☀️','ตลาดสดเปิดทุกเช้า 06.00 น. ครับ 🛒'];
+// ── SPEECH ────────────────────────────────────────────────────────────────────
+const sp=document.getElementById('speech'); let st=null;
+function say(t){ sp.textContent=t; sp.classList.add('show'); clearTimeout(st); st=setTimeout(()=>sp.classList.remove('show'),3500); }
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+const toast=document.getElementById('toast');
+function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),2500); }
+
+// ── REGISTER ──────────────────────────────────────────────────────────────────
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzv5WMeM5cSxl7Ot6QCjbqkxGaxPMAfsvc6lDj2rQe4UYKIjwnZMxa-Sxq6VtN9b51Q/exec';
+document.getElementById('joinBtn').addEventListener('click',()=>{ const d=document.getElementById('memberDialog'); if(d.showModal) d.showModal(); else d.setAttribute('open',''); });
+function closeRegDialog(){
+  const d=document.getElementById('memberDialog'); if(d.close) d.close(); else d.removeAttribute('open');
+  setTimeout(()=>{ document.getElementById('registerStep1').hidden=false; document.getElementById('registerStep2').hidden=true; ['reg-name','reg-phone','reg-contact','reg-social','reg-area','reg-desc'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';}); const c=document.getElementById('reg-category');if(c)c.value=''; const cb=document.getElementById('reg-consent');if(cb)cb.checked=false; const err=document.getElementById('registerError');if(err){err.hidden=true;err.textContent='';} const lbl=document.getElementById('regBtnLabel');if(lbl)lbl.textContent='📨 ส่งข้อมูลสมัคร'; const btn=document.getElementById('regSubmitBtn');if(btn)btn.disabled=false; },300);
+}
+document.getElementById('dialogClose').addEventListener('click',closeRegDialog);
+document.getElementById('regDoneBtn').addEventListener('click',closeRegDialog);
+document.getElementById('regSubmitBtn').addEventListener('click',async()=>{
+  const name=document.getElementById('reg-name')?.value.trim();
+  const category=document.getElementById('reg-category')?.value;
+  const phone=document.getElementById('reg-phone')?.value.trim();
+  const area=document.getElementById('reg-area')?.value.trim();
+  const consent=document.getElementById('reg-consent')?.checked;
+  const errEl=document.getElementById('registerError');
+  const showErr=msg=>{errEl.textContent=msg;errEl.hidden=false;};
+  if(!name) return showErr('⚠️ กรุณากรอกชื่อ');
+  if(!category) return showErr('⚠️ กรุณาเลือกประเภท');
+  if(!phone) return showErr('⚠️ กรุณากรอกเบอร์โทร');
+  if(!area) return showErr('⚠️ กรุณากรอกที่อยู่');
+  if(!consent) return showErr('⚠️ กรุณายอมรับข้อตกลง');
+  errEl.hidden=true;
+  const btn=document.getElementById('regSubmitBtn'); const lbl=document.getElementById('regBtnLabel');
+  btn.disabled=true; lbl.textContent='⏳ กำลังส่ง...';
+  try{
+    const res=await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,category,phone,line:document.getElementById('reg-contact')?.value.trim(),contact:document.getElementById('reg-social')?.value.trim(),area,desc:document.getElementById('reg-desc')?.value.trim(),timestamp:new Date().toLocaleString('th-TH',{timeZone:'Asia/Bangkok'})})});
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    document.getElementById('successName').textContent=`"${name}" — ${category}`;
+    document.getElementById('registerStep1').hidden=true;
+    document.getElementById('registerStep2').hidden=false;
+  }catch(err){ showErr('❌ ส่งไม่สำเร็จ ลองใหม่หรือโทร 02-193-4512-3'); btn.disabled=false; lbl.textContent='📨 ส่งข้อมูลสมัคร'; }
+});
+
+// ── WELCOME ───────────────────────────────────────────────────────────────────
+const PHRASES=['อยากหาช่าง? กดปุ่มหาช่างด้านล่างได้เลยครับ 🔧','ร้านอาหารอร่อยมีหลายร้านนะครับ 🍜','เทศบาลเปิด จันทร์–ศุกร์ 08.30–16.30 ครับ 🏛','แตะ pin บนแผนที่เพื่อดูข้อมูลสถานที่ครับ 📍','วันนี้มีอะไรให้ช่วยไหมครับ? 😊'];
 let pi=0;
-
-document.getElementById('welcomeBtn').addEventListener('click',()=>{
+document.getElementById('wBtn').addEventListener('click',()=>{
   const w=document.getElementById('welcome');
   w.style.transition='opacity 0.45s'; w.style.opacity='0';
-  setTimeout(()=>{ w.style.display='none'; },450);
-
-  setTimeout(()=>sayBubble('สวัสดีครับ! ยินดีต้อนรับสู่บางรักน้อย 🙏'),300);
-  setTimeout(()=>sayBubble('แตะที่อาคารหรือกดปุ่มด้านล่างได้เลยครับ'),4200);
-
-  setInterval(()=>{
-    if(!panel.classList.contains('open')) sayBubble(PHRASES[pi++%PHRASES.length]);
-  },12000);
-
-  const hint=document.getElementById('zoomHint');
-  hint.classList.add('show'); setTimeout(()=>hint.classList.remove('show'),4000);
+  setTimeout(()=>w.style.display='none',450);
+  setTimeout(()=>say('สวัสดีครับ! ยินดีต้อนรับสู่บางรักน้อย 🙏'),400);
+  setTimeout(()=>say('แตะ pin สีม่วงหรือปุ่มด้านล่างได้เลยครับ'),4200);
+  setInterval(()=>{ if(!panel.classList.contains('open') && !document.getElementById('serviceDrawer').classList.contains('open')) say(PHRASES[pi++%PHRASES.length]); },11000);
 });
 </script>
 </body>
