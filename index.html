@@ -691,6 +691,13 @@ document.getElementById('wBtn').addEventListener('click',()=>{
   setTimeout(()=>say('แตะ pin สีม่วงหรือปุ่มด้านล่างได้เลยครับ'),4200);
   setInterval(()=>{ if(!panel.classList.contains('open') && !document.getElementById('serviceDrawer').classList.contains('open')) say(PHRASES[pi++%PHRASES.length]); },11000);
 });
+
+// ── SERVICE WORKER: clear old cache + keep GitHub Pages fresh ────────────────
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
 </script>
 
 <div id="footerCopyright">© 2569 บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย</div>
