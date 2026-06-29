@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="บางรักน้อย Connect — เมืองที่มีชีวิต">
+  <title>บางรักน้อย Connect</title>
+  <link rel="icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #5b21b6;
+      --purple-mid: #7c3aed;
+      --purple-light: #ede9fe;
+      --orange: #f59e0b;
+      --gold: #d97706;
+      --sky-dawn:  linear-gradient(180deg, #fba5a5 0%, #fde68a 40%, #fed7aa 100%);
+      --sky-day:   linear-gradient(180deg, #1e90ff 0%, #87ceeb 50%, #bfdbfe 100%);
+      --sky-noon:  linear-gradient(180deg, #0369a1 0%, #38bdf8 50%, #bae6fd 100%);
+      --sky-dusk:  linear-gradient(180deg, #c026d3 0%, #f97316 40%, #fde68a 100%);
+      --sky-night: linear-gradient(180deg, #0f172a 0%, #1e3a5f 50%, #312e81 100%);
+      --panel-w: min(420px, 90vw);
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      font-family: 'Noto Sans Thai', sans-serif;
+      overflow: hidden;
+      background: #0f172a;
+      color: #1e1b4b;
+      user-select: none;
+    }
+
+    /* ── Sky Layer ── */
+    #sky {
+      position: fixed; inset: 0; z-index: 0;
+      background: var(--sky-day);
+      transition: background 3s ease;
+    }
+
+    /* ── Cloud Layer ── */
+    #clouds {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      overflow: hidden;
+    }
+
+    .cloud {
+      position: absolute;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.85);
+      filter: blur(3px);
+      animation: cloudFloat linear infinite;
+    }
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+    @keyframes cloudFloat {
+      from { transform: translateX(-200px); }
+      to   { transform: translateX(calc(100vw + 200px)); }
+    }
+
+    /* ── City Scene ── */
+    #cityScene {
+      position: fixed; inset: 0; z-index: 2;
+      display: flex; align-items: flex-end; justify-content: center;
+      overflow: hidden;
+    }
+
+    #cityImg {
+      position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center bottom;
+      image-rendering: crisp-edges;
+    }
+
+    /* ── SVG Hotspots overlay ── */
+    #hotspotSvg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: all;
+    }
+
+    .hotspot {
+      cursor: pointer;
+      fill: transparent;
+      stroke: rgba(255, 220, 50, 0);
+      stroke-width: 3;
+      rx: 8;
+      transition: stroke 0.25s, fill 0.25s;
+      filter: drop-shadow(0 0 0px #f59e0b);
+    }
+    .hotspot:hover, .hotspot.active {
+      fill: rgba(245, 158, 11, 0.15);
+      stroke: rgba(245, 158, 11, 0.9);
+      filter: drop-shadow(0 0 8px #f59e0b);
+      animation: hotspotPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes hotspotPulse {
+      0%, 100% { fill: rgba(245,158,11,0.1); }
+      50%       { fill: rgba(245,158,11,0.25); }
+    }
+
+    .hotspot-label {
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      fill: white;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .hotspot:hover + .hotspot-label,
+    .hotspot.active + .hotspot-label { opacity: 1; }
+
+    /* ── Animated Elements ── */
+    /* Boat */
+    .boat-anim {
+      position: absolute;
+      bottom: 8%;
+      animation: boatSail linear infinite;
+    }
+    .boat-anim img { height: 50px; opacity: 0.9; }
+    @keyframes boatSail {
+      0%   { left: -120px; }
+      100% { left: calc(100% + 120px); }
+    }
+    .boat-anim.reverse {
+      transform: scaleX(-1);
+      animation: boatSailBack linear infinite;
+    }
+    @keyframes boatSailBack {
+      0%   { right: -120px; left: auto; }
+      100% { right: calc(100% + 120px); left: auto; }
+    }
+
+    /* Train */
+    #trainAnim {
+      position: absolute;
+      top: 14%;
+      animation: trainRide 14s linear infinite;
+    }
+    #trainAnim img { height: 44px; }
+    @keyframes trainRide {
+      0%   { left: -200px; }
+      100% { left: calc(100% + 200px); }
+    }
+
+    /* Birds */
+    .bird {
+      position: absolute;
+      font-size: 22px;
+      animation: birdFly linear infinite;
+      pointer-events: none;
+    }
+    @keyframes birdFly {
+      0%   { transform: translateX(0) translateY(0); }
+      25%  { transform: translateX(40px) translateY(-20px); }
+      50%  { transform: translateX(80px) translateY(5px); }
+      75%  { transform: translateX(120px) translateY(-10px); }
+      100% { transform: translateX(calc(100vw + 160px)) translateY(0); }
+    }
+
+    /* ── BC Mascot ── */
+    #bcMascot {
+      position: absolute;
+      bottom: 12%;
+      left: 48%;
+      height: 110px;
+      z-index: 10;
+      pointer-events: none;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+      animation: mascotIdle 3s ease-in-out infinite;
+    }
+    @keyframes mascotIdle {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50%       { transform: translateY(-6px) rotate(1deg); }
+    }
+
+    /* ── Speech Bubble ── */
+    #speechBubble {
+      position: absolute;
+      bottom: calc(12% + 115px);
+      left: calc(48% - 30px);
+      background: white;
+      border-radius: 16px 16px 16px 4px;
+      padding: 10px 16px;
+      box-shadow: 0 4px 20px rgba(91,33,182,0.3);
+      font-size: 14px;
+      font-weight: 700;
+      color: #4c1d95;
+      white-space: nowrap;
+      z-index: 11;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s, transform 0.4s;
+      border: 2px solid var(--purple-light);
+    }
+    #speechBubble.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #speechBubble::after {
+      content: '';
+      position: absolute;
+      left: 16px; bottom: -10px;
+      border: 5px solid transparent;
+      border-top-color: white;
+    }
+
+    /* ── Top Bar ── */
+    #topBar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 56px;
+      z-index: 20;
+      display: flex; align-items: center; padding: 0 16px;
+      gap: 12px;
+      background: linear-gradient(180deg, rgba(91,33,182,0.95) 0%, rgba(91,33,182,0) 100%);
+    }
+    #logoArea {
+      display: flex; align-items: center; gap: 8px;
+      flex: 1;
+    }
+    #logoArea img { height: 36px; }
+    #logoArea span {
+      font-size: 15px; font-weight: 900;
+      color: white;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    /* Time badge */
+    #timeBadge {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 4px 12px;
+      color: white;
+      font-size: 13px; font-weight: 600;
+    }
+
+    /* ── Bottom Nav ── */
+    #bottomNav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 20;
+      padding: 8px 12px 12px;
+      background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 100%);
+    }
+    #navScroll {
+      display: flex; gap: 8px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding: 4px 0;
+    }
+    #navScroll::-webkit-scrollbar { display: none; }
+
+    .nav-btn {
+      flex: 0 0 auto;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      scroll-snap-align: start;
+      color: white;
+      min-width: 72px;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      background: rgba(245,158,11,0.3);
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+    .nav-btn .nb-icon { font-size: 20px; }
+    .nav-btn .nb-label { font-size: 11px; font-weight: 600; white-space: nowrap; }
+
+    /* ── Side Panel ── */
+    #sidePanel {
+      position: fixed; top: 0; right: -100%;
+      width: var(--panel-w); height: 100%;
+      z-index: 30;
+      background: white;
+      box-shadow: -8px 0 40px rgba(0,0,0,0.3);
+      display: flex; flex-direction: column;
+      transition: right 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+      overflow: hidden;
+    }
+    #sidePanel.open { right: 0; }
+
+    #panelHeader {
+      flex: 0 0 auto;
+      padding: 20px 20px 16px;
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 100%);
+      position: relative;
+    }
+    #panelClose {
+      position: absolute; top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      border: none; background: rgba(255,255,255,0.2);
+      border-radius: 50%; cursor: pointer;
+      font-size: 18px; color: white;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    #panelClose:hover { background: rgba(255,255,255,0.35); }
+
+    #panelMascot {
+      height: 80px;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+    #panelIcon { font-size: 28px; margin-bottom: 4px; }
+    #panelTitle { font-size: 22px; font-weight: 900; color: white; line-height: 1.2; }
+    #panelDesc { font-size: 13px; color: rgba(255,255,255,0.85); margin-top: 6px; line-height: 1.5; }
+
+    #panelBody {
+      flex: 1; overflow-y: auto;
+      padding: 16px;
+    }
+
+    .panel-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      background: #f8f7ff;
+      border: 1.5px solid #ede9fe;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+    .panel-item:hover {
+      background: #ede9fe;
+      border-color: var(--purple-mid);
+      transform: translateX(3px);
+    }
+    .panel-item .pi-icon { font-size: 24px; flex: 0 0 auto; }
+    .panel-item .pi-text { flex: 1; }
+    .panel-item .pi-title { font-size: 15px; font-weight: 700; color: #2d1d6e; }
+    .panel-item .pi-detail { font-size: 12px; color: #6b7280; margin-top: 2px; }
+    .panel-item .pi-action {
+      flex: 0 0 auto;
+      font-size: 12px; font-weight: 600;
+      color: var(--purple-mid);
+      background: var(--purple-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── Backdrop ── */
+    #backdrop {
+      position: fixed; inset: 0; z-index: 25;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(2px);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    #backdrop.show { opacity: 1; pointer-events: all; }
+
+    /* ── Welcome Overlay ── */
+    #welcome {
+      position: fixed; inset: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(15,23,42,0.7);
+      backdrop-filter: blur(6px);
+    }
+    #welcomeCard {
+      background: white;
+      border-radius: 24px;
+      padding: 32px 28px;
+      max-width: 340px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(91,33,182,0.4);
+      animation: welcomeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes welcomeIn {
+      from { transform: scale(0.7) translateY(40px); opacity: 0; }
+      to   { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    #welcomeCard img { height: 100px; margin-bottom: 8px; }
+    #welcomeCard h1 { font-size: 20px; font-weight: 900; color: var(--purple); margin-bottom: 6px; }
+    #welcomeCard p { font-size: 14px; color: #6b7280; line-height: 1.6; margin-bottom: 20px; }
+    #welcomeBtn {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 100%);
+      color: white; border: none; border-radius: 14px;
+      padding: 14px 32px; font-size: 16px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      width: 100%;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(91,33,182,0.4);
+    }
+    #welcomeBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(91,33,182,0.5); }
+    #welcomeBtn:active { transform: translateY(0); }
+
+    /* ── Zoom hint ── */
+    #zoomHint {
+      position: fixed; bottom: 80px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 15; pointer-events: none;
+      background: rgba(0,0,0,0.5);
+      color: white; font-size: 12px; font-weight: 600;
+      padding: 6px 16px; border-radius: 20px;
+      opacity: 0; transition: opacity 0.4s;
+      white-space: nowrap;
+    }
+    #zoomHint.show { opacity: 1; }
+
+    /* ── Night stars ── */
+    #stars {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      opacity: 0; transition: opacity 2s;
+    }
+    #stars.show { opacity: 1; }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle ease-in-out infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50%       { opacity: 1; transform: scale(1.4); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      #bcMascot { height: 80px; left: 45%; bottom: 16%; }
+      #speechBubble { font-size: 12px; left: calc(45% - 20px); bottom: calc(16% + 85px); }
+      .nav-btn { min-width: 60px; padding: 6px 8px; }
+      .nav-btn .nb-label { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sky -->
+<div id="sky"></div>
+
+<!-- Stars (night only) -->
+<div id="stars"></div>
+
+<!-- Clouds -->
+<div id="clouds"></div>
+
+<!-- City Scene -->
+<div id="cityScene">
+  <img id="cityImg" src="assets/city-genesis.png" alt="เมืองบางรักน้อย"
+       onerror="this.src='assets/hero_bg.png'">
+
+  <!-- SVG Hotspots -->
+  <svg id="hotspotSvg" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Hotspot rects — percentages match BUILDINGS[].hotspot -->
+    <rect class="hotspot" id="hs-temple"       x="8"  y="30" width="22" height="55" rx="3" data-id="temple"/>
+    <text class="hotspot-label" id="lbl-temple"  x="19" y="28" text-anchor="middle">🛕 วัดบางรักน้อย</text>
+
+    <rect class="hotspot" id="hs-municipality" x="33" y="28" width="22" height="52" rx="3" data-id="municipality"/>
+    <text class="hotspot-label" id="lbl-municipality" x="44" y="26" text-anchor="middle">🏛 เทศบาล</text>
+
+    <rect class="hotspot" id="hs-market"       x="56" y="30" width="18" height="48" rx="3" data-id="market"/>
+    <text class="hotspot-label" id="lbl-market" x="65" y="28" text-anchor="middle">🛒 ตลาด</text>
+
+    <rect class="hotspot" id="hs-restaurant"   x="73" y="32" width="12" height="45" rx="3" data-id="restaurant"/>
+    <text class="hotspot-label" id="lbl-restaurant" x="79" y="30" text-anchor="middle">🍛 ร้านอาหาร</text>
+
+    <rect class="hotspot" id="hs-craft"        x="84" y="32" width="14" height="45" rx="3" data-id="craft"/>
+    <text class="hotspot-label" id="lbl-craft"  x="91" y="30" text-anchor="middle">🔧 ช่าง</text>
+
+    <rect class="hotspot" id="hs-canal"        x="0"  y="78" width="100" height="22" rx="0" data-id="canal"/>
+    <text class="hotspot-label" id="lbl-canal"  x="50" y="76" text-anchor="middle">🚤 คลองอ้อมนนท์</text>
+
+    <rect class="hotspot" id="hs-bts"          x="42" y="0"  width="56" height="22" rx="3" data-id="bts"/>
+    <text class="hotspot-label" id="lbl-bts"    x="70" y="25" text-anchor="middle">🚇 รถไฟฟ้าสายสีม่วง</text>
+  </svg>
+
+  <!-- Boats -->
+  <div class="boat-anim" style="animation-duration:18s; bottom:6%; animation-delay:-4s;">
+    <img src="assets/boat.svg" alt="เรือ" onerror="this.style.display='none'">
+  </div>
+  <div class="boat-anim reverse" style="animation-duration:26s; bottom:9%; animation-delay:-12s;">
+    <img src="assets/boat-small.svg" alt="เรือเล็ก" onerror="this.style.display='none'">
+  </div>
+
+  <!-- Train -->
+  <div id="trainAnim" style="top:12%;">
+    <img src="assets/city.png" alt=""
+         style="height:36px;display:none" id="trainImg">
+    <div id="trainSvg" style="font-size:52px; animation:none;">🚇</div>
+  </div>
+
+  <!-- Birds -->
+  <div class="bird" style="top:18%; animation-duration:22s; animation-delay:-5s; font-size:18px;">🕊</div>
+  <div class="bird" style="top:12%; animation-duration:30s; animation-delay:-15s; font-size:14px;">🐦</div>
+
+  <!-- BC Mascot + Speech -->
+  <div id="speechBubble">สวัสดีครับ! วันนี้จะไปไหนดีครับ?</div>
+  <img id="bcMascot" src="assets/mascot-main.png" alt="BC" onerror="this.src='assets/bc-mascot.png'">
+</div>
+
+<!-- Top Bar -->
+<div id="topBar">
+  <div id="logoArea">
+    <img src="assets/bc-logo.png" alt="BC" onerror="this.style.display='none'">
+    <span>บางรักน้อย Connect</span>
+  </div>
+  <div id="timeBadge" id="timeBadge">🌤 08:30</div>
+</div>
+
+<!-- Bottom Nav -->
+<div id="bottomNav">
+  <div id="navScroll">
+    <button class="nav-btn" data-id="temple">
+      <span class="nb-icon">🛕</span>
+      <span class="nb-label">วัด</span>
+    </button>
+    <button class="nav-btn" data-id="municipality">
+      <span class="nb-icon">🏛</span>
+      <span class="nb-label">เทศบาล</span>
+    </button>
+    <button class="nav-btn" data-id="market">
+      <span class="nb-icon">🛒</span>
+      <span class="nb-label">ตลาด</span>
+    </button>
+    <button class="nav-btn" data-id="restaurant">
+      <span class="nb-icon">🍛</span>
+      <span class="nb-label">ร้านอาหาร</span>
+    </button>
+    <button class="nav-btn" data-id="craft">
+      <span class="nb-icon">🔧</span>
+      <span class="nb-label">หาช่าง</span>
+    </button>
+    <button class="nav-btn" data-id="canal">
+      <span class="nb-icon">🚤</span>
+      <span class="nb-label">คลอง</span>
+    </button>
+    <button class="nav-btn" data-id="bts">
+      <span class="nb-icon">🚇</span>
+      <span class="nb-label">รถไฟฟ้า</span>
+    </button>
+  </div>
+</div>
+
+<!-- Backdrop -->
+<div id="backdrop"></div>
+
+<!-- Side Panel -->
+<div id="sidePanel" aria-hidden="true">
+  <div id="panelHeader">
+    <button id="panelClose" aria-label="ปิด">✕</button>
+    <div>
+      <img id="panelMascot" src="" alt="">
+      <div id="panelIcon"></div>
+      <div id="panelTitle">ชื่ออาคาร</div>
+      <div id="panelDesc">คำอธิบาย</div>
+    </div>
+  </div>
+  <div id="panelBody"></div>
+</div>
+
+<!-- Zoom hint -->
+<div id="zoomHint">👆 แตะที่อาคารเพื่อดูข้อมูล</div>
+
+<!-- Welcome Overlay -->
+<div id="welcome">
+  <div id="welcomeCard">
+    <img src="assets/mascot-main.png" alt="BC" onerror="this.src='assets/bc-mascot.png'">
+    <h1>สวัสดีครับ!</h1>
+    <p>ยินดีต้อนรับสู่<br><strong>บางรักน้อย Connect</strong><br>เมืองที่มีชีวิต — คลิกอาคารเพื่อสำรวจ</p>
+    <button id="welcomeBtn">🚶 เดินเข้าเมือง</button>
+  </div>
+</div>
+
+<script type="module">
+import { BUILDINGS } from './data.js';
+
+// ── Time System ──────────────────────────────────────────────────────────────
+const SKY_STATES = {
+  dawn:  { bg: 'linear-gradient(180deg, #fba5a5 0%, #fde68a 40%, #fed7aa 100%)', label: '🌅', stars: false },
+  day:   { bg: 'linear-gradient(180deg, #1e90ff 0%, #87ceeb 50%, #bfdbfe 100%)', label: '☀️', stars: false },
+  noon:  { bg: 'linear-gradient(180deg, #0369a1 0%, #38bdf8 50%, #bae6fd 100%)', label: '🌤', stars: false },
+  dusk:  { bg: 'linear-gradient(180deg, #c026d3 0%, #f97316 40%, #fde68a 100%)', label: '🌇', stars: false },
+  night: { bg: 'linear-gradient(180deg, #0f172a 0%, #1e3a5f 50%, #312e81 100%)', label: '🌙', stars: true  },
+};
+
+function getSkyState(h) {
+  if (h >= 5 && h < 7)  return 'dawn';
+  if (h >= 7 && h < 12) return 'day';
+  if (h >= 12 && h < 17) return 'noon';
+  if (h >= 17 && h < 20) return 'dusk';
+  return 'night';
+}
+
+function updateTime() {
+  const now  = new Date();
+  const h    = now.getHours();
+  const m    = String(now.getMinutes()).padStart(2, '0');
+  const key  = getSkyState(h);
+  const state = SKY_STATES[key];
+
+  document.getElementById('sky').style.background = state.bg;
+  document.getElementById('timeBadge').textContent = `${state.label} ${h}:${m}`;
+  document.getElementById('stars').classList.toggle('show', state.stars);
+}
+updateTime();
+setInterval(updateTime, 30_000);
+
+// ── Stars ─────────────────────────────────────────────────────────────────────
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 60; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 3 + 1;
+  s.style.cssText = `
+    width:${size}px; height:${size}px;
+    left:${Math.random()*100}%; top:${Math.random()*60}%;
+    animation-duration:${2+Math.random()*3}s;
+    animation-delay:-${Math.random()*5}s;
+  `;
+  starsEl.appendChild(s);
+}
+
+// ── Clouds ────────────────────────────────────────────────────────────────────
+const cloudsEl = document.getElementById('clouds');
+const cloudDefs = [
+  { w:120, h:40, top:'8%',  dur:'35s', delay:'-10s',  op:0.8 },
+  { w:80,  h:28, top:'15%', dur:'50s', delay:'-28s',  op:0.6 },
+  { w:160, h:48, top:'5%',  dur:'45s', delay:'-5s',   op:0.75},
+  { w:60,  h:20, top:'20%', dur:'60s', delay:'-40s',  op:0.5 },
+  { w:100, h:32, top:'12%', dur:'40s', delay:'-20s',  op:0.7 },
+];
+cloudDefs.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'cloud';
+  el.style.cssText = `
+    width:${c.w}px; height:${c.h}px; top:${c.top};
+    opacity:${c.op};
+    animation-duration:${c.dur}; animation-delay:${c.delay};
+  `;
+  el.style.setProperty('--start', '-200px');
+  cloudsEl.appendChild(el);
+});
+
+// ── Train emoji animation ─────────────────────────────────────────────────────
+const trainSvg = document.getElementById('trainSvg');
+// Simple CSS animation via style
+trainSvg.style.display = 'block';
+trainSvg.style.fontSize = '48px';
+trainSvg.style.lineHeight = '1';
+trainSvg.style.animation = 'trainRide 12s linear infinite';
+trainSvg.textContent = '🚇';
+
+// ── Building Data Map ─────────────────────────────────────────────────────────
+const buildingMap = {};
+BUILDINGS.forEach(b => { buildingMap[b.id] = b; });
+
+// ── Panel ────────────────────────────────────────────────────────────────────
+const sidePanel  = document.getElementById('sidePanel');
+const backdrop   = document.getElementById('backdrop');
+const panelClose = document.getElementById('panelClose');
+const panelMascot = document.getElementById('panelMascot');
+const panelIcon  = document.getElementById('panelIcon');
+const panelTitle = document.getElementById('panelTitle');
+const panelDesc  = document.getElementById('panelDesc');
+const panelBody  = document.getElementById('panelBody');
+let activeHotspot = null;
+
+function openPanel(id) {
+  const b = buildingMap[id];
+  if (!b) return;
+
+  // Header
+  panelMascot.src = b.mascot || '';
+  panelMascot.style.display = b.mascot ? 'block' : 'none';
+  panelIcon.textContent = b.icon;
+  panelTitle.textContent = b.label;
+  panelDesc.textContent  = b.description;
+
+  // Items
+  panelBody.innerHTML = '';
+  b.items.forEach(item => {
+    const a = document.createElement('a');
+    a.className = 'panel-item';
+    a.href = item.href || '#';
+    if (item.href && item.href.startsWith('http')) {
+      a.target = '_blank'; a.rel = 'noopener noreferrer';
+    }
+    a.innerHTML = `
+      <span class="pi-icon">${item.icon}</span>
+      <div class="pi-text">
+        <div class="pi-title">${item.title}</div>
+        <div class="pi-detail">${item.detail}</div>
+      </div>
+      <span class="pi-action">${item.action} →</span>
+    `;
+    panelBody.appendChild(a);
+  });
+
+  // Open
+  sidePanel.classList.add('open');
+  sidePanel.setAttribute('aria-hidden', 'false');
+  backdrop.classList.add('show');
+
+  // Highlight hotspot
+  if (activeHotspot) activeHotspot.classList.remove('active');
+  const hs = document.getElementById(`hs-${id}`);
+  if (hs) { hs.classList.add('active'); activeHotspot = hs; }
+
+  // Active nav btn
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.id === id);
+  });
+
+  // Mascot speech
+  sayBubble(`มาดู${b.label}กันเลยครับ! 🏡`);
+}
+
+function closePanel() {
+  sidePanel.classList.remove('open');
+  sidePanel.setAttribute('aria-hidden', 'true');
+  backdrop.classList.remove('show');
+  if (activeHotspot) { activeHotspot.classList.remove('active'); activeHotspot = null; }
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+}
+
+// ── Hotspot clicks ────────────────────────────────────────────────────────────
+document.querySelectorAll('.hotspot').forEach(hs => {
+  hs.addEventListener('click', () => openPanel(hs.dataset.id));
+});
+
+// ── Bottom nav clicks ─────────────────────────────────────────────────────────
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => openPanel(btn.dataset.id));
+});
+
+// ── Close ──────────────────────────────────────────────────────────────────────
+panelClose.addEventListener('click', closePanel);
+backdrop.addEventListener('click', closePanel);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+// ── Speech Bubble ─────────────────────────────────────────────────────────────
+const speechBubble = document.getElementById('speechBubble');
+let speechTimer = null;
+
+function sayBubble(text) {
+  speechBubble.textContent = text;
+  speechBubble.classList.add('show');
+  clearTimeout(speechTimer);
+  speechTimer = setTimeout(() => speechBubble.classList.remove('show'), 3500);
+}
+
+// Show welcome speech after entering
+function startMascotLife() {
+  setTimeout(() => sayBubble('สวัสดีครับ! ยินดีต้อนรับ 🙏'), 500);
+  setTimeout(() => sayBubble('คลิกที่อาคารหรือปุ่มด้านล่างได้เลยครับ'), 4500);
+
+  // Idle conversations
+  const phrases = [
+    'อยากหาช่าง? กดที่บ้านช่างได้เลยครับ 🔧',
+    'มีร้านอาหารอร่อยๆ หลายร้านนะครับ 🍛',
+    'เทศบาลเปิดทำการจันทร์–ศุกร์ 08.30–16.30 ครับ',
+    'วันนี้อากาศดีมากเลยครับ! ☀️',
+    'ตลาดสดเปิดทุกเช้าตั้งแต่ 6 โมงครับ 🛒',
+    'รถไฟฟ้าสายสีม่วงสะดวกมากนะครับ 🚇',
+  ];
+  let pi = 0;
+  setInterval(() => {
+    if (!sidePanel.classList.contains('open')) {
+      sayBubble(phrases[pi % phrases.length]);
+      pi++;
+    }
+  }, 12000);
+}
+
+// ── Welcome Screen ────────────────────────────────────────────────────────────
+const welcome    = document.getElementById('welcome');
+const welcomeBtn = document.getElementById('welcomeBtn');
+
+welcomeBtn.addEventListener('click', () => {
+  welcome.style.opacity = '0';
+  welcome.style.transition = 'opacity 0.5s';
+  setTimeout(() => {
+    welcome.style.display = 'none';
+    startMascotLife();
+  }, 500);
+
+  // Show hint
+  const hint = document.getElementById('zoomHint');
+  hint.classList.add('show');
+  setTimeout(() => hint.classList.remove('show'), 4000);
+});
+</script>
+</body>
+</html>
