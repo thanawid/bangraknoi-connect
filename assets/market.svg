@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420">
+<defs><filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-opacity=".25"/></filter></defs>
+<g filter="url(#s)">
+<g transform="translate(10,70)">
+<rect x="0" y="95" width="230" height="190" rx="12" fill="#eec88f" stroke="#8b5a2b" stroke-width="6"/>
+<path d="M-10 95h250l-30-80H20z" fill="#f97316" stroke="#8b5a2b" stroke-width="6"/>
+<path d="M0 95h55v60H0zm55 0h55v60H55zm55 0h55v60h-55zm55 0h65v60h-65z" fill="#fff" opacity=".55"/>
+<rect x="35" y="155" width="160" height="95" fill="#7b3f1d"/>
+</g>
+<g transform="translate(255,30)">
+<rect x="0" y="135" width="240" height="210" rx="12" fill="#f6d19c" stroke="#8b5a2b" stroke-width="6"/>
+<path d="M-10 135h260l-35-95H25z" fill="#22c55e" stroke="#8b5a2b" stroke-width="6"/>
+<path d="M0 135h60v65H0zm60 0h60v65H60zm60 0h60v65h-60zm60 0h60v65h-60z" fill="#fff" opacity=".55"/>
+<rect x="42" y="200" width="155" height="105" fill="#7b3f1d"/>
+</g>
+<g transform="translate(515,85)">
+<rect x="0" y="110" width="220" height="185" rx="12" fill="#e9bd82" stroke="#8b5a2b" stroke-width="6"/>
+<path d="M-10 110h240l-30-80H25z" fill="#3b82f6" stroke="#8b5a2b" stroke-width="6"/>
+<path d="M0 110h55v55H0zm55 0h55v55H55zm55 0h55v55h-55zm55 0h55v55h-55z" fill="#fff" opacity=".55"/>
+<rect x="35" y="165" width="150" height="90" fill="#7b3f1d"/>
+</g>
+<path d="M0 370h760v42H0z" fill="#8b5a2b" opacity=".55"/>
+</g>
+</svg>
