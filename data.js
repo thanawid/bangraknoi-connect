@@ -1,197 +1,158 @@
-// Bangraknoi Connect — Genesis V1 Data
-// ข้อมูลอาคารและโซนในเมืองบางรักน้อย
-
-export const BUILDINGS = [
-  {
-    id: 'temple',
-    label: 'วัดบางรักน้อย',
-    labelEn: 'Wat Bangraknoi',
-    icon: '🛕',
-    mascot: 'assets/cat-07.png',
-    color: '#f59e0b',
-    description: 'วัดเก่าแก่คู่ชุมชนบางรักน้อย ศูนย์รวมจิตใจของผู้คน มีพระใหญ่ทองคำงดงาม และกิจกรรมทางศาสนาตลอดปี',
-    // hotspot: percentage-based x,y,w,h of the master scene image
-    hotspot: { x: 8, y: 30, w: 22, h: 55 },
-    items: [
-      { icon: '📅', title: 'ตารางทำบุญ', detail: 'วันพระ ทำบุญตักบาตร เวลา 07.00 น.', action: 'ดูปฏิทิน', href: '#' },
-      { icon: '📍', title: 'ดูแผนที่', detail: 'วัดบางรักน้อย ถ.บางรักน้อย–ท่าอิฐ', action: 'เปิดแผนที่', href: 'https://maps.google.com/?q=วัดบางรักน้อย+นนทบุรี' },
-      { icon: '☎️', title: 'ติดต่อวัด', detail: 'สำนักงานวัดบางรักน้อย', action: 'โทร', href: 'tel:025252727' },
-    ]
-  },
-  {
-    id: 'municipality',
-    label: 'เทศบาลเมืองบางรักน้อย',
-    labelEn: 'Bangraknoi City Hall',
-    icon: '🏛',
-    mascot: 'assets/cat-05.png',
-    color: '#7c3aed',
-    description: 'ศูนย์บริการชุมชน ให้บริการด้านทะเบียน สิ่งแวดล้อม โยธา สาธารณสุข และรับแจ้งเรื่องร้องทุกข์',
-    hotspot: { x: 33, y: 28, w: 22, h: 52 },
-    items: [
-      { icon: '📋', title: 'แจ้งเรื่องร้องทุกข์', detail: 'ไฟดับ ถนนชำรุด ขยะ ระบายน้ำ', action: 'แจ้งเรื่อง', href: 'https://www.brn.go.th/home' },
-      { icon: '💧', title: 'ประปาชุมชน', detail: 'แจ้งน้ำประปาขัดข้อง', action: 'โทร', href: 'tel:025261234' },
-      { icon: '📰', title: 'ข่าวเทศบาล', detail: 'ข่าวสารและประกาศจากเทศบาล', action: 'อ่านข่าว', href: 'https://www.brn.go.th/home' },
-      { icon: '🗺', title: 'แผนที่เทศบาล', detail: 'เปิดแผนที่ Google Maps', action: 'เปิดแผนที่', href: 'https://maps.google.com/?q=เทศบาลเมืองบางรักน้อย' },
-      { icon: '☎️', title: 'ติดต่อสำนักงาน', detail: 'เบอร์โทร 02-193-4512', action: 'โทร', href: 'tel:021934512' },
-    ]
-  },
-  {
-    id: 'market',
-    label: 'ตลาดบางรักน้อย',
-    labelEn: 'Bangraknoi Market',
-    icon: '🛒',
-    mascot: 'assets/cat-06.png',
-    color: '#ea580c',
-    description: 'ตลาดสดใจกลางชุมชน สินค้าท้องถิ่น ผักผลไม้สด ของฝาก และสินค้าชุมชนอีกมากมาย',
-    hotspot: { x: 56, y: 30, w: 18, h: 48 },
-    items: [
-      { icon: '🥬', title: 'ตลาดสดเช้า', detail: 'เปิดทุกวัน 06.00 – 10.00 น.', action: 'ดูแผนที่', href: 'https://maps.google.com/?q=ตลาดบางรักน้อย' },
-      { icon: '🎁', title: 'สินค้าท้องถิ่น', detail: 'ของดีบางรักน้อย น้ำมันมะพร้าว น้ำปลาหวาน', action: 'ดูสินค้า', href: '#' },
-      { icon: '🍜', title: 'ร้านอาหารในตลาด', detail: 'ข้าวต้ม โจ๊ก ก๋วยเตี๋ยว อาหารเช้า', action: 'ดูรายการ', href: '#' },
-    ]
-  },
-  {
-    id: 'restaurant',
-    label: 'ร้านอาหาร',
-    labelEn: 'Restaurants',
-    icon: '🍛',
-    mascot: 'assets/cat-02.png',
-    color: '#dc2626',
-    description: 'ร้านอาหารอร่อยในชุมชน ตั้งแต่อาหารตามสั่ง ส้มตำ ก๋วยเตี๋ยว ไปจนถึงร้านกาแฟ',
-    hotspot: { x: 73, y: 32, w: 12, h: 45 },
-    items: [
-      { icon: '🍚', title: 'ร้านข้าวแกง ป้าแดง', detail: 'ข้าวแกงบ้านๆ อร่อย ราคาเป็นมิตร', action: 'โทร', href: 'tel:0812345678' },
-      { icon: '🍜', title: 'ก๋วยเตี๋ยวเรือ ลุงสม', detail: 'ก๋วยเตี๋ยวเรือสูตรโบราณ ตั้งแต่รุ่นปู่', action: 'ดูแผนที่', href: 'https://maps.google.com/?q=ก๋วยเตี๋ยวเรือบางรักน้อย' },
-      { icon: '☕', title: 'คาเฟ่บางรักน้อย', detail: 'กาแฟ ชา ขนม บรรยากาศริมคลอง', action: 'ดูรีวิว', href: '#' },
-      { icon: '🌮', title: 'ส้มตำ ครัวอีสาน', detail: 'ส้มตำ ลาบ น้ำตก รสเด็ด', action: 'โทร', href: 'tel:0898765432' },
-    ]
-  },
-  {
-    id: 'craft',
-    label: 'บ้านช่าง',
-    labelEn: 'Craft & Repair',
-    icon: '🔧',
-    mascot: 'assets/cat-01.png',
-    color: '#0284c7',
-    description: 'รวมช่างฝีมือในชุมชน ช่างไฟ ช่างประปา ช่างแอร์ ช่างเชื่อม รับงานทุกประเภท',
-    hotspot: { x: 84, y: 32, w: 14, h: 45 },
-    items: [
-      { icon: '⚡', title: 'ช่างไฟ', detail: 'ติดตั้ง ซ่อมระบบไฟฟ้า มีใบอนุญาต', action: 'โทร', href: 'tel:0891234567' },
-      { icon: '💧', title: 'ช่างประปา', detail: 'ซ่อมก๊อก ท่อ โถส้วม', action: 'โทร', href: 'tel:0812233445' },
-      { icon: '❄️', title: 'ช่างแอร์', detail: 'ล้างแอร์ ติดตั้ง ซ่อมแซม', action: 'โทร', href: 'tel:0855667788' },
-      { icon: '🔩', title: 'ช่างเชื่อม-เหล็ก', detail: 'งานเหล็ก ราวบันได ประตู รั้ว', action: 'โทร', href: 'tel:0899988776' },
-      { icon: '🎨', title: 'ช่างสี', detail: 'ทาสีบ้าน ตึก อาคาร', action: 'โทร', href: 'tel:0877665544' },
-    ]
-  },
-  {
-    id: 'canal',
-    label: 'คลองอ้อมนนท์',
-    labelEn: 'Klhong Om Non',
-    icon: '🚤',
-    mascot: 'assets/cat-09.png',
-    color: '#0891b2',
-    description: 'คลองสายหลักที่หล่อเลี้ยงชุมชนบางรักน้อยมาช้านาน แหล่งท่องเที่ยวเชิงธรรมชาติ มีเรือข้ามฟากและวิถีชีวิตริมน้ำ',
-    hotspot: { x: 0, y: 75, w: 100, h: 25 },
-    items: [
-      { icon: '⛵', title: 'เรือข้ามฟาก', detail: 'บริการข้ามฟากตลอดวัน', action: 'ดูตารางเรือ', href: '#' },
-      { icon: '🐟', title: 'ปล่อยปลา-ให้อาหารปลา', detail: 'บุญและกิจกรรมริมน้ำ', action: 'ดูกิจกรรม', href: '#' },
-      { icon: '📸', title: 'ท่องเที่ยวริมคลอง', detail: 'วิถีชีวิต วัฒนธรรม ชุมชน', action: 'ดูเส้นทาง', href: '#' },
-    ]
-  },
-  {
-    id: 'bts',
-    label: 'รถไฟฟ้าสายสีม่วง',
-    labelEn: 'MRT Purple Line',
-    icon: '🚇',
-    mascot: 'assets/cat-04.png',
-    color: '#7e22ce',
-    description: 'รถไฟฟ้าสายสีม่วง เชื่อมต่อบางรักน้อยสู่กรุงเทพฯ และเมืองนนทบุรี สะดวก รวดเร็ว ไม่ติดรถ',
-    hotspot: { x: 42, y: 0, w: 56, h: 22 },
-    items: [
-      { icon: '🗺', title: 'แผนที่สถานี', detail: 'สถานีใกล้เคียงในเส้นทาง MRT สายสีม่วง', action: 'เปิดแผนที่', href: 'https://maps.google.com/?q=MRT+สายสีม่วง' },
-      { icon: '🕐', title: 'ตารางเดินรถ', detail: 'เวลาแรก 05.30 – สุดท้าย 24.00 น.', action: 'ดูตาราง', href: 'https://www.mrta.co.th' },
-      { icon: '💳', title: 'ค่าโดยสาร', detail: 'ระยะทางตามจริง เริ่มต้น 14-42 บาท', action: 'คำนวณ', href: 'https://www.mrta.co.th' },
-    ]
-  },
-];
-
-export const CITY_ZONES = {
-  temple:       BUILDINGS.find(b => b.id === 'temple'),
-  municipality: BUILDINGS.find(b => b.id === 'municipality'),
-  market:       BUILDINGS.find(b => b.id === 'market'),
-  restaurant:   BUILDINGS.find(b => b.id === 'restaurant'),
-  craft:        BUILDINGS.find(b => b.id === 'craft'),
-  canal:        BUILDINGS.find(b => b.id === 'canal'),
-  bts:          BUILDINGS.find(b => b.id === 'bts'),
+export const MUNICIPALITY = {
+  name: 'เทศบาลเมืองบางรักน้อย',
+  phoneLabel: '02-193-4512-3',
+  phone: '021934512',
+  address: '72/3 หมู่ 2 ตำบลบางรักน้อย อำเภอเมือง จังหวัดนนทบุรี 11000',
+  website: 'https://www.brn.go.th/home',
+  contact: 'https://www.brn.go.th/contact-rev2',
+  line: 'https://lin.ee/UL0OXvK',
+  messenger: 'https://www.m.me/557582624689660'
 };
 
-// Legacy support for existing app.js zones format
+const maps = (query) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+
 export const ZONES = [
   {
-    id: 'craft',
-    label: 'หาช่าง',
-    short: 'ช่าง',
-    description: 'ช่าง 7 หมวด ครบทุกงานซ่อมในบ้าน',
-    source: 'ข้อมูลช่างในชุมชนบางรักน้อย ปรับปรุง มิ.ย. 2569',
-    items: BUILDINGS.find(b=>b.id==='craft').items,
-  },
-  {
-    id: 'food',
-    label: 'ร้านอาหาร',
-    short: 'อาหาร',
-    description: 'ร้านอร่อยในพื้นที่บางรักน้อยและใกล้เคียง',
-    source: 'รวบรวมโดยชุมชน',
-    items: BUILDINGS.find(b=>b.id==='restaurant').items,
-  },
-  {
-    id: 'travel',
-    label: 'ท่องเที่ยว',
-    short: 'ท่องเที่ยว',
-    description: 'สถานที่น่าสนใจในบางรักน้อย',
-    source: 'เทศบาลเมืองบางรักน้อย',
-    items: BUILDINGS.find(b=>b.id==='canal').items,
-  },
-  {
-    id: 'learn',
-    label: 'ฝึกอาชีพ',
-    short: 'อาชีพ',
-    description: 'หลักสูตรและโอกาสพัฒนาอาชีพ',
-    source: 'กรมพัฒนาฝีมือแรงงาน',
-    items: [
-      { icon: '💻', title: 'ดิจิทัลเบื้องต้น', detail: 'คอมพิวเตอร์ โซเชียลมีเดีย ขายออนไลน์', action: 'สมัคร', href: '#' },
-      { icon: '🍳', title: 'อาหารและเบเกอรี่', detail: 'ทำขนม ขนมปัง อาหารไทย-สากล', action: 'สมัคร', href: '#' },
-      { icon: '✂️', title: 'ตัดผม-เสริมสวย', detail: 'ช่างผม สปา เสริมสวย', action: 'สมัคร', href: '#' },
+    id: 'craft', label: 'บ้านช่าง', short: 'หาช่าง', icon: '⚒', image: 'assets/categories/01.png',
+    description: 'ช่างทุกประเภท ค้นหาใกล้บ้านผ่านแผนที่ได้ทันที', source: 'โปรดตรวจสอบรีวิว ราคา และขอบเขตงานกับผู้ให้บริการก่อนตกลง',
+    groups: [
+      {
+        label: '🔌 ระบบไฟฟ้า',
+        items: [
+          { icon: '⚡', title: 'ช่างไฟฟ้า', detail: 'ซ่อมไฟ เดินสาย เปลี่ยนสวิตช์ เบรกเกอร์', tag: 'ไฟฟ้า', action: 'ค้นหาช่าง', href: maps('ช่างไฟฟ้า บางรักน้อย นนทบุรี'), primary: true },
+          { icon: '☀️', title: 'ช่างโซลาร์เซลล์', detail: 'ติดตั้งและซ่อมแผงโซลาร์บนหลังคา', tag: 'ไฟฟ้า', action: 'ค้นหาช่าง', href: maps('ช่างโซลาร์เซลล์ ติดตั้ง นนทบุรี') },
+          { icon: '📷', title: 'ช่างกล้องวงจรปิด', detail: 'ติดตั้ง CCTV ระบบนิรภัย และอินเทอร์คอม', tag: 'ไฟฟ้า', action: 'ค้นหาช่าง', href: maps('ช่างกล้องวงจรปิด CCTV นนทบุรี') },
+          { icon: '🌐', title: 'ช่างเน็ต / สาย LAN', detail: 'เดินสายอินเทอร์เน็ต ติดตั้ง WiFi และเน็ตเวิร์ก', tag: 'ไฟฟ้า', action: 'ค้นหาช่าง', href: maps('ช่างเน็ต สาย LAN ติดตั้ง WiFi นนทบุรี') }
+        ]
+      },
+      {
+        label: '🚰 ระบบน้ำและสุขาภิบาล',
+        items: [
+          { icon: '🔧', title: 'ช่างประปา', detail: 'แก้ท่อรั่ว ปั๊มน้ำ และระบบน้ำทั้งบ้าน', tag: 'ประปา', action: 'ค้นหาช่าง', href: maps('ช่างประปา บางรักน้อย นนทบุรี') },
+          { icon: '🚿', title: 'ช่างสุขภัณฑ์', detail: 'ซ่อมโถส้วม ฝักบัว อ่างล้างหน้า และก๊อก', tag: 'ประปา', action: 'ค้นหาช่าง', href: maps('ช่างสุขภัณฑ์ ซ่อมห้องน้ำ นนทบุรี') },
+          { icon: '🪣', title: 'ช่างบ่อเกรอะ / ดูดส้วม', detail: 'ล้างบ่อ ดูดส้วม และแก้ปัญหาท่อตัน', tag: 'ประปา', action: 'ค้นหาช่าง', href: maps('ดูดส้วม บ่อเกรอะ บางรักน้อย นนทบุรี') },
+          { icon: '🏊', title: 'ช่างสระว่ายน้ำ', detail: 'ล้าง บำรุงรักษา และซ่อมระบบสระน้ำ', tag: 'ประปา', action: 'ค้นหาช่าง', href: maps('ช่างสระว่ายน้ำ ล้างสระ นนทบุรี') }
+        ]
+      },
+      {
+        label: '🏗️ โครงสร้างและก่อสร้าง',
+        items: [
+          { icon: '🏠', title: 'รับเหมาก่อสร้าง', detail: 'ต่อเติม รีโนเวต และก่อสร้างทั่วไป', tag: 'ก่อสร้าง', action: 'ค้นหาช่าง', href: maps('รับเหมาก่อสร้าง ต่อเติม บางรักน้อย นนทบุรี') },
+          { icon: '🧱', title: 'ช่างปูน / ก่ออิฐ', detail: 'ฉาบปูน ก่ออิฐ และงานคอนกรีต', tag: 'ก่อสร้าง', action: 'ค้นหาช่าง', href: maps('ช่างปูน ฉาบปูน ก่ออิฐ นนทบุรี') },
+          { icon: '⬜', title: 'ช่างกระเบื้อง', detail: 'ปูกระเบื้องพื้น ผนัง และห้องน้ำ', tag: 'ก่อสร้าง', action: 'ค้นหาช่าง', href: maps('ช่างปูกระเบื้อง พื้น ผนัง นนทบุรี') },
+          { icon: '🏚️', title: 'ช่างหลังคา', detail: 'ซ่อม เปลี่ยน และกันรั่วหลังคาทุกประเภท', tag: 'ก่อสร้าง', action: 'ค้นหาช่าง', href: maps('ช่างหลังคา ซ่อมหลังคา นนทบุรี') }
+        ]
+      },
+      {
+        label: '🎨 ตกแต่งและปรับปรุง',
+        items: [
+          { icon: '🖌️', title: 'ช่างทาสี', detail: 'ทาสีภายใน-ภายนอก และงานพ่นสี', tag: 'ตกแต่ง', action: 'ค้นหาช่าง', href: maps('ช่างทาสีบ้าน บางรักน้อย นนทบุรี') },
+          { icon: '🪟', title: 'ช่างฝ้าเพดาน', detail: 'ติดตั้งและซ่อมฝ้าเพดานทุกรูปแบบ', tag: 'ตกแต่ง', action: 'ค้นหาช่าง', href: maps('ช่างฝ้าเพดาน ติดตั้ง นนทบุรี') },
+          { icon: '🪵', title: 'ช่างพื้นไม้ / พื้น SPC', detail: 'ปูพื้นไม้ ลามิเนต และพื้น SPC', tag: 'ตกแต่ง', action: 'ค้นหาช่าง', href: maps('ช่างปูพื้นไม้ ลามิเนต นนทบุรี') },
+          { icon: '🪞', title: 'ช่างม่านและวอลเปเปอร์', detail: 'ติดตั้งม่าน มู่ลี่ และวอลเปเปอร์', tag: 'ตกแต่ง', action: 'ค้นหาช่าง', href: maps('ช่างม่าน วอลเปเปอร์ ติดตั้ง นนทบุรี') }
+        ]
+      },
+      {
+        label: '❄️ เครื่องกลและเครื่องใช้ไฟฟ้า',
+        items: [
+          { icon: '❄️', title: 'ช่างแอร์', detail: 'ล้างแอร์ ซ่อม ติดตั้ง และเติมน้ำยา', tag: 'เครื่องกล', action: 'ค้นหาช่าง', href: maps('ช่างแอร์ ล้างแอร์ บางรักน้อย นนทบุรี') },
+          { icon: '🫧', title: 'ช่างเครื่องซักผ้า', detail: 'ซ่อม ล้าง และบำรุงเครื่องซักผ้าทุกยี่ห้อ', tag: 'เครื่องกล', action: 'ค้นหาช่าง', href: maps('ช่างซ่อมเครื่องซักผ้า นนทบุรี') },
+          { icon: '🧊', title: 'ช่างตู้เย็น / ตู้แช่', detail: 'ซ่อมตู้เย็น ตู้แช่ และระบบความเย็น', tag: 'เครื่องกล', action: 'ค้นหาช่าง', href: maps('ช่างซ่อมตู้เย็น ตู้แช่ นนทบุรี') },
+          { icon: '📺', title: 'ช่างทีวี / เครื่องใช้ไฟฟ้า', detail: 'ซ่อมทีวี ไมโครเวฟ และเครื่องใช้ไฟฟ้าทั่วไป', tag: 'เครื่องกล', action: 'ค้นหาช่าง', href: maps('ช่างซ่อมทีวี เครื่องใช้ไฟฟ้า นนทบุรี') }
+        ]
+      },
+      {
+        label: '🚪 งานไม้ อลูมิเนียม และกระจก',
+        items: [
+          { icon: '🚪', title: 'ช่างประตู-หน้าต่าง', detail: 'ซ่อม ติดตั้ง และเปลี่ยนประตูหน้าต่างไม้-อลู', tag: 'ไม้อลู', action: 'ค้นหาช่าง', href: maps('ช่างประตู หน้าต่าง อลูมิเนียม นนทบุรี') },
+          { icon: '🪞', title: 'ช่างกระจกและกันสาด', detail: 'ตัด ติดตั้ง และซ่อมกระจกและกันสาด', tag: 'ไม้อลู', action: 'ค้นหาช่าง', href: maps('ช่างกระจก กันสาด ติดตั้ง นนทบุรี') },
+          { icon: '🪑', title: 'ช่างเฟอร์นิเจอร์', detail: 'ทำและซ่อมเฟอร์นิเจอร์บิลท์อินและทั่วไป', tag: 'ไม้อลู', action: 'ค้นหาช่าง', href: maps('ช่างเฟอร์นิเจอร์ บิลท์อิน นนทบุรี') },
+          { icon: '🛡️', title: 'ช่างเหล็กดัด / ราวบันได', detail: 'งานเชื่อมเหล็ก เหล็กดัด รั้ว และราวบันได', tag: 'ไม้อลู', action: 'ค้นหาช่าง', href: maps('ช่างเหล็กดัด เชื่อมเหล็ก รั้ว นนทบุรี') }
+        ]
+      },
+      {
+        label: '🔐 งานเฉพาะทาง',
+        items: [
+          { icon: '🔑', title: 'ช่างกุญแจ', detail: 'ทำกุญแจสำรอง ซ่อม และเปิดประตูฉุกเฉิน', tag: 'เฉพาะทาง', action: 'ค้นหาช่าง', href: maps('ช่างกุญแจ บางรักน้อย นนทบุรี') },
+          { icon: '🌿', title: 'ช่างสวนและตัดต้นไม้', detail: 'ตัดแต่ง จัดสวน และกำจัดวัชพืช', tag: 'เฉพาะทาง', action: 'ค้นหาช่าง', href: maps('ช่างสวน ตัดต้นไม้ นนทบุรี') },
+          { icon: '🐜', title: 'กำจัดปลวกและแมลง', detail: 'กำจัดปลวก แมลงสาบ หนู และสัตว์รบกวน', tag: 'เฉพาะทาง', action: 'ค้นหาช่าง', href: maps('กำจัดปลวก แมลง นนทบุรี') },
+          { icon: '🚛', title: 'รถรับจ้างและขนของ', detail: 'รถรับจ้างขนของ ย้ายบ้าน และขนส่งทั่วไป', tag: 'เฉพาะทาง', action: 'ค้นหาช่าง', href: maps('รถรับจ้าง ขนของ ย้ายบ้าน นนทบุรี') }
+        ]
+      }
     ],
+    // flat items list สำหรับ search index (รวมทุก item จากทุก group)
+    get items() {
+      return this.groups.flatMap(g => g.items);
+    }
   },
   {
-    id: 'market',
-    label: 'สินค้าท้องถิ่น',
-    short: 'สินค้า',
-    description: 'ของดีบางรักน้อย สินค้าชุมชน OTOP',
-    source: 'ชุมชนบางรักน้อย',
-    items: BUILDINGS.find(b=>b.id==='market').items,
-  },
-  {
-    id: 'service',
-    label: 'บริการชุมชน',
-    short: 'บริการ',
-    description: 'แจ้งเรื่อง ข่าว กิจกรรมชุมชน',
-    source: 'เทศบาลเมืองบางรักน้อย',
-    items: BUILDINGS.find(b=>b.id==='municipality').items,
-  },
-  {
-    id: 'chat',
-    label: 'พูดคุย-แลกเปลี่ยน',
-    short: 'แชท',
-    description: 'ทุกช่องทางการติดต่อชุมชน',
-    source: 'บางรักน้อย Connect',
+    id: 'food', label: 'ร้านอาหาร', short: 'ของอร่อย', icon: '♨', image: 'assets/categories/02.png',
+    description: 'ค้นหาร้านอาหาร คาเฟ่ และของกินใกล้บางรักน้อย', source: 'คะแนน เวลาเปิด และเส้นทางแสดงจากแผนที่ของคุณ',
     items: [
-      { icon: '📱', title: 'LINE OA', detail: 'ติดตาม LINE Official Account', action: 'เปิด LINE', href: 'https://line.me' },
-      { icon: '💬', title: 'กลุ่ม Facebook', detail: 'ชุมชนบางรักน้อย Connect', action: 'เข้ากลุ่ม', href: 'https://facebook.com' },
-      { icon: '☎️', title: 'โทรเทศบาล', detail: '02-193-4512 ถึง 3', action: 'โทร', href: 'tel:021934512' },
-    ],
+      { icon: '🍜', title: 'ร้านอาหารในบางรักน้อย', detail: 'ค้นหาร้านที่เปิดอยู่ ดูรีวิว และขอเส้นทาง', tag: 'ใกล้ฉัน', action: 'หาร้านอร่อย', href: maps('ร้านอาหาร บางรักน้อย นนทบุรี'), primary: true },
+      { icon: '☕', title: 'คาเฟ่และร้านกาแฟ', detail: 'หาร้านนั่งสบายใกล้คลองอ้อมนนท์', tag: 'คาเฟ่', action: 'ค้นหาคาเฟ่', href: maps('คาเฟ่ บางรักน้อย นนทบุรี') },
+      { icon: '🥡', title: 'ของกินและตลาดสด', detail: 'มองหาของกินและตลาดใกล้บ้าน', tag: 'ตลาด', action: 'ค้นหาของกิน', href: maps('ของกิน ตลาด บางรักน้อย นนทบุรี') },
+      { icon: '🍰', title: 'เบเกอรี่และขนม', detail: 'ค้นหาร้านขนม เบเกอรี่ และของว่างในพื้นที่', tag: 'ขนม', action: 'ค้นหาร้านขนม', href: maps('เบเกอรี่ ขนม บางรักน้อย นนทบุรี') }
+    ]
   },
+  {
+    id: 'travel', label: 'เที่ยวบางรักน้อย', short: 'ท่องเที่ยว', icon: '📷', image: 'assets/categories/03.png',
+    description: 'วัด วิถีริมคลอง และสถานที่สำคัญในบางรักน้อย', source: 'เส้นทางเปิดด้วย Google Maps บนอุปกรณ์ของคุณ',
+    items: [
+      { icon: '🛕', title: 'วัดบางรักน้อย', detail: 'ชมวัดและบรรยากาศชุมชนริมคลอง', tag: 'สถานที่', action: 'เปิดแผนที่', href: maps('วัดบางรักน้อย นนทบุรี'), primary: true },
+      { icon: '🙏', title: 'พระใหญ่บางรักน้อย', detail: 'จุดหมายสำคัญและสัญลักษณ์ของชุมชน', tag: 'แลนด์มาร์ก', action: 'ค้นหาเส้นทาง', href: maps('พระใหญ่ บางรักน้อย นนทบุรี') },
+      { icon: '🌊', title: 'วิถีคลองอ้อมนนท์', detail: 'สำรวจจุดเที่ยวและร้านริมน้ำ', tag: 'ริมคลอง', action: 'สำรวจรอบคลอง', href: maps('คลองอ้อมนนท์ นนทบุรี') },
+      { icon: '📸', title: 'จุดถ่ายรูปชุมชน', detail: 'ค้นหาจุดเช็คอินและมุมสวยในบางรักน้อย', tag: 'เช็คอิน', action: 'ค้นหาจุดถ่ายรูป', href: maps('จุดถ่ายรูป เช็คอิน บางรักน้อย นนทบุรี') }
+    ]
+  },
+  {
+    id: 'learn', label: 'ฝึกอาชีพ', short: 'เรียนรู้', icon: '✎', image: 'assets/categories/04.png',
+    description: 'หลักสูตรรัฐ คู่มือประชาชน และแหล่งพัฒนาทักษะ', source: 'ลิงก์ไปยังหน่วยงานและข้อมูลทางการ',
+    items: [
+      { icon: '🧭', title: 'ศูนย์ฝึกอาชีพใกล้บ้าน', detail: 'ค้นหาสถานที่อบรมและศูนย์เรียนรู้บนแผนที่', tag: 'แผนที่', action: 'ค้นหาศูนย์', href: maps('ศูนย์ฝึกอาชีพ ใกล้ บางรักน้อย นนทบุรี'), primary: true },
+      { icon: '🛠️', title: 'กรมพัฒนาฝีมือแรงงาน', detail: 'ค้นหาหลักสูตรและข่าวการฝึกอบรมจากหน่วยงานรัฐ', tag: 'ทางการ', action: 'ดูหลักสูตร', href: 'https://www.dsd.go.th/' },
+      { icon: '📘', title: 'คู่มือประชาชน', detail: 'ขั้นตอน เอกสาร และมาตรฐานการรับบริการของเทศบาล', tag: 'ทางการ', action: 'เปิดคู่มือ', href: 'https://www.brn.go.th/service_guide.php' },
+      { icon: '💡', title: 'แหล่งเรียนรู้ออนไลน์', detail: 'คอร์สออนไลน์ฟรีจากหน่วยงานรัฐบาล', tag: 'ออนไลน์', action: 'ดูคอร์ส', href: 'https://elearning.ocsc.go.th/' }
+    ]
+  },
+  {
+    id: 'market', label: 'สินค้าและตลาด', short: 'ตลาด', icon: '◒', image: 'assets/categories/05.png',
+    description: 'ค้นหาตลาด สวนผลไม้ และสินค้าท้องถิ่นรอบบางรักน้อย', source: 'ผลการค้นหาเปิดด้วยแผนที่บนอุปกรณ์ของคุณ',
+    items: [
+      { icon: '🛍️', title: 'ตลาดใกล้บางรักน้อย', detail: 'ดูตลาด ร้านค้า เวลาเปิด และเส้นทาง', tag: 'ใกล้ฉัน', action: 'เปิดแผนที่', href: maps('ตลาด บางรักน้อย นนทบุรี'), primary: true },
+      { icon: '🌳', title: 'สวนผลไม้และสวนทุเรียน', detail: 'ค้นหาสวนและผลผลิตตามฤดูกาลในพื้นที่', tag: 'ของดีชุมชน', action: 'ค้นหาสวน', href: maps('สวนทุเรียน บางรักน้อย นนทบุรี') },
+      { icon: '🎁', title: 'สินค้า OTOP ชุมชน', detail: 'ค้นหาร้านของฝากและสินค้าชุมชนบนแผนที่', tag: 'ท้องถิ่น', action: 'ค้นหาสินค้า', href: maps('สินค้า OTOP บางรักน้อย นนทบุรี') },
+      { icon: '🏪', title: 'ร้านค้าใกล้บ้าน', detail: 'ค้นหาร้านสะดวกซื้อ ร้านขายของชำ และร้านทั่วไป', tag: 'ทั่วไป', action: 'ค้นหาร้านค้า', href: maps('ร้านค้า บางรักน้อย นนทบุรี') }
+    ]
+  },
+  {
+    // รวม service + news + event ไว้ที่นี่
+    id: 'service', label: 'บริการชุมชน', short: 'เทศบาล', icon: '🏛', image: 'assets/categories/06.png',
+    description: 'แจ้งเรื่อง ข่าวสาร กิจกรรม และติดต่อเทศบาล ครบในที่เดียว', source: 'ข้อมูลจากเว็บไซต์ทางการเทศบาลเมืองบางรักน้อย',
+    items: [
+      // e-Service
+      { icon: '📍', title: 'แจ้งเรื่องออนไลน์', detail: 'แจ้งปัญหา แนบภาพ ระบุพิกัด และติดตามสถานะได้', tag: 'e-Service', action: 'เริ่มแจ้งเรื่อง', href: 'https://www.brn.go.th/eService/service-general-group', primary: true },
+      // ข่าวสาร
+      { icon: '📣', title: 'ข่าวประชาสัมพันธ์', detail: 'ประกาศและข่าวสารล่าสุดจากเทศบาล', tag: 'ข่าว', action: 'อ่านข่าว', href: 'https://www.brn.go.th/news_obt.php?id=2' },
+      // กิจกรรม
+      { icon: '🗓️', title: 'ปฏิทินกิจกรรมชุมชน', detail: 'งานประเพณี กิจกรรม และวันสำคัญของเทศบาล', tag: 'กิจกรรม', action: 'เปิดปฏิทิน', href: 'https://www.brn.go.th/calendar.php' },
+      // ติดต่อ
+      { icon: '☎', title: 'โทรติดต่อเทศบาล', detail: '02-193-4512-3 ต่อ 0 / 111 / 112 (จ–ศ 08.30–16.30)', tag: 'โทรศัพท์', action: 'โทรตอนนี้', href: 'tel:021934512' },
+      { icon: '🚨', title: 'สายด่วนสาธารณภัย', detail: 'ป้องกันและบรรเทาสาธารณภัย 089-920-3011', tag: 'เร่งด่วน', action: 'โทรสายด่วน', href: 'tel:0899203011' },
+      { icon: '🌐', title: 'เว็บไซต์และโซเชียลเทศบาล', detail: 'ข่าว ประกาศ วารสาร และ Facebook ทางการ', tag: 'ออนไลน์', action: 'เปิดเว็บไซต์', href: MUNICIPALITY.website },
+      { icon: '🗺️', title: 'เดินทางมาเทศบาล', detail: MUNICIPALITY.address, tag: 'แผนที่', action: 'เปิดแผนที่', href: maps('เทศบาลเมืองบางรักน้อย') }
+    ]
+  },
+  {
+    id: 'chat', label: 'ติดต่อ–แสดงความเห็น', short: 'ติดต่อ', icon: '💬', image: 'assets/categories/07.png',
+    description: 'สอบถาม เสนอแนะ และแจ้งปัญหาผ่านทุกช่องทาง', source: 'คุณกำลังจะเปิดช่องทางสื่อสารภายนอกของเทศบาล',
+    items: [
+      { icon: '🟢', title: 'LINE เทศบาลบางรักน้อย', detail: 'เพิ่มเพื่อน รับแจ้งเตือน และส่งข้อความถึงเทศบาล', tag: 'LINE', action: 'เพิ่มเพื่อน LINE', href: MUNICIPALITY.line, primary: true },
+      { icon: '🔵', title: 'Facebook Messenger', detail: 'ส่งข้อความถึงเพจเทศบาลเมืองบางรักน้อย', tag: 'Facebook', action: 'เปิด Messenger', href: MUNICIPALITY.messenger },
+      { icon: '💬', title: 'กระดานสนทนาชุมชน', detail: 'อ่านและร่วมพูดคุยบนเว็บบอร์ดของเทศบาล', tag: 'เว็บบอร์ด', action: 'เปิดกระดาน', href: 'https://www.brn.go.th/webboard_obt.php' },
+      { icon: '📝', title: 'แสดงความคิดเห็น', detail: 'ส่งความเห็นและข้อเสนอแนะผ่านเว็บไซต์ทางการ', tag: 'ข้อเสนอแนะ', action: 'แสดงความคิดเห็น', href: 'https://www.brn.go.th/contact5.php' }
+    ]
+  }
 ];
 
-export const getZone = (id) => ZONES.find(z => z.id === id);
-export const getBuilding = (id) => BUILDINGS.find(b => b.id === id);
+export const getZone = (id) => ZONES.find((zone) => zone.id === id);

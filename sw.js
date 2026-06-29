@@ -1,4 +1,38 @@
-const CACHE = 'bc-v1';
-const ASSETS = ['/', '/index.html', '/data.js', '/assets/city-genesis.webp', '/assets/hero_bg.webp', '/assets/mascot-main.webp', '/assets/bc-logo.webp', '/assets/boat.svg', '/assets/boat-small.svg'];
-self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS).catch(()=>{}))); });
-self.addEventListener('fetch', e => { e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))); });
+const CACHE = 'brn-connect-v6';
+const CORE = [
+  './', './index.html', './styles.css', './app.js', './data.js', './manifest.webmanifest',
+  './assets/master-scene.png', './assets/mascot_hero.png', './assets/bc-logo.png', './assets/favicon.png',
+  './assets/mascot_chang.png', './assets/mascot_food.png', './assets/mascot_travel.png',
+  './assets/mascot_career.png', './assets/mascot_news.png', './assets/mascot_event.png',
+  './assets/mascot_product.png', './assets/mascot_chat.png', './assets/mascot_service.png',
+  './assets/categories/01.png', './assets/categories/02.png', './assets/categories/03.png',
+  './assets/categories/04.png', './assets/categories/05.png', './assets/categories/06.png',
+  './assets/categories/07.png', './assets/categories/08.png'
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE)
+      .then((cache) => cache.addAll(CORE))
+      .then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key))))
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) return;
+  event.respondWith(
+    caches.match(event.request).then((cached) => cached || fetch(event.request).then((response) => {
+      const copy = response.clone();
+      caches.open(CACHE).then((cache) => cache.put(event.request, copy));
+      return response;
+    }).catch(() => caches.match('./index.html')))
+  );
+});
