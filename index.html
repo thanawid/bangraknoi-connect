@@ -109,8 +109,8 @@
     /* ── BC MASCOT ── */
     #bcMascot {
       position: fixed;
-      left: 57%; bottom: 15.5%; right: auto;
-      height: 96px; z-index: 6;
+      left: 50.5%; bottom: 22.5%; right: auto;
+      height: 102px; z-index: 6;
       pointer-events: none;
       filter: drop-shadow(0 7px 16px rgba(0,0,0,0.38));
       animation: mascotStand 4s ease-in-out infinite;
@@ -124,7 +124,7 @@
     /* ── FLOATING JOIN CTA ใกล้น้ำพุ/มาสคอต ── */
     #floatingJoin {
       position: fixed;
-      left: calc(57% + 42px); bottom: calc(15.5% + 102px);
+      left: calc(50.5% + 42px); bottom: calc(22.5% + 108px);
       z-index: 9;
       border: none;
       border-radius: 999px;
@@ -154,7 +154,7 @@
     /* ── SPEECH BUBBLE ── */
     #speech {
       position: fixed;
-      left: calc(57% + 10px); bottom: calc(15.5% + 88px);
+      left: calc(50.5% + 8px); bottom: calc(22.5% + 92px);
       background: white;
       border-radius: 14px 14px 14px 4px;
       padding: 9px 13px;
@@ -173,11 +173,20 @@
       display: flex; align-items: center; padding: 0 16px; gap: 10px;
       background: linear-gradient(180deg, rgba(30,0,70,0.75) 0%, transparent 100%);
     }
-    #logoArea { display: flex; align-items: center; gap: 9px; flex: 1; }
-    #logoArea img { height: 36px; border-radius: 8px; }
-    #logoArea span { font-size: 15px; font-weight: 900; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.6); letter-spacing: -0.02em; }
+    #logoArea {
+      display: flex; align-items: center; gap: 9px; flex: 0 0 auto;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.75);
+      border-radius: 999px;
+      padding: 6px 12px 6px 7px;
+      box-shadow: 0 8px 24px rgba(15,23,42,0.18);
+      backdrop-filter: blur(10px);
+    }
+    #logoArea img { height: 36px; border-radius: 9px; }
+    #logoArea span { font-size: 15px; font-weight: 900; color: #3b167e; text-shadow: none; letter-spacing: -0.02em; }
 
     #timeBadge {
+      margin-left: auto;
       background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
       padding: 4px 13px; color: white; font-size: 12px; font-weight: 600;
@@ -411,9 +420,9 @@
       #logoArea span { font-size: 13px; }
       #timeBadge { display: none; }
       #joinBtn { padding: 7px 13px; font-size: 12px; }
-      #bcMascot { height: 78px; left: 62%; bottom: 18%; }
-      #speech { left: calc(62% - 60px); bottom: calc(18% + 82px); font-size: 11px; max-width: 180px; }
-      #floatingJoin { left: auto; right: 16px; bottom: calc(18% + 88px); font-size: 11px; padding: 7px 12px; }
+      #bcMascot { height: 82px; left: 51%; bottom: 25%; }
+      #speech { display: none; }
+      #floatingJoin { left: 58%; right: auto; bottom: calc(25% + 90px); font-size: 11px; padding: 7px 12px; }
       .pin-bubble { font-size: 11px; padding: 5px 10px; }
       #navScroll { justify-content: flex-start; }
       .nav-btn { min-width: 82px; min-height: 72px; padding: 9px 10px; }
@@ -437,11 +446,11 @@
     <div class="pin-bubble"><span class="pin-icon">📷</span>ท่องเที่ยว</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:36%;bottom:55%;" data-id="learn" data-delay="100">
+  <div class="pin" style="left:36%;bottom:54%;" data-id="learn" data-delay="100">
     <div class="pin-bubble"><span class="pin-icon">🎓</span>ฝึกอาชีพ</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:57%;bottom:52%;" data-id="market" data-delay="180">
+  <div class="pin" style="left:57%;bottom:51%;" data-id="market" data-delay="180">
     <div class="pin-bubble"><span class="pin-icon">🛍</span>สินค้า/บริการ</div>
     <div class="pin-tail"></div>
   </div>
@@ -457,8 +466,8 @@
     <div class="pin-bubble"><span class="pin-icon">🚤</span>ท่องเที่ยวริมคลอง</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:63%;bottom:74%;" data-id="chat" data-delay="200">
-    <div class="pin-bubble"><span class="pin-icon">💬</span>พูดคุย</div>
+  <div class="pin" style="left:50.5%;bottom:39%;" data-id="chat" data-delay="200">
+    <div class="pin-bubble"><span class="pin-icon">💬</span>พูดคุย/แลกเปลี่ยน</div>
     <div class="pin-tail"></div>
   </div>
 </div>
@@ -566,7 +575,7 @@
     </div>
     <div id="registerError" class="register-error" hidden></div>
     <button class="reg-submit-btn" id="regSubmitBtn" type="button"><span id="regBtnLabel">📨 ส่งข้อมูลสมัคร</span></button>
-    <small class="dialog-note">ส่งข้อมูลแล้ว ระบบจะตรวจสอบก่อนเผยแพร่</small>
+    <small class="dialog-note">ส่งข้อมูลเข้าระบบ Google Sheet แล้ว ผู้ดูแลจะตรวจสอบก่อนเผยแพร่</small>
   </div>
   <div id="registerStep2" hidden class="register-success">
     <div class="success-icon">✅</div>
@@ -672,7 +681,15 @@ const ICONS={craft:'⚒',food:'🍜',travel:'📷',learn:'🎓',market:'🛍',se
 
 function buildDrawerItem(item){
   const a=document.createElement('a'); a.className='drawer-item'+(item.primary?' drawer-item-primary':'');
-  a.href=item.href; if(item.href?.startsWith('http')){a.target='_blank';a.rel='noopener noreferrer';}
+  a.href=item.href || '#';
+  if(item.href?.startsWith('http')){a.target='_blank';a.rel='noopener noreferrer';}
+  if(item.href==='#'){
+    a.addEventListener('click',(e)=>{
+      e.preventDefault();
+      if(item.action==='สมัคร') openRegisterDialog();
+      else showToast(item.detail || 'โปรดตรวจสอบข้อมูลก่อนติดต่อทุกครั้ง');
+    });
+  }
   a.innerHTML=`<span>${item.icon}</span><div><b>${item.title}</b><small>${item.detail}</small></div><i>${item.action} ›</i>`;
   return a;
 }
@@ -714,7 +731,10 @@ const toast=document.getElementById('toast');
 function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),2500); }
 
 // ── REGISTER ──────────────────────────────────────────────────────────────────
-const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzv5WMeM5cSxl7Ot6QCjbqkxGaxPMAfsvc6lDj2rQe4UYKIjwnZMxa-Sxq6VtN9b51Q/exec';
+// Google Sheet connector
+// วิธีใช้งาน: สร้าง Google Apps Script จากไฟล์ google-sheet-apps-script.gs แล้วนำ Web App URL มาใส่แทนข้อความด้านล่าง
+const APPS_SCRIPT_URL='PUT_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+function hasGoogleSheetUrl(){ return /^https:\/\/script\.google\.com\/macros\/s\//.test(APPS_SCRIPT_URL); }
 function openRegisterDialog(){ const d=document.getElementById('memberDialog'); if(d.showModal) d.showModal(); else d.setAttribute('open',''); }
 document.getElementById('joinBtn').addEventListener('click',openRegisterDialog);
 document.getElementById('floatingJoin').addEventListener('click',openRegisterDialog);
@@ -740,13 +760,29 @@ document.getElementById('regSubmitBtn').addEventListener('click',async()=>{
   errEl.hidden=true;
   const btn=document.getElementById('regSubmitBtn'); const lbl=document.getElementById('regBtnLabel');
   btn.disabled=true; lbl.textContent='⏳ กำลังส่ง...';
+  if(!hasGoogleSheetUrl()){
+    showErr('⚠️ ยังไม่ได้ตั้งค่า Google Sheet: โปรดนำ Web App URL จาก Google Apps Script มาใส่ในไฟล์ index.html ก่อนใช้งานจริง');
+    btn.disabled=false; lbl.textContent='📨 ส่งข้อมูลสมัคร';
+    return;
+  }
+  const payload={
+    name,
+    category,
+    phone,
+    line:document.getElementById('reg-contact')?.value.trim(),
+    contact:document.getElementById('reg-social')?.value.trim(),
+    area,
+    desc:document.getElementById('reg-desc')?.value.trim(),
+    consent:'ยอมรับข้อตกลง',
+    source:'Bangraknoi Connect Web',
+    timestamp:new Date().toLocaleString('th-TH',{timeZone:'Asia/Bangkok'})
+  };
   try{
-    const res=await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,category,phone,line:document.getElementById('reg-contact')?.value.trim(),contact:document.getElementById('reg-social')?.value.trim(),area,desc:document.getElementById('reg-desc')?.value.trim(),timestamp:new Date().toLocaleString('th-TH',{timeZone:'Asia/Bangkok'})})});
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
     document.getElementById('successName').textContent=`"${name}" — ${category}`;
     document.getElementById('registerStep1').hidden=true;
     document.getElementById('registerStep2').hidden=false;
-  }catch(err){ showErr('❌ ส่งไม่สำเร็จ กรุณาลองใหม่ หรือติดต่อผู้ดูแลระบบ'); btn.disabled=false; lbl.textContent='📨 ส่งข้อมูลสมัคร'; }
+  }catch(err){ showErr('❌ ส่งไม่สำเร็จ กรุณาตรวจสอบ Web App URL / สิทธิ์ Apps Script แล้วลองใหม่'); btn.disabled=false; lbl.textContent='📨 ส่งข้อมูลสมัคร'; }
 });
 
 // ── WELCOME ───────────────────────────────────────────────────────────────────
