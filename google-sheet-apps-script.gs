@@ -1,21 +1,23 @@
 /**
  * Bangraknoi Connect — Google Sheet Receiver
- * ใช้กับฟอร์มสมัครในหน้าเว็บ GitHub Pages
- * วิธีใช้แบบง่าย:
- * 1) เปิด Google Sheet ใหม่
- * 2) Extensions > Apps Script
- * 3) วางโค้ดนี้ แล้วกด Save
- * 4) Deploy > New deployment > Web app
+ * Sheet ID ที่เชื่อมไว้แล้ว:
+ * 1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM
+ *
+ * วิธีใช้แบบสั้น:
+ * 1) เปิด script.google.com หรือเปิดจาก Google Sheet > Extensions > Apps Script
+ * 2) วางโค้ดนี้ แล้วกด Save
+ * 3) Deploy > New deployment > Web app
  *    Execute as: Me
  *    Who has access: Anyone
- * 5) Copy Web App URL ไปใส่ในไฟล์ index.html แทน PUT_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE
+ * 4) Copy Web App URL ไปใส่ในไฟล์ index.html แทน PUT_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE
  */
 
+const SPREADSHEET_ID = '1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM';
 const SHEET_NAME = 'สมัครเข้าร่วม';
 
 function doPost(e) {
   try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     const sheet = getOrCreateSheet_(ss);
     const data = JSON.parse(e.postData && e.postData.contents ? e.postData.contents : '{}');
 

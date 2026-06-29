@@ -732,7 +732,8 @@ function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); set
 
 // ── REGISTER ──────────────────────────────────────────────────────────────────
 // Google Sheet connector
-// วิธีใช้งาน: สร้าง Google Apps Script จากไฟล์ google-sheet-apps-script.gs แล้วนำ Web App URL มาใส่แทนข้อความด้านล่าง
+// Google Sheet ID: 1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM
+// วิธีใช้งาน: Deploy Google Apps Script จากไฟล์ google-sheet-apps-script.gs แล้วนำ Web App URL มาใส่แทนข้อความด้านล่าง
 const APPS_SCRIPT_URL='PUT_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
 function hasGoogleSheetUrl(){ return /^https:\/\/script\.google\.com\/macros\/s\//.test(APPS_SCRIPT_URL); }
 function openRegisterDialog(){ const d=document.getElementById('memberDialog'); if(d.showModal) d.showModal(); else d.setAttribute('open',''); }
