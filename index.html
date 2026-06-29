@@ -109,30 +109,61 @@
     /* ── BC MASCOT ── */
     #bcMascot {
       position: fixed;
-      bottom: 13%; right: 4%;
-      height: 110px; z-index: 6;
+      left: 57%; bottom: 15.5%; right: auto;
+      height: 96px; z-index: 6;
       pointer-events: none;
-      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.5));
-      animation: mascotFloat 3.5s ease-in-out infinite;
+      filter: drop-shadow(0 7px 16px rgba(0,0,0,0.38));
+      animation: mascotStand 4s ease-in-out infinite;
+      transform-origin: 50% 100%;
     }
-    @keyframes mascotFloat {
-      0%,100% { transform: translateY(0) rotate(-1deg); }
-      50%      { transform: translateY(-8px) rotate(1deg); }
+    @keyframes mascotStand {
+      0%,100% { transform: translateX(-50%) translateY(0) rotate(-0.5deg); }
+      50%      { transform: translateX(-50%) translateY(-4px) rotate(0.5deg); }
+    }
+
+    /* ── FLOATING JOIN CTA ใกล้น้ำพุ/มาสคอต ── */
+    #floatingJoin {
+      position: fixed;
+      left: calc(57% + 42px); bottom: calc(15.5% + 102px);
+      z-index: 9;
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, #f59e0b, #7c3aed);
+      box-shadow: 0 9px 24px rgba(76,29,149,0.34);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #floatingJoin:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(76,29,149,0.42); }
+    #floatingJoin::after {
+      content: "";
+      position: absolute;
+      left: 22px; bottom: -6px;
+      width: 12px; height: 12px;
+      background: #7c3aed;
+      transform: rotate(45deg);
+      border-radius: 2px;
+      z-index: -1;
     }
 
     /* ── SPEECH BUBBLE ── */
     #speech {
       position: fixed;
-      bottom: calc(13% + 118px); right: calc(4% + 20px);
+      left: calc(57% + 10px); bottom: calc(15.5% + 88px);
       background: white;
-      border-radius: 14px 14px 4px 14px;
-      padding: 10px 15px;
-      font-size: 13px; font-weight: 700; color: #4c1d95;
+      border-radius: 14px 14px 14px 4px;
+      padding: 9px 13px;
+      font-size: 12px; font-weight: 800; color: #4c1d95;
       white-space: nowrap; z-index: 7; pointer-events: none;
       box-shadow: 0 4px 20px rgba(91,33,182,0.22);
       border: 2px solid #ede9fe;
       opacity: 0; transition: opacity 0.35s;
-      max-width: 220px; white-space: normal; text-align: center;
+      max-width: 210px; white-space: normal; text-align: center;
     }
     #speech.show { opacity: 1; }
 
@@ -166,30 +197,34 @@
     /* ── BOTTOM NAV ── */
     #bottomNav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
-      padding: 8px 12px 16px;
-      background: linear-gradient(0deg, rgba(10,0,30,0.7) 0%, transparent 100%);
+      padding: 10px 12px max(18px, env(safe-area-inset-bottom));
+      background: linear-gradient(0deg, rgba(10,0,30,0.56) 0%, rgba(10,0,30,0.18) 55%, transparent 100%);
+      pointer-events: none;
     }
     #navScroll {
-      display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none;
+      display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
       justify-content: center;
+      pointer-events: auto;
     }
     #navScroll::-webkit-scrollbar { display: none; }
 
     .nav-btn {
       flex: 0 0 auto;
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
-      background: rgba(255,255,255,0.12); backdrop-filter: blur(12px);
-      border: 1.5px solid rgba(255,255,255,0.2); border-radius: 13px;
-      padding: 7px 10px; cursor: pointer; color: white; min-width: 60px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.65); border-radius: 18px;
+      padding: 10px 13px; cursor: pointer; color: #2d1d6e; min-width: 86px; min-height: 78px;
       transition: all 0.2s;
+      box-shadow: 0 8px 22px rgba(15,23,42,0.18);
     }
     .nav-btn:hover, .nav-btn.active {
-      background: rgba(124,58,237,0.45);
-      border-color: rgba(167,139,250,0.6);
-      transform: translateY(-2px);
+      background: rgba(255,255,255,0.98);
+      border-color: rgba(124,58,237,0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(91,33,182,0.24);
     }
-    .nav-btn .nb-icon { font-size: 20px; line-height: 1; }
-    .nav-btn .nb-label { font-size: 10px; font-weight: 700; white-space: nowrap; }
+    .nav-btn .nb-icon { font-size: 28px; line-height: 1; }
+    .nav-btn .nb-label { font-size: 12px; line-height: 1.22; font-weight: 900; white-space: normal; text-align:center; max-width: 72px; }
 
     /* ── BACKDROP ── */
     #backdrop {
@@ -284,7 +319,7 @@
     .drawer-source { font-size: 11px; color: #aaa; padding: 0 16px 16px; }
 
     /* ── MEMBER DIALOG ── */
-    .member-dialog { border: none; border-radius: 20px; padding: 28px 24px; max-width: 500px; width: 92vw; box-shadow: 0 24px 80px rgba(91,33,182,0.3); }
+    .member-dialog { border: none; border-radius: 20px; padding: 24px 22px; max-width: 520px; width: 92vw; max-height: 92vh; overflow-y: auto; box-shadow: 0 24px 80px rgba(91,33,182,0.3); }
     .member-dialog::backdrop { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
     .dialog-close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border: none; background: #f3f0fa; border-radius: 50%; cursor: pointer; font-size: 20px; color: #555; display: flex; align-items: center; justify-content: center; }
     .member-dialog img { display: block; width: 56px; height: 56px; margin: 0 auto 8px; }
@@ -298,7 +333,7 @@
     .req { color: #e53e3e; }
     .legal-box { border: 1px solid #e2d9f3; border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
     .legal-title { background: #f5f0fe; padding: 10px 14px; font-size: 12px; font-weight: 700; color: var(--purple); }
-    .legal-scroll { max-height: 150px; overflow-y: auto; padding: 12px 14px; font-size: 11px; color: #555; line-height: 1.6; }
+    .legal-scroll { max-height: 116px; overflow-y: auto; padding: 12px 14px; font-size: 11px; color: #555; line-height: 1.65; }
     .legal-scroll p { margin-bottom: 10px; }
     .consent-check { display: flex; align-items: flex-start; gap: 9px; padding: 10px 14px; background: #fafafa; font-size: 12px; color: #333; cursor: pointer; }
     .consent-check input { flex-shrink: 0; margin-top: 2px; width: 16px; height: 16px; accent-color: var(--purple); }
@@ -345,11 +380,46 @@
     .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); z-index: 99; background: #1e1b4b; color: white; padding: 10px 20px; border-radius: 22px; font-size: 13px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.3s; white-space: nowrap; }
     .toast.show { opacity: 1; }
 
+    #siteFooter {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 10;
+      pointer-events: none;
+      padding: 0 16px calc(104px + env(safe-area-inset-bottom));
+    }
+    #footerContent {
+      width: min(960px, 96vw);
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 7px 12px;
+      border-radius: 16px;
+      background: rgba(15,23,42,0.34);
+      color: rgba(255,255,255,0.88);
+      border: 1px solid rgba(255,255,255,0.16);
+      backdrop-filter: blur(10px);
+      font-size: 10px;
+    }
+    #footerLogo { display:flex; align-items:center; gap:8px; min-width: 0; }
+    #footerLogo img { width: 26px; height: 26px; border-radius: 7px; flex: 0 0 auto; }
+    #footerLogo b { display:block; font-size:11px; color:white; line-height:1.1; }
+    #footerLogo small { display:block; font-size:9px; color:rgba(255,255,255,0.72); }
+    #footerMeta { display:flex; gap:10px; align-items:center; justify-content:flex-end; flex-wrap:wrap; text-align:right; }
+    #footerMeta a { color:white; text-decoration: none; font-weight: 800; }
+
     @media (max-width: 480px) {
-      #bcMascot { height: 80px; right: 2%; }
-      #speech { right: calc(2% + 14px); font-size: 12px; }
+      #topBar { height: 60px; padding: 0 12px; }
+      #logoArea span { font-size: 13px; }
+      #timeBadge { display: none; }
+      #joinBtn { padding: 7px 13px; font-size: 12px; }
+      #bcMascot { height: 78px; left: 62%; bottom: 18%; }
+      #speech { left: calc(62% - 60px); bottom: calc(18% + 82px); font-size: 11px; max-width: 180px; }
+      #floatingJoin { left: auto; right: 16px; bottom: calc(18% + 88px); font-size: 11px; padding: 7px 12px; }
       .pin-bubble { font-size: 11px; padding: 5px 10px; }
-      .nav-btn { min-width: 52px; }
+      #navScroll { justify-content: flex-start; }
+      .nav-btn { min-width: 82px; min-height: 72px; padding: 9px 10px; }
+      .nav-btn .nb-icon { font-size: 25px; }
+      .nav-btn .nb-label { font-size: 11px; max-width: 68px; }
+      #siteFooter { display:none; }
     }
   </style>
 </head>
@@ -363,16 +433,16 @@
 
 <!-- MAP PINS -->
 <div id="pins">
-  <div class="pin" style="left:13%;bottom:50%;" data-id="temple">
-    <div class="pin-bubble"><span class="pin-icon">🛕</span>วัดบางรักน้อย</div>
+  <div class="pin" style="left:13%;bottom:50%;" data-id="travel">
+    <div class="pin-bubble"><span class="pin-icon">📷</span>ท่องเที่ยว</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:36%;bottom:55%;" data-id="municipality" data-delay="100">
-    <div class="pin-bubble"><span class="pin-icon">🏛</span>เทศบาล</div>
+  <div class="pin" style="left:36%;bottom:55%;" data-id="learn" data-delay="100">
+    <div class="pin-bubble"><span class="pin-icon">🎓</span>ฝึกอาชีพ</div>
     <div class="pin-tail"></div>
   </div>
   <div class="pin" style="left:57%;bottom:52%;" data-id="market" data-delay="180">
-    <div class="pin-bubble"><span class="pin-icon">🛒</span>ตลาด</div>
+    <div class="pin-bubble"><span class="pin-icon">🛍</span>สินค้า/บริการ</div>
     <div class="pin-tail"></div>
   </div>
   <div class="pin" style="left:72%;bottom:48%;" data-id="food" data-delay="250">
@@ -384,11 +454,11 @@
     <div class="pin-tail"></div>
   </div>
   <div class="pin" style="left:28%;bottom:32%;" data-id="travel" data-delay="150">
-    <div class="pin-bubble"><span class="pin-icon">🚤</span>คลอง</div>
+    <div class="pin-bubble"><span class="pin-icon">🚤</span>ท่องเที่ยวริมคลอง</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:63%;bottom:74%;" data-id="service" data-delay="200">
-    <div class="pin-bubble"><span class="pin-icon">🚇</span>รถไฟฟ้า MRT</div>
+  <div class="pin" style="left:63%;bottom:74%;" data-id="chat" data-delay="200">
+    <div class="pin-bubble"><span class="pin-icon">💬</span>พูดคุย</div>
     <div class="pin-tail"></div>
   </div>
 </div>
@@ -397,6 +467,7 @@
 <div id="speech"></div>
 <img id="bcMascot" src="assets/bc-mascot.webp" alt="BC"
      onerror="this.src='assets/bc-mascot.webp'">
+<button id="floatingJoin" type="button">สมัครเข้าร่วม</button>
 
 <!-- Top Bar -->
 <div id="topBar">
@@ -405,7 +476,7 @@
     <span>บางรักน้อย Connect</span>
   </div>
   <div id="timeBadge">☀️ 08:00</div>
-  <button id="joinBtn">+ สมัคร</button>
+  <button id="joinBtn">สมัครเข้าร่วม</button>
 </div>
 
 <!-- Bottom Nav -->
@@ -415,9 +486,8 @@
     <button class="nav-btn" data-id="food"><span class="nb-icon">🍜</span><span class="nb-label">ร้านอาหาร</span></button>
     <button class="nav-btn" data-id="travel"><span class="nb-icon">📷</span><span class="nb-label">ท่องเที่ยว</span></button>
     <button class="nav-btn" data-id="learn"><span class="nb-icon">🎓</span><span class="nb-label">ฝึกอาชีพ</span></button>
-    <button class="nav-btn" data-id="market"><span class="nb-icon">🛍</span><span class="nb-label">สินค้า</span></button>
-    <button class="nav-btn" data-id="service"><span class="nb-icon">🏛</span><span class="nb-label">บริการ</span></button>
-    <button class="nav-btn" data-id="chat"><span class="nb-icon">💬</span><span class="nb-label">ติดต่อ</span></button>
+    <button class="nav-btn" data-id="market"><span class="nb-icon">🛍</span><span class="nb-label">สินค้า/บริการ</span></button>
+    <button class="nav-btn" data-id="chat"><span class="nb-icon">💬</span><span class="nb-label">พูดคุย/แลกเปลี่ยน</span></button>
   </div>
 </div>
 
@@ -460,13 +530,13 @@
   <button class="dialog-close" id="dialogClose" type="button">×</button>
   <img src="assets/bc-logo.webp" alt="" width="60" height="60">
   <span>บางรักน้อย Connect</span>
-  <h2>สมัครเข้าร่วมระบบ</h2>
-  <p style="text-align:center;font-size:10px;color:#aaa;margin:-6px 0 10px;">บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย</p>
-  <p class="dialog-sub">กรอกข้อมูลเพื่อลงทะเบียนเข้าระบบ<br><small style="color:#aaa;font-size:11px;">ข้อมูลจะถูกตรวจสอบโดยเจ้าหน้าที่เทศบาลก่อนเผยแพร่</small></p>
+  <h2>สมัครเข้าร่วมชุมชน</h2>
+  <p style="text-align:center;font-size:10px;color:#aaa;margin:-6px 0 10px;">พื้นที่สื่อกลางของบางรักน้อย</p>
+  <p class="dialog-sub">กรอกข้อมูลสั้น ๆ เพื่อให้ผู้ดูแลตรวจสอบก่อนเผยแพร่<br><small style="color:#aaa;font-size:11px;">ระบบนี้เป็นสื่อกลาง ไม่ใช่ผู้ขายหรือนายหน้า</small></p>
   <div id="registerStep1">
     <div class="form-field"><label>ชื่อร้าน / ช่าง / กลุ่มอาชีพ <span class="req">*</span></label><input type="text" id="reg-name" placeholder="เช่น ร้านก๋วยเตี๋ยวน้าติ่ง / ช่างสมชาย" maxlength="80"></div>
     <div class="form-field"><label>ประเภทบริการ <span class="req">*</span></label>
-      <select id="reg-category"><option value="">-- เลือกหมวดหมู่ --</option><option value="บ้านช่าง">🔧 บ้านช่าง</option><option value="ร้านอาหาร">🍜 ร้านอาหาร / คาเฟ่</option><option value="สินค้าและตลาด">🛍️ สินค้า / ตลาด</option><option value="ฝึกอาชีพ">🎓 ฝึกอาชีพ</option><option value="ท่องเที่ยว">📷 ท่องเที่ยว</option><option value="บริการชุมชน">🏛️ บริการชุมชน</option></select>
+      <select id="reg-category"><option value="">-- เลือกหมวดหมู่ --</option><option value="หาช่าง">🔧 หาช่าง</option><option value="ร้านอาหาร">🍜 ร้านอาหาร</option><option value="ท่องเที่ยว">📷 ท่องเที่ยว</option><option value="ฝึกอาชีพ">🎓 ฝึกอาชีพ</option><option value="สินค้า/บริการ">🛍️ สินค้า/บริการ</option><option value="พูดคุย/แลกเปลี่ยน">💬 พูดคุย/แลกเปลี่ยน</option></select>
     </div>
     <div class="form-field"><label>เบอร์โทร <span class="req">*</span></label><input type="tel" id="reg-phone" placeholder="0XX-XXX-XXXX" maxlength="20"></div>
     <div class="form-field"><label>LINE ID</label><input type="text" id="reg-contact" placeholder="@lineID" maxlength="80"></div>
@@ -476,34 +546,32 @@
     <div class="legal-box">
       <div class="legal-title">📋 ข้อตกลงและเงื่อนไขการเข้าร่วมระบบ บางรักน้อย Connect</div>
       <div class="legal-scroll">
-        <p><strong>1. บทบาทของเทศบาล</strong><br>
-        เทศบาลเมืองบางรักน้อยทำหน้าที่เป็น "ผู้จัดระบบข้อมูล" เท่านั้น ไม่ใช่คู่สัญญา ตัวแทน หรือผู้รับประกันคุณภาพบริการของผู้สมัครแต่อย่างใด การติดต่อซื้อขาย ว่าจ้าง หรือทำธุรกรรมใด ๆ เป็นเรื่องระหว่างประชาชนกับผู้ให้บริการโดยตรง ข้อมูลในระบบผ่านการ "ตรวจสอบเบื้องต้น" จากเทศบาลเท่านั้น ไม่ใช่การรับประกันคุณภาพ</p>
-        <p><strong>2. การยินยอมเผยแพร่ข้อมูล (PDPA)</strong><br>
-        ผู้สมัครยินยอมให้เทศบาลเมืองบางรักน้อยจัดเก็บและเผยแพร่ข้อมูลที่ให้ไว้ ได้แก่ ชื่อ ประเภทบริการ เบอร์ติดต่อ LINE Facebook ที่อยู่/ชุมชน และรายละเอียดบริการ บนระบบบางรักน้อย Connect และช่องทางสื่อสารของเทศบาล โดยมีวัตถุประสงค์เพื่อประชาสัมพันธ์บริการแก่ประชาชนในพื้นที่</p>
-        <p><strong>3. สิทธิ์ของผู้สมัคร</strong><br>
-        ผู้สมัครมีสิทธิ์ขอแก้ไข อัปเดต หรือถอนข้อมูลออกจากระบบได้ตลอดเวลา โดยติดต่องานประชาสัมพันธ์เทศบาล โทร 02-193-4512-3 หรืออีเมล contact@brn.go.th</p>
-        <p><strong>4. ความถูกต้องของข้อมูล</strong><br>
-        ผู้สมัครรับรองว่าข้อมูลที่กรอกเป็นความจริงทุกประการ หากพบว่าข้อมูลเป็นเท็จหรือก่อให้เกิดความเสียหายต่อผู้อื่น เทศบาลมีสิทธิ์ระงับหรือถอดข้อมูลออกจากระบบทันทีโดยไม่ต้องแจ้งล่วงหน้า</p>
-        <p><strong>5. ข้อจำกัดความรับผิด</strong><br>
-        เทศบาลไม่รับผิดชอบต่อความเสียหายใด ๆ ที่เกิดจากการใช้บริการของผู้ประกอบการในระบบ ไม่ว่ากรณีใดทั้งสิ้น ผู้ใช้บริการควรตรวจสอบข้อมูล ราคา และเงื่อนไขกับผู้ให้บริการโดยตรงก่อนทำธุรกรรมทุกครั้ง</p>
-        <p><strong>6. ลิขสิทธิ์</strong><br>
-        ข้อมูล รูปภาพ และเนื้อหาทั้งหมดในระบบบางรักน้อย Connect เป็นลิขสิทธิ์ของเทศบาลเมืองบางรักน้อย © 2568 ห้ามนำไปเผยแพร่ ทำซ้ำ หรือใช้เพื่อการค้าโดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร</p>
-        <p><strong>7. การปรับปรุงข้อตกลง</strong><br>
-        เทศบาลสงวนสิทธิ์ปรับปรุงข้อตกลงนี้ได้โดยแจ้งผ่านช่องทางหลักของโครงการ การใช้งานระบบต่อไปถือว่ายอมรับข้อตกลงที่ปรับปรุงแล้ว</p>
+        <p><strong>1. บทบาทของระบบ</strong><br>
+        บางรักน้อย Connect เป็นพื้นที่สื่อกลางสำหรับรวบรวมและเผยแพร่ข้อมูลเท่านั้น ไม่ใช่ผู้ขาย ผู้ว่าจ้าง นายหน้า หรือผู้รับประกันคุณภาพบริการ</p>
+        <p><strong>2. การติดต่อซื้อขาย</strong><br>
+        การสอบถาม ราคา นัดหมาย ซื้อขาย ว่าจ้าง หรือข้อตกลงใด ๆ เป็นเรื่องระหว่างผู้ใช้กับผู้ให้บริการโดยตรง ผู้ใช้ควรตรวจสอบข้อมูล เงื่อนไข ราคา และความเหมาะสมก่อนตัดสินใจทุกครั้ง</p>
+        <p><strong>3. ข้อมูลของผู้สมัคร</strong><br>
+        ผู้สมัครยืนยันว่าข้อมูลที่ส่งเป็นความจริง และยินยอมให้เผยแพร่ข้อมูลที่จำเป็น เช่น ชื่อร้าน/บริการ ประเภท เบอร์ติดต่อ ช่องทางออนไลน์ พื้นที่ และรายละเอียดบริการ เพื่อให้คนในชุมชนค้นหาและติดต่อได้</p>
+        <p><strong>4. การตรวจสอบและถอดข้อมูล</strong><br>
+        ผู้ดูแลระบบมีสิทธิ์ตรวจสอบ แก้ไข ซ่อน ระงับ หรือถอดข้อมูลที่ไม่เหมาะสม ผิดกฎหมาย หลอกลวง ละเมิดสิทธิผู้อื่น หรือได้รับการร้องเรียน โดยไม่จำเป็นต้องแจ้งล่วงหน้า</p>
+        <p><strong>5. สิทธิ์ของผู้สมัคร</strong><br>
+        ผู้สมัครสามารถขอแก้ไข อัปเดต หรือถอนข้อมูลออกจากระบบได้ โดยติดต่อผู้ดูแลระบบผ่านช่องทางที่กำหนด</p>
+        <p><strong>6. ข้อจำกัดความรับผิด</strong><br>
+        ระบบและผู้ดูแลไม่รับผิดชอบต่อความเสียหายจากการติดต่อ ซื้อขาย ว่าจ้าง หรือใช้บริการภายนอก ผู้ใช้ต้องใช้วิจารณญาณและตกลงเงื่อนไขกับผู้ให้บริการโดยตรง</p>
       </div>
       <label class="consent-check">
         <input type="checkbox" id="reg-consent">
-        <span>ข้าพเจ้าได้อ่าน เข้าใจ และยินยอมตามข้อตกลงทั้งหมดข้างต้น รวมถึงยินยอมให้เทศบาลเมืองบางรักน้อยจัดเก็บและเผยแพร่ข้อมูลของข้าพเจ้าตามวัตถุประสงค์ที่ระบุไว้ <span class="req">*</span></span>
+        <span>ข้าพเจ้าได้อ่าน เข้าใจ และยอมรับข้อตกลงข้างต้น รวมถึงยินยอมให้บางรักน้อย Connect เผยแพร่ข้อมูลที่จำเป็นเพื่อเป็นสื่อกลางให้คนในพื้นที่ติดต่อกันได้ <span class="req">*</span></span>
       </label>
     </div>
     <div id="registerError" class="register-error" hidden></div>
     <button class="reg-submit-btn" id="regSubmitBtn" type="button"><span id="regBtnLabel">📨 ส่งข้อมูลสมัคร</span></button>
-    <small class="dialog-note">ข้อมูลจะถูกตรวจสอบก่อนเผยแพร่</small>
+    <small class="dialog-note">ส่งข้อมูลแล้ว ระบบจะตรวจสอบก่อนเผยแพร่</small>
   </div>
   <div id="registerStep2" hidden class="register-success">
     <div class="success-icon">✅</div>
     <h3>ส่งข้อมูลสำเร็จ!</h3>
-    <p>เจ้าหน้าที่จะตรวจสอบและติดต่อกลับภายใน 3–5 วันทำการ</p>
+    <p>ทีมงานผู้ดูแลจะตรวจสอบและติดต่อกลับภายใน 3–5 วันทำการ</p>
     <p class="success-name" id="successName"></p>
     <button class="button-outline" id="regDoneBtn">ปิด</button>
   </div>
@@ -544,16 +612,15 @@ const PIN_DATA = {
     mascot:'assets/bc-mascot.webp',
     items:[
       {icon:'📍',title:'ดูแผนที่',detail:'วัดบางรักน้อย ริมคลองอ้อมนนท์',action:'เปิดแผนที่',href:'https://maps.google.com/?q=วัดบางรักน้อย+นนทบุรี'},
-      {icon:'📅',title:'ตารางทำบุญ',detail:'วันพระ ทำบุญตักบาตร เวลา 07.00 น.',action:'ดู',href:'https://www.brn.go.th/home'},
+      {icon:'📅',title:'ค้นหาข้อมูลวัด',detail:'ดูข่าว กิจกรรม หรือข้อมูลจากแหล่งภายนอก',action:'ค้นหา',href:'https://www.google.com/search?q=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%A2'},
       {icon:'☎️',title:'ติดต่อวัด',detail:'สอบถามข้อมูลเพิ่มเติม',action:'โทร',href:'tel:025252727'},
     ]},
-  municipality: { label:'เทศบาลเมืองบางรักน้อย', icon:'🏛', desc:'ศูนย์บริการชุมชน แจ้งเรื่อง ข่าวสาร กิจกรรม และบริการสาธารณะ',
+  community: { label:'ศูนย์ข้อมูลชุมชน', icon:'📍', desc:'จุดรวมข้อมูล ข่าวสาร และช่องทางเชื่อมต่อของคนในพื้นที่',
     mascot:'assets/bc-mascot.webp',
     items:[
-      {icon:'📋',title:'แจ้งเรื่องร้องทุกข์',detail:'ไฟดับ ถนนชำรุด ขยะ น้ำท่วม',action:'แจ้งเรื่อง',href:'https://www.brn.go.th/home'},
-      {icon:'📰',title:'ข่าวเทศบาล',detail:'ประกาศและข่าวสารล่าสุด',action:'อ่านข่าว',href:'https://www.brn.go.th/news_obt.php?id=2'},
-      {icon:'☎️',title:'โทรเทศบาล',detail:'02-193-4512 ถึง 3 จ.–ศ. 08.30–16.30',action:'โทร',href:'tel:021934512'},
-      {icon:'🗺',title:'ดูแผนที่เทศบาล',detail:'72/3 หมู่ 2 ต.บางรักน้อย อ.เมือง นนทบุรี',action:'เปิดแผนที่',href:'https://maps.google.com/?q=เทศบาลเมืองบางรักน้อย'},
+      {icon:'🧭',title:'สำรวจหมวดหลัก',detail:'หาช่าง ร้านอาหาร ท่องเที่ยว ฝึกอาชีพ และสินค้า/บริการ',action:'เริ่มดู',href:'#'},
+      {icon:'📝',title:'สมัครเข้าร่วม',detail:'ส่งข้อมูลร้าน ช่าง กลุ่มอาชีพ หรือบริการของคุณ',action:'สมัคร',href:'#'},
+      {icon:'💬',title:'พูดคุยแลกเปลี่ยน',detail:'ค้นหากลุ่มและช่องทางพูดคุยของคนในพื้นที่',action:'ดูหมวด',href:'#'},
     ]},
 };
 
@@ -648,7 +715,9 @@ function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); set
 
 // ── REGISTER ──────────────────────────────────────────────────────────────────
 const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzv5WMeM5cSxl7Ot6QCjbqkxGaxPMAfsvc6lDj2rQe4UYKIjwnZMxa-Sxq6VtN9b51Q/exec';
-document.getElementById('joinBtn').addEventListener('click',()=>{ const d=document.getElementById('memberDialog'); if(d.showModal) d.showModal(); else d.setAttribute('open',''); });
+function openRegisterDialog(){ const d=document.getElementById('memberDialog'); if(d.showModal) d.showModal(); else d.setAttribute('open',''); }
+document.getElementById('joinBtn').addEventListener('click',openRegisterDialog);
+document.getElementById('floatingJoin').addEventListener('click',openRegisterDialog);
 function closeRegDialog(){
   const d=document.getElementById('memberDialog'); if(d.close) d.close(); else d.removeAttribute('open');
   setTimeout(()=>{ document.getElementById('registerStep1').hidden=false; document.getElementById('registerStep2').hidden=true; ['reg-name','reg-phone','reg-contact','reg-social','reg-area','reg-desc'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';}); const c=document.getElementById('reg-category');if(c)c.value=''; const cb=document.getElementById('reg-consent');if(cb)cb.checked=false; const err=document.getElementById('registerError');if(err){err.hidden=true;err.textContent='';} const lbl=document.getElementById('regBtnLabel');if(lbl)lbl.textContent='📨 ส่งข้อมูลสมัคร'; const btn=document.getElementById('regSubmitBtn');if(btn)btn.disabled=false; },300);
@@ -677,17 +746,17 @@ document.getElementById('regSubmitBtn').addEventListener('click',async()=>{
     document.getElementById('successName').textContent=`"${name}" — ${category}`;
     document.getElementById('registerStep1').hidden=true;
     document.getElementById('registerStep2').hidden=false;
-  }catch(err){ showErr('❌ ส่งไม่สำเร็จ ลองใหม่หรือโทร 02-193-4512-3'); btn.disabled=false; lbl.textContent='📨 ส่งข้อมูลสมัคร'; }
+  }catch(err){ showErr('❌ ส่งไม่สำเร็จ กรุณาลองใหม่ หรือติดต่อผู้ดูแลระบบ'); btn.disabled=false; lbl.textContent='📨 ส่งข้อมูลสมัคร'; }
 });
 
 // ── WELCOME ───────────────────────────────────────────────────────────────────
-const PHRASES=['อยากหาช่าง? กดปุ่มหาช่างด้านล่างได้เลยครับ 🔧','ร้านอาหารอร่อยมีหลายร้านนะครับ 🍜','เทศบาลเปิด จันทร์–ศุกร์ 08.30–16.30 ครับ 🏛','แตะ pin บนแผนที่เพื่อดูข้อมูลสถานที่ครับ 📍','วันนี้มีอะไรให้ช่วยไหมครับ? 😊'];
+const PHRASES=['อยากหาช่าง? กดปุ่มหาช่างด้านล่างได้เลยครับ 🔧','ร้านอาหารอร่อยมีหลายร้านนะครับ 🍜','สมัครเข้าร่วมได้ที่ปุ่มใกล้น้ำพุเลยครับ ✨','แตะ pin บนแผนที่เพื่อดูข้อมูลครับ 📍','วันนี้มีอะไรให้ช่วยไหมครับ? 😊'];
 let pi=0;
 document.getElementById('wBtn').addEventListener('click',()=>{
   const w=document.getElementById('welcome');
   w.style.transition='opacity 0.45s'; w.style.opacity='0';
   setTimeout(()=>w.style.display='none',450);
-  setTimeout(()=>say('สวัสดีครับ! ยินดีต้อนรับสู่บางรักน้อย 🙏'),400);
+  setTimeout(()=>say('สวัสดีครับ! ยินดีต้อนรับสู่บางรักน้อย Connect 🙏'),400);
   setTimeout(()=>say('แตะ pin สีม่วงหรือปุ่มด้านล่างได้เลยครับ'),4200);
   setInterval(()=>{ if(!panel.classList.contains('open') && !document.getElementById('serviceDrawer').classList.contains('open')) say(PHRASES[pi++%PHRASES.length]); },11000);
 });
@@ -700,8 +769,6 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
 }
 </script>
 
-<div id="footerCopyright">© 2569 บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย</div>
-
 <!-- FOOTER -->
 <div id="siteFooter">
   <div id="footerContent">
@@ -709,13 +776,13 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
       <img src="assets/bc-logo.webp" alt="BC" onerror="this.style.display='none'">
       <div>
         <b>บางรักน้อย Connect</b>
-        <small>A Living Community</small>
+        <small>พื้นที่สื่อกลางของชุมชน</small>
       </div>
     </div>
     <div id="footerMeta">
-      <span>© 2569 เทศบาลเมืองบางรักน้อย · สงวนลิขสิทธิ์</span>
-      <span>ข้อมูลผ่านการตรวจสอบเบื้องต้น · ไม่รับประกันคุณภาพบริการ</span>
-      <span>📞 02-193-4512-3 · <a href="https://www.brn.go.th" target="_blank" rel="noopener">brn.go.th</a></span>
+      <span>© 2569 บางรักน้อย Connect</span>
+      <span>เป็นสื่อกลางเท่านั้น · ไม่ใช่ผู้ขาย/นายหน้า · โปรดตรวจสอบก่อนตกลง</span>
+      <span><a href="#" onclick="document.getElementById('joinBtn').click();return false;">สมัครเข้าร่วม</a></span>
     </div>
   </div>
 </div>
