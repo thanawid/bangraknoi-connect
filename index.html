@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#5b21b6">
-  <meta name="description" content="บางรักน้อย Connect — เมืองที่มีชีวิต">
+  <meta name="description" content="บางรักน้อย Connect — เมืองชุมชนที่มีชีวิต">
   <title>บางรักน้อย Connect</title>
   <link rel="icon" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon-180x180.png">
@@ -356,7 +356,7 @@
 <body>
 
 <!-- VIDEO BACKGROUND -->
-<video id="videoBg" autoplay loop muted playsinline poster="assets/hero_bg.png">
+<video id="videoBg" autoplay loop muted playsinline poster="assets/hero_bg.webp">
   <source src="assets/hero-bg.mp4" type="video/mp4">
 </video>
 <div id="videoOverlay"></div>
@@ -395,13 +395,13 @@
 
 <!-- BC Mascot -->
 <div id="speech"></div>
-<img id="bcMascot" src="assets/mascot_hero.png" alt="BC"
-     onerror="this.src='assets/bc-mascot.png'">
+<img id="bcMascot" src="assets/bc-mascot.webp" alt="BC"
+     onerror="this.src='assets/bc-mascot.webp'">
 
 <!-- Top Bar -->
 <div id="topBar">
   <div id="logoArea">
-    <img src="assets/bc-logo.png" alt="BC">
+    <img src="assets/bc-logo.webp" alt="BC">
     <span>บางรักน้อย Connect</span>
   </div>
   <div id="timeBadge">☀️ 08:00</div>
@@ -458,7 +458,7 @@
 <!-- Member Dialog -->
 <dialog class="member-dialog register-dialog" id="memberDialog">
   <button class="dialog-close" id="dialogClose" type="button">×</button>
-  <img src="assets/bc-logo.png" alt="" width="60" height="60">
+  <img src="assets/bc-logo.webp" alt="" width="60" height="60">
   <span>บางรักน้อย Connect</span>
   <h2>สมัครเข้าร่วมระบบ</h2>
   <p style="text-align:center;font-size:10px;color:#aaa;margin:-6px 0 10px;">บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย</p>
@@ -512,7 +512,7 @@
 <!-- Welcome -->
 <div id="welcome">
   <div id="wCard">
-    <img src="assets/mascot_hero.png" alt="BC" onerror="this.src='assets/bc-mascot.png'">
+    <img src="assets/bc-mascot.webp" alt="BC" onerror="this.src='assets/bc-mascot.webp'">
     <h1>สวัสดีครับ!</h1>
     <p>ยินดีต้อนรับสู่<br><strong>บางรักน้อย Connect</strong><br>แตะ pin บนแผนที่หรือปุ่มด้านล่างเพื่อสำรวจ</p>
     <button id="wBtn">🚶 เดินเข้าเมือง</button>
@@ -533,22 +533,22 @@ tick(); setInterval(tick,30000);
 
 // ── PIN → PANEL ──────────────────────────────────────────────────────────────
 const MASCOTS = {
-  craft:'assets/mascot_chang.png', food:'assets/mascot_food.png',
-  travel:'assets/mascot_travel.png', learn:'assets/mascot_career.png',
-  market:'assets/mascot_product.png', service:'assets/mascot_service.png',
-  chat:'assets/mascot_chat.png', temple:'assets/mascot_service.png',
-  municipality:'assets/mascot_service.png'
+  craft:'assets/bc-mascot.webp', food:'assets/bc-mascot.webp',
+  travel:'assets/bc-mascot.webp', learn:'assets/bc-mascot.webp',
+  market:'assets/bc-mascot.webp', service:'assets/bc-mascot.webp',
+  chat:'assets/bc-mascot.webp', temple:'assets/bc-mascot.webp',
+  municipality:'assets/bc-mascot.webp'
 };
 const PIN_DATA = {
   temple: { label:'วัดบางรักน้อย', icon:'🛕', desc:'วัดเก่าแก่คู่ชุมชน มีพระใหญ่ทองคำ ศูนย์รวมจิตใจของชาวบางรักน้อย',
-    mascot:'assets/mascot_service.png',
+    mascot:'assets/bc-mascot.webp',
     items:[
       {icon:'📍',title:'ดูแผนที่',detail:'วัดบางรักน้อย ริมคลองอ้อมนนท์',action:'เปิดแผนที่',href:'https://maps.google.com/?q=วัดบางรักน้อย+นนทบุรี'},
       {icon:'📅',title:'ตารางทำบุญ',detail:'วันพระ ทำบุญตักบาตร เวลา 07.00 น.',action:'ดู',href:'https://www.brn.go.th/home'},
       {icon:'☎️',title:'ติดต่อวัด',detail:'สอบถามข้อมูลเพิ่มเติม',action:'โทร',href:'tel:025252727'},
     ]},
   municipality: { label:'เทศบาลเมืองบางรักน้อย', icon:'🏛', desc:'ศูนย์บริการชุมชน แจ้งเรื่อง ข่าวสาร กิจกรรม และบริการสาธารณะ',
-    mascot:'assets/mascot_service.png',
+    mascot:'assets/bc-mascot.webp',
     items:[
       {icon:'📋',title:'แจ้งเรื่องร้องทุกข์',detail:'ไฟดับ ถนนชำรุด ขยะ น้ำท่วม',action:'แจ้งเรื่อง',href:'https://www.brn.go.th/home'},
       {icon:'📰',title:'ข่าวเทศบาล',detail:'ประกาศและข่าวสารล่าสุด',action:'อ่านข่าว',href:'https://www.brn.go.th/news_obt.php?id=2'},
@@ -693,20 +693,20 @@ document.getElementById('wBtn').addEventListener('click',()=>{
 });
 </script>
 
-<div id="footerCopyright">© 2568 บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย</div>
+<div id="footerCopyright">© 2569 บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย</div>
 
 <!-- FOOTER -->
 <div id="siteFooter">
   <div id="footerContent">
     <div id="footerLogo">
-      <img src="assets/bc-logo.png" alt="BC" onerror="this.style.display='none'">
+      <img src="assets/bc-logo.webp" alt="BC" onerror="this.style.display='none'">
       <div>
         <b>บางรักน้อย Connect</b>
         <small>A Living Community</small>
       </div>
     </div>
     <div id="footerMeta">
-      <span>© 2568 เทศบาลเมืองบางรักน้อย · สงวนลิขสิทธิ์</span>
+      <span>© 2569 เทศบาลเมืองบางรักน้อย · สงวนลิขสิทธิ์</span>
       <span>ข้อมูลผ่านการตรวจสอบเบื้องต้น · ไม่รับประกันคุณภาพบริการ</span>
       <span>📞 02-193-4512-3 · <a href="https://www.brn.go.th" target="_blank" rel="noopener">brn.go.th</a></span>
     </div>

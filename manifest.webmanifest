@@ -8,8 +8,19 @@
   "display": "standalone",
   "orientation": "any",
   "background_color": "#ffffff",
-  "theme_color": "#6f2dbd",
+  "theme_color": "#5b21b6",
   "icons": [
-    { "src": "assets/bc-logo.png", "sizes": "1200x1200", "type": "image/png", "purpose": "any" }
+    {
+      "src": "assets/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }

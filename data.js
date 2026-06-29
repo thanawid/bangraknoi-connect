@@ -13,7 +13,7 @@ const maps = (query) => `https://www.google.com/maps/search/?api=1&query=${encod
 
 export const ZONES = [
   {
-    id: 'craft', label: 'บ้านช่าง', short: 'หาช่าง', icon: '⚒', image: 'assets/categories/01.png',
+    id: 'craft', label: 'บ้านช่าง', short: 'หาช่าง', icon: '⚒', image: 'assets/cat-01.webp',
     description: 'ช่างทุกประเภท ค้นหาใกล้บ้านผ่านแผนที่ได้ทันที', source: 'โปรดตรวจสอบรีวิว ราคา และขอบเขตงานกับผู้ให้บริการก่อนตกลง',
     groups: [
       {
@@ -86,7 +86,7 @@ export const ZONES = [
     }
   },
   {
-    id: 'food', label: 'ร้านอาหาร', short: 'ของอร่อย', icon: '♨', image: 'assets/categories/02.png',
+    id: 'food', label: 'ร้านอาหาร', short: 'ของอร่อย', icon: '♨', image: 'assets/cat-02.webp',
     description: 'ค้นหาร้านอาหาร คาเฟ่ และของกินใกล้บางรักน้อย', source: 'คะแนน เวลาเปิด และเส้นทางแสดงจากแผนที่ของคุณ',
     items: [
       { icon: '🍜', title: 'ร้านอาหารในบางรักน้อย', detail: 'ค้นหาร้านที่เปิดอยู่ ดูรีวิว และขอเส้นทาง', tag: 'ใกล้ฉัน', action: 'หาร้านอร่อย', href: maps('ร้านอาหาร บางรักน้อย นนทบุรี'), primary: true },
@@ -96,7 +96,7 @@ export const ZONES = [
     ]
   },
   {
-    id: 'travel', label: 'เที่ยวบางรักน้อย', short: 'ท่องเที่ยว', icon: '📷', image: 'assets/categories/03.png',
+    id: 'travel', label: 'เที่ยวบางรักน้อย', short: 'ท่องเที่ยว', icon: '📷', image: 'assets/cat-03.webp',
     description: 'วัด วิถีริมคลอง และสถานที่สำคัญในบางรักน้อย', source: 'เส้นทางเปิดด้วย Google Maps บนอุปกรณ์ของคุณ',
     items: [
       { icon: '🛕', title: 'วัดบางรักน้อย', detail: 'ชมวัดและบรรยากาศชุมชนริมคลอง', tag: 'สถานที่', action: 'เปิดแผนที่', href: maps('วัดบางรักน้อย นนทบุรี'), primary: true },
@@ -106,7 +106,7 @@ export const ZONES = [
     ]
   },
   {
-    id: 'learn', label: 'ฝึกอาชีพ', short: 'เรียนรู้', icon: '✎', image: 'assets/categories/04.png',
+    id: 'learn', label: 'ฝึกอาชีพ', short: 'เรียนรู้', icon: '✎', image: 'assets/cat-04.webp',
     description: 'หลักสูตรรัฐ คู่มือประชาชน และแหล่งพัฒนาทักษะ', source: 'ลิงก์ไปยังหน่วยงานและข้อมูลทางการ',
     items: [
       { icon: '🧭', title: 'ศูนย์ฝึกอาชีพใกล้บ้าน', detail: 'ค้นหาสถานที่อบรมและศูนย์เรียนรู้บนแผนที่', tag: 'แผนที่', action: 'ค้นหาศูนย์', href: maps('ศูนย์ฝึกอาชีพ ใกล้ บางรักน้อย นนทบุรี'), primary: true },
@@ -116,7 +116,7 @@ export const ZONES = [
     ]
   },
   {
-    id: 'market', label: 'สินค้าและตลาด', short: 'ตลาด', icon: '◒', image: 'assets/categories/05.png',
+    id: 'market', label: 'สินค้าและตลาด', short: 'ตลาด', icon: '◒', image: 'assets/cat-05.webp',
     description: 'ค้นหาตลาด สวนผลไม้ และสินค้าท้องถิ่นรอบบางรักน้อย', source: 'ผลการค้นหาเปิดด้วยแผนที่บนอุปกรณ์ของคุณ',
     items: [
       { icon: '🛍️', title: 'ตลาดใกล้บางรักน้อย', detail: 'ดูตลาด ร้านค้า เวลาเปิด และเส้นทาง', tag: 'ใกล้ฉัน', action: 'เปิดแผนที่', href: maps('ตลาด บางรักน้อย นนทบุรี'), primary: true },
@@ -127,7 +127,7 @@ export const ZONES = [
   },
   {
     // รวม service + news + event ไว้ที่นี่
-    id: 'service', label: 'บริการชุมชน', short: 'เทศบาล', icon: '🏛', image: 'assets/categories/06.png',
+    id: 'service', label: 'บริการชุมชน', short: 'เทศบาล', icon: '🏛', image: 'assets/cat-06.webp',
     description: 'แจ้งเรื่อง ข่าวสาร กิจกรรม และติดต่อเทศบาล ครบในที่เดียว', source: 'ข้อมูลจากเว็บไซต์ทางการเทศบาลเมืองบางรักน้อย',
     items: [
       // e-Service
@@ -144,7 +144,7 @@ export const ZONES = [
     ]
   },
   {
-    id: 'chat', label: 'ติดต่อ–แสดงความเห็น', short: 'ติดต่อ', icon: '💬', image: 'assets/categories/07.png',
+    id: 'chat', label: 'ติดต่อ–แสดงความเห็น', short: 'ติดต่อ', icon: '💬', image: 'assets/cat-07.webp',
     description: 'สอบถาม เสนอแนะ และแจ้งปัญหาผ่านทุกช่องทาง', source: 'คุณกำลังจะเปิดช่องทางสื่อสารภายนอกของเทศบาล',
     items: [
       { icon: '🟢', title: 'LINE เทศบาลบางรักน้อย', detail: 'เพิ่มเพื่อน รับแจ้งเตือน และส่งข้อความถึงเทศบาล', tag: 'LINE', action: 'เพิ่มเพื่อน LINE', href: MUNICIPALITY.line, primary: true },

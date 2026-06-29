@@ -1,12 +1,14 @@
 {
   "name": "บางรักน้อย Connect",
   "short_name": "BRN Connect",
-  "description": "ศูนย์รวมข้อมูลบริการ ชุมชน และเศรษฐกิจท้องถิ่น เทศบาลเมืองบางรักน้อย",
-  "start_url": "./index.html",
+  "description": "ศูนย์รวมข้อมูล บริการ และเศรษฐกิจชุมชนบางรักน้อย",
+  "lang": "th",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#fff8f1",
-  "theme_color": "#6622c9",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#5b21b6",
   "icons": [
     {
       "src": "assets/icon-192x192.png",

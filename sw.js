@@ -1,19 +1,33 @@
-const CACHE = 'brn-connect-v6';
+const CACHE = 'brn-connect-v7-asset-fix';
 const CORE = [
-  './', './index.html', './styles.css', './app.js', './data.js', './manifest.webmanifest',
-  './assets/master-scene.png', './assets/mascot_hero.png', './assets/bc-logo.png', './assets/favicon.png',
-  './assets/mascot_chang.png', './assets/mascot_food.png', './assets/mascot_travel.png',
-  './assets/mascot_career.png', './assets/mascot_news.png', './assets/mascot_event.png',
-  './assets/mascot_product.png', './assets/mascot_chat.png', './assets/mascot_service.png',
-  './assets/categories/01.png', './assets/categories/02.png', './assets/categories/03.png',
-  './assets/categories/04.png', './assets/categories/05.png', './assets/categories/06.png',
-  './assets/categories/07.png', './assets/categories/08.png'
+  "./",
+  "./index.html",
+  "./data.js",
+  "./manifest.webmanifest",
+  "./manifest.json",
+  "./site.webmanifest",
+  "./assets/hero_bg.webp",
+  "./assets/hero-bg.mp4",
+  "./assets/bc-logo.webp",
+  "./assets/bc-mascot.webp",
+  "./assets/favicon.png",
+  "./assets/icon-192x192.png",
+  "./assets/icon-512x512.png",
+  "./assets/cat-01.webp",
+  "./assets/cat-02.webp",
+  "./assets/cat-03.webp",
+  "./assets/cat-04.webp",
+  "./assets/cat-05.webp",
+  "./assets/cat-06.webp",
+  "./assets/cat-07.webp",
+  "./assets/city-genesis.webp",
+  "./assets/bg-town.webp"
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE)
-      .then((cache) => cache.addAll(CORE))
+      .then((cache) => Promise.all(CORE.map((url) => cache.add(url).catch(() => null))))
       .then(() => self.skipWaiting())
   );
 });

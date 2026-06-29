@@ -8,13 +8,13 @@ const ICONS = {
   market: '🛍', service: '🏛', chat: '💬'
 };
 const MASCOTS = {
-  craft:   'assets/mascot_chang.png',
-  food:    'assets/mascot_food.png',
-  travel:  'assets/mascot_travel.png',
-  learn:   'assets/mascot_career.png',
-  market:  'assets/mascot_product.png',
-  service: 'assets/mascot_service.png',
-  chat:    'assets/mascot_chat.png',
+  craft:   'assets/bc-mascot.webp',
+  food:    'assets/bc-mascot.webp',
+  travel:  'assets/bc-mascot.webp',
+  learn:   'assets/bc-mascot.webp',
+  market:  'assets/bc-mascot.webp',
+  service: 'assets/bc-mascot.webp',
+  chat:    'assets/bc-mascot.webp',
 };
 const SUBTITLES = {
   craft:   'ช่าง 7 หมวด · ครบทุกงาน',
