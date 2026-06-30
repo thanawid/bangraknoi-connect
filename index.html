@@ -110,7 +110,7 @@
     #bcMascot {
       position: fixed;
       /* ยืนข้างน้ำพุและขยับเหมือนแอบเดินเบา ๆ */
-      left: 52.3%; bottom: 24.8%; right: auto;
+      left: 52.1%; bottom: 25.8%; right: auto;
       height: 82px; z-index: 6;
       pointer-events: auto;
       cursor: pointer;
@@ -120,11 +120,11 @@
     }
     @keyframes mascotWalk {
       0%,100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-      18%     { transform: translateX(calc(-50% - 7px)) translateY(-2px) rotate(-1deg); }
-      36%     { transform: translateX(calc(-50% - 12px)) translateY(0) rotate(-0.2deg); }
-      54%     { transform: translateX(calc(-50% - 3px)) translateY(-1px) rotate(0.7deg); }
-      72%     { transform: translateX(calc(-50% + 8px)) translateY(-2px) rotate(1deg); }
-      88%     { transform: translateX(calc(-50% + 4px)) translateY(0) rotate(0.3deg); }
+      18%     { transform: translateX(calc(-50% - 6px)) translateY(-1px) rotate(-0.8deg); }
+      36%     { transform: translateX(calc(-50% - 10px)) translateY(0) rotate(-0.2deg); }
+      54%     { transform: translateX(calc(-50% - 2px)) translateY(-1px) rotate(0.6deg); }
+      72%     { transform: translateX(calc(-50% + 7px)) translateY(-1px) rotate(0.9deg); }
+      88%     { transform: translateX(calc(-50% + 3px)) translateY(0) rotate(0.2deg); }
     }
 
     /* ── FLOATING JOIN CTA ใกล้น้ำพุ/มาสคอต ── */
@@ -161,7 +161,7 @@
     /* ── SPEECH BUBBLE ── */
     #speech {
       position: fixed;
-      left: calc(52.3% + 20px); bottom: calc(24.8% + 58px);
+      left: calc(52.1% + 18px); bottom: calc(25.8% + 54px);
       background: white;
       border-radius: 14px 14px 14px 4px;
       padding: 9px 13px;
@@ -173,6 +173,32 @@
       max-width: 210px; white-space: normal; text-align: center;
     }
     #speech.show { opacity: 1; }
+
+    #mobileHint {
+      display: none;
+      position: fixed;
+      left: 50%;
+      bottom: calc(102px + env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      z-index: 18;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.94);
+      color: #4c1d95;
+      font-size: 12px;
+      font-weight: 900;
+      border: 1px solid rgba(124,58,237,0.14);
+      box-shadow: 0 8px 20px rgba(15,23,42,0.16);
+      backdrop-filter: blur(10px);
+      white-space: nowrap;
+      animation: mobileHintFloat 3.2s ease-in-out infinite;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    #mobileHint.hide { opacity: 0; transform: translateX(-50%) translateY(10px); pointer-events: none; }
+    @keyframes mobileHintFloat {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-3px); }
+    }
 
     /* ── TOP BAR ── */
     #topBar {
@@ -228,33 +254,67 @@
     #navScroll::-webkit-scrollbar { display: none; }
 
     .nav-btn {
+      position: relative;
+      overflow: hidden;
       flex: 0 0 auto;
       scroll-snap-align: center;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
-      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.68); border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,243,255,0.95));
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.46); border-radius: 16px;
       padding: 9px 12px; cursor: pointer; color: #2d1d6e; min-width: 88px; min-height: 76px;
-      transition: all 0.2s;
-      box-shadow: 0 8px 22px rgba(15,23,42,0.18);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease, filter .22s ease;
+      box-shadow: 0 8px 20px rgba(15,23,42,0.15);
+    }
+    .nav-btn::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.30), rgba(124,58,237,.08), rgba(245,158,11,.06));
+      opacity: 0;
+      transition: opacity .22s ease;
+      pointer-events: none;
+    }
+    .nav-btn::after {
+      content: "";
+      position: absolute; left: 14px; right: 14px; bottom: 8px; height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f59e0b, #8b5cf6, #38bdf8);
+      opacity: 0;
+      transform: scaleX(.55);
+      transition: opacity .22s ease, transform .22s ease;
+      pointer-events: none;
     }
     .nav-btn:hover, .nav-btn.active {
-      background: rgba(255,255,255,0.98);
-      border-color: rgba(124,58,237,0.45);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(91,33,182,0.24);
+      background: linear-gradient(180deg, rgba(255,255,255,1), rgba(242,236,255,0.98));
+      border-color: rgba(124,58,237,0.28);
+      transform: translateY(-3px) scale(1.008);
+      box-shadow: 0 12px 26px rgba(91,33,182,0.18), 0 0 0 1px rgba(124,58,237,0.05);
     }
-    .nav-btn .nb-icon { font-size: 28px; line-height: 1; }
-    .nav-btn .nb-label { font-size: 12px; line-height: 1.22; font-weight: 900; white-space: normal; text-align:center; max-width: 72px; }
+    .nav-btn:hover::before, .nav-btn.active::before { opacity: 1; }
+    .nav-btn:hover::after, .nav-btn.active::after { opacity: .95; transform: scaleX(1); }
+    .nav-btn:active { transform: translateY(-1px) scale(0.99); }
+    .nav-btn .nb-icon { font-size: 28px; line-height: 1; transition: transform .22s ease, filter .22s ease; }
+    .nav-btn:hover .nb-icon, .nav-btn.active .nb-icon { transform: translateY(-2px) scale(1.08); filter: drop-shadow(0 4px 10px rgba(124,58,237,.16)); }
+    .nav-btn .nb-label { font-size: 12px; line-height: 1.22; font-weight: 900; white-space: normal; text-align:center; max-width: 72px; transition: color .22s ease; }
+    .nav-btn:hover .nb-label, .nav-btn.active .nb-label { color: #4c1d95; }
     .nav-btn.nav-join {
       color: white;
       background: linear-gradient(135deg, #f59e0b, #7c3aed);
-      border-color: rgba(255,255,255,0.72);
-      box-shadow: 0 12px 30px rgba(91,33,182,0.28);
+      border-color: rgba(255,255,255,0.52);
+      box-shadow: 0 12px 28px rgba(91,33,182,0.27);
+      animation: joinPulse 3.2s ease-in-out infinite;
     }
+    .nav-btn.nav-join::before { background: linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,.08)); }
+    .nav-btn.nav-join::after { background: linear-gradient(90deg, rgba(255,255,255,.9), rgba(255,255,255,.35)); opacity: .65; transform: scaleX(.82); }
     .nav-btn.nav-join:hover, .nav-btn.nav-join.active {
       color: white;
       background: linear-gradient(135deg, #f97316, #6d28d9);
-      transform: translateY(-3px);
+      transform: translateY(-3px) scale(1.008);
+      box-shadow: 0 14px 30px rgba(91,33,182,0.28), 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    @keyframes joinPulse {
+      0%,100% { box-shadow: 0 12px 30px rgba(91,33,182,0.28); }
+      50% { box-shadow: 0 14px 36px rgba(91,33,182,0.38), 0 0 0 6px rgba(245,158,11,0.08); }
     }
 
     /* ── BACKDROP ── */
@@ -471,13 +531,14 @@
       #pins .pin[data-id="travel"] { left: 14.5% !important; bottom: 31.5% !important; }
       #pins .pin[data-id="learn"]  { left: 33.5% !important; bottom: 28.5% !important; }
       #pins .pin[data-id="market"] { left: 69% !important; bottom: 33.5% !important; }
-      #pins .pin[data-id="food"]   { left: 79% !important; bottom: 32.5% !important; }
-      #pins .pin[data-id="craft"]  { left: 89% !important; bottom: 32.5% !important; }
+      #pins .pin[data-id="food"]   { left: 81.2% !important; bottom: 30.3% !important; }
+      #pins .pin[data-id="craft"]  { left: 90.8% !important; bottom: 30.3% !important; }
       #pins .pin[data-id="chat"]   { left: 21.5% !important; bottom: 12% !important; }
 
-      #bcMascot { height: 54px; left: 52.4%; bottom: 26.5%; }
+      #bcMascot { height: 54px; left: 52.2%; bottom: 27.4%; }
       #speech { display: none !important; }
       #floatingJoin { display:none; }
+      #mobileHint { display: block; }
 
       #bottomNav { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
       #navScroll { justify-content: flex-start; padding: 0 10px; scroll-snap-type: x mandatory; }
@@ -503,7 +564,7 @@
     }
 
     @media (min-width: 641px) and (max-width: 1024px) {
-      #bcMascot { height: 66px; left: 52.2%; bottom: 25.8%; }
+      #bcMascot { height: 66px; left: 52.1%; bottom: 26.6%; }
       .pin-bubble { font-size: 11px; padding: 5px 10px; }
       #navScroll { justify-content: center; }
     }
@@ -532,11 +593,11 @@
     <div class="pin-bubble"><span class="pin-icon">🛍</span>สินค้า/บริการ</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:78.8%;bottom:33.2%;" data-id="food" data-delay="220">
+  <div class="pin" style="left:81.4%;bottom:31.1%;" data-id="food" data-delay="220">
     <div class="pin-bubble"><span class="pin-icon">🍜</span>ร้านอาหาร</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:89.0%;bottom:33.2%;" data-id="craft" data-delay="280">
+  <div class="pin" style="left:91.8%;bottom:31.1%;" data-id="craft" data-delay="280">
     <div class="pin-bubble"><span class="pin-icon">🔧</span>หาช่าง</div>
     <div class="pin-tail"></div>
   </div>
@@ -561,6 +622,9 @@
   <div id="timeBadge">☀️ 08:00</div>
   <button id="joinBtn">สมัครเข้าร่วม</button>
 </div>
+
+<!-- Mobile helper -->
+<div id="mobileHint">✨ แตะเมนูด้านล่างเพื่อดูจุดในเมือง</div>
 
 <!-- Bottom Nav -->
 <div id="bottomNav">
@@ -752,6 +816,7 @@ function closePanel(){
 
 document.querySelectorAll('.pin').forEach(p=>p.addEventListener('click',()=>openPanel(p.dataset.id)));
 document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.getElementById('mobileHint')?.classList.add('hide');
   if(b.dataset.action==='join') return openRegisterDialog();
   openPanel(b.dataset.id);
 }));
@@ -824,13 +889,16 @@ function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); set
 const mascotTips = [
   'เลือกหมวดด้านล่างได้เลยครับ',
   'กดที่ป้ายใกล้ผู้คนก็ได้ครับ',
-  'สมัครได้ที่เมนูล่างครับ'
+  'สมัครได้ที่เมนูด้านล่างครับ'
 ];
 let mascotTipIndex = 0;
 const mascotEl = document.getElementById('bcMascot');
 mascotEl.addEventListener('click',()=>{
-  say(mascotTips[mascotTipIndex % mascotTips.length]);
+  const tip = mascotTips[mascotTipIndex % mascotTips.length];
+  if(mqMobile.matches) showToast(tip);
+  else say(tip);
   mascotTipIndex += 1;
+  document.getElementById('mobileHint')?.classList.add('hide');
 });
 setTimeout(()=>{ if(!mqMobile.matches) say(mascotTips[0]); }, 900);
 setInterval(()=>{
@@ -847,6 +915,7 @@ setInterval(()=>{
 const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzv5WMeM5cSxl7Ot6QCjbqkxGaxPMAfsvc6lDj2rQe4UYKIjwnZMxa-Sxq6VtN9b51Q/exec';
 function hasGoogleSheetUrl(){ return /^https:\/\/script\.google\.com\/macros\/s\//.test(APPS_SCRIPT_URL); }
 function openRegisterDialog(){
+  document.getElementById('mobileHint')?.classList.add('hide');
   closePanel();
   closeDrawer();
   const d=document.getElementById('memberDialog');
