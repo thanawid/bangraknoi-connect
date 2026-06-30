@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-community-neutral-v18-3d-mascot-life';
+const CACHE_NAME = 'bangraknoi-connect-community-neutral-v20-shoe-fix-video-scene';
 const PRECACHE_URLS = [
   './',
   './index.html',
