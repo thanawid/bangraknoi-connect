@@ -110,7 +110,7 @@
     #bcMascot {
       position: fixed;
       /* ยืนข้างน้ำพุและขยับเหมือนแอบเดินเบา ๆ */
-      left: 53.1%; bottom: 29.1%; right: auto;
+      left: 53.8%; bottom: 29.1%; right: auto;
       height: 96px; z-index: 6;
       pointer-events: auto;
       cursor: pointer;
@@ -161,7 +161,7 @@
     /* ── SPEECH BUBBLE ── */
     #speech {
       position: fixed;
-      left: calc(53.1% + 22px); bottom: calc(29.1% + 58px);
+      left: calc(53.8% + 22px); bottom: calc(29.1% + 58px);
       background: white;
       border-radius: 14px 14px 14px 4px;
       padding: 9px 13px;
@@ -542,7 +542,7 @@
       #pins .pin[data-id="craft"]  { left: 91.8% !important; bottom: 29.4% !important; }
       #pins .pin[data-id="chat"]   { left: 21.5% !important; bottom: 12% !important; }
 
-      #bcMascot { height: 62px; left: 53.0%; bottom: 31.2%; }
+      #bcMascot { height: 62px; left: 53.7%; bottom: 31.2%; }
       #speech { display: none !important; }
       #floatingJoin { display:none; }
       #mobileHint { display: block; }
@@ -571,7 +571,7 @@
     }
 
     @media (min-width: 641px) and (max-width: 1024px) {
-      #bcMascot { height: 76px; left: 53.0%; bottom: 30.0%; }
+      #bcMascot { height: 76px; left: 53.6%; bottom: 30.0%; }
       .pin-bubble { font-size: 11px; padding: 5px 10px; }
       #navScroll { justify-content: center; }
     }
@@ -894,7 +894,7 @@ const toast=document.getElementById('toast');
 function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),2500); }
 
 const mascotTips = [
-  'เลือกหมวดด้านล่างได้เลยครับ',
+  'เลือกหมวดด้านล่างได้เลย',
   'กดที่ป้ายใกล้ผู้คนก็ได้ครับ',
   'สมัครได้ที่เมนูด้านล่างครับ'
 ];
