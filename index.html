@@ -109,9 +109,9 @@
     /* ── BC MASCOT ── */
     #bcMascot {
       position: fixed;
-      /* วางให้ยืนบนลานว่างใกล้น้ำพุ ไม่หล่นไปริมคลอง */
-      left: 50.4%; bottom: 35.2%; right: auto;
-      height: 92px; z-index: 6;
+      /* วางให้ยืนข้างน้ำพุจริง ๆ ไม่ลอยและไม่บังหมุด */
+      left: 52.2%; bottom: 37.0%; right: auto;
+      height: 82px; z-index: 6;
       pointer-events: none;
       filter: drop-shadow(0 8px 18px rgba(0,0,0,0.40));
       animation: mascotStand 4s ease-in-out infinite;
@@ -125,7 +125,7 @@
     /* ── FLOATING JOIN CTA ใกล้น้ำพุ/มาสคอต ── */
     #floatingJoin {
       position: fixed;
-      left: calc(50.4% + 34px); bottom: calc(35.2% + 82px);
+      left: calc(52.2% + 28px); bottom: calc(37.0% + 72px);
       z-index: 9;
       display: none;
       border: none;
@@ -156,7 +156,7 @@
     /* ── SPEECH BUBBLE ── */
     #speech {
       position: fixed;
-      left: calc(50.4% + 8px); bottom: calc(35.2% + 70px);
+      left: calc(52.2% + 4px); bottom: calc(37.0% + 62px);
       background: white;
       border-radius: 14px 14px 14px 4px;
       padding: 9px 13px;
@@ -217,11 +217,14 @@
       display: flex; gap: 9px; overflow-x: auto; scrollbar-width: none;
       justify-content: center;
       pointer-events: auto;
+      scroll-snap-type: x proximity;
+      scroll-padding-inline: 12px;
     }
     #navScroll::-webkit-scrollbar { display: none; }
 
     .nav-btn {
       flex: 0 0 auto;
+      scroll-snap-align: center;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
       background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
       border: 1px solid rgba(255,255,255,0.68); border-radius: 18px;
@@ -448,20 +451,42 @@
     #footerMeta span:nth-child(2) { overflow:hidden; text-overflow:ellipsis; }
     #footerMeta a { color:white; text-decoration: none; font-weight: 800; pointer-events:auto; }
 
-    @media (max-width: 480px) {
+    @media (max-width: 640px) {
       #topBar { height: 60px; padding: 0 12px; }
-      #logoArea span { font-size: 13px; }
+      #logoArea { padding: 6px 12px 6px 7px; max-width: calc(100vw - 24px); }
+      #logoArea img { height: 34px; }
+      #logoArea span { font-size: 13px; white-space: nowrap; }
       #timeBadge { display: none; }
-      #joinBtn { padding: 7px 13px; font-size: 12px; }
-      #bcMascot { height: 72px; left: 50.5%; bottom: 36%; }
+      #joinBtn { display: none; }
+
+      /* MOBILE MODE: หน้าแรกต้องโล่ง — ซ่อน pin ทุกตัวก่อน แล้วโชว์เฉพาะหมวดที่กด */
+      #pins .pin { display: none; transform: translate(-50%, -100%) scale(.92); }
+      #pins .pin.mobile-visible { display: flex; }
+      .pin-bubble { font-size: 11px; padding: 5px 10px; max-width: 178px; overflow: hidden; text-overflow: ellipsis; }
+      #pins .pin[data-id="travel"] { left: 20% !important; bottom: 46% !important; }
+      #pins .pin[data-id="learn"]  { left: 36% !important; bottom: 47% !important; }
+      #pins .pin[data-id="market"] { left: 66% !important; bottom: 47% !important; }
+      #pins .pin[data-id="food"]   { left: 76% !important; bottom: 44% !important; }
+      #pins .pin[data-id="craft"]  { left: 86% !important; bottom: 44% !important; }
+      #pins .pin[data-id="chat"]   { left: 28% !important; bottom: 23% !important; }
+
+      #bcMascot { height: 58px; left: 53%; bottom: 39%; }
       #speech { display: none; }
       #floatingJoin { display:none; }
-      .pin-bubble { font-size: 11px; padding: 5px 10px; }
-      #navScroll { justify-content: flex-start; }
+
+      #bottomNav { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+      #navScroll { justify-content: flex-start; padding: 0 10px; scroll-snap-type: x mandatory; }
       .nav-btn { min-width: 82px; min-height: 72px; padding: 9px 10px; }
       .nav-btn .nb-icon { font-size: 25px; }
       .nav-btn .nb-label { font-size: 11px; max-width: 68px; }
+
+      /* หมวดบนมือถือเปิดเป็น bottom sheet โดยไม่เอาฉากมืดมาทับ pin */
+      .drawer-backdrop { display: none !important; }
+      .service-drawer { max-height: 56dvh; z-index: 35; }
+      .drawer-head { padding: 16px 16px 12px; }
+      .drawer-list { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
       #siteFooter { display:none; }
+
       .member-dialog {
         top: auto; left: 0; right: 0; bottom: 0;
         transform: none;
@@ -470,6 +495,12 @@
         border-radius: 24px 24px 0 0;
         padding: 18px 18px max(18px, env(safe-area-inset-bottom));
       }
+    }
+
+    @media (min-width: 641px) and (max-width: 1024px) {
+      #bcMascot { height: 72px; left: 52%; bottom: 37.2%; }
+      .pin-bubble { font-size: 11px; padding: 5px 10px; }
+      #navScroll { justify-content: center; }
     }
   </style>
 </head>
@@ -484,27 +515,27 @@
 <!-- MAP PINS -->
 <div id="pins">
   <!-- วาง pin ให้สัมพันธ์กับป้ายในฉากจริง ไม่สุ่มขึ้นฟ้า/รถไฟฟ้า -->
-  <div class="pin" style="left:13%;bottom:50%;" data-id="travel" data-delay="40">
+  <div class="pin" style="left:14.4%;bottom:42.2%;" data-id="travel" data-delay="40">
     <div class="pin-bubble"><span class="pin-icon">📷</span>ท่องเที่ยว</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:36%;bottom:54%;" data-id="learn" data-delay="100">
+  <div class="pin" style="left:34.6%;bottom:41.8%;" data-id="learn" data-delay="100">
     <div class="pin-bubble"><span class="pin-icon">🎓</span>ฝึกอาชีพ</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:58%;bottom:50%;" data-id="market" data-delay="160">
+  <div class="pin" style="left:70.0%;bottom:46.6%;" data-id="market" data-delay="160">
     <div class="pin-bubble"><span class="pin-icon">🛍</span>สินค้า/บริการ</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:72.5%;bottom:48%;" data-id="food" data-delay="220">
+  <div class="pin" style="left:77.0%;bottom:42.5%;" data-id="food" data-delay="220">
     <div class="pin-bubble"><span class="pin-icon">🍜</span>ร้านอาหาร</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:86%;bottom:48%;" data-id="craft" data-delay="280">
+  <div class="pin" style="left:87.0%;bottom:42.7%;" data-id="craft" data-delay="280">
     <div class="pin-bubble"><span class="pin-icon">🔧</span>หาช่าง</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:51%;bottom:42.5%;" data-id="chat" data-delay="340">
+  <div class="pin" style="left:24.0%;bottom:24.8%;" data-id="chat" data-delay="340">
     <div class="pin-bubble"><span class="pin-icon">💬</span>พูดคุย/แลกเปลี่ยน</div>
     <div class="pin-tail"></div>
   </div>
@@ -579,7 +610,7 @@
   <img src="assets/bc-logo.webp" alt="" width="60" height="60">
   <span>บางรักน้อย Connect</span>
   <h2>สมัครเข้าร่วมชุมชน</h2>
-  <p style="text-align:center;font-size:10px;color:#aaa;margin:-6px 0 10px;">พื้นที่สื่อกลางของชุมชน · ฟอร์มเลื่อนได้</p>
+  <p style="text-align:center;font-size:10px;color:#aaa;margin:-6px 0 10px;">พื้นที่สื่อกลางของชุมชน · ใช้งานง่ายทุกอุปกรณ์</p>
   <p class="dialog-sub">กรอกข้อมูลสั้น ๆ เพื่อให้ผู้ดูแลตรวจสอบก่อนเผยแพร่<br><small style="color:#aaa;font-size:11px;">ระบบนี้เป็นสื่อกลาง ไม่ใช่ผู้ขายหรือนายหน้า</small></p>
   <div id="registerStep1">
     <div class="form-field"><label>ชื่อร้าน / ช่าง / กลุ่มอาชีพ <span class="req">*</span></label><input type="text" id="reg-name" placeholder="เช่น ร้านก๋วยเตี๋ยวน้าติ่ง / ช่างสมชาย" maxlength="80"></div>
@@ -625,16 +656,6 @@
   </div>
 </dialog>
 
-<!-- Welcome -->
-<div id="welcome">
-  <div id="wCard">
-    <img src="assets/bc-mascot.webp" alt="BC" onerror="this.src='assets/bc-mascot.webp'">
-    <h1>สวัสดีครับ!</h1>
-    <p>ยินดีต้อนรับสู่<br><strong>บางรักน้อย Connect</strong><br>แตะ pin บนแผนที่หรือปุ่มด้านล่างเพื่อสำรวจ</p>
-    <button id="wBtn">🚶 เดินเข้าเมือง</button>
-  </div>
-</div>
-
 <script type="module">
 import { ZONES, getZone } from './data.js';
 
@@ -675,6 +696,10 @@ const PIN_DATA = {
 const panel=document.getElementById('panel');
 const backdrop=document.getElementById('backdrop');
 let activePin=null;
+const mqMobile = window.matchMedia('(max-width: 640px)');
+function clearMobilePins(){ document.querySelectorAll('.pin.mobile-visible').forEach(p=>p.classList.remove('mobile-visible')); }
+function revealActivePin(pin){ if(mqMobile.matches && pin) pin.classList.add('mobile-visible'); }
+
 
 function openPanel(id){
   // ถ้ามีข้อมูลใน PIN_DATA ใช้ pin panel
@@ -707,13 +732,15 @@ function openPanel(id){
     openDrawer(id);
   }
   if(activePin) activePin.classList.remove('active');
+  clearMobilePins();
   activePin=document.querySelector(`.pin[data-id="${id}"]`);
-  if(activePin) activePin.classList.add('active');
+  if(activePin){ activePin.classList.add('active'); revealActivePin(activePin); }
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id));
 }
 
 function closePanel(){
   panel.classList.remove('open'); backdrop.classList.remove('show');
+  clearMobilePins();
   if(activePin){ activePin.classList.remove('active'); activePin=null; }
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
 }
@@ -757,7 +784,8 @@ function openDrawer(id){
     list.appendChild(sec);
   });
   else cat.items.forEach(item=>list.appendChild(buildDrawerItem(item)));
-  const db=document.getElementById('drawerBackdrop'); db.hidden=false;
+  const db=document.getElementById('drawerBackdrop');
+  db.hidden = mqMobile.matches;
   const dr=document.getElementById('serviceDrawer');
   requestAnimationFrame(()=>dr.classList.add('open'));
   say(`เปิดหมวด${cat.label}แล้วครับ!`);
@@ -765,6 +793,7 @@ function openDrawer(id){
 function closeDrawer(){
   document.getElementById('serviceDrawer').classList.remove('open');
   setTimeout(()=>{ document.getElementById('drawerBackdrop').hidden=true; },350);
+  clearMobilePins();
   if(activePin){ activePin.classList.remove('active'); activePin=null; }
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
 }
@@ -842,17 +871,15 @@ document.getElementById('regSubmitBtn').addEventListener('click',async()=>{
   }catch(err){ showErr('❌ ส่งไม่สำเร็จ กรุณาตรวจสอบ Web App URL / สิทธิ์ Apps Script แล้วลองใหม่'); btn.disabled=false; lbl.textContent='📨 ส่งข้อมูลสมัคร'; }
 });
 
-// ── WELCOME ───────────────────────────────────────────────────────────────────
-const PHRASES=['อยากหาช่าง? กดปุ่มหาช่างด้านล่างได้เลยครับ 🔧','ร้านอาหารอร่อยมีหลายร้านนะครับ 🍜','สมัครเข้าร่วมได้ที่ปุ่มใกล้น้ำพุเลยครับ ✨','แตะ pin บนแผนที่เพื่อดูข้อมูลครับ 📍','วันนี้มีอะไรให้ช่วยไหมครับ? 😊'];
+// ── STARTUP HINT: ไม่มี popup ต้อนรับ ให้เห็นเมืองทันที ─────────────────────
+const PHRASES=['กดเมนูล่างเพื่อเลือกหมวดได้เลยครับ','ปุ่มสมัครอยู่ท้ายเมนูล่างครับ','แตะ pin สีม่วงเพื่อดูข้อมูลในหมวดนั้น','ระบบนี้เป็นสื่อกลาง ตรวจสอบข้อมูลก่อนตกลงนะครับ'];
 let pi=0;
-document.getElementById('wBtn').addEventListener('click',()=>{
-  const w=document.getElementById('welcome');
-  w.style.transition='opacity 0.45s'; w.style.opacity='0';
-  setTimeout(()=>w.style.display='none',450);
-  setTimeout(()=>say('สวัสดีครับ! ยินดีต้อนรับสู่บางรักน้อย Connect 🙏'),400);
-  setTimeout(()=>say('แตะ pin สีม่วงหรือปุ่มด้านล่างได้เลยครับ'),4200);
-  setInterval(()=>{ if(!panel.classList.contains('open') && !document.getElementById('serviceDrawer').classList.contains('open')) say(PHRASES[pi++%PHRASES.length]); },11000);
-});
+setTimeout(()=>say('เลือกหมวดจากเมนูล่าง หรือแตะ pin ในเมืองได้เลยครับ'),900);
+setInterval(()=>{
+  const drawer=document.getElementById('serviceDrawer');
+  const dialog=document.getElementById('memberDialog');
+  if(!panel.classList.contains('open') && !drawer.classList.contains('open') && !dialog.open) say(PHRASES[pi++%PHRASES.length]);
+},15000);
 
 // ── SERVICE WORKER: clear old cache + keep GitHub Pages fresh ────────────────
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {

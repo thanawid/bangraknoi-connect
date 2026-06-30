@@ -48,3 +48,10 @@ Sheet ID: 1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM
 - ใส่ Web App URL ใน index.html เรียบร้อยแล้ว
 - URL ที่ใช้: https://script.google.com/macros/s/AKfycbzv5WMeM5cSxl7Ot6QCjbqkxGaxPMAfsvc6lDj2rQe4UYKIjwnZMxa-Sxq6VtN9b51Q/exec
 - หลังอัป GitHub Pages ให้กด Ctrl+F5 หรือรอสักครู่ให้ service worker เปลี่ยน cache
+
+
+V8 Responsive Final:
+- ไม่มี popup ต้อนรับตอนเข้าเว็บ
+- Desktop/Tablet แสดง pin ตามตำแหน่งจริง
+- Mobile ซ่อน pin เริ่มต้นและโชว์เฉพาะหมวดที่กด
+- ฟอร์มสมัครใช้ modal/bottom sheet ตามขนาดจอ
