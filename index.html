@@ -109,22 +109,21 @@
     /* ── BC MASCOT ── */
     #bcMascot {
       position: fixed;
-      /* ยืนข้างน้ำพุและขยับเหมือนแอบเดินเบา ๆ */
-      left: 53.8%; bottom: 29.1%; right: auto;
-      height: 96px; z-index: 6;
+      /* V18: 3D mascot ยืนข้างน้ำพุ ขยับและเปลี่ยนท่าได้ */
+      left: 53.8%; bottom: 27.6%; right: auto;
+      height: 128px; z-index: 6;
       pointer-events: auto;
       cursor: pointer;
-      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.40));
-      animation: mascotWalk 6.2s ease-in-out infinite;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.38));
+      animation: mascotIdle 5.8s ease-in-out infinite;
       transform-origin: 50% 100%;
+      transition: left 1.2s ease, bottom .45s ease, height .25s ease, filter .25s ease;
     }
-    @keyframes mascotWalk {
+    #bcMascot.busy { animation: none; }
+    @keyframes mascotIdle {
       0%,100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-      18%     { transform: translateX(calc(-50% - 6px)) translateY(-1px) rotate(-0.8deg); }
-      36%     { transform: translateX(calc(-50% - 10px)) translateY(0) rotate(-0.2deg); }
-      54%     { transform: translateX(calc(-50% - 2px)) translateY(-1px) rotate(0.6deg); }
-      72%     { transform: translateX(calc(-50% + 7px)) translateY(-1px) rotate(0.9deg); }
-      88%     { transform: translateX(calc(-50% + 3px)) translateY(0) rotate(0.2deg); }
+      30%     { transform: translateX(calc(-50% - 2px)) translateY(-2px) rotate(-0.35deg); }
+      60%     { transform: translateX(calc(-50% + 3px)) translateY(-1px) rotate(0.35deg); }
     }
 
     /* ── FLOATING JOIN CTA ใกล้น้ำพุ/มาสคอต ── */
@@ -198,6 +197,38 @@
     @keyframes mobileHintFloat {
       0%,100% { transform: translateX(-50%) translateY(0); }
       50% { transform: translateX(-50%) translateY(-3px); }
+    }
+
+
+    #mascotFx {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .food-dot {
+      position: fixed;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #f59e0b;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.35);
+      animation: foodFall 1.15s ease-in forwards;
+    }
+    @keyframes foodFall {
+      0% { transform: translate(0,0) scale(1); opacity: 1; }
+      100% { transform: translate(var(--dx), var(--dy)) scale(.55); opacity: 0; }
+    }
+    .water-ripple {
+      position: fixed;
+      width: 10px; height: 5px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.75);
+      animation: ripplePop 1.05s ease-out forwards;
+    }
+    @keyframes ripplePop {
+      0% { transform: translate(-50%,-50%) scale(.45); opacity: .9; }
+      100% { transform: translate(-50%,-50%) scale(3.2); opacity: 0; }
     }
 
     /* ── TOP BAR ── */
@@ -542,8 +573,15 @@
       #pins .pin[data-id="craft"]  { left: 91.8% !important; bottom: 29.4% !important; }
       #pins .pin[data-id="chat"]   { left: 21.5% !important; bottom: 12% !important; }
 
-      #bcMascot { height: 62px; left: 53.7%; bottom: 31.2%; }
-      #speech { display: none !important; }
+      #bcMascot { height: 86px; left: 54.0%; bottom: 27.8%; }
+      #speech {
+        display: block !important;
+        left: calc(54% - 78px) !important;
+        bottom: calc(27.8% + 70px) !important;
+        max-width: 178px;
+        padding: 7px 10px;
+        font-size: 11px;
+      }
       #floatingJoin { display:none; }
       #mobileHint { display: block; }
 
@@ -571,7 +609,7 @@
     }
 
     @media (min-width: 641px) and (max-width: 1024px) {
-      #bcMascot { height: 76px; left: 53.6%; bottom: 30.0%; }
+      #bcMascot { height: 106px; left: 53.8%; bottom: 28.8%; }
       .pin-bubble { font-size: 11px; padding: 5px 10px; }
       #navScroll { justify-content: center; }
     }
@@ -616,8 +654,9 @@
 
 <!-- BC Mascot -->
 <div id="speech"></div>
-<img id="bcMascot" src="assets/bc-mascot.webp" alt="BC"
-     onerror="this.src='assets/bc-mascot.webp'">
+<div id="mascotFx"></div>
+<img id="bcMascot" src="assets/mascot-wave.webp" alt="BC"
+     onerror="this.src='assets/mascot-stand.webp'">
 <button id="floatingJoin" type="button">สมัครเข้าร่วม</button>
 
 <!-- Top Bar -->
@@ -746,22 +785,22 @@ tick(); setInterval(tick,30000);
 
 // ── PIN → PANEL ──────────────────────────────────────────────────────────────
 const MASCOTS = {
-  craft:'assets/bc-mascot.webp', food:'assets/bc-mascot.webp',
-  travel:'assets/bc-mascot.webp', learn:'assets/bc-mascot.webp',
-  market:'assets/bc-mascot.webp', service:'assets/bc-mascot.webp',
-  chat:'assets/bc-mascot.webp', temple:'assets/bc-mascot.webp',
-  municipality:'assets/bc-mascot.webp'
+  craft:'assets/mascot-stand.webp', food:'assets/mascot-stand.webp',
+  travel:'assets/mascot-stand.webp', learn:'assets/mascot-stand.webp',
+  market:'assets/mascot-stand.webp', service:'assets/mascot-stand.webp',
+  chat:'assets/mascot-stand.webp', temple:'assets/mascot-stand.webp',
+  municipality:'assets/mascot-stand.webp'
 };
 const PIN_DATA = {
   temple: { label:'วัดบางรักน้อย', icon:'🛕', desc:'วัดเก่าแก่คู่ชุมชน มีพระใหญ่ทองคำ ศูนย์รวมจิตใจของชาวบางรักน้อย',
-    mascot:'assets/bc-mascot.webp',
+    mascot:'assets/mascot-stand.webp',
     items:[
       {icon:'📍',title:'ดูแผนที่',detail:'วัดบางรักน้อย ริมคลองอ้อมนนท์',action:'เปิดแผนที่',href:'https://maps.google.com/?q=วัดบางรักน้อย+นนทบุรี'},
       {icon:'📅',title:'ค้นหาข้อมูลวัด',detail:'ดูข่าว กิจกรรม หรือข้อมูลจากแหล่งภายนอก',action:'ค้นหา',href:'https://www.google.com/search?q=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%A2'},
       {icon:'☎️',title:'ติดต่อวัด',detail:'สอบถามข้อมูลเพิ่มเติม',action:'โทร',href:'tel:025252727'},
     ]},
   community: { label:'ศูนย์ข้อมูลชุมชน', icon:'📍', desc:'จุดรวมข้อมูล ข่าวสาร และช่องทางเชื่อมต่อของคนในพื้นที่',
-    mascot:'assets/bc-mascot.webp',
+    mascot:'assets/mascot-stand.webp',
     items:[
       {icon:'🧭',title:'สำรวจหมวดหลัก',detail:'หาช่าง ร้านอาหาร ท่องเที่ยว ฝึกอาชีพ และสินค้า/บริการ',action:'เริ่มดู',href:'#'},
       {icon:'📝',title:'สมัครเข้าร่วม',detail:'ส่งข้อมูลร้าน ช่าง กลุ่มอาชีพ หรือบริการของคุณ',action:'สมัคร',href:'#'},
@@ -778,6 +817,8 @@ function revealActivePin(pin){ if(mqMobile.matches && pin) pin.classList.add('mo
 
 
 function openPanel(id){
+  setMascotForZone(id);
+  document.getElementById('mobileHint')?.classList.add('hide');
   // ถ้ามีข้อมูลใน PIN_DATA ใช้ pin panel
   if(PIN_DATA[id]){
     const d=PIN_DATA[id];
@@ -815,6 +856,7 @@ function openPanel(id){
 }
 
 function closePanel(){
+  setMascotPose('stand'); resetMascotSpot();
   panel.classList.remove('open'); backdrop.classList.remove('show');
   clearMobilePins();
   if(activePin){ activePin.classList.remove('active'); activePin=null; }
@@ -868,6 +910,7 @@ function openDrawer(id){
   say(`เปิดหมวด${cat.label}แล้วครับ!`);
 }
 function closeDrawer(){
+  setMascotPose('stand'); resetMascotSpot();
   document.getElementById('serviceDrawer').classList.remove('open');
   setTimeout(()=>{ document.getElementById('drawerBackdrop').hidden=true; },350);
   clearMobilePins();
@@ -880,40 +923,102 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closePanel(); clo
 
 // ── SPEECH ────────────────────────────────────────────────────────────────────
 const sp=document.getElementById('speech'); let st=null;
-function say(t){
-  if(mqMobile.matches) return;
+function say(t, ms=2600){
   if(!t) return;
   clearTimeout(st);
   sp.textContent=t;
   sp.classList.add('show');
-  st=setTimeout(()=>sp.classList.remove('show'),2600);
+  st=setTimeout(()=>sp.classList.remove('show'),ms);
 }
 
 // ── TOAST ─────────────────────────────────────────────────────────────────────
 const toast=document.getElementById('toast');
 function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),2500); }
 
+const MASCOT_POSES = {
+  stand:'assets/mascot-stand.webp',
+  wave:'assets/mascot-wave.webp',
+  point:'assets/mascot-point.webp',
+  open:'assets/mascot-open.webp',
+  phone:'assets/mascot-phone.webp',
+  walkLeft:'assets/mascot-walk-left.webp',
+  walkRight:'assets/mascot-walk-right.webp',
+  feed:'assets/mascot-feed.webp'
+};
 const mascotTips = [
   'เลือกหมวดด้านล่างได้เลย',
-  'กดที่ป้ายใกล้ผู้คนก็ได้ครับ',
-  'สมัครได้ที่เมนูด้านล่างครับ'
+  'กดเมนูเพื่อดูจุดในเมือง',
+  'สมัครได้ที่เมนูด้านล่าง'
 ];
 let mascotTipIndex = 0;
+let mascotLifeTimer = null;
 const mascotEl = document.getElementById('bcMascot');
+const fxLayer = document.getElementById('mascotFx');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function setMascotPose(pose){
+  mascotEl.src = MASCOT_POSES[pose] || MASCOT_POSES.stand;
+}
+function resetMascotSpot(){
+  mascotEl.style.left = mqMobile.matches ? '54%' : '53.8%';
+  mascotEl.style.bottom = mqMobile.matches ? '27.8%' : '27.6%';
+}
+function spawnFishFood(){
+  const r = mascotEl.getBoundingClientRect();
+  const startX = r.left + r.width*0.70;
+  const startY = r.top + r.height*0.56;
+  for(let i=0;i<8;i++){
+    const dot=document.createElement('span');
+    dot.className='food-dot';
+    dot.style.left = `${startX + (Math.random()*18-9)}px`;
+    dot.style.top = `${startY + (Math.random()*10-4)}px`;
+    dot.style.setProperty('--dx', `${36 + Math.random()*55}px`);
+    dot.style.setProperty('--dy', `${52 + Math.random()*42}px`);
+    fxLayer.appendChild(dot);
+    setTimeout(()=>dot.remove(),1300);
+  }
+  for(let i=0;i<3;i++){
+    const rp=document.createElement('span');
+    rp.className='water-ripple';
+    rp.style.left = `${startX + 54 + i*22}px`;
+    rp.style.top = `${startY + 78 + i*8}px`;
+    fxLayer.appendChild(rp);
+    setTimeout(()=>rp.remove(),1200);
+  }
+}
+function playMascotFeed(){
+  if(reduceMotion || panel.classList.contains('open') || document.getElementById('memberDialog')?.open) return;
+  mascotEl.classList.add('busy');
+  setMascotPose('walkRight');
+  mascotEl.style.left = mqMobile.matches ? '57%' : '55.2%';
+  setTimeout(()=>{
+    setMascotPose('feed');
+    say('ให้อาหารปลาก่อนนะ 🐟', 2400);
+    spawnFishFood();
+  }, 1200);
+  setTimeout(()=>{ setMascotPose('walkLeft'); resetMascotSpot(); }, 3900);
+  setTimeout(()=>{ setMascotPose('stand'); mascotEl.classList.remove('busy'); }, 5200);
+}
+function setMascotForZone(id){
+  if(id==='craft' || id==='food' || id==='travel' || id==='learn' || id==='market') setMascotPose('point');
+  else if(id==='chat') setMascotPose('open');
+  else setMascotPose('stand');
+}
 mascotEl.addEventListener('click',()=>{
   const tip = mascotTips[mascotTipIndex % mascotTips.length];
-  if(mqMobile.matches) showToast(tip);
-  else say(tip);
+  say(tip);
   mascotTipIndex += 1;
   document.getElementById('mobileHint')?.classList.add('hide');
 });
-setTimeout(()=>{ if(!mqMobile.matches) say(mascotTips[0]); }, 900);
-setInterval(()=>{
-  if(!mqMobile.matches && !panel.classList.contains('open')){
-    mascotTipIndex = (mascotTipIndex + 1) % mascotTips.length;
-    say(mascotTips[mascotTipIndex]);
+function startMascotLife(){
+  resetMascotSpot();
+  setMascotPose('wave');
+  say(mascotTips[0], mqMobile.matches ? 2300 : 3000);
+  setTimeout(()=>setMascotPose('stand'), 1800);
+  if(!reduceMotion){
+    mascotLifeTimer = setInterval(()=>playMascotFeed(), mqMobile.matches ? 18000 : 14000);
   }
-}, 10000);
+}
+setTimeout(startMascotLife, 650);
 
 // ── REGISTER ──────────────────────────────────────────────────────────────────
 // Google Sheet connector
@@ -925,6 +1030,8 @@ function openRegisterDialog(){
   document.getElementById('mobileHint')?.classList.add('hide');
   closePanel();
   closeDrawer();
+  setMascotPose('phone');
+  say('กรอกข้อมูลได้เลยครับ', 2200);
   const d=document.getElementById('memberDialog');
   if(d.showModal) d.showModal(); else d.setAttribute('open','');
   requestAnimationFrame(()=>{ d.scrollTop=0; const first=document.getElementById('reg-name'); if(first) first.focus({preventScroll:true}); });
@@ -932,6 +1039,7 @@ function openRegisterDialog(){
 document.getElementById('joinBtn').addEventListener('click',openRegisterDialog);
 document.getElementById('floatingJoin').addEventListener('click',openRegisterDialog);
 function closeRegDialog(){
+  setMascotPose('stand'); resetMascotSpot();
   const d=document.getElementById('memberDialog'); if(d.close) d.close(); else d.removeAttribute('open');
   setTimeout(()=>{ document.getElementById('registerStep1').hidden=false; document.getElementById('registerStep2').hidden=true; ['reg-name','reg-phone','reg-contact','reg-social','reg-area','reg-desc'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';}); const c=document.getElementById('reg-category');if(c)c.value=''; const cb=document.getElementById('reg-consent');if(cb)cb.checked=false; const err=document.getElementById('registerError');if(err){err.hidden=true;err.textContent='';} const lbl=document.getElementById('regBtnLabel');if(lbl)lbl.textContent='📨 ส่งข้อมูลสมัคร'; const btn=document.getElementById('regSubmitBtn');if(btn)btn.disabled=false; },300);
 }
@@ -978,8 +1086,8 @@ document.getElementById('regSubmitBtn').addEventListener('click',async()=>{
   }catch(err){ showErr('❌ ส่งไม่สำเร็จ กรุณาตรวจสอบ Web App URL / สิทธิ์ Apps Script แล้วลองใหม่'); btn.disabled=false; lbl.textContent='📨 ส่งข้อมูลสมัคร'; }
 });
 
-// ── STARTUP: ไม่มี popup / ไม่มี bubble ลอย ให้เห็นเมืองทันที ───────────────
-// ผู้ใช้เลือกหมวดจากเมนูล่างเอง; bubble มาสคอตถูกปิดเพื่อลดความรกทุกอุปกรณ์
+// ── STARTUP: ไม่มี popup ต้อนรับ — ใช้มาสคอต 3D แนะนำสั้น ๆ แทน ───────────────
+// มาสคอตแสดงข้อความสั้น, เปลี่ยนท่าตามเมนู, และมี action ให้อาหารปลาเบา ๆ
 
 // ── SERVICE WORKER: clear old cache + keep GitHub Pages fresh ────────────────
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
