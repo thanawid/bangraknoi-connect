@@ -110,7 +110,7 @@
     #bcMascot {
       position: fixed;
       /* ยืนข้างน้ำพุและขยับเหมือนแอบเดินเบา ๆ */
-      left: 52.0%; bottom: 29.1%; right: auto;
+      left: 53.1%; bottom: 29.1%; right: auto;
       height: 96px; z-index: 6;
       pointer-events: auto;
       cursor: pointer;
@@ -161,7 +161,7 @@
     /* ── SPEECH BUBBLE ── */
     #speech {
       position: fixed;
-      left: calc(52.0% + 22px); bottom: calc(29.1% + 58px);
+      left: calc(53.1% + 22px); bottom: calc(29.1% + 58px);
       background: white;
       border-radius: 14px 14px 14px 4px;
       padding: 9px 13px;
@@ -490,15 +490,15 @@
 
     #siteFooter {
       position: fixed;
-      left: 50%; right: auto; bottom: max(104px, calc(env(safe-area-inset-bottom) + 104px));
-      transform: translateX(-50%);
+      left: auto; right: 18px; bottom: max(104px, calc(env(safe-area-inset-bottom) + 104px));
+      transform: none;
       z-index: 19;
       pointer-events: none;
       padding: 0;
     }
     #footerContent {
       width: auto;
-      max-width: min(560px, 62vw);
+      max-width: min(500px, 48vw);
       display: flex; align-items: center; justify-content: flex-start; gap: 10px;
       padding: 6px 10px;
       border-radius: 999px;
@@ -519,6 +519,11 @@
     #footerMeta a { color:white; text-decoration: none; font-weight: 800; pointer-events:auto; }
 
     @media (max-width: 640px) {
+      #siteFooter { right: 10px; bottom: max(96px, calc(env(safe-area-inset-bottom) + 96px)); }
+      #footerContent { max-width: min(280px, 68vw); padding: 5px 9px; font-size: 8px; gap: 8px; }
+      #footerLogo img { width: 20px; height: 20px; }
+      #footerLogo b { font-size: 9px; }
+      #footerMeta { gap: 6px; }
       #topBar { height: 60px; padding: 0 12px; }
       #logoArea { padding: 6px 12px 6px 7px; max-width: calc(100vw - 24px); }
       #logoArea img { height: 34px; }
@@ -537,7 +542,7 @@
       #pins .pin[data-id="craft"]  { left: 91.8% !important; bottom: 29.4% !important; }
       #pins .pin[data-id="chat"]   { left: 21.5% !important; bottom: 12% !important; }
 
-      #bcMascot { height: 62px; left: 52.0%; bottom: 31.2%; }
+      #bcMascot { height: 62px; left: 53.0%; bottom: 31.2%; }
       #speech { display: none !important; }
       #floatingJoin { display:none; }
       #mobileHint { display: block; }
@@ -566,7 +571,7 @@
     }
 
     @media (min-width: 641px) and (max-width: 1024px) {
-      #bcMascot { height: 76px; left: 52.0%; bottom: 30.0%; }
+      #bcMascot { height: 76px; left: 53.0%; bottom: 30.0%; }
       .pin-bubble { font-size: 11px; padding: 5px 10px; }
       #navScroll { justify-content: center; }
     }

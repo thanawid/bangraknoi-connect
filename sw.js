@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-community-neutral-v15-last-mile';
+const CACHE_NAME = 'bangraknoi-connect-community-neutral-v16-footer-right';
 const PRECACHE_URLS = [
   './',
   './index.html',
