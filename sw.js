@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-community-neutral-v9-pin-grounding';
+const CACHE_NAME = 'bangraknoi-connect-community-neutral-v11-mascot-walk';
 const PRECACHE_URLS = [
   './',
   './index.html',
