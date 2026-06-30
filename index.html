@@ -107,23 +107,38 @@
     }
 
     /* ── BC MASCOT ── */
-    #bcMascot {
+    /* ── BC MASCOT WRAP: จัดตำแหน่ง + perspective สำหรับ 3D tilt ── */
+    #bcMascotWrap {
       position: fixed;
-      /* V18: 3D mascot ยืนข้างน้ำพุ ขยับและเปลี่ยนท่าได้ */
       left: 53.8%; bottom: 27.6%; right: auto;
       height: 128px; z-index: 6;
       pointer-events: auto;
       cursor: pointer;
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.38));
-      animation: mascotIdle 5.8s ease-in-out infinite;
+      transform: translateX(-50%);
       transform-origin: 50% 100%;
-      transition: left 1.2s ease, bottom .45s ease, height .25s ease, filter .25s ease;
+      perspective: 600px;
+      transition: left 1.2s ease, bottom .45s ease, height .25s ease;
+      animation: mascotIdle 5.8s ease-in-out infinite;
     }
-    #bcMascot.busy { animation: none; }
+    #bcMascotWrap.busy { animation: none; }
     @keyframes mascotIdle {
-      0%,100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-      30%     { transform: translateX(calc(-50% - 2px)) translateY(-2px) rotate(-0.35deg); }
-      60%     { transform: translateX(calc(-50% + 3px)) translateY(-1px) rotate(0.35deg); }
+      0%,100% { margin-left:0; margin-top:0; }
+      30%     { margin-left:-2px; margin-top:-2px; }
+      60%     { margin-left:3px; margin-top:-1px; }
+    }
+
+    /* ── BC MASCOT IMG: รูปจริง รับ 3D tilt จากเมาส์ ── */
+    #bcMascot {
+      display: block;
+      height: 100%; width: auto;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.38));
+      transform-style: preserve-3d;
+      transform: rotateX(0deg) rotateY(0deg) scale(1);
+      transition: transform .35s cubic-bezier(.2,.8,.3,1.2), filter .25s ease;
+      will-change: transform;
+    }
+    #bcMascotWrap:hover #bcMascot {
+      filter: drop-shadow(0 16px 22px rgba(0,0,0,0.42));
     }
 
     /* ── FLOATING JOIN CTA ใกล้น้ำพุ/มาสคอต ── */
@@ -573,7 +588,7 @@
       #pins .pin[data-id="craft"]  { left: 91.8% !important; bottom: 29.4% !important; }
       #pins .pin[data-id="chat"]   { left: 21.5% !important; bottom: 12% !important; }
 
-      #bcMascot { height: 86px; left: 54.0%; bottom: 27.8%; }
+      #bcMascotWrap { left: 54.0%; bottom: 27.8%; height: 86px; }
       #speech {
         display: block !important;
         left: calc(54% - 78px) !important;
@@ -609,7 +624,7 @@
     }
 
     @media (min-width: 641px) and (max-width: 1024px) {
-      #bcMascot { height: 106px; left: 53.8%; bottom: 28.8%; }
+      #bcMascotWrap { left: 53.8%; bottom: 28.8%; height: 106px; }
       .pin-bubble { font-size: 11px; padding: 5px 10px; }
       #navScroll { justify-content: center; }
     }
@@ -655,8 +670,10 @@
 <!-- BC Mascot -->
 <div id="speech"></div>
 <div id="mascotFx"></div>
-<img id="bcMascot" src="assets/mascot-wave.webp" alt="BC"
-     onerror="this.src='assets/mascot-stand.webp'">
+<div id="bcMascotWrap">
+  <img id="bcMascot" src="assets/mascot-wave.webp" alt="BC"
+       onerror="this.src='assets/mascot-stand.webp'">
+</div>
 <button id="floatingJoin" type="button">สมัครเข้าร่วม</button>
 
 <!-- Top Bar -->
@@ -953,14 +970,15 @@ const mascotTips = [
 let mascotTipIndex = 0;
 let mascotLifeTimer = null;
 const mascotEl = document.getElementById('bcMascot');
+const mascotWrapEl = document.getElementById('bcMascotWrap');
 const fxLayer = document.getElementById('mascotFx');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function setMascotPose(pose){
   mascotEl.src = MASCOT_POSES[pose] || MASCOT_POSES.stand;
 }
 function resetMascotSpot(){
-  mascotEl.style.left = mqMobile.matches ? '54%' : '53.8%';
-  mascotEl.style.bottom = mqMobile.matches ? '27.8%' : '27.6%';
+  mascotWrapEl.style.left = mqMobile.matches ? '54%' : '53.8%';
+  mascotWrapEl.style.bottom = mqMobile.matches ? '27.8%' : '27.6%';
 }
 function spawnFishFood(){
   const r = mascotEl.getBoundingClientRect();
@@ -987,16 +1005,16 @@ function spawnFishFood(){
 }
 function playMascotFeed(){
   if(reduceMotion || panel.classList.contains('open') || document.getElementById('memberDialog')?.open) return;
-  mascotEl.classList.add('busy');
+  mascotWrapEl.classList.add('busy');
   setMascotPose('walkRight');
-  mascotEl.style.left = mqMobile.matches ? '57%' : '55.2%';
+  mascotWrapEl.style.left = mqMobile.matches ? '57%' : '55.2%';
   setTimeout(()=>{
     setMascotPose('feed');
     say('ให้อาหารปลาก่อนนะ 🐟', 2400);
     spawnFishFood();
   }, 1200);
   setTimeout(()=>{ setMascotPose('walkLeft'); resetMascotSpot(); }, 3900);
-  setTimeout(()=>{ setMascotPose('stand'); mascotEl.classList.remove('busy'); }, 5200);
+  setTimeout(()=>{ setMascotPose('stand'); mascotWrapEl.classList.remove('busy'); }, 5200);
 }
 function setMascotForZone(id){
   if(id==='craft' || id==='food' || id==='travel' || id==='learn' || id==='market') setMascotPose('point');
@@ -1019,6 +1037,60 @@ function startMascotLife(){
   }
 }
 setTimeout(startMascotLife, 650);
+
+// ── MASCOT 3D TILT: เอียง/หมุนเบาๆ ตามตำแหน่งเมาส์เหนือมาสคอต ─────────────────
+(function initMascotTilt(){
+  if(reduceMotion) return;
+  const TILT_MAX = 16; // degrees
+  let rafId = null;
+  let targetRX = 0, targetRY = 0, curRX = 0, curRY = 0;
+  let hovering = false;
+
+  function applyTilt(){
+    curRX += (targetRX - curRX) * 0.18;
+    curRY += (targetRY - curRY) * 0.18;
+    mascotEl.style.transform = `rotateX(${curRX}deg) rotateY(${curRY}deg) scale(${hovering ? 1.04 : 1})`;
+    if(hovering || Math.abs(curRX) > 0.05 || Math.abs(curRY) > 0.05){
+      rafId = requestAnimationFrame(applyTilt);
+    } else {
+      mascotEl.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+      rafId = null;
+    }
+  }
+
+  function startLoop(){
+    if(!rafId) rafId = requestAnimationFrame(applyTilt);
+  }
+
+  mascotWrapEl.addEventListener('mousemove', (e)=>{
+    const r = mascotWrapEl.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;   // 0..1
+    const py = (e.clientY - r.top) / r.height;   // 0..1
+    targetRY = (px - 0.5) * 2 * TILT_MAX;    // ซ้าย-ขวา หมุนรอบแกน Y
+    targetRX = -(py - 0.5) * 2 * TILT_MAX;   // บน-ล่าง เอียงรอบแกน X
+    hovering = true;
+    startLoop();
+  });
+  mascotWrapEl.addEventListener('mouseleave', ()=>{
+    hovering = false;
+    targetRX = 0; targetRY = 0;
+    startLoop();
+  });
+
+  // มือถือ: แตะแล้วเอียงเบาๆ ตามตำแหน่งแตะ แล้วคืนกลับ
+  mascotWrapEl.addEventListener('touchstart', (e)=>{
+    if(!e.touches || !e.touches[0]) return;
+    const t = e.touches[0];
+    const r = mascotWrapEl.getBoundingClientRect();
+    const px = (t.clientX - r.left) / r.width;
+    const py = (t.clientY - r.top) / r.height;
+    targetRY = (px - 0.5) * 2 * (TILT_MAX*0.7);
+    targetRX = -(py - 0.5) * 2 * (TILT_MAX*0.7);
+    hovering = true;
+    startLoop();
+    setTimeout(()=>{ hovering = false; targetRX = 0; targetRY = 0; startLoop(); }, 420);
+  }, {passive:true});
+})();
 
 // ── REGISTER ──────────────────────────────────────────────────────────────────
 // Google Sheet connector
