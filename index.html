@@ -110,7 +110,7 @@
     #bcMascot {
       position: fixed;
       /* วางให้ยืนข้างน้ำพุจริง ๆ ไม่ลอยและไม่บังหมุด */
-      left: 52.2%; bottom: 37.0%; right: auto;
+      left: 51.8%; bottom: 30.8%; right: auto;
       height: 82px; z-index: 6;
       pointer-events: none;
       filter: drop-shadow(0 8px 18px rgba(0,0,0,0.40));
@@ -125,7 +125,7 @@
     /* ── FLOATING JOIN CTA ใกล้น้ำพุ/มาสคอต ── */
     #floatingJoin {
       position: fixed;
-      left: calc(52.2% + 28px); bottom: calc(37.0% + 72px);
+      left: calc(51.8% + 30px); bottom: calc(30.8% + 68px);
       z-index: 9;
       display: none;
       border: none;
@@ -156,7 +156,7 @@
     /* ── SPEECH BUBBLE ── */
     #speech {
       position: fixed;
-      left: calc(52.2% + 4px); bottom: calc(37.0% + 62px);
+      left: calc(51.8% + 2px); bottom: calc(30.8% + 58px);
       background: white;
       border-radius: 14px 14px 14px 4px;
       padding: 9px 13px;
@@ -167,7 +167,7 @@
       opacity: 0; transition: opacity 0.35s;
       max-width: 210px; white-space: normal; text-align: center;
     }
-    #speech.show { opacity: 1; }
+    #speech.show { opacity: 0; display: none; }
 
     /* ── TOP BAR ── */
     #topBar {
@@ -463,15 +463,15 @@
       #pins .pin { display: none; transform: translate(-50%, -100%) scale(.92); }
       #pins .pin.mobile-visible { display: flex; }
       .pin-bubble { font-size: 11px; padding: 5px 10px; max-width: 178px; overflow: hidden; text-overflow: ellipsis; }
-      #pins .pin[data-id="travel"] { left: 20% !important; bottom: 46% !important; }
-      #pins .pin[data-id="learn"]  { left: 36% !important; bottom: 47% !important; }
-      #pins .pin[data-id="market"] { left: 66% !important; bottom: 47% !important; }
-      #pins .pin[data-id="food"]   { left: 76% !important; bottom: 44% !important; }
-      #pins .pin[data-id="craft"]  { left: 86% !important; bottom: 44% !important; }
-      #pins .pin[data-id="chat"]   { left: 28% !important; bottom: 23% !important; }
+      #pins .pin[data-id="travel"] { left: 19% !important; bottom: 40% !important; }
+      #pins .pin[data-id="learn"]  { left: 39% !important; bottom: 43% !important; }
+      #pins .pin[data-id="market"] { left: 66% !important; bottom: 43% !important; }
+      #pins .pin[data-id="food"]   { left: 76% !important; bottom: 39% !important; }
+      #pins .pin[data-id="craft"]  { left: 86% !important; bottom: 39% !important; }
+      #pins .pin[data-id="chat"]   { left: 25% !important; bottom: 18% !important; }
 
-      #bcMascot { height: 58px; left: 53%; bottom: 39%; }
-      #speech { display: none; }
+      #bcMascot { height: 54px; left: 52%; bottom: 34%; }
+      #speech { display: none !important; }
       #floatingJoin { display:none; }
 
       #bottomNav { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
@@ -498,7 +498,7 @@
     }
 
     @media (min-width: 641px) and (max-width: 1024px) {
-      #bcMascot { height: 72px; left: 52%; bottom: 37.2%; }
+      #bcMascot { height: 66px; left: 52%; bottom: 31.2%; }
       .pin-bubble { font-size: 11px; padding: 5px 10px; }
       #navScroll { justify-content: center; }
     }
@@ -515,27 +515,27 @@
 <!-- MAP PINS -->
 <div id="pins">
   <!-- วาง pin ให้สัมพันธ์กับป้ายในฉากจริง ไม่สุ่มขึ้นฟ้า/รถไฟฟ้า -->
-  <div class="pin" style="left:14.4%;bottom:42.2%;" data-id="travel" data-delay="40">
+  <div class="pin" style="left:14.2%;bottom:35.8%;" data-id="travel" data-delay="40">
     <div class="pin-bubble"><span class="pin-icon">📷</span>ท่องเที่ยว</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:34.6%;bottom:41.8%;" data-id="learn" data-delay="100">
+  <div class="pin" style="left:34.0%;bottom:33.2%;" data-id="learn" data-delay="100">
     <div class="pin-bubble"><span class="pin-icon">🎓</span>ฝึกอาชีพ</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:70.0%;bottom:46.6%;" data-id="market" data-delay="160">
+  <div class="pin" style="left:70.2%;bottom:41.0%;" data-id="market" data-delay="160">
     <div class="pin-bubble"><span class="pin-icon">🛍</span>สินค้า/บริการ</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:77.0%;bottom:42.5%;" data-id="food" data-delay="220">
+  <div class="pin" style="left:79.0%;bottom:35.8%;" data-id="food" data-delay="220">
     <div class="pin-bubble"><span class="pin-icon">🍜</span>ร้านอาหาร</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:87.0%;bottom:42.7%;" data-id="craft" data-delay="280">
+  <div class="pin" style="left:89.0%;bottom:35.8%;" data-id="craft" data-delay="280">
     <div class="pin-bubble"><span class="pin-icon">🔧</span>หาช่าง</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:24.0%;bottom:24.8%;" data-id="chat" data-delay="340">
+  <div class="pin" style="left:20.8%;bottom:15.2%;" data-id="chat" data-delay="340">
     <div class="pin-bubble"><span class="pin-icon">💬</span>พูดคุย/แลกเปลี่ยน</div>
     <div class="pin-tail"></div>
   </div>
@@ -803,7 +803,7 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closePanel(); clo
 
 // ── SPEECH ────────────────────────────────────────────────────────────────────
 const sp=document.getElementById('speech'); let st=null;
-function say(t){ sp.textContent=t; sp.classList.add('show'); clearTimeout(st); st=setTimeout(()=>sp.classList.remove('show'),3500); }
+function say(t){ /* ปิด bubble มาสคอตเพื่อลดปุ่มลอย */ }
 
 // ── TOAST ─────────────────────────────────────────────────────────────────────
 const toast=document.getElementById('toast');
@@ -871,15 +871,8 @@ document.getElementById('regSubmitBtn').addEventListener('click',async()=>{
   }catch(err){ showErr('❌ ส่งไม่สำเร็จ กรุณาตรวจสอบ Web App URL / สิทธิ์ Apps Script แล้วลองใหม่'); btn.disabled=false; lbl.textContent='📨 ส่งข้อมูลสมัคร'; }
 });
 
-// ── STARTUP HINT: ไม่มี popup ต้อนรับ ให้เห็นเมืองทันที ─────────────────────
-const PHRASES=['กดเมนูล่างเพื่อเลือกหมวดได้เลยครับ','ปุ่มสมัครอยู่ท้ายเมนูล่างครับ','แตะ pin สีม่วงเพื่อดูข้อมูลในหมวดนั้น','ระบบนี้เป็นสื่อกลาง ตรวจสอบข้อมูลก่อนตกลงนะครับ'];
-let pi=0;
-setTimeout(()=>say('เลือกหมวดจากเมนูล่าง หรือแตะ pin ในเมืองได้เลยครับ'),900);
-setInterval(()=>{
-  const drawer=document.getElementById('serviceDrawer');
-  const dialog=document.getElementById('memberDialog');
-  if(!panel.classList.contains('open') && !drawer.classList.contains('open') && !dialog.open) say(PHRASES[pi++%PHRASES.length]);
-},15000);
+// ── STARTUP: ไม่มี popup / ไม่มี bubble ลอย ให้เห็นเมืองทันที ───────────────
+// ผู้ใช้เลือกหมวดจากเมนูล่างเอง; bubble มาสคอตถูกปิดเพื่อลดความรกทุกอุปกรณ์
 
 // ── SERVICE WORKER: clear old cache + keep GitHub Pages fresh ────────────────
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
