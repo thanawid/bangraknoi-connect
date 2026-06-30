@@ -110,8 +110,8 @@
     #bcMascot {
       position: fixed;
       /* ยืนข้างน้ำพุและขยับเหมือนแอบเดินเบา ๆ */
-      left: 52.1%; bottom: 25.8%; right: auto;
-      height: 82px; z-index: 6;
+      left: 52.0%; bottom: 29.1%; right: auto;
+      height: 96px; z-index: 6;
       pointer-events: auto;
       cursor: pointer;
       filter: drop-shadow(0 8px 18px rgba(0,0,0,0.40));
@@ -161,7 +161,7 @@
     /* ── SPEECH BUBBLE ── */
     #speech {
       position: fixed;
-      left: calc(52.1% + 18px); bottom: calc(25.8% + 54px);
+      left: calc(52.0% + 22px); bottom: calc(29.1% + 58px);
       background: white;
       border-radius: 14px 14px 14px 4px;
       padding: 9px 13px;
@@ -245,11 +245,13 @@
       pointer-events: none;
     }
     #navScroll {
-      display: flex; gap: 9px; overflow-x: auto; scrollbar-width: none;
+      display: flex; gap: 9px; overflow-x: auto; overflow-y: visible; scrollbar-width: none;
       justify-content: center;
       pointer-events: auto;
       scroll-snap-type: x proximity;
       scroll-padding-inline: 12px;
+      padding-top: 6px;
+      padding-bottom: 2px;
     }
     #navScroll::-webkit-scrollbar { display: none; }
 
@@ -261,10 +263,10 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
       background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,243,255,0.95));
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.46); border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.38); border-radius: 15px;
       padding: 9px 12px; cursor: pointer; color: #2d1d6e; min-width: 88px; min-height: 76px;
       transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease, filter .22s ease;
-      box-shadow: 0 8px 20px rgba(15,23,42,0.15);
+      box-shadow: 0 8px 18px rgba(15,23,42,0.14), inset 0 1px 0 rgba(255,255,255,0.85);
     }
     .nav-btn::before {
       content: "";
@@ -286,16 +288,16 @@
     }
     .nav-btn:hover, .nav-btn.active {
       background: linear-gradient(180deg, rgba(255,255,255,1), rgba(242,236,255,0.98));
-      border-color: rgba(124,58,237,0.28);
+      border-color: rgba(124,58,237,0.22);
       transform: translateY(-3px) scale(1.008);
-      box-shadow: 0 12px 26px rgba(91,33,182,0.18), 0 0 0 1px rgba(124,58,237,0.05);
+      box-shadow: 0 12px 24px rgba(91,33,182,0.16), inset 0 1px 0 rgba(255,255,255,0.95), 0 0 0 1px rgba(124,58,237,0.04);
     }
     .nav-btn:hover::before, .nav-btn.active::before { opacity: 1; }
     .nav-btn:hover::after, .nav-btn.active::after { opacity: .95; transform: scaleX(1); }
     .nav-btn:active { transform: translateY(-1px) scale(0.99); }
     .nav-btn .nb-icon { font-size: 28px; line-height: 1; transition: transform .22s ease, filter .22s ease; }
     .nav-btn:hover .nb-icon, .nav-btn.active .nb-icon { transform: translateY(-2px) scale(1.08); filter: drop-shadow(0 4px 10px rgba(124,58,237,.16)); }
-    .nav-btn .nb-label { font-size: 12px; line-height: 1.22; font-weight: 900; white-space: normal; text-align:center; max-width: 72px; transition: color .22s ease; }
+    .nav-btn .nb-label { font-size: 12px; line-height: 1.16; font-weight: 900; white-space: normal; text-align:center; max-width: 74px; transition: color .22s ease; }
     .nav-btn:hover .nb-label, .nav-btn.active .nb-label { color: #4c1d95; }
     .nav-btn.nav-join {
       color: white;
@@ -531,11 +533,11 @@
       #pins .pin[data-id="travel"] { left: 14.5% !important; bottom: 31.5% !important; }
       #pins .pin[data-id="learn"]  { left: 33.5% !important; bottom: 28.5% !important; }
       #pins .pin[data-id="market"] { left: 69% !important; bottom: 33.5% !important; }
-      #pins .pin[data-id="food"]   { left: 81.2% !important; bottom: 30.3% !important; }
-      #pins .pin[data-id="craft"]  { left: 90.8% !important; bottom: 30.3% !important; }
+      #pins .pin[data-id="food"]   { left: 82.0% !important; bottom: 29.4% !important; }
+      #pins .pin[data-id="craft"]  { left: 91.8% !important; bottom: 29.4% !important; }
       #pins .pin[data-id="chat"]   { left: 21.5% !important; bottom: 12% !important; }
 
-      #bcMascot { height: 54px; left: 52.2%; bottom: 27.4%; }
+      #bcMascot { height: 62px; left: 52.0%; bottom: 31.2%; }
       #speech { display: none !important; }
       #floatingJoin { display:none; }
       #mobileHint { display: block; }
@@ -544,7 +546,7 @@
       #navScroll { justify-content: flex-start; padding: 0 10px; scroll-snap-type: x mandatory; }
       .nav-btn { min-width: 82px; min-height: 72px; padding: 9px 10px; }
       .nav-btn .nb-icon { font-size: 25px; }
-      .nav-btn .nb-label { font-size: 11px; max-width: 68px; }
+      .nav-btn .nb-label { font-size: 11px; line-height: 1.12; max-width: 68px; }
 
       /* หมวดบนมือถือเปิดเป็น bottom sheet โดยไม่เอาฉากมืดมาทับ pin */
       .drawer-backdrop { display: none !important; }
@@ -564,7 +566,7 @@
     }
 
     @media (min-width: 641px) and (max-width: 1024px) {
-      #bcMascot { height: 66px; left: 52.1%; bottom: 26.6%; }
+      #bcMascot { height: 76px; left: 52.0%; bottom: 30.0%; }
       .pin-bubble { font-size: 11px; padding: 5px 10px; }
       #navScroll { justify-content: center; }
     }
@@ -593,11 +595,11 @@
     <div class="pin-bubble"><span class="pin-icon">🛍</span>สินค้า/บริการ</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:81.4%;bottom:31.1%;" data-id="food" data-delay="220">
+  <div class="pin" style="left:82.2%;bottom:29.9%;" data-id="food" data-delay="220">
     <div class="pin-bubble"><span class="pin-icon">🍜</span>ร้านอาหาร</div>
     <div class="pin-tail"></div>
   </div>
-  <div class="pin" style="left:91.8%;bottom:31.1%;" data-id="craft" data-delay="280">
+  <div class="pin" style="left:92.8%;bottom:29.9%;" data-id="craft" data-delay="280">
     <div class="pin-bubble"><span class="pin-icon">🔧</span>หาช่าง</div>
     <div class="pin-tail"></div>
   </div>
@@ -633,8 +635,8 @@
     <button class="nav-btn" data-id="food"><span class="nb-icon">🍜</span><span class="nb-label">ร้านอาหาร</span></button>
     <button class="nav-btn" data-id="travel"><span class="nb-icon">📷</span><span class="nb-label">ท่องเที่ยว</span></button>
     <button class="nav-btn" data-id="learn"><span class="nb-icon">🎓</span><span class="nb-label">ฝึกอาชีพ</span></button>
-    <button class="nav-btn" data-id="market"><span class="nb-icon">🛍</span><span class="nb-label">สินค้า/บริการ</span></button>
-    <button class="nav-btn" data-id="chat"><span class="nb-icon">💬</span><span class="nb-label">พูดคุย/แลกเปลี่ยน</span></button>
+    <button class="nav-btn" data-id="market"><span class="nb-icon">🛍</span><span class="nb-label">สินค้า/<br>บริการ</span></button>
+    <button class="nav-btn" data-id="chat"><span class="nb-icon">💬</span><span class="nb-label">พูดคุย/<br>แลกเปลี่ยน</span></button>
     <button class="nav-btn nav-join" data-action="join"><span class="nb-icon">📝</span><span class="nb-label">สมัคร</span></button>
   </div>
 </div>
