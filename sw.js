@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-community-neutral-v17-micro-final';
+const CACHE_NAME = 'bangraknoi-connect-community-neutral-v18-3d-mascot-life';
 const PRECACHE_URLS = [
   './',
   './index.html',
@@ -8,6 +8,14 @@ const PRECACHE_URLS = [
   './assets/hero-bg.mp4',
   './assets/bc-logo.webp',
   './assets/bc-mascot.webp',
+  './assets/mascot-stand.webp',
+  './assets/mascot-wave.webp',
+  './assets/mascot-point.webp',
+  './assets/mascot-open.webp',
+  './assets/mascot-phone.webp',
+  './assets/mascot-walk-left.webp',
+  './assets/mascot-walk-right.webp',
+  './assets/mascot-feed.webp',
   './assets/favicon.png',
   './assets/icon-180x180.png',
   './assets/icon-192x192.png',
