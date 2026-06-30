@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-community-neutral-v5-live-sheet';
+const CACHE_NAME = 'bangraknoi-connect-community-neutral-v7-menu-form-polish';
 const PRECACHE_URLS = [
   './',
   './index.html',
