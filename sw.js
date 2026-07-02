@@ -1,13 +1,11 @@
-const CACHE_NAME = 'bangraknoi-connect-community-neutral-v20-shoe-fix-video-scene';
+const CACHE_NAME = 'bangraknoi-connect-v21-perf';
 const PRECACHE_URLS = [
   './',
   './index.html',
   './data.js',
   './manifest.webmanifest',
   './assets/hero_bg.webp',
-  './assets/hero-bg.mp4',
   './assets/bc-logo.webp',
-  './assets/bc-mascot.webp',
   './assets/mascot-stand.webp',
   './assets/mascot-wave.webp',
   './assets/mascot-point.webp',
@@ -21,6 +19,7 @@ const PRECACHE_URLS = [
   './assets/icon-192x192.png',
   './assets/icon-512x512.png'
 ];
+// หมายเหตุ: ไม่ precache hero-bg.mp4 (8MB) — ให้เบราว์เซอร์สตรีมเอง ประหยัดเน็ตผู้ใช้ครั้งแรกมหาศาล
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -38,14 +37,23 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
+  const req = event.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  // ไม่แคช: ไฟล์วิดีโอ, range request, และไฟล์ข้ามโดเมน (เช่น Google Fonts/Apps Script)
+  const isVideo = url.pathname.endsWith('.mp4');
+  const isCross = url.origin !== location.origin;
+  if (isVideo || isCross || req.headers.has('range')) return;
+
   event.respondWith(
-    fetch(event.request)
+    fetch(req)
       .then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+        }
         return response;
       })
-      .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
+      .catch(() => caches.match(req).then((cached) => cached || caches.match('./index.html')))
   );
 });

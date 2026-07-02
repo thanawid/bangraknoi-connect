@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#5b21b6">
   <meta name="description" content="บางรักน้อย Connect — เมืองชุมชนที่มีชีวิต">
-  <title>บางรักน้อย Connect</title>
+  <title>บางรักน้อย Connect — เมืองชุมชนที่มีชีวิต</title>
+  <meta property="og:title" content="บางรักน้อย Connect">
+  <meta property="og:description" content="เมืองชุมชนที่มีชีวิต — หาช่าง ร้านอาหาร ท่องเที่ยว ฝึกอาชีพ ครบในที่เดียว">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/icon-512x512.png">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon-180x180.png">
   <link rel="manifest" href="manifest.webmanifest">
@@ -50,6 +55,34 @@
         rgba(15,0,40,0.55) 100%
       );
       pointer-events: none;
+      transition: background 2.5s ease;
+    }
+    /* โทนฉากเปลี่ยนตามเวลาจริง — ให้เมืองรู้สึก "มีชีวิต" */
+    #videoOverlay.sky-dawn  { background: linear-gradient(180deg, rgba(120,50,90,0.28), rgba(255,150,80,0.10) 45%, rgba(30,10,50,0.45)); }
+    #videoOverlay.sky-day   { background: linear-gradient(180deg, rgba(15,0,40,0.30), rgba(15,0,40,0.08) 45%, rgba(15,0,40,0.50)); }
+    #videoOverlay.sky-noon  { background: linear-gradient(180deg, rgba(40,60,120,0.18), rgba(255,220,150,0.05) 45%, rgba(15,0,40,0.48)); }
+    #videoOverlay.sky-dusk  { background: linear-gradient(180deg, rgba(90,30,110,0.38), rgba(255,120,60,0.14) 45%, rgba(25,5,50,0.55)); }
+    #videoOverlay.sky-night { background: linear-gradient(180deg, rgba(10,5,45,0.55), rgba(20,10,60,0.28) 45%, rgba(5,0,25,0.65)); }
+
+    /* ── QUEST BADGE: ภารกิจสำรวจเมือง ── */
+    #questBadge {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
+      padding: 4px 12px; color: white; font-size: 12px; font-weight: 800;
+      white-space: nowrap; cursor: default;
+      transition: transform .25s ease, background .25s ease;
+    }
+    #questBadge.complete { background: linear-gradient(135deg,#f59e0b,#7c3aed); border-color: rgba(255,255,255,.4); }
+    #questBadge.pop { transform: scale(1.14); }
+    .nav-btn .nb-done {
+      position: absolute; top: 6px; right: 6px;
+      width: 15px; height: 15px; border-radius: 50%;
+      background: #22c55e; color: white; font-size: 10px; line-height: 15px;
+      text-align: center; font-weight: 900;
+      box-shadow: 0 2px 6px rgba(34,197,94,.5);
+      animation: popIn .35s cubic-bezier(0.34,1.56,0.64,1);
     }
 
     /* ── MAP PINS ── */
@@ -250,7 +283,6 @@
     #logoArea span { font-size: 15px; font-weight: 900; color: #3b167e; text-shadow: none; letter-spacing: -0.02em; }
 
     #timeBadge {
-      margin-left: auto;
       background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
       padding: 4px 13px; color: white; font-size: 12px; font-weight: 600;
@@ -561,6 +593,8 @@
       #logoArea span { font-size: 13px; white-space: nowrap; }
       #timeBadge { display: none; }
       #joinBtn { display: none; }
+      #questBadge { padding: 4px 10px; font-size: 11px; }
+      #logoArea { max-width: calc(100vw - 110px); }
 
       /* MOBILE MODE: หน้าแรกต้องโล่ง — ซ่อน pin ทุกตัวก่อน แล้วโชว์เฉพาะหมวดที่กด */
       #pins .pin { display: none; transform: translate(-50%, -100%) scale(.92); }
@@ -619,8 +653,8 @@
 
 <!-- V20: new video scene + mascot shoe fix -->
 <!-- VIDEO BACKGROUND -->
-<video id="videoBg" autoplay loop muted playsinline poster="assets/hero_bg.webp?v=20">
-  <source src="assets/hero-bg.mp4?v=20" type="video/mp4">
+<video id="videoBg" autoplay loop muted playsinline preload="metadata" aria-hidden="true" poster="assets/hero_bg.webp?v=21">
+  <source src="assets/hero-bg.mp4?v=21" type="video/mp4">
 </video>
 <div id="videoOverlay"></div>
 
@@ -666,6 +700,7 @@
     <img src="assets/bc-logo.webp" alt="BC">
     <span>บางรักน้อย Connect</span>
   </div>
+  <div id="questBadge" title="สำรวจครบทุกหมวดเพื่อปลดล็อกตราประจำเมือง">🗺️ <span id="questCount">0/6</span></div>
   <div id="timeBadge">☀️ 08:00</div>
   <button id="joinBtn">สมัครเข้าร่วม</button>
 </div>
@@ -778,11 +813,27 @@ import { ZONES, getZone } from './data.js';
 // ── Time ──────────────────────────────────────────────────────────────────────
 const TICONS = { dawn:'🌅', day:'☀️', noon:'🌤', dusk:'🌇', night:'🌙' };
 function skyKey(h){ return h>=5&&h<7?'dawn':h>=7&&h<12?'day':h>=12&&h<17?'noon':h>=17&&h<20?'dusk':'night'; }
+const overlayEl=document.getElementById('videoOverlay');
 function tick(){
   const n=new Date(), h=n.getHours(), m=String(n.getMinutes()).padStart(2,'0');
-  document.getElementById('timeBadge').textContent=`${TICONS[skyKey(h)]} ${h}:${m}`;
+  const key=skyKey(h);
+  document.getElementById('timeBadge').textContent=`${TICONS[key]} ${h}:${m}`;
+  overlayEl.className=`sky-${key}`;
 }
 tick(); setInterval(tick,30000);
+
+// ── VIDEO: ประหยัดแบต/ดาต้า ─────────────────────────────────────────────────
+const videoEl=document.getElementById('videoBg');
+const saveData = navigator.connection?.saveData || /(^|,)\s*2g/.test(navigator.connection?.effectiveType||'');
+if(saveData || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  // เน็ตช้า/ผู้ใช้ขอลดการเคลื่อนไหว → ใช้ภาพนิ่ง (poster) แทนวิดีโอ 8MB
+  videoEl.removeAttribute('autoplay');
+  videoEl.querySelector('source')?.remove();
+  videoEl.load();
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden) videoEl.pause(); else if(videoEl.querySelector('source')) videoEl.play().catch(()=>{});
+});
 
 // ── PIN → PANEL ──────────────────────────────────────────────────────────────
 const MASCOTS = {
@@ -818,6 +869,7 @@ function revealActivePin(pin){ if(mqMobile.matches && pin) pin.classList.add('mo
 
 
 function openPanel(id){
+  markVisited(id);
   setMascotForZone(id);
   document.getElementById('mobileHint')?.classList.add('hide');
   // ถ้ามีข้อมูลใน PIN_DATA ใช้ pin panel
@@ -864,7 +916,45 @@ function closePanel(){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
 }
 
-document.querySelectorAll('.pin').forEach(p=>p.addEventListener('click',()=>openPanel(p.dataset.id)));
+// ── QUEST: สำรวจเมืองครบ 6 หมวด ─────────────────────────────────────────────
+const QUEST_ZONES=['craft','food','travel','learn','market','chat'];
+let visited=new Set();
+try{ visited=new Set(JSON.parse(localStorage.getItem('bc-visited')||'[]')); }catch(e){}
+function renderQuest(){
+  const done=QUEST_ZONES.filter(z=>visited.has(z)).length;
+  document.getElementById('questCount').textContent=`${done}/${QUEST_ZONES.length}`;
+  const badge=document.getElementById('questBadge');
+  badge.classList.toggle('complete', done===QUEST_ZONES.length);
+  document.querySelectorAll('.nav-btn[data-id]').forEach(b=>{
+    const isDone=visited.has(b.dataset.id);
+    let dot=b.querySelector('.nb-done');
+    if(isDone && !dot){ dot=document.createElement('span'); dot.className='nb-done'; dot.textContent='✓'; b.appendChild(dot); }
+  });
+}
+function markVisited(id){
+  if(!QUEST_ZONES.includes(id) || visited.has(id)) return;
+  visited.add(id);
+  try{ localStorage.setItem('bc-visited', JSON.stringify([...visited])); }catch(e){}
+  renderQuest();
+  const badge=document.getElementById('questBadge');
+  badge.classList.add('pop'); setTimeout(()=>badge.classList.remove('pop'),300);
+  const done=QUEST_ZONES.filter(z=>visited.has(z)).length;
+  if(done===QUEST_ZONES.length){
+    setMascotPose('wave');
+    say('🎉 ยินดีด้วย! สำรวจเมืองครบทุกหมวดแล้ว คุณคือชาวบางรักน้อยตัวจริง!', 4200);
+    showToast('🏅 ปลดล็อกตรา "นักสำรวจบางรักน้อย"');
+  }
+}
+renderQuest();
+
+document.querySelectorAll('.pin').forEach(p=>{
+  // a11y: ให้ pin เป็นปุ่มจริง กด Enter/Space ได้
+  p.setAttribute('role','button');
+  p.setAttribute('tabindex','0');
+  p.setAttribute('aria-label',`เปิดหมวด ${p.querySelector('.pin-bubble')?.textContent?.trim()||''}`);
+  p.addEventListener('click',()=>openPanel(p.dataset.id));
+  p.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openPanel(p.dataset.id); } });
+});
 document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>{
   document.getElementById('mobileHint')?.classList.add('hide');
   if(b.dataset.action==='join') return openRegisterDialog();
