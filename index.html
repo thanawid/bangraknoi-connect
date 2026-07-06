@@ -10,7 +10,7 @@
   <meta property="og:image" content="assets/icon-512x512.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <title>บางรักน้อย Connect — เมืองชุมชนที่มีชีวิต</title>
+  <title>บางรักน้อย Connect — ศูนย์รวมข้อมูลบริการชุมชน</title>
   <link rel="icon" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon-180x180.png">
   <link rel="manifest" href="manifest.webmanifest">
@@ -130,7 +130,7 @@
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
-      object-position: center center;
+      object-position: center 28%; /* V27: โฟกัสช่วงบนของวิดีโอ เพื่อให้รถไฟไม่ดูขาด */
       z-index: -3;
     }
     #hero::before { content: none; }
@@ -194,18 +194,18 @@
     .hero-mascot-frame {
       justify-self: end;
       align-self: end;
-      width: min(440px, 42vw);
-      height: min(390px, 33vw);
-      min-height: 300px;
+      width: min(410px, 39vw);
+      height: min(300px, 25vw);
+      min-height: 270px;
       overflow: hidden;
       display: flex;
       align-items: flex-start;
       justify-content: center;
       pointer-events: none;
-      filter: drop-shadow(0 22px 44px rgba(15,23,42,0.26));
+      filter: drop-shadow(0 22px 44px rgba(15,23,42,0.24));
     }
     .hero-mascot {
-      height: min(520px, 44vw);
+      height: min(500px, 42vw);
       max-width: none;
       flex-shrink: 0;
       margin-top: 0;
@@ -403,8 +403,12 @@
       gap: 40px; margin-bottom: 40px;
     }
     .footer-brand { display: flex; flex-direction: column; gap: 14px; }
-    .footer-brand img { height: 40px; border-radius: 10px; width: auto; }
-    .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 280px; }
+    .footer-brand-lockup { display:flex; align-items:center; gap:12px; }
+    .footer-brand-lockup img { width:44px; height:44px; border-radius:12px; object-fit:contain; flex:0 0 auto; }
+    .footer-brand-lockup b { display:block; color:#fff; font-size:15px; font-weight:900; line-height:1.2; }
+    .footer-brand-lockup small { display:block; color:rgba(255,255,255,.62); font-size:11px; margin-top:2px; }
+    .footer-brand > img { max-width:180px; height:auto; object-fit:contain; border-radius:10px; }
+    .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 300px; }
     .footer-social { display: flex; gap: 10px; }
     .social-btn {
       width: 36px; height: 36px; border-radius: 10px;
@@ -614,13 +618,26 @@
       .hero-subtitle { margin-left:auto; margin-right:auto; }
       .hero-badges { justify-content: center; }
       .hero-mascot-frame {
-        justify-self: center;
-        order: -1;
-        width: min(360px, 76vw);
-        height: 250px;
-        min-height: 250px;
-      }
-      .hero-mascot { height: 360px; }
+      justify-self: end;
+      align-self: end;
+      width: min(410px, 39vw);
+      height: min(300px, 25vw);
+      min-height: 270px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      pointer-events: none;
+      filter: drop-shadow(0 22px 44px rgba(15,23,42,0.24));
+    }
+    .hero-mascot {
+      height: min(500px, 42vw);
+      max-width: none;
+      flex-shrink: 0;
+      margin-top: 0;
+      animation: none !important;
+      transform: none !important;
+    }
     }
     @media (max-width: 640px) {
       .nav-inner { padding: 0 16px; gap: 12px; height: 62px; }
@@ -633,8 +650,27 @@
       .hero-subtitle { font-size: 14px; line-height: 1.7; }
       .hero-badges { gap: 8px; }
       .hero-badge { padding: 8px 10px; font-size: 11px; }
-      .hero-mascot-frame { width: min(320px, 86vw); height: 232px; min-height:232px; }
-      .hero-mascot { height: 330px; }
+      .hero-mascot-frame {
+      justify-self: end;
+      align-self: end;
+      width: min(410px, 39vw);
+      height: min(300px, 25vw);
+      min-height: 270px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      pointer-events: none;
+      filter: drop-shadow(0 22px 44px rgba(15,23,42,0.24));
+    }
+    .hero-mascot {
+      height: min(500px, 42vw);
+      max-width: none;
+      flex-shrink: 0;
+      margin-top: 0;
+      animation: none !important;
+      transform: none !important;
+    }
       #searchSection { padding: 16px; margin-left: 16px; margin-right: 16px; margin-top:-36px; }
       .search-row { flex-wrap: wrap; }
       #searchCat { min-width: auto; width: 100%; }
@@ -697,8 +733,8 @@
         <span class="hero-title-main">บางรักน้อย</span> <span class="hero-title-accent">Connect</span>
       </h1>
       <p class="hero-subtitle">
-        ศูนย์รวมข้อมูลบริการชุมชน ค้นหาช่าง ร้านอาหาร ท่องเที่ยว ฝึกอาชีพ
-        สินค้า/บริการ และช่องทางแลกเปลี่ยนข้อมูลในพื้นที่
+        ศูนย์รวมข้อมูลบริการชุมชน สำหรับค้นหาช่าง ร้านอาหาร ท่องเที่ยว
+        ฝึกอาชีพ สินค้า/บริการ และช่องทางแลกเปลี่ยนข้อมูลในพื้นที่
       </p>
       <div class="hero-badges">
         <div class="hero-badge">
@@ -809,8 +845,14 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <img src="assets/bc-logo.webp" alt="BC" onerror="this.style.display='none'">
-        <p>ศูนย์รวมข้อมูลบริการชุมชนและเศรษฐกิจท้องถิ่นของเทศบาลเมืองบางรักน้อย เพื่อช่วยให้ประชาชนเข้าถึงข้อมูลบริการ ร้านค้า ข่าวสาร และกิจกรรมในพื้นที่ได้สะดวกยิ่งขึ้น</p>
+        <div class="footer-brand-lockup">
+          <img src="assets/favicon.png" alt="BC" onerror="this.style.display='none'">
+          <div>
+            <b>บางรักน้อย Connect</b>
+            <small>เทศบาลเมืองบางรักน้อย</small>
+          </div>
+        </div>
+        <p>ศูนย์รวมข้อมูลบริการชุมชนของเทศบาลเมืองบางรักน้อย เพื่อช่วยให้ประชาชนค้นหาบริการ ร้านค้า ข่าวสาร และกิจกรรมในพื้นที่ได้สะดวกยิ่งขึ้น</p>
         <div class="footer-social">
           <a class="social-btn" href="https://www.facebook.com/search/groups/?q=บางรักน้อย" target="_blank" rel="noopener" title="Facebook">📘</a>
           <a class="social-btn" href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener" title="LINE OA">💬</a>
@@ -848,8 +890,8 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2568 บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย · สงวนลิขสิทธิ์</p>
-      <p>ข้อมูลผ่านการตรวจสอบเบื้องต้น · ไม่รับประกันคุณภาพบริการ · <a href="https://www.brn.go.th">brn.go.th</a></p>
+      <p>© 2569 บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย · สงวนลิขสิทธิ์</p>
+      <p>ข้อมูลผ่านการตรวจสอบเบื้องต้น · โปรดตรวจสอบรายละเอียดกับผู้ให้บริการก่อนตกลงใช้บริการ · <a href="https://www.brn.go.th">brn.go.th</a></p>
     </div>
   </div>
 </footer>
@@ -903,7 +945,7 @@
           <p><strong>2. ยินยอม PDPA</strong><br>ผู้เพิ่มข้อมูลยินยอมให้เทศบาลจัดเก็บและเผยแพร่ข้อมูล เช่น ชื่อ เบอร์ติดต่อ LINE Facebook ที่อยู่ เพื่อประชาสัมพันธ์บริการ</p>
           <p><strong>3. สิทธิ์แก้ไข/ถอนข้อมูล</strong><br>ติดต่อ 02-193-4512-3 ได้ตลอดเวลา</p>
           <p><strong>4. ข้อจำกัดความรับผิด</strong><br>เทศบาลไม่รับผิดชอบต่อความเสียหายจากการใช้บริการภายนอก</p>
-          <p><strong>5. ลิขสิทธิ์</strong><br>© 2568 บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย ห้ามนำข้อมูลไปใช้เพื่อการค้าโดยไม่ได้รับอนุญาต</p>
+          <p><strong>5. ลิขสิทธิ์</strong><br>© 2569 บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย ห้ามนำข้อมูลไปใช้เพื่อการค้าโดยไม่ได้รับอนุญาต</p>
         </div>
         <label class="consent-check">
           <input type="checkbox" id="reg-consent">
@@ -1006,8 +1048,8 @@ CATS.forEach(c => {
 // ── UPDATES ─────────────────────────────────────────────────────────────────────
 
 const UPDATES = [
-  { cat:'ประกาศ', title:'ประกาศรับสมัครข้อมูลร้านค้าและบริการชุมชนผ่านบางรักน้อย Connect', date:'19 พ.ค. 2567', icon:'📋', image:'assets/sample-news.webp', href:'https://www.brn.go.th/news_obt.php?id=2' },
-  { cat:'บริการ', title:'เปิดช่องทางให้ประชาชนค้นหาบริการและส่งข้อมูลผู้ให้บริการในพื้นที่', date:'15 พ.ค. 2567', icon:'💻', image:'assets/scene-townhall.webp', href:'https://www.brn.go.th/' },
+  { cat:'ประกาศ', title:'เปิดรับข้อมูลร้านค้าและบริการชุมชนผ่านบางรักน้อย Connect', date:'19 พ.ค. 2569', icon:'📋', image:'assets/scene-townhall.webp', href:'https://www.brn.go.th/news_obt.php?id=2' },
+  { cat:'บริการ', title:'เปิดช่องทางให้ประชาชนค้นหาบริการและส่งข้อมูลผู้ให้บริการในพื้นที่', date:'15 พ.ค. 2569', icon:'💻', image:'assets/scene-temple.webp', href:'https://www.brn.go.th/' },
   { cat:'กิจกรรม', title:'กิจกรรมชุมชนและข่าวประชาสัมพันธ์จากเทศบาลเมืองบางรักน้อย', date:'อัปเดตต่อเนื่อง', icon:'🎉', image:'assets/scene-river.webp', href:'https://www.brn.go.th/' },
 ];
 const updatesGrid = document.getElementById('updatesGrid');
@@ -1071,7 +1113,7 @@ window.openDrawer = async (id) => {
   document.getElementById('drawerIcon').textContent = ZONE_ICONS[id] || '✦';
   document.getElementById('drawerTitle').textContent = zone?.label || (id==='news'?'ข่าวสาร':'กิจกรรม');
   document.getElementById('drawerDesc').textContent = zone?.description || '';
-  document.getElementById('drawerSource').textContent = zone?.source || '© 2568 บางรักน้อย Connect · ตรวจสอบก่อนตกลง';
+  document.getElementById('drawerSource').textContent = zone?.source || '© 2569 บางรักน้อย Connect · ตรวจสอบก่อนตกลง';
   document.getElementById('drawerBody').innerHTML = '<div class="drawer-loading"><div class="spinner"></div>กำลังโหลดข้อมูล...</div>';
 
   if (id === 'news') {
