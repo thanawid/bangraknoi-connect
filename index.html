@@ -40,8 +40,14 @@
     #videoBg {
       position: fixed; inset: 0; z-index: 0;
       width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center center;
+      /* scale เพื่อซ่อน control bar ของ Google Drive iframe */
+      transform: scale(1.5);
+      border: none; pointer-events: none;
+    }
+    #videoFallback {
+      position: fixed; inset: 0; z-index: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
     }
 
     /* Overlay บางๆ เพื่อให้อ่านข้อความได้ */
@@ -581,6 +587,37 @@
     #footerMeta span:nth-child(2) { overflow:hidden; text-overflow:ellipsis; }
     #footerMeta a { color:white; text-decoration: none; font-weight: 800; pointer-events:auto; }
 
+
+    /* ── SHEET BADGE ── */
+    .sheet-badge { display:inline-block; background:#dcfce7; color:#166534; font-size:10px; font-weight:700; padding:2px 7px; border-radius:8px; margin-left:6px; }
+    .maps-badge  { display:inline-block; background:#dbeafe; color:#1e40af; font-size:10px; font-weight:700; padding:2px 7px; border-radius:8px; margin-left:6px; }
+    .disclaimer-strip { background:#fff8e6; border:1px solid #fde68a; border-radius:10px; padding:8px 12px; margin:0 16px 10px; font-size:11px; color:#92400e; line-height:1.5; }
+    .maps-notice { background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:9px 12px; margin:0 16px 8px; font-size:11px; color:#1e40af; line-height:1.6; }
+    .maps-notice a { color:#1e40af; font-weight:700; }
+    .drawer-loading { display:flex; align-items:center; gap:10px; padding:20px 16px; color:#888; font-size:13px; }
+    .spinner { width:20px; height:20px; border:2px solid #e9e4f9; border-top-color:#7c3aed; border-radius:50%; animation:spin 0.7s linear infinite; flex-shrink:0; }
+    @keyframes spin { to{transform:rotate(360deg)} }
+
+    /* ── REPORT BUTTON ── */
+    .report-btn { display:inline-flex; align-items:center; gap:5px; background:none; border:1px solid #e5e7eb; border-radius:8px; padding:3px 9px; font-size:10px; color:#9ca3af; cursor:pointer; font-family:inherit; margin:2px 13px 8px; transition:color 0.2s,border-color 0.2s; }
+    .report-btn:hover { color:#ef4444; border-color:#fca5a5; background:#fff5f5; }
+
+    /* ── REPORT MODAL ── */
+    #reportModal { position:fixed; inset:0; z-index:40; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.52); backdrop-filter:blur(4px); opacity:0; pointer-events:none; transition:opacity 0.25s; }
+    #reportModal.show { opacity:1; pointer-events:all; }
+    #reportCard { background:white; border-radius:20px; padding:22px 20px; max-width:310px; width:88vw; box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+    #reportCard h3 { font-size:15px; font-weight:900; color:#dc2626; margin-bottom:5px; }
+    #reportCard p { font-size:12px; color:#666; margin-bottom:12px; line-height:1.6; }
+    #reportSubject { font-size:12px; font-weight:700; color:#1e1b4b; margin-bottom:10px; padding:8px 10px; background:#f9fafb; border-radius:8px; }
+    #reportType { width:100%; padding:9px 11px; border:1.5px solid #ddd; border-radius:10px; font-size:12px; font-family:inherit; margin-bottom:9px; outline:none; }
+    #reportType:focus { border-color:#7c3aed; }
+    #reportNote { width:100%; padding:9px 11px; border:1.5px solid #ddd; border-radius:10px; font-size:11px; font-family:inherit; resize:none; outline:none; }
+    #reportNote:focus { border-color:#7c3aed; }
+    .report-btns { display:flex; gap:8px; margin-top:10px; }
+    .report-cancel { flex:1; padding:9px; border:1.5px solid #ddd; border-radius:10px; background:white; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; color:#666; }
+    .report-submit { flex:2; padding:9px; border:none; border-radius:10px; background:#dc2626; color:white; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
+    .report-submit:hover { background:#b91c1c; }
+
     @media (max-width: 640px) {
       #siteFooter { right: 10px; bottom: max(96px, calc(env(safe-area-inset-bottom) + 96px)); }
       #footerContent { max-width: min(280px, 68vw); padding: 5px 9px; font-size: 8px; gap: 8px; }
@@ -653,9 +690,15 @@
 
 <!-- V20: new video scene + mascot shoe fix -->
 <!-- VIDEO BACKGROUND -->
-<video id="videoBg" autoplay loop muted playsinline preload="metadata" aria-hidden="true" poster="assets/hero_bg.webp?v=21">
-  <source src="assets/hero-bg.mp4?v=21" type="video/mp4">
-</video>
+<!-- VIDEO: Google Drive iframe (ไม่มีปัญหา GitHub Pages / Netlify) -->
+<img id="videoFallback" src="assets/hero_bg.webp" alt="" style="position:fixed;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:center;">
+<iframe id="videoBg"
+  src="https://drive.google.com/file/d/1YcDyUll8yrng5I64QohZmNpKPcSFnTEz/preview?autoplay=1&mute=1&loop=1&controls=0"
+  allow="autoplay; fullscreen"
+  allowfullscreen
+  aria-hidden="true"
+  style="border:none;pointer-events:none;">
+</iframe>
 <div id="videoOverlay"></div>
 
 <!-- MAP PINS -->
@@ -807,6 +850,30 @@
   </div>
 </dialog>
 
+
+<!-- REPORT MODAL -->
+<div id="reportModal">
+  <div id="reportCard">
+    <h3>🚩 แจ้งข้อมูลผิดพลาด</h3>
+    <p>ช่วยบอกเราว่าข้อมูลใดไม่ถูกต้อง ทีมงานจะตรวจสอบและแก้ไขโดยเร็วครับ</p>
+    <div id="reportSubject">รายการ: —</div>
+    <select id="reportType">
+      <option value="">-- เลือกประเภทปัญหา --</option>
+      <option value="เบอร์โทรไม่ถูกต้อง">📞 เบอร์โทรไม่ถูกต้อง/ไม่รับสาย</option>
+      <option value="ชื่อหรือที่อยู่ผิด">📍 ชื่อหรือที่อยู่ผิด</option>
+      <option value="ปิดกิจการแล้ว">🚫 ปิดกิจการแล้ว</option>
+      <option value="ข้อมูลล้าสมัย">🕐 ข้อมูลล้าสมัย</option>
+      <option value="เนื้อหาไม่เหมาะสม">⚠️ เนื้อหาไม่เหมาะสม</option>
+      <option value="อื่นๆ">💬 อื่นๆ</option>
+    </select>
+    <textarea id="reportNote" rows="2" placeholder="รายละเอียดเพิ่มเติม (ไม่บังคับ)" maxlength="200"></textarea>
+    <div class="report-btns">
+      <button class="report-cancel" id="reportCancel">ยกเลิก</button>
+      <button class="report-submit" id="reportSubmit">📨 ส่งแจ้ง</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { ZONES, getZone } from './data.js';
 
@@ -822,18 +889,8 @@ function tick(){
 }
 tick(); setInterval(tick,30000);
 
-// ── VIDEO: ประหยัดแบต/ดาต้า ─────────────────────────────────────────────────
-const videoEl=document.getElementById('videoBg');
-const saveData = navigator.connection?.saveData || /(^|,)\s*2g/.test(navigator.connection?.effectiveType||'');
-if(saveData || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  // เน็ตช้า/ผู้ใช้ขอลดการเคลื่อนไหว → ใช้ภาพนิ่ง (poster) แทนวิดีโอ 8MB
-  videoEl.removeAttribute('autoplay');
-  videoEl.querySelector('source')?.remove();
-  videoEl.load();
-}
-document.addEventListener('visibilitychange',()=>{
-  if(document.hidden) videoEl.pause(); else if(videoEl.querySelector('source')) videoEl.play().catch(()=>{});
-});
+// ── VIDEO: Google Drive iframe — ไม่ต้องจัดการ pause/play ──────────────────
+// iframe จาก Google Drive จัดการ autoplay loop เองอัตโนมัติ
 
 // ── PIN → PANEL ──────────────────────────────────────────────────────────────
 const MASCOTS = {
@@ -966,39 +1023,155 @@ backdrop.addEventListener('click',closePanel);
 // ── DRAWER (ระบบเดิม) ────────────────────────────────────────────────────────
 const ICONS={craft:'⚒',food:'🍜',travel:'📷',learn:'🎓',market:'🛍',service:'🏛',chat:'💬'};
 
-function buildDrawerItem(item){
+// ── SHEET REALTIME ───────────────────────────────────────────────────────────
+const SHEET_ID='1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM';
+const SHEET_CSV=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
+let sheetCache=null, sheetFetched=false;
+
+async function getSheetItems(categoryId){
+  if(!sheetFetched){
+    sheetFetched=true;
+    try{
+      const res=await fetch(SHEET_CSV,{cache:'no-cache'});
+      if(res.ok){
+        const text=await res.text();
+        sheetCache=parseSheetCSV(text);
+      }
+    }catch(e){ console.warn('Sheet unavailable',e); sheetCache=[]; }
+  }
+  if(!sheetCache||!sheetCache.length) return [];
+  const CAT_MAP={'หาช่าง':'craft','บ้านช่าง':'craft','ร้านอาหาร':'food','คาเฟ่':'food','อาหาร':'food','ท่องเที่ยว':'travel','ฝึกอาชีพ':'learn','อาชีพ':'learn','สินค้า':'market','สินค้า/บริการ':'market','ตลาด':'market','พูดคุย':'chat','แลกเปลี่ยน':'chat'};
+  return sheetCache.filter(r=>{
+    const matched=Object.entries(CAT_MAP).find(([k])=>r.category.includes(k));
+    return matched&&matched[1]===categoryId;
+  });
+}
+
+function parseSheetCSV(text){
+  const rows=text.trim().split('\n').map(r=>{
+    const cols=[]; let cur='',inQ=false;
+    for(const ch of r){ if(ch==='"'){inQ=!inQ;continue;} if(ch===','&&!inQ){cols.push(cur.trim());cur='';continue;} cur+=ch; }
+    cols.push(cur.trim()); return cols;
+  });
+  if(rows.length<2) return [];
+  return rows.slice(1)
+    .filter(r=>(r[6]||'').toLowerCase().includes('อนุมัติ')||(r[6]||'').toLowerCase().includes('approved'))
+    .map(r=>({ name:r[0]||'', category:r[1]||'', detail:r[2]||'', phone:r[3]||'', area:r[4]||'', line:r[5]||'', fromSheet:true }))
+    .filter(r=>r.name);
+}
+
+// ── REPORT ────────────────────────────────────────────────────────────────────
+let currentReportItem='';
+function openReport(name){
+  currentReportItem=name;
+  document.getElementById('reportSubject').textContent=`รายการ: "${name}"`;
+  document.getElementById('reportType').value='';
+  document.getElementById('reportNote').value='';
+  document.getElementById('reportModal').classList.add('show');
+}
+document.getElementById('reportCancel')?.addEventListener('click',()=>document.getElementById('reportModal').classList.remove('show'));
+document.getElementById('reportSubmit')?.addEventListener('click',async()=>{
+  const type=document.getElementById('reportType').value;
+  if(!type){showToast('⚠️ กรุณาเลือกประเภทปัญหา');return;}
+  document.getElementById('reportModal').classList.remove('show');
+  showToast('📨 ขอบคุณที่แจ้งให้ทราบครับ!');
+  try{
+    await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({type:'report',item:currentReportItem,problem:type,note:document.getElementById('reportNote').value,source:'Bangraknoi Connect Web',timestamp:new Date().toLocaleString('th-TH',{timeZone:'Asia/Bangkok'})})});
+  }catch(e){}
+});
+
+// ── BUILD DRAWER ITEM ─────────────────────────────────────────────────────────
+function buildDrawerItem(item, showReport=true){
+  const wrap=document.createElement('div');
   const a=document.createElement('a'); a.className='drawer-item'+(item.primary?' drawer-item-primary':'');
-  a.href=item.href || '#';
-  if(item.href?.startsWith('http')){a.target='_blank';a.rel='noopener noreferrer';}
-  if(item.href==='#'){
+  a.href=item.href||'#';
+  if(item.href?.startsWith('http')||item.href?.startsWith('tel:')){
+    a.target=item.href.startsWith('tel:')?'_self':'_blank'; a.rel='noopener noreferrer';
+  }
+  if(item.href==='#'||!item.href){
     a.addEventListener('click',(e)=>{
       e.preventDefault();
       if(item.action==='สมัคร') openRegisterDialog();
-      else showToast(item.detail || 'โปรดตรวจสอบข้อมูลก่อนติดต่อทุกครั้ง');
+      else showToast(item.detail||'โปรดตรวจสอบข้อมูลกับผู้ให้บริการโดยตรงครับ');
     });
   }
-  a.innerHTML=`<span>${item.icon}</span><div><b>${item.title}</b><small>${item.detail}</small></div><i>${item.action} ›</i>`;
-  return a;
+  // badge sheet vs maps
+  const badge = item.fromSheet
+    ? '<span class="sheet-badge">✅ อนุมัติแล้ว</span>'
+    : (item.fromMaps ? '<span class="maps-badge">🗺 Google Maps</span>' : '');
+  a.innerHTML=`<span>${item.icon||'✦'}</span><div><b>${item.title}${badge}</b><small>${item.detail||''}</small></div><i>${item.action||'ดู'} ›</i>`;
+  wrap.appendChild(a);
+  // ปุ่มแจ้งข้อมูลผิด
+  if(showReport){
+    const rb=document.createElement('button'); rb.className='report-btn'; rb.type='button';
+    rb.innerHTML='🚩 แจ้งข้อมูลผิด';
+    rb.addEventListener('click',()=>openReport(item.title));
+    wrap.appendChild(rb);
+  }
+  return wrap;
 }
-function openDrawer(id){
+
+// ── OPEN DRAWER (with Sheet realtime) ────────────────────────────────────────
+async function openDrawer(id){
   const cat=getZone(id); if(!cat) return;
   document.getElementById('drawerIcon').textContent=ICONS[id]||'✦';
   document.getElementById('drawerTitle').textContent=cat.label;
   document.getElementById('drawerDescription').textContent=cat.description;
   document.getElementById('drawerSource').textContent=cat.source;
-  const list=document.getElementById('drawerList'); list.innerHTML='';
-  if(cat.groups) cat.groups.forEach(g=>{
-    const sec=document.createElement('div'); sec.className='drawer-group';
-    const lbl=document.createElement('div'); lbl.className='drawer-group-label'; lbl.textContent=g.label;
-    sec.appendChild(lbl); g.items.forEach(item=>sec.appendChild(buildDrawerItem(item)));
-    list.appendChild(sec);
-  });
-  else cat.items.forEach(item=>list.appendChild(buildDrawerItem(item)));
+  const list=document.getElementById('drawerList');
+  list.innerHTML='<div class="drawer-loading"><div class="spinner"></div>กำลังโหลดข้อมูล...</div>';
   const db=document.getElementById('drawerBackdrop');
-  db.hidden = mqMobile.matches;
-  const dr=document.getElementById('serviceDrawer');
-  requestAnimationFrame(()=>dr.classList.add('open'));
+  db.hidden=mqMobile.matches;
+  requestAnimationFrame(()=>document.getElementById('serviceDrawer').classList.add('open'));
   say(`เปิดหมวด${cat.label}แล้วครับ!`);
+  // โหลด Sheet
+  const sheetItems=await getSheetItems(id);
+  list.innerHTML='';
+  // disclaimer
+  const disc=document.createElement('div'); disc.className='disclaimer-strip';
+  disc.innerHTML='⚠️ <strong>ข้อสงวนสิทธิ์:</strong> ข้อมูลผ่านการตรวจสอบเบื้องต้นเท่านั้น · เทศบาลไม่รับประกันคุณภาพ · กรุณาตกลงราคาและเงื่อนไขกับผู้ให้บริการโดยตรง';
+  list.appendChild(disc);
+  // Sheet items (ถ้ามี)
+  if(sheetItems.length>0){
+    const sec=document.createElement('div'); sec.className='drawer-group';
+    const lbl=document.createElement('div'); lbl.className='drawer-group-label';
+    lbl.innerHTML=`✅ ลงทะเบียนกับระบบ <span class="sheet-badge">ผ่านการอนุมัติ</span>`;
+    sec.appendChild(lbl);
+    sheetItems.forEach(r=>{
+      const item={
+        icon:'✦', title:r.name,
+        detail:[r.detail,r.area].filter(Boolean).join(' · '),
+        action:r.phone?'โทรเลย':'ดูข้อมูล',
+        href:r.phone?`tel:${r.phone.replace(/[^0-9]/g,'')}`:'#',
+        fromSheet:true
+      };
+      sec.appendChild(buildDrawerItem(item,true));
+    });
+    list.appendChild(sec);
+  }
+  // Hardcode items จาก data.js
+  if(cat.groups){
+    if(sheetItems.length>0){
+      const notice=document.createElement('div'); notice.className='maps-notice';
+      notice.textContent='🗺 รายการเพิ่มเติมจาก Google Maps';
+      list.appendChild(notice);
+    } else {
+      const notice=document.createElement('div'); notice.className='maps-notice';
+      notice.innerHTML='🗺 ยังไม่มีผู้ลงทะเบียน · แสดงจาก Google Maps ก่อน · <a href="#" id="noticeJoin">สมัครเข้าร่วมได้เลย</a>';
+      list.appendChild(notice);
+      list.querySelector('#noticeJoin')?.addEventListener('click',(e)=>{e.preventDefault();openRegisterDialog();});
+    }
+    cat.groups.forEach(g=>{
+      const sec=document.createElement('div'); sec.className='drawer-group';
+      const lbl=document.createElement('div'); lbl.className='drawer-group-label'; lbl.textContent=g.label;
+      sec.appendChild(lbl);
+      g.items.forEach(item=>{ item.fromMaps=true; sec.appendChild(buildDrawerItem(item,true)); });
+      list.appendChild(sec);
+    });
+  } else if(cat.items){
+    cat.items.forEach(item=>list.appendChild(buildDrawerItem(item,false)));
+  }
 }
 function closeDrawer(){
   setMascotPose('stand'); resetMascotSpot();
