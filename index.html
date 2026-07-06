@@ -120,33 +120,38 @@
 
     /* ── HERO ── */
     #hero {
-      background: linear-gradient(180deg, #ffffff 0%, #fbf8ff 100%);
+      background: #ffffff;
       position: relative; overflow: hidden;
-      min-height: 540px;
+      min-height: 520px;
       display: flex; align-items: center;
+      isolation: isolate;
     }
-    #hero::before {
-      content: '';
+    .hero-video-bg {
       position: absolute; inset: 0;
-      background: url('assets/hero_bg.webp') right center/cover no-repeat;
-      opacity: .95;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      z-index: -3;
     }
+    #hero::before { content: none; }
     #hero-overlay {
-      position: absolute; inset: 0; z-index: 0;
-      background: linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 34%, rgba(255,255,255,0.58) 58%, rgba(255,255,255,0.04) 80%);
+      position: absolute; inset: 0; z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.93) 34%, rgba(255,255,255,0.68) 58%, rgba(255,255,255,0.14) 82%),
+        linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.78) 100%);
       pointer-events: none;
     }
     #hero::after {
       content: '';
-      position: absolute; left: -80px; top: 30px;
-      width: 320px; height: 320px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(139,92,246,0.10) 0%, transparent 70%);
+      position: absolute; left: -110px; top: 40px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,0.10) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-inner {
-      max-width: 1200px; margin: 0 auto; padding: 60px 24px;
-      display: grid; grid-template-columns: minmax(420px, 560px) minmax(300px, 1fr);
-      gap: 24px; align-items: flex-end;
+      max-width: 1200px; margin: 0 auto; padding: 58px 24px 70px;
+      display: grid; grid-template-columns: minmax(390px, 520px) minmax(330px, 1fr);
+      gap: 30px; align-items: center;
       position: relative; z-index: 1; width: 100%;
     }
     .hero-eyebrow {
@@ -155,47 +160,57 @@
       border: 1px solid rgba(124,58,237,0.12);
       border-radius: var(--radius-full);
       padding: 5px 14px; font-size: 12px; color: #6d28d9;
-      font-weight: 600; margin-bottom: 16px;
+      font-weight: 700; margin-bottom: 16px;
     }
-    .hero-eyebrow span { width:6px; height:6px; border-radius:50%; background:#22c55e; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .hero-eyebrow span { width:6px; height:6px; border-radius:50%; background:#22c55e; }
     .hero-title {
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: 900; line-height: 1.15;
+      font-size: clamp(34px, 4.2vw, 56px);
+      font-weight: 900; line-height: 1.10;
       color: #111827;
-      margin-bottom: 8px;
+      letter-spacing: -0.035em;
+      margin-bottom: 14px;
     }
     .hero-title-accent { color: var(--orange); }
     .hero-title-main { color: var(--purple); }
     .hero-subtitle {
-      font-size: clamp(14px, 1.8vw, 17px);
-      color: #4b5563;
-      line-height: 1.7; margin-bottom: 28px;
+      font-size: clamp(14px, 1.65vw, 17px);
+      color: #374151;
+      line-height: 1.75; margin-bottom: 24px;
       max-width: 500px;
       text-shadow: none;
     }
     .hero-badges {
-      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px;
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 0;
     }
     .hero-badge {
       display: flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.76); backdrop-filter: blur(8px);
-      border: 1px solid rgba(124,58,237,0.08);
-      border-radius: var(--radius-md);
-      padding: 10px 14px; color: #111827; font-size: 12px; font-weight: 700; box-shadow: var(--shadow-sm);
+      background: rgba(255,255,255,0.82); backdrop-filter: blur(10px);
+      border: 1px solid rgba(124,58,237,0.10);
+      border-radius: 14px;
+      padding: 10px 13px; color: #111827; font-size: 12px; font-weight: 800; box-shadow: var(--shadow-sm);
     }
-    .hero-badge-icon { font-size: 18px; }
-    .hero-badge small { display: block; font-size: 10px; color: #6b7280; font-weight: 400; margin-top: 1px; }
+    .hero-badge-icon { font-size: 17px; }
+    .hero-badge small { display: block; font-size: 10px; color: #6b7280; font-weight: 500; margin-top: 1px; }
+    .hero-mascot-frame {
+      justify-self: end;
+      align-self: end;
+      width: min(440px, 42vw);
+      height: min(390px, 33vw);
+      min-height: 300px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      pointer-events: none;
+      filter: drop-shadow(0 22px 44px rgba(15,23,42,0.26));
+    }
     .hero-mascot {
-      height: clamp(320px, 34vw, 470px);
-      filter: drop-shadow(0 20px 50px rgba(0,0,0,0.45));
-      animation: mascotHero 4s ease-in-out infinite;
+      height: min(520px, 44vw);
+      max-width: none;
       flex-shrink: 0;
-      margin-bottom: -4px; /* ชิดขอบล่าง */
-    }
-    @keyframes mascotHero {
-      0%,100% { transform: translateY(0) rotate(-1deg); }
-      50%      { transform: translateY(-12px) rotate(1deg); }
+      margin-top: 0;
+      animation: none !important;
+      transform: none !important;
     }
 
     /* ── SEARCH BAR ── */
@@ -317,132 +332,63 @@
     .cat-label { font-size: 13px; font-weight: 700; color: var(--text-dark); line-height: 1.3; }
     .cat-count { font-size: 11px; color: var(--text-light); font-weight: 500; }
 
-    /* ── FEATURED CARDS ── */
-    .cards-scroll {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 12px;
-    }
-    .feat-card {
-      background: white; border: 1.5px solid var(--border);
-      border-radius: var(--radius-md);
-      overflow: hidden; cursor: pointer;
-      transition: all 0.22s ease;
-      box-shadow: var(--shadow-sm);
-      display: grid;
-      grid-template-columns: 56px 1fr;
-      align-items: center;
-      gap: 12px;
-      padding: 14px;
-      min-height: 104px;
-    }
-    .feat-card:hover {
-      border-color: var(--purple);
-      box-shadow: 0 8px 28px rgba(91,33,182,0.13);
-      transform: translateY(-2px);
-    }
-    .feat-card-img {
-      width: 56px; height: 56px; border-radius: 18px;
-      background: linear-gradient(135deg, #f5f3ff, #fff7ed);
-      display:flex; align-items:center; justify-content:center;
-      font-size: 28px; color: var(--purple);
-      object-fit: cover;
-      border: 1px solid rgba(91,33,182,.08);
-    }
-    .feat-card-img.fallback {
-      display:flex; align-items:center; justify-content:center;
-    }
-    .feat-card-body { padding: 0; min-width: 0; }
-    .feat-card-badge {
-      display: inline-block; padding: 2px 8px;
-      border-radius: var(--radius-full);
-      font-size: 10px; font-weight: 800;
-      margin-bottom: 5px;
-    }
-    .badge-craft  { background: #fef3c7; color: #92400e; }
-    .badge-food   { background: #fce7f3; color: #9d174d; }
-    .badge-travel { background: #d1fae5; color: #064e3b; }
-    .badge-learn  { background: #dbeafe; color: #1e3a8a; }
-    .badge-market { background: #f3e8ff; color: #581c87; }
-    .badge-news   { background: #fee2e2; color: #7f1d1d; }
-    .feat-card-title { font-size: 13px; font-weight: 800; color: var(--text-dark); margin-bottom: 3px; line-height: 1.35; }
-    .feat-card-meta {
-      font-size: 11px; color: var(--text-light);
-      display: flex; flex-direction: column; gap: 2px;
-    }
-    .feat-card-meta span { display: flex; align-items: center; gap: 5px; }
-    .feat-card-rating { display: none; }
-    .feat-card-rating span { color: var(--text-light); font-weight: 400; }
-
-    /* ── STATS BANNER ── */
-    #statsBanner {
-      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 100%);
-      margin: 0;
-    }
-    .stats-inner {
-      max-width: 1200px; margin: 0 auto; padding: 40px 24px;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 24px; text-align: center;
-    }
-    .stat-item { color: white; }
-    .stat-num { font-size: clamp(28px, 4vw, 40px); font-weight: 900; line-height: 1; }
-    .stat-num sup { font-size: 0.5em; vertical-align: super; }
-    .stat-label { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 4px; font-weight: 500; }
-
     /* ── NEWS / ACTIVITIES ── */
     .news-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 14px;
     }
     .news-card {
       background: white; border: 1.5px solid var(--border);
       border-radius: var(--radius-md); overflow: hidden;
-      display: flex; flex-direction: column;
+      display: grid; grid-template-columns: 118px 1fr;
+      min-height: 132px;
       transition: all 0.22s; box-shadow: var(--shadow-sm);
       cursor: pointer;
     }
     .news-card:hover { border-color: var(--purple); box-shadow: var(--shadow-md); transform: translateY(-2px); }
     .news-card-img {
-      width: 100%; height: 160px; object-fit: cover; display:block;
+      width: 118px; height: 100%; min-height: 132px; object-fit: cover; display:block;
       background: linear-gradient(135deg, var(--purple-pale), var(--purple-light));
       flex-shrink: 0;
     }
     .news-card-img.fallback {
-      display:flex; align-items:center; justify-content:center; font-size:52px;
+      display:flex; align-items:center; justify-content:center; font-size:38px;
     }
-    .news-card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
-    .news-card-cat { font-size: 11px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 0.06em; }
-    .news-card-title { font-size: 14px; font-weight: 700; color: var(--text-dark); line-height: 1.5; }
+    .news-card-body { padding: 14px 15px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .news-card-cat { font-size: 11px; font-weight: 800; color: var(--purple); text-transform: uppercase; letter-spacing: 0.04em; }
+    .news-card-title { font-size: 14px; font-weight: 800; color: var(--text-dark); line-height: 1.45; }
     .news-card-date { font-size: 11px; color: var(--text-light); margin-top: auto; }
 
     /* ── LINE CTA BANNER ── */
     #lineCta {
-      background: linear-gradient(90deg, #06c755 0%, #00a843 100%);
+      background: linear-gradient(90deg, #f5f3ff 0%, #fff7ed 100%);
       margin: 0;
+      border-top: 1px solid rgba(124,58,237,0.08);
+      border-bottom: 1px solid rgba(124,58,237,0.08);
     }
     .line-inner {
-      max-width: 1200px; margin: 0 auto; padding: 20px 24px;
+      max-width: 1200px; margin: 0 auto; padding: 14px 24px;
       display: flex; align-items: center; justify-content: space-between; gap: 16px;
       flex-wrap: wrap;
     }
-    .line-text { display: flex; align-items: center; gap: 14px; color: white; }
+    .line-text { display: flex; align-items: center; gap: 12px; color: #31116d; }
     .line-icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      background: white; display: grid; place-items: center;
-      font-size: 24px; flex-shrink: 0;
+      width: 38px; height: 38px; border-radius: 12px;
+      background: #06c755; color: white; display: grid; place-items: center;
+      font-size: 20px; flex-shrink: 0;
     }
-    .line-text b { display: block; font-size: 15px; font-weight: 800; }
-    .line-text small { font-size: 12px; opacity: 0.85; }
+    .line-text b { display: block; font-size: 14px; font-weight: 900; }
+    .line-text small { font-size: 12px; color:#6b7280; }
     .btn-line {
-      padding: 10px 24px; border-radius: var(--radius-full);
-      background: white; color: #06c755;
-      font-size: 14px; font-weight: 800; border: none;
+      padding: 9px 20px; border-radius: var(--radius-full);
+      background: #06c755; color: white;
+      font-size: 13px; font-weight: 900; border: none;
       display: flex; align-items: center; gap: 8px;
       transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 14px rgba(6,199,85,0.20);
     }
-    .btn-line:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .btn-line:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(6,199,85,0.25); }
 
     /* ── FOOTER ── */
     footer {
@@ -658,23 +604,56 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .footer-top { grid-template-columns: 1fr 1fr; }
+      #hero { min-height: 620px; }
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 40px 20px 76px;
+        text-align: center;
+      }
+      .hero-subtitle { margin-left:auto; margin-right:auto; }
+      .hero-badges { justify-content: center; }
+      .hero-mascot-frame {
+        justify-self: center;
+        order: -1;
+        width: min(360px, 76vw);
+        height: 250px;
+        min-height: 250px;
+      }
+      .hero-mascot { height: 360px; }
     }
     @media (max-width: 640px) {
-      .nav-inner { padding: 0 16px; gap: 12px; }
-      #searchSection { padding: 16px; margin-left: 16px; margin-right: 16px; }
+      .nav-inner { padding: 0 16px; gap: 12px; height: 62px; }
+      .nav-logo img { height: 36px; }
+      .nav-logo-text b { font-size: 13px; }
+      .nav-logo-text small { font-size: 9px; }
+      #hero { min-height: 610px; }
+      .hero-inner { padding: 30px 16px 72px; }
+      .hero-title { font-size: clamp(30px, 10vw, 42px); }
+      .hero-subtitle { font-size: 14px; line-height: 1.7; }
+      .hero-badges { gap: 8px; }
+      .hero-badge { padding: 8px 10px; font-size: 11px; }
+      .hero-mascot-frame { width: min(320px, 86vw); height: 232px; min-height:232px; }
+      .hero-mascot { height: 330px; }
+      #searchSection { padding: 16px; margin-left: 16px; margin-right: 16px; margin-top:-36px; }
       .search-row { flex-wrap: wrap; }
       #searchCat { min-width: auto; width: 100%; }
       .btn-search { width: 100%; }
-      .section { padding: 40px 16px; }
-      .cat-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-      .cat-card { padding: 14px 8px; }
-      .cat-icon { width: 42px; height: 42px; font-size: 20px; border-radius: 12px; }
-      .cat-label { font-size: 11px; }
-      .cards-scroll { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+      .search-tags { gap: 6px; }
+      .section { padding: 36px 16px; }
+      .section-header { align-items:flex-start; gap:10px; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .cat-card { padding: 16px 10px; min-height: 132px; }
+      .cat-icon { width: 46px; height: 46px; font-size: 22px; border-radius: 14px; }
+      .cat-label { font-size: 12px; }
+      .cat-count { font-size: 10px; }
+      .news-grid { grid-template-columns: 1fr; }
+      .news-card { grid-template-columns: 96px 1fr; min-height: 116px; }
+      .news-card-img { width:96px; min-height:116px; }
+      .line-inner { padding: 13px 16px; }
+      .line-text { align-items:flex-start; }
+      .btn-line { width:100%; justify-content:center; }
       .footer-top { grid-template-columns: 1fr; gap: 28px; }
-      .hero-inner { grid-template-columns: 1fr; gap: 0; }
-      .hero-mascot { height: 220px; margin: 0 auto; order: -1; }
-      .stats-inner { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -707,36 +686,39 @@
 
 <!-- ── HERO ── -->
 <section id="hero">
+  <video class="hero-video-bg" autoplay loop muted playsinline preload="metadata" poster="assets/hero_bg.webp">
+    <source src="assets/hero-bg.mp4?v=26" type="video/mp4">
+  </video>
   <div id="hero-overlay"></div>
   <div class="hero-inner">
-    <div>
+    <div class="hero-copy">
       <div class="hero-eyebrow"><span></span> เทศบาลเมืองบางรักน้อย · จ.นนทบุรี</div>
       <h1 class="hero-title">
-        ศูนย์รวมข้อมูลบริการ ชุมชน<br>
-        และเศรษฐกิจท้องถิ่น<br>
         <span class="hero-title-main">บางรักน้อย</span> <span class="hero-title-accent">Connect</span>
       </h1>
       <p class="hero-subtitle">
-        ค้นหาช่าง ร้านอาหาร แหล่งท่องเที่ยว งานฝึกอาชีพ<br>
-        ข่าวสาร และกิจกรรมชุมชนในพื้นที่ ได้ง่าย ๆ ในที่เดียว
+        ศูนย์รวมข้อมูลบริการชุมชน ค้นหาช่าง ร้านอาหาร ท่องเที่ยว ฝึกอาชีพ
+        สินค้า/บริการ และช่องทางแลกเปลี่ยนข้อมูลในพื้นที่
       </p>
       <div class="hero-badges">
         <div class="hero-badge">
           <span class="hero-badge-icon">✅</span>
-          <div><b>ข้อมูลเชื่อถือได้</b><small>ตรวจสอบโดยเทศบาล</small></div>
+          <div><b>ตรวจสอบโดยเทศบาล</b><small>ก่อนเผยแพร่ข้อมูล</small></div>
         </div>
         <div class="hero-badge">
-          <span class="hero-badge-icon">⚡</span>
-          <div><b>ใช้งานง่าย</b><small>สะดวก รวดเร็ว</small></div>
+          <span class="hero-badge-icon">🔎</span>
+          <div><b>ค้นหาง่าย</b><small>รวมบริการใกล้บ้าน</small></div>
         </div>
         <div class="hero-badge">
-          <span class="hero-badge-icon">🤝</span>
-          <div><b>สนับสนุนชุมชน</b><small>เศรษฐกิจท้องถิ่นแข็งแกร่ง</small></div>
+          <span class="hero-badge-icon">➕</span>
+          <div><b>เพิ่มข้อมูลได้</b><small>ร้านค้า/บริการในพื้นที่</small></div>
         </div>
       </div>
     </div>
-    <img class="hero-mascot" src="assets/mascot-hero.webp" alt="BC Mascot"
-         onerror="this.src='assets/bc-mascot.webp'">
+    <div class="hero-mascot-frame" aria-hidden="true">
+      <img class="hero-mascot" src="assets/mascot-hero.webp" alt=""
+           onerror="this.src='assets/bc-mascot.webp'">
+    </div>
   </div>
 </section>
 
@@ -763,12 +745,11 @@
     <div class="search-tags">
       <span class="search-tags-label">ยอดนิยม:</span>
       <span class="search-tag" onclick="quickSearch('ช่างไฟ')">ช่างไฟ</span>
-      <span class="search-tag" onclick="quickSearch('ร้านกาแฟ')">ร้านกาแฟ</span>
       <span class="search-tag" onclick="quickSearch('ร้านอาหาร')">ร้านอาหาร</span>
+      <span class="search-tag" onclick="quickSearch('คาเฟ่')">คาเฟ่</span>
       <span class="search-tag" onclick="quickSearch('วัด')">วัด</span>
       <span class="search-tag" onclick="quickSearch('ฝึกอาชีพ')">ฝึกอาชีพ</span>
-      <span class="search-tag" onclick="quickSearch('ลอยกระทง')">ลอยกระทง</span>
-      <span class="search-tag" onclick="quickSearch('ตลาดบางรักน้อย')">ตลาดบางรักน้อย</span>
+      <span class="search-tag" onclick="quickSearch('สินค้าชุมชน')">สินค้าชุมชน</span>
     </div>
   </div>
 </div>
@@ -789,71 +770,19 @@
   </div>
 </div>
 
-<!-- ── FEATURED ── -->
-<div id="featured">
-  <div class="section">
-    <div class="section-header">
-      <h2 class="section-title">
-        <span class="section-title-icon">⚡</span>
-        ทางลัดบริการ
-      </h2>
-      <a class="section-link" href="#">ดูทั้งหมด ›</a>
-    </div>
-    <div class="cards-scroll" id="featuredGrid">
-      <!-- populated by JS -->
-    </div>
-  </div>
-</div>
 
-<!-- ── STATS ── -->
-<div id="statsBanner">
-  <div class="stats-inner">
-    <div class="stat-item">
-      <div class="stat-num" id="statCraft">6</div>
-      <div class="stat-label">หมวดบริการหลัก</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" id="statFood">1</div>
-      <div class="stat-label">ระบบกลางสำหรับค้นหา</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" id="statTravel">24</div>
-      <div class="stat-label">ชั่วโมงส่งข้อมูลออนไลน์</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" id="statLearn">100</div>
-      <div class="stat-label">ตรวจสอบก่อนเผยแพร่</div>
-    </div>
-  </div>
-</div>
 
-<!-- ── NEWS ── -->
+<!-- ── UPDATES ── -->
 <div id="news" style="background: var(--surface-2);">
   <div class="section">
     <div class="section-header">
       <h2 class="section-title">
         <span class="section-title-icon">📢</span>
-        ข่าวสารเทศบาล
+        ข่าวสารและกิจกรรมจากเทศบาล
       </h2>
       <a class="section-link" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ดูทั้งหมด ›</a>
     </div>
-    <div class="news-grid" id="newsGrid">
-      <!-- populated by JS -->
-    </div>
-  </div>
-</div>
-
-<!-- ── ACTIVITIES ── -->
-<div id="activities">
-  <div class="section">
-    <div class="section-header">
-      <h2 class="section-title">
-        <span class="section-title-icon">🎉</span>
-        กิจกรรมชุมชน
-      </h2>
-      <a class="section-link" href="#">ดูทั้งหมด ›</a>
-    </div>
-    <div class="news-grid" id="actGrid">
+    <div class="news-grid" id="updatesGrid">
       <!-- populated by JS -->
     </div>
   </div>
@@ -1074,77 +1003,32 @@ CATS.forEach(c => {
   catGrid.appendChild(div);
 });
 
-// ── FEATURED CARDS ─────────────────────────────────────────────────────────────
-const FEATURED = [
-  { badge:'craft',  label:'หาช่าง', title:'ค้นหาช่างใกล้บ้าน', area:'ไฟฟ้า ประปา แอร์ ซ่อมบ้าน', hours:'เปิดแผนที่ / ดูรายการ', icon:'🔧', id:'craft' },
-  { badge:'food',   label:'ร้านอาหาร', title:'หาร้านอาหารใกล้ฉัน', area:'ร้านอาหาร คาเฟ่ ของกิน', hours:'ค้นหาจากพื้นที่บางรักน้อย', icon:'🍜', id:'food' },
-  { badge:'travel', label:'ท่องเที่ยว', title:'เที่ยวบางรักน้อย', area:'วัด ริมคลอง จุดถ่ายรูป', hours:'ดูเส้นทางและข้อมูล', icon:'📷', id:'travel' },
-  { badge:'learn',  label:'ฝึกอาชีพ', title:'ค้นหาคอร์สฝึกอาชีพ', area:'อบรม ทักษะ กลุ่มอาชีพ', hours:'ดูข้อมูลเพิ่มเติม', icon:'🎓', id:'learn' },
-  { badge:'market', label:'สินค้า/บริการ', title:'ค้นหาสินค้าและบริการ', area:'ของดีชุมชน ร้านค้า บริการ', hours:'ดูรายการ / เปิดแผนที่', icon:'🛍', id:'market' },
-  { badge:'news',   label:'พูดคุย', title:'พูดคุยและเสนอข้อมูล', area:'แจ้งเพิ่มข้อมูล สอบถาม แลกเปลี่ยน', hours:'เปิดช่องทางชุมชน', icon:'💬', id:'chat' },
-];
-const featGrid = document.getElementById('featuredGrid');
-FEATURED.forEach(f => {
-  const div = document.createElement('div');
-  div.className = 'feat-card';
-  div.onclick = () => openDrawer(f.id);
-  div.innerHTML = `
-    <div class="feat-card-img fallback">${f.icon}</div>
-    <div class="feat-card-body">
-      <span class="feat-card-badge badge-${f.badge}">${f.label}</span>
-      <div class="feat-card-title">${f.title}</div>
-      <div class="feat-card-meta">
-        <span>📍 ${f.area}</span>
-        <span>🕐 ${f.hours}</span>
-      </div>
-      ${f.rating ? `<div class="feat-card-rating">⭐ ${f.rating} <span>(${f.reviews} รีวิว)</span></div>` : ''}
-    </div>`;
-  featGrid.appendChild(div);
-});
+// ── UPDATES ─────────────────────────────────────────────────────────────────────
 
-// ── NEWS ──────────────────────────────────────────────────────────────────────
-const NEWS = [
-  { cat:'ประกาศ', title:'ประกาศรับเพิ่มข้อมูลสมาชิกเข้าร่วมระบบบางรักน้อย Connect', date:'19 พ.ค. 2567', icon:'📋', image:'assets/sample-news.webp', href:'https://www.brn.go.th/news_obt.php?id=2' },
-  { cat:'บริการ', title:'เปิดให้ประชาชนส่งข้อมูลร้านค้าและบริการชุมชนผ่านระบบออนไลน์', date:'15 พ.ค. 2567', icon:'💻', image:'assets/scene-townhall.webp', href:'https://www.brn.go.th/' },
-  { cat:'สิ่งแวดล้อม', title:'ชวนร่วมดูแลคลองและพื้นที่สาธารณะในชุมชนบางรักน้อย', date:'10 พ.ค. 2567', icon:'🌳', image:'assets/scene-river.webp', href:'https://www.brn.go.th/' },
+const UPDATES = [
+  { cat:'ประกาศ', title:'ประกาศรับสมัครข้อมูลร้านค้าและบริการชุมชนผ่านบางรักน้อย Connect', date:'19 พ.ค. 2567', icon:'📋', image:'assets/sample-news.webp', href:'https://www.brn.go.th/news_obt.php?id=2' },
+  { cat:'บริการ', title:'เปิดช่องทางให้ประชาชนค้นหาบริการและส่งข้อมูลผู้ให้บริการในพื้นที่', date:'15 พ.ค. 2567', icon:'💻', image:'assets/scene-townhall.webp', href:'https://www.brn.go.th/' },
+  { cat:'กิจกรรม', title:'กิจกรรมชุมชนและข่าวประชาสัมพันธ์จากเทศบาลเมืองบางรักน้อย', date:'อัปเดตต่อเนื่อง', icon:'🎉', image:'assets/scene-river.webp', href:'https://www.brn.go.th/' },
 ];
-const newsGrid = document.getElementById('newsGrid');
-NEWS.forEach(n => {
-  const div = document.createElement('div');
-  div.className = 'news-card';
-  div.onclick = () => window.open(n.href || 'https://www.brn.go.th/','_blank','noopener');
-  div.innerHTML = `
-    ${n.image ? `<img class="news-card-img" src="${n.image}" alt="${n.title}" loading="lazy">` : `<div class="news-card-img fallback">${n.icon}</div>`}
-    <div class="news-card-body">
-      <div class="news-card-cat">${n.cat}</div>
-      <div class="news-card-title">${n.title}</div>
-      <div class="news-card-date">📅 ${n.date}</div>
-    </div>`;
-  newsGrid.appendChild(div);
-});
-
-// ── ACTIVITIES ────────────────────────────────────────────────────────────────
-const ACTS = [
-  { cat:'กิจกรรม', title:'งานลอยกระทงบางรักน้อย ประจำปี 2568', date:'15 พ.ย. 2568', icon:'🪔', image:'assets/scene-river.webp' },
-  { cat:'อบรม', title:'อบรมอาชีพ: การทำขนมไทยสำหรับจำหน่าย', date:'28 พ.ค. 2568', icon:'🍡', image:'assets/sample-learn.webp' },
-  { cat:'ชุมชน', title:'กิจกรรมวันเด็กแห่งชาติ ประจำปี 2569', date:'11 ม.ค. 2569', icon:'🎪', image:'assets/scene-temple.webp' },
-];
-const actGrid = document.getElementById('actGrid');
-ACTS.forEach(a => {
-  const div = document.createElement('div');
-  div.className = 'news-card';
-  div.onclick = () => showToast('กำลังโหลดรายละเอียดกิจกรรมครับ...');
-  div.innerHTML = `
-    ${a.image ? `<img class="news-card-img" src="${a.image}" alt="${a.title}" loading="lazy">` : `<div class="news-card-img fallback">${a.icon}</div>`}
-    <div class="news-card-body">
-      <div class="news-card-cat">${a.cat}</div>
-      <div class="news-card-title">${a.title}</div>
-      <div class="news-card-date">📅 ${a.date}</div>
-    </div>`;
-  actGrid.appendChild(div);
-});
+const updatesGrid = document.getElementById('updatesGrid');
+if (updatesGrid) {
+  UPDATES.forEach(n => {
+    const div = document.createElement('div');
+    div.className = 'news-card';
+    div.onclick = () => window.open(n.href || 'https://www.brn.go.th/','_blank','noopener');
+    div.innerHTML = `
+      ${n.image ? `<img class="news-card-img" src="${n.image}" alt="${n.title}" loading="lazy">` : `<div class="news-card-img fallback">${n.icon}</div>`}
+      <div class="news-card-body">
+        <div class="news-card-cat">${n.cat}</div>
+        <div class="news-card-title">${n.title}</div>
+        <div class="news-card-date">📅 ${n.date}</div>
+      </div>`;
+    updatesGrid.appendChild(div);
+  });
+}
 
 // ── SHEET REALTIME ────────────────────────────────────────────────────────────
+
 const SHEET_ID = '1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM';
 const SHEET_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
 let sheetCache = null, sheetFetched = false;
@@ -1331,29 +1215,6 @@ document.getElementById('regSubmit').addEventListener('click', async () => {
 
 
 
-// ── ANIMATE STATS ──────────────────────────────────────────────────────────────
-function animateNum(el, target) {
-  if (!el) return;
-  let n = 0; const step = target / 40;
-  const t = setInterval(() => {
-    n = Math.min(n + step, target);
-    el.textContent = Math.floor(n) + (target > 50 ? '+' : '');
-    if (n >= target) clearInterval(t);
-  }, 40);
-}
-const statsObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      animateNum(document.getElementById('statCraft'),   6);
-      animateNum(document.getElementById('statFood'),    1);
-      animateNum(document.getElementById('statTravel'),  24);
-      animateNum(document.getElementById('statLearn'),   100);
-      statsObs.disconnect();
-    }
-  });
-}, { threshold: 0.3 });
-const statsEl = document.getElementById('statsBanner');
-if (statsEl) statsObs.observe(statsEl);
 </script>
 </body>
 </html>

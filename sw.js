@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v25-simplified-service-menu';
+const CACHE_NAME = 'bangraknoi-connect-v26-clean-hero-video';
 const PRECACHE_URLS = [
   './',
   './index.html',
