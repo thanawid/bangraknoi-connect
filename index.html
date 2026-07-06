@@ -119,16 +119,28 @@
 
     /* ── HERO ── */
     #hero {
-      background: linear-gradient(135deg, #0f0a2e 0%, #2d1072 40%, #5b21b6 70%, #7c3aed 100%);
+      background: #0f0a2e;
       position: relative; overflow: hidden;
-      min-height: 540px;
+      min-height: 560px;
       display: flex; align-items: center;
     }
     #hero::before {
       content: '';
       position: absolute; inset: 0;
-      background: url('assets/hero_bg.webp') center/cover no-repeat;
-      opacity: 0.22;
+      background: url('assets/bg-city.webp') center/cover no-repeat;
+      opacity: 1;
+    }
+    /* gradient overlay ทับภาพ — ซ้ายมือเข้ม (อ่านข้อความได้) ขวามือโปร่ง (เห็นมาสคอต) */
+    #hero-overlay {
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(10,4,40,0.82) 0%,
+        rgba(30,10,80,0.65) 40%,
+        rgba(50,20,100,0.30) 65%,
+        rgba(0,0,0,0.05) 100%
+      );
+      pointer-events: none;
     }
     /* decorative circles */
     #hero::after {
@@ -141,7 +153,7 @@
     .hero-inner {
       max-width: 1200px; margin: 0 auto; padding: 60px 24px;
       display: grid; grid-template-columns: 1fr auto;
-      gap: 40px; align-items: center;
+      gap: 24px; align-items: flex-end;
       position: relative; z-index: 1; width: 100%;
     }
     .hero-eyebrow {
@@ -158,14 +170,16 @@
       font-size: clamp(28px, 4vw, 48px);
       font-weight: 900; line-height: 1.15;
       color: white;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
       margin-bottom: 8px;
     }
     .hero-title-accent { color: var(--orange); }
     .hero-subtitle {
       font-size: clamp(14px, 1.8vw, 17px);
-      color: rgba(255,255,255,0.78);
+      color: rgba(255,255,255,0.90);
       line-height: 1.7; margin-bottom: 28px;
       max-width: 500px;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.45);
     }
     .hero-badges {
       display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px;
@@ -180,10 +194,11 @@
     .hero-badge-icon { font-size: 18px; }
     .hero-badge small { display: block; font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 400; margin-top: 1px; }
     .hero-mascot {
-      height: clamp(220px, 28vw, 340px);
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+      height: clamp(260px, 34vw, 420px);
+      filter: drop-shadow(0 20px 50px rgba(0,0,0,0.45));
       animation: mascotHero 4s ease-in-out infinite;
       flex-shrink: 0;
+      margin-bottom: -4px; /* ชิดขอบล่าง */
     }
     @keyframes mascotHero {
       0%,100% { transform: translateY(0) rotate(-1deg); }
@@ -655,8 +670,8 @@
       .cat-label { font-size: 11px; }
       .cards-scroll { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
       .footer-top { grid-template-columns: 1fr; gap: 28px; }
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-mascot { height: 200px; margin: 0 auto; order: -1; }
+      .hero-inner { grid-template-columns: 1fr; gap: 0; }
+      .hero-mascot { height: 220px; margin: 0 auto; order: -1; }
       .stats-inner { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
@@ -695,6 +710,7 @@
 
 <!-- ── HERO ── -->
 <section id="hero">
+  <div id="hero-overlay"></div>
   <div class="hero-inner">
     <div>
       <div class="hero-eyebrow"><span></span> เทศบาลเมืองบางรักน้อย · จ.นนทบุรี</div>
@@ -722,7 +738,7 @@
         </div>
       </div>
     </div>
-    <img class="hero-mascot" src="assets/mascot-wave.webp" alt="BC Mascot"
+    <img class="hero-mascot" src="assets/mascot-hero.webp" alt="BC Mascot"
          onerror="this.src='assets/bc-mascot.webp'">
   </div>
 </section>
