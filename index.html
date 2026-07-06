@@ -320,8 +320,8 @@
     /* ── FEATURED CARDS ── */
     .cards-scroll {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
     }
     .feat-card {
       background: white; border: 1.5px solid var(--border);
@@ -329,27 +329,35 @@
       overflow: hidden; cursor: pointer;
       transition: all 0.22s ease;
       box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      min-height: 104px;
     }
     .feat-card:hover {
       border-color: var(--purple);
       box-shadow: 0 8px 28px rgba(91,33,182,0.13);
-      transform: translateY(-3px);
+      transform: translateY(-2px);
     }
     .feat-card-img {
-      width: 100%; height: 140px; object-fit: cover; display:block;
-      background: var(--purple-pale);
-      display: block;
-      font-size: 48px; color: var(--purple);
+      width: 56px; height: 56px; border-radius: 18px;
+      background: linear-gradient(135deg, #f5f3ff, #fff7ed);
+      display:flex; align-items:center; justify-content:center;
+      font-size: 28px; color: var(--purple);
+      object-fit: cover;
+      border: 1px solid rgba(91,33,182,.08);
     }
     .feat-card-img.fallback {
       display:flex; align-items:center; justify-content:center;
     }
-    .feat-card-body { padding: 14px; }
+    .feat-card-body { padding: 0; min-width: 0; }
     .feat-card-badge {
-      display: inline-block; padding: 3px 9px;
+      display: inline-block; padding: 2px 8px;
       border-radius: var(--radius-full);
-      font-size: 10px; font-weight: 700;
-      margin-bottom: 6px;
+      font-size: 10px; font-weight: 800;
+      margin-bottom: 5px;
     }
     .badge-craft  { background: #fef3c7; color: #92400e; }
     .badge-food   { background: #fce7f3; color: #9d174d; }
@@ -357,17 +365,13 @@
     .badge-learn  { background: #dbeafe; color: #1e3a8a; }
     .badge-market { background: #f3e8ff; color: #581c87; }
     .badge-news   { background: #fee2e2; color: #7f1d1d; }
-    .feat-card-title { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; line-height: 1.4; }
+    .feat-card-title { font-size: 13px; font-weight: 800; color: var(--text-dark); margin-bottom: 3px; line-height: 1.35; }
     .feat-card-meta {
-      font-size: 12px; color: var(--text-light);
-      display: flex; flex-direction: column; gap: 3px;
+      font-size: 11px; color: var(--text-light);
+      display: flex; flex-direction: column; gap: 2px;
     }
     .feat-card-meta span { display: flex; align-items: center; gap: 5px; }
-    .feat-card-rating {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 12px; color: var(--orange); font-weight: 700;
-      margin-top: 8px;
-    }
+    .feat-card-rating { display: none; }
     .feat-card-rating span { color: var(--text-light); font-weight: 400; }
 
     /* ── STATS BANNER ── */
@@ -689,16 +693,11 @@
     <nav class="nav-links">
       <a href="#" class="active">หน้าแรก</a>
       <a href="#searchWrap" onclick="scrollTo('searchWrap')">ค้นหา</a>
-      <a href="#categories" onclick="scrollTo('categories')">หมวดหมู่</a>
-      <a href="#news" onclick="scrollTo('news')">ข่าวสาร</a>
-      <a href="#activities" onclick="scrollTo('activities')">กิจกรรม</a>
+      <a href="#categories" onclick="scrollTo('categories')">หมวดบริการ</a>
       <a href="#about">เกี่ยวกับเรา</a>
     </nav>
     <div class="nav-actions">
-      <button class="btn-outline" onclick="openRegModal()">สมัครเข้าร่วมระบบ</button>
-      <button class="btn-solid" id="loginBtnDesktop" onclick="openLoginModal()">
-        <span>👤</span> เข้าสู่ระบบ
-      </button>
+      <button class="btn-outline" onclick="openRegModal()">เพิ่มข้อมูลร้าน/บริการ</button>
       <button class="hamburger" id="hamburger" aria-label="เมนู">
         <span></span><span></span><span></span>
       </button>
@@ -751,13 +750,13 @@
                placeholder="ค้นหาอะไรดี? เช่น ช่างไฟ, ร้านอาหาร, คาเฟ่, วัด, อบรมอาชีพ">
       </div>
       <select id="searchCat">
-        <option value="">ทุกหมวดหมู่</option>
+        <option value="">ทุกหมวดบริการ</option>
         <option value="craft">🔧 หาช่าง</option>
         <option value="food">🍜 ร้านอาหาร</option>
         <option value="travel">📷 ท่องเที่ยว</option>
         <option value="learn">🎓 ฝึกอาชีพ</option>
         <option value="market">🛍 สินค้า/บริการ</option>
-        <option value="news">📢 ข่าวสาร</option>
+        <option value="chat">💬 พูดคุย/แลกเปลี่ยน</option>
       </select>
       <button class="btn-search" onclick="doSearch()">ค้นหา</button>
     </div>
@@ -780,9 +779,9 @@
     <div class="section-header">
       <h2 class="section-title">
         <span class="section-title-icon">⭐</span>
-        หมวดหมู่บริการ
+        หมวดบริการหลัก
       </h2>
-      <a class="section-link" href="#">ดูทั้งหมด ›</a>
+      <a class="section-link" href="#">ดูรายละเอียด ›</a>
     </div>
     <div class="cat-grid" id="catGrid">
       <!-- populated by JS -->
@@ -795,8 +794,8 @@
   <div class="section">
     <div class="section-header">
       <h2 class="section-title">
-        <span class="section-title-icon">🔥</span>
-        แนะนำใกล้คุณ
+        <span class="section-title-icon">⚡</span>
+        ทางลัดบริการ
       </h2>
       <a class="section-link" href="#">ดูทั้งหมด ›</a>
     </div>
@@ -810,28 +809,20 @@
 <div id="statsBanner">
   <div class="stats-inner">
     <div class="stat-item">
-      <div class="stat-num" id="statCraft">128<sup>+</sup></div>
-      <div class="stat-label">ช่างในระบบ</div>
+      <div class="stat-num" id="statCraft">6</div>
+      <div class="stat-label">หมวดบริการหลัก</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num" id="statFood">96<sup>+</sup></div>
-      <div class="stat-label">ร้านอาหาร</div>
+      <div class="stat-num" id="statFood">1</div>
+      <div class="stat-label">ระบบกลางสำหรับค้นหา</div>
     </div>
     <div class="stat-item">
       <div class="stat-num" id="statTravel">24</div>
-      <div class="stat-label">สถานที่ท่องเที่ยว</div>
+      <div class="stat-label">ชั่วโมงส่งข้อมูลออนไลน์</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num" id="statLearn">18</div>
-      <div class="stat-label">หลักสูตรฝึกอาชีพ</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" id="statNews">32</div>
-      <div class="stat-label">ข่าวสารเทศบาล</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" id="statActivity">15</div>
-      <div class="stat-label">กิจกรรมชุมชน</div>
+      <div class="stat-num" id="statLearn">100</div>
+      <div class="stat-label">ตรวจสอบก่อนเผยแพร่</div>
     </div>
   </div>
 </div>
@@ -913,7 +904,7 @@
         <ul>
           <li><a href="https://www.brn.go.th" target="_blank" rel="noopener">เว็บเทศบาล</a></li>
           <li><a href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ข่าวสาร</a></li>
-          <li><a href="#" onclick="openRegModal();return false;">สมัครเข้าร่วม</a></li>
+          <li><a href="#" onclick="openRegModal();return false;">เพิ่มข้อมูล</a></li>
           <li><a href="tel:021934512">☎️ 02-193-4512</a></li>
         </ul>
       </div>
@@ -956,8 +947,8 @@
   <div class="modal-card">
     <button class="modal-close" onclick="closeRegModal()">×</button>
     <div class="modal-logo"><img src="assets/bc-logo.webp" alt="" width="50" height="50"></div>
-    <h2 class="modal-title">สมัครเข้าร่วมระบบ</h2>
-    <p class="modal-sub">ลงทะเบียนร้านค้า ช่าง หรือกลุ่มอาชีพ<br><small>ข้อมูลจะถูกตรวจสอบโดยเจ้าหน้าที่ก่อนเผยแพร่</small></p>
+    <h2 class="modal-title">ลงทะเบียนข้อมูลผู้ให้บริการในพื้นที่</h2>
+    <p class="modal-sub">สำหรับร้านค้า ช่าง กลุ่มอาชีพ แหล่งท่องเที่ยว หรือผู้ให้บริการในพื้นที่<br><small>ข้อมูลจะถูกตรวจสอบโดยเจ้าหน้าที่เทศบาลก่อนเผยแพร่</small></p>
     <div id="regStep1">
       <div class="form-field"><label>ชื่อร้าน / ช่าง / กลุ่มอาชีพ <span class="req">*</span></label><input type="text" id="reg-name" placeholder="เช่น ร้านก๋วยเตี๋ยวน้าติ่ง / ช่างสมชาย" maxlength="80"></div>
       <div class="form-field"><label>ประเภทบริการ <span class="req">*</span></label>
@@ -980,7 +971,7 @@
         <div class="legal-title">📋 ข้อตกลงและนโยบาย PDPA</div>
         <div class="legal-scroll">
           <p><strong>1. บทบาทของระบบ</strong><br>บางรักน้อย Connect เป็นสื่อกลางรวบรวมข้อมูลเท่านั้น ไม่ใช่ผู้ขาย นายหน้า หรือผู้รับประกันคุณภาพ</p>
-          <p><strong>2. ยินยอม PDPA</strong><br>ผู้สมัครยินยอมให้เทศบาลจัดเก็บและเผยแพร่ข้อมูล เช่น ชื่อ เบอร์ติดต่อ LINE Facebook ที่อยู่ เพื่อประชาสัมพันธ์บริการ</p>
+          <p><strong>2. ยินยอม PDPA</strong><br>ผู้เพิ่มข้อมูลยินยอมให้เทศบาลจัดเก็บและเผยแพร่ข้อมูล เช่น ชื่อ เบอร์ติดต่อ LINE Facebook ที่อยู่ เพื่อประชาสัมพันธ์บริการ</p>
           <p><strong>3. สิทธิ์แก้ไข/ถอนข้อมูล</strong><br>ติดต่อ 02-193-4512-3 ได้ตลอดเวลา</p>
           <p><strong>4. ข้อจำกัดความรับผิด</strong><br>เทศบาลไม่รับผิดชอบต่อความเสียหายจากการใช้บริการภายนอก</p>
           <p><strong>5. ลิขสิทธิ์</strong><br>© 2568 บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย ห้ามนำข้อมูลไปใช้เพื่อการค้าโดยไม่ได้รับอนุญาต</p>
@@ -991,13 +982,13 @@
         </label>
       </div>
       <div id="regError" class="reg-error" style="display:none"></div>
-      <button class="btn-submit" id="regSubmit"><span id="regBtnLabel">📨 ส่งข้อมูลสมัคร</span></button>
+      <button class="btn-submit" id="regSubmit"><span id="regBtnLabel">📨 ส่งข้อมูลให้เจ้าหน้าที่ตรวจสอบ</span></button>
       <p style="text-align:center;font-size:11px;color:var(--text-light);margin-top:8px;">ข้อมูลจะถูกตรวจสอบโดยเจ้าหน้าที่เทศบาลก่อนเผยแพร่</p>
     </div>
     <div id="regStep2" style="display:none" class="reg-success">
       <div class="success-icon">✅</div>
       <h3>ส่งข้อมูลสำเร็จ!</h3>
-      <p>เจ้าหน้าที่จะตรวจสอบและติดต่อกลับภายใน 3–5 วันทำการ</p>
+      <p>เจ้าหน้าที่จะตรวจสอบข้อมูลก่อนเผยแพร่บนระบบ</p>
       <p style="font-weight:700;color:var(--purple);margin-top:8px;" id="regSuccessName"></p>
       <button class="btn-outline-purple" onclick="closeRegModal()">ปิด</button>
     </div>
@@ -1005,35 +996,16 @@
 </div>
 
 
-<!-- ── LOGIN MODAL ── -->
-<div class="overlay" id="loginOverlay" onclick="closeLoginModal()"></div>
-<div class="modal" id="loginModal" style="display:none">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeLoginModal()">×</button>
-    <div class="modal-logo"><img src="assets/bc-logo.webp" alt="" width="50" height="50"></div>
-    <h2 class="modal-title">เข้าสู่ระบบสมาชิก</h2>
-    <p class="modal-sub">สำหรับสมาชิกและเจ้าหน้าที่ที่ได้รับอนุมัติ<br><small>โหมดสาธิตสำหรับใช้งานหน้าเว็บและทดสอบระบบ</small></p>
-    <div class="form-field"><label>เบอร์โทร / อีเมล</label><input type="text" id="login-user" placeholder="เช่น 08x-xxx-xxxx หรือ your@email.com" maxlength="120"></div>
-    <div class="form-field"><label>รหัสผ่าน</label><input type="password" id="login-pass" placeholder="กรอกรหัสผ่าน" maxlength="80"></div>
-    <div id="loginError" class="reg-error" style="display:none"></div>
-    <button class="btn-submit" id="loginSubmit"><span id="loginBtnLabel">🔐 เข้าสู่ระบบ</span></button>
-    <p class="login-note">หากยังไม่มีบัญชี สามารถกด “สมัครเข้าร่วมระบบ” ได้ทันที</p>
-  </div>
-</div>
-
 <!-- ── MOBILE MENU ── -->
 <div id="mobileMenu">
   <div class="mobile-nav-panel">
     <button class="mobile-nav-close" onclick="closeMobileMenu()">×</button>
     <a href="#">🏠 หน้าแรก</a>
     <a href="#searchWrap" onclick="closeMobileMenu()">🔎 ค้นหา</a>
-    <a href="#categories" onclick="closeMobileMenu()">📂 หมวดหมู่</a>
-    <a href="#news" onclick="closeMobileMenu()">📢 ข่าวสาร</a>
-    <a href="#activities" onclick="closeMobileMenu()">🎉 กิจกรรม</a>
+    <a href="#categories" onclick="closeMobileMenu()">📂 หมวดบริการ</a>
     <a href="#about" onclick="closeMobileMenu()">ℹ️ เกี่ยวกับเรา</a>
     <hr style="border:none;border-top:1px solid var(--border);margin:8px 0">
-    <a href="#" onclick="openRegModal();closeMobileMenu();">📝 สมัครเข้าร่วมระบบ</a>
-    <a href="#" onclick="openLoginModal();closeMobileMenu();">👤 เข้าสู่ระบบ</a>
+    <a href="#" onclick="openRegModal();closeMobileMenu();">➕ เพิ่มข้อมูลร้าน/บริการ</a>
     <a href="tel:021934512">☎️ โทร 02-193-4512</a>
     <a href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener">💬 LINE OA</a>
   </div>
@@ -1083,14 +1055,12 @@ document.getElementById('searchInput').addEventListener('keydown', e => { if (e.
 
 // ── CATEGORY GRID ─────────────────────────────────────────────────────────────
 const CATS = [
-  { id:'craft',  label:'หาช่างใกล้บ้าน', count:'128 รายการ', icon:'🔧', bg:'#fef3c7', color:'#92400e' },
-  { id:'food',   label:'ร้านอาหาร',       count:'96 ร้าน',   icon:'🍜', bg:'#fce7f3', color:'#9d174d' },
-  { id:'travel', label:'เที่ยวบางรักน้อย', count:'24 สถานที่', icon:'📷', bg:'#d1fae5', color:'#064e3b' },
-  { id:'learn',  label:'ฝึกอาชีพ',        count:'18 หลักสูตร', icon:'🎓', bg:'#dbeafe', color:'#1e3a8a' },
-  { id:'news',   label:'ข่าวสารเทศบาล',   count:'32 ข่าว',   icon:'📢', bg:'#fee2e2', color:'#7f1d1d' },
-  { id:'activity',label:'กิจกรรมชุมชน',   count:'15 กิจกรรม', icon:'🎉', bg:'#fde68a', color:'#78350f' },
-  { id:'market', label:'สินค้า/บริการ',    count:'56 รายการ', icon:'🛍', bg:'#f3e8ff', color:'#581c87' },
-  { id:'chat',   label:'พูดคุย แลกเปลี่ยน', count:'8 หัวข้อ', icon:'💬', bg:'#e0f2fe', color:'#0c4a6e' },
+  { id:'craft',  label:'หาช่าง', count:'ระบบไฟฟ้า ประปา แอร์ บ้าน', icon:'🔧', bg:'#fef3c7', color:'#92400e' },
+  { id:'food',   label:'ร้านอาหาร', count:'อาหาร คาเฟ่ ของกินใกล้บ้าน', icon:'🍜', bg:'#fce7f3', color:'#9d174d' },
+  { id:'travel', label:'ท่องเที่ยว', count:'วัด ริมคลอง จุดเช็คอิน', icon:'📷', bg:'#d1fae5', color:'#064e3b' },
+  { id:'learn',  label:'ฝึกอาชีพ', count:'อบรม ทักษะ กลุ่มอาชีพ', icon:'🎓', bg:'#dbeafe', color:'#1e3a8a' },
+  { id:'market', label:'สินค้า/บริการ', count:'ของดีชุมชน ร้านค้า บริการ', icon:'🛍', bg:'#f3e8ff', color:'#581c87' },
+  { id:'chat',   label:'พูดคุย/แลกเปลี่ยน', count:'เสนอข้อมูล สอบถาม แลกเปลี่ยน', icon:'💬', bg:'#e0f2fe', color:'#0c4a6e' },
 ];
 const catGrid = document.getElementById('catGrid');
 CATS.forEach(c => {
@@ -1106,11 +1076,12 @@ CATS.forEach(c => {
 
 // ── FEATURED CARDS ─────────────────────────────────────────────────────────────
 const FEATURED = [
-  { badge:'craft',  label:'ช่าง',      title:'ช่างไฟบ้านคุณตั้ม', area:'บางรักน้อย', hours:'โทร 089-123-4567', rating:'4.9', reviews:45,  icon:'⚡', image:'assets/sample-craft.webp', id:'craft' },
-  { badge:'food',   label:'ร้านอาหาร', title:'ครัวริมน้ำบางรักน้อย', area:'ริมคลองบางรักน้อย', hours:'เปิด 09:00–22:00', rating:'4.7', reviews:128, icon:'🍜', image:'assets/sample-food.webp', id:'food' },
-  { badge:'travel', label:'ที่เที่ยว', title:'วัดบางรักน้อย', area:'บางรักน้อย', hours:'เปิดทุกวัน 06:00–18:00', rating:'4.8', reviews:86, icon:'🛕', image:'assets/sample-travel.webp', id:'travel' },
-  { badge:'learn',  label:'ฝึกอาชีพ', title:'อบรมทำขนมไทย', area:'ศูนย์ฝึกอาชีพเทศบาล', hours:'20 พ.ค. 2567', rating:'4.9', reviews:32, icon:'🎂', image:'assets/sample-learn.webp', id:'learn' },
-  { badge:'news',   label:'ข่าวสาร', title:'ประกาศเทศบาลเมืองบางรักน้อย', area:'งานประชาสัมพันธ์', hours:'19 พ.ค. 2567', rating:null, reviews:null, icon:'📋', image:'assets/sample-news.webp', id:'news' },
+  { badge:'craft',  label:'หาช่าง', title:'ค้นหาช่างใกล้บ้าน', area:'ไฟฟ้า ประปา แอร์ ซ่อมบ้าน', hours:'เปิดแผนที่ / ดูรายการ', icon:'🔧', id:'craft' },
+  { badge:'food',   label:'ร้านอาหาร', title:'หาร้านอาหารใกล้ฉัน', area:'ร้านอาหาร คาเฟ่ ของกิน', hours:'ค้นหาจากพื้นที่บางรักน้อย', icon:'🍜', id:'food' },
+  { badge:'travel', label:'ท่องเที่ยว', title:'เที่ยวบางรักน้อย', area:'วัด ริมคลอง จุดถ่ายรูป', hours:'ดูเส้นทางและข้อมูล', icon:'📷', id:'travel' },
+  { badge:'learn',  label:'ฝึกอาชีพ', title:'ค้นหาคอร์สฝึกอาชีพ', area:'อบรม ทักษะ กลุ่มอาชีพ', hours:'ดูข้อมูลเพิ่มเติม', icon:'🎓', id:'learn' },
+  { badge:'market', label:'สินค้า/บริการ', title:'ค้นหาสินค้าและบริการ', area:'ของดีชุมชน ร้านค้า บริการ', hours:'ดูรายการ / เปิดแผนที่', icon:'🛍', id:'market' },
+  { badge:'news',   label:'พูดคุย', title:'พูดคุยและเสนอข้อมูล', area:'แจ้งเพิ่มข้อมูล สอบถาม แลกเปลี่ยน', hours:'เปิดช่องทางชุมชน', icon:'💬', id:'chat' },
 ];
 const featGrid = document.getElementById('featuredGrid');
 FEATURED.forEach(f => {
@@ -1118,7 +1089,7 @@ FEATURED.forEach(f => {
   div.className = 'feat-card';
   div.onclick = () => openDrawer(f.id);
   div.innerHTML = `
-    ${f.image ? `<img class="feat-card-img" src="${f.image}" alt="${f.title}" loading="lazy">` : `<div class="feat-card-img fallback">${f.icon}</div>`}
+    <div class="feat-card-img fallback">${f.icon}</div>
     <div class="feat-card-body">
       <span class="feat-card-badge badge-${f.badge}">${f.label}</span>
       <div class="feat-card-title">${f.title}</div>
@@ -1133,7 +1104,7 @@ FEATURED.forEach(f => {
 
 // ── NEWS ──────────────────────────────────────────────────────────────────────
 const NEWS = [
-  { cat:'ประกาศ', title:'ประกาศรับสมัครสมาชิกเข้าร่วมระบบบางรักน้อย Connect', date:'19 พ.ค. 2567', icon:'📋', image:'assets/sample-news.webp', href:'https://www.brn.go.th/news_obt.php?id=2' },
+  { cat:'ประกาศ', title:'ประกาศรับเพิ่มข้อมูลสมาชิกเข้าร่วมระบบบางรักน้อย Connect', date:'19 พ.ค. 2567', icon:'📋', image:'assets/sample-news.webp', href:'https://www.brn.go.th/news_obt.php?id=2' },
   { cat:'บริการ', title:'เปิดให้ประชาชนส่งข้อมูลร้านค้าและบริการชุมชนผ่านระบบออนไลน์', date:'15 พ.ค. 2567', icon:'💻', image:'assets/scene-townhall.webp', href:'https://www.brn.go.th/' },
   { cat:'สิ่งแวดล้อม', title:'ชวนร่วมดูแลคลองและพื้นที่สาธารณะในชุมชนบางรักน้อย', date:'10 พ.ค. 2567', icon:'🌳', image:'assets/scene-river.webp', href:'https://www.brn.go.th/' },
 ];
@@ -1263,7 +1234,7 @@ window.openDrawer = async (id) => {
     } else {
       const n = document.createElement('div'); n.className = 'drawer-disclaimer';
       n.style.background = '#eff6ff'; n.style.borderColor = '#bfdbfe'; n.style.color = '#1e40af';
-      n.innerHTML = '🗺 ยังไม่มีผู้ลงทะเบียน · แสดงจาก Google Maps · <a href="#" id="joinLink" style="font-weight:700">สมัครเข้าร่วม</a>'; body.appendChild(n);
+      n.innerHTML = '🗺 ยังไม่มีผู้ลงทะเบียน · แสดงจาก Google Maps · <a href="#" id="joinLink" style="font-weight:700">เพิ่มข้อมูล</a>'; body.appendChild(n);
       document.getElementById('joinLink')?.addEventListener('click', e => { e.preventDefault(); closeAll(); openRegModal(); });
     }
     zone.groups.forEach(g => {
@@ -1312,7 +1283,7 @@ window.closeRegModal = () => {
     const c=document.getElementById('reg-category'); if(c) c.value='';
     const cb=document.getElementById('reg-consent'); if(cb) cb.checked=false;
     const err=document.getElementById('regError'); if(err) err.style.display='none';
-    const lbl=document.getElementById('regBtnLabel'); if(lbl) lbl.textContent='📨 ส่งข้อมูลสมัคร';
+    const lbl=document.getElementById('regBtnLabel'); if(lbl) lbl.textContent='📨 ส่งข้อมูลให้เจ้าหน้าที่ตรวจสอบ';
     const btn=document.getElementById('regSubmit'); if(btn) btn.disabled=false;
   }, 300);
 };
@@ -1354,40 +1325,15 @@ document.getElementById('regSubmit').addEventListener('click', async () => {
     sheetFetched = false; // reset cache
   } catch(e) {
     showErr('❌ ส่งไม่สำเร็จ กรุณาโทร 02-193-4512-3');
-    btn.disabled = false; lbl.textContent = '📨 ส่งข้อมูลสมัคร';
+    btn.disabled = false; lbl.textContent = '📨 ส่งข้อมูลให้เจ้าหน้าที่ตรวจสอบ';
   }
 });
 
 
-// ── LOGIN MODAL (DEMO USE) ───────────────────────────────────────────────────
-window.openLoginModal = () => {
-  document.getElementById('loginOverlay').classList.add('show');
-  document.getElementById('loginModal').style.display = 'flex';
-};
-window.closeLoginModal = () => {
-  document.getElementById('loginOverlay').classList.remove('show');
-  document.getElementById('loginModal').style.display = 'none';
-  const err = document.getElementById('loginError');
-  if (err) err.style.display = 'none';
-};
-const loginBtnDesktop = document.getElementById('loginBtnDesktop');
-const savedLogin = localStorage.getItem('brnLoginName');
-if (savedLogin && loginBtnDesktop) loginBtnDesktop.innerHTML = '<span>👤</span> บัญชีสมาชิก';
-document.getElementById('loginSubmit').addEventListener('click', () => {
-  const user = document.getElementById('login-user').value.trim();
-  const pass = document.getElementById('login-pass').value.trim();
-  const err = document.getElementById('loginError');
-  err.style.display = 'none';
-  if (!user) { err.textContent = '⚠️ กรุณากรอกเบอร์โทรหรืออีเมล'; err.style.display = 'block'; return; }
-  if (!pass) { err.textContent = '⚠️ กรุณากรอกรหัสผ่าน'; err.style.display = 'block'; return; }
-  localStorage.setItem('brnLoginName', user);
-  if (loginBtnDesktop) loginBtnDesktop.innerHTML = '<span>👤</span> บัญชีสมาชิก';
-  closeLoginModal();
-  showToast('เข้าสู่ระบบสำเร็จ (โหมดสาธิต)');
-});
 
 // ── ANIMATE STATS ──────────────────────────────────────────────────────────────
 function animateNum(el, target) {
+  if (!el) return;
   let n = 0; const step = target / 40;
   const t = setInterval(() => {
     n = Math.min(n + step, target);
@@ -1398,12 +1344,10 @@ function animateNum(el, target) {
 const statsObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      animateNum(document.getElementById('statCraft'),   128);
-      animateNum(document.getElementById('statFood'),    96);
+      animateNum(document.getElementById('statCraft'),   6);
+      animateNum(document.getElementById('statFood'),    1);
       animateNum(document.getElementById('statTravel'),  24);
-      animateNum(document.getElementById('statLearn'),   18);
-      animateNum(document.getElementById('statNews'),    32);
-      animateNum(document.getElementById('statActivity'),15);
+      animateNum(document.getElementById('statLearn'),   100);
       statsObs.disconnect();
     }
   });
