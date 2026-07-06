@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v27-homepage-story-polish';
+const CACHE_NAME = 'bangraknoi-connect-v28-homepage-rebuild-character';
 const PRECACHE_URLS = [
   './',
   './index.html',
@@ -14,6 +14,18 @@ const PRECACHE_URLS = [
   './assets/mascot-walk-left.webp',
   './assets/mascot-walk-right.webp',
   './assets/mascot-feed.webp',
+  './assets/v28/hero-world.webp',
+  './assets/v28/mascot-phone.webp',
+  './assets/v28/mascot-present.webp',
+  './assets/v28/cat-craft.webp',
+  './assets/v28/cat-food.webp',
+  './assets/v28/cat-travel.webp',
+  './assets/v28/cat-learn.webp',
+  './assets/v28/cat-market.webp',
+  './assets/v28/cat-chat.webp',
+  './assets/v28/cat-news.webp',
+  './assets/v28/cat-service.webp',
+  './assets/v28/cat-event.webp',
   './assets/favicon.png',
   './assets/icon-180x180.png',
   './assets/icon-192x192.png',
