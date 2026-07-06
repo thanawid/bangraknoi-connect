@@ -55,3 +55,9 @@ V8 Responsive Final:
 - Desktop/Tablet แสดง pin ตามตำแหน่งจริง
 - Mobile ซ่อน pin เริ่มต้นและโชว์เฉพาะหมวดที่กด
 - ฟอร์มสมัครใช้ modal/bottom sheet ตามขนาดจอ
+
+
+V24 — Email Notify
+- ฟอร์มสมัครส่งเข้า Google Sheet: 1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM
+- Apps Script จะส่งอีเมลแจ้งเตือนไปที่ Bangraknoi2022@gmail.com
+- หลังวาง google-sheet-apps-script.gs ใหม่ ต้อง Deploy Web App ใหม่/แก้ deployment เดิม และอนุญาตสิทธิ์ MailApp

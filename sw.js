@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v23-live-sample';
+const CACHE_NAME = 'bangraknoi-connect-v24-sheet-email';
 const PRECACHE_URLS = [
   './',
   './index.html',
