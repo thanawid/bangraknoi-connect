@@ -50,7 +50,7 @@
     body {
       font-family: 'Noto Sans Thai', system-ui, sans-serif;
       color: var(--text-dark);
-      background: var(--surface);
+      background: #f7f7fb;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
@@ -83,23 +83,24 @@
       flex: 1; justify-content: center;
     }
     .nav-links a {
-      padding: 8px 14px; border-radius: var(--radius-full);
-      font-size: 14px; font-weight: 600; color: var(--text-body);
-      transition: background 0.2s, color 0.2s;
+      padding: 18px 14px 16px; border-radius: 0;
+      font-size: 14px; font-weight: 700; color: #1f2937;
+      transition: color 0.2s, border-color 0.2s;
       white-space: nowrap;
+      border-bottom: 3px solid transparent;
     }
     .nav-links a:hover, .nav-links a.active {
-      background: var(--purple-pale); color: var(--purple);
+      color: var(--purple);
+      border-bottom-color: #8b5cf6;
     }
-    .nav-links a.active { font-weight: 700; }
     .nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .btn-outline {
       padding: 8px 18px; border-radius: var(--radius-full);
-      border: 1.5px solid var(--purple); color: var(--purple);
+      border: 1.5px solid #fb923c; color: #f97316;
       font-size: 13px; font-weight: 700; background: transparent;
       transition: all 0.2s;
     }
-    .btn-outline:hover { background: var(--purple); color: white; }
+    .btn-outline:hover { background: #fff7ed; color: #ea580c; }
     .btn-solid {
       padding: 8px 18px; border-radius: var(--radius-full);
       background: var(--purple); color: white;
@@ -119,49 +120,41 @@
 
     /* ── HERO ── */
     #hero {
-      background: #0f0a2e;
+      background: linear-gradient(180deg, #ffffff 0%, #fbf8ff 100%);
       position: relative; overflow: hidden;
-      min-height: 560px;
+      min-height: 540px;
       display: flex; align-items: center;
     }
     #hero::before {
       content: '';
       position: absolute; inset: 0;
-      background: url('assets/bg-city.webp') center/cover no-repeat;
-      opacity: 1;
+      background: url('assets/hero_bg.webp') right center/cover no-repeat;
+      opacity: .95;
     }
-    /* gradient overlay ทับภาพ — ซ้ายมือเข้ม (อ่านข้อความได้) ขวามือโปร่ง (เห็นมาสคอต) */
     #hero-overlay {
       position: absolute; inset: 0; z-index: 0;
-      background: linear-gradient(
-        90deg,
-        rgba(10,4,40,0.82) 0%,
-        rgba(30,10,80,0.65) 40%,
-        rgba(50,20,100,0.30) 65%,
-        rgba(0,0,0,0.05) 100%
-      );
+      background: linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 34%, rgba(255,255,255,0.58) 58%, rgba(255,255,255,0.04) 80%);
       pointer-events: none;
     }
-    /* decorative circles */
     #hero::after {
       content: '';
-      position: absolute; top: -120px; right: -120px;
-      width: 500px; height: 500px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(245,158,11,0.18) 0%, transparent 65%);
+      position: absolute; left: -80px; top: 30px;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,0.10) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-inner {
       max-width: 1200px; margin: 0 auto; padding: 60px 24px;
-      display: grid; grid-template-columns: 1fr auto;
+      display: grid; grid-template-columns: minmax(420px, 560px) minmax(300px, 1fr);
       gap: 24px; align-items: flex-end;
       position: relative; z-index: 1; width: 100%;
     }
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 7px;
-      background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(124,58,237,0.08); backdrop-filter: blur(8px);
+      border: 1px solid rgba(124,58,237,0.12);
       border-radius: var(--radius-full);
-      padding: 5px 14px; font-size: 12px; color: rgba(255,255,255,0.85);
+      padding: 5px 14px; font-size: 12px; color: #6d28d9;
       font-weight: 600; margin-bottom: 16px;
     }
     .hero-eyebrow span { width:6px; height:6px; border-radius:50%; background:#22c55e; animation: pulse 2s infinite; }
@@ -169,32 +162,32 @@
     .hero-title {
       font-size: clamp(28px, 4vw, 48px);
       font-weight: 900; line-height: 1.15;
-      color: white;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      color: #111827;
       margin-bottom: 8px;
     }
     .hero-title-accent { color: var(--orange); }
+    .hero-title-main { color: var(--purple); }
     .hero-subtitle {
       font-size: clamp(14px, 1.8vw, 17px);
-      color: rgba(255,255,255,0.90);
+      color: #4b5563;
       line-height: 1.7; margin-bottom: 28px;
       max-width: 500px;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.45);
+      text-shadow: none;
     }
     .hero-badges {
       display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px;
     }
     .hero-badge {
       display: flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.1); backdrop-filter: blur(6px);
-      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.76); backdrop-filter: blur(8px);
+      border: 1px solid rgba(124,58,237,0.08);
       border-radius: var(--radius-md);
-      padding: 8px 14px; color: white; font-size: 12px; font-weight: 600;
+      padding: 10px 14px; color: #111827; font-size: 12px; font-weight: 700; box-shadow: var(--shadow-sm);
     }
     .hero-badge-icon { font-size: 18px; }
-    .hero-badge small { display: block; font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 400; margin-top: 1px; }
+    .hero-badge small { display: block; font-size: 10px; color: #6b7280; font-weight: 400; margin-top: 1px; }
     .hero-mascot {
-      height: clamp(260px, 34vw, 420px);
+      height: clamp(320px, 34vw, 470px);
       filter: drop-shadow(0 20px 50px rgba(0,0,0,0.45));
       animation: mascotHero 4s ease-in-out infinite;
       flex-shrink: 0;
@@ -210,9 +203,9 @@
       background: white;
       box-shadow: var(--shadow-lg);
       border-radius: var(--radius-lg);
-      padding: 24px 28px;
-      margin: -36px auto 0;
-      max-width: 900px;
+      padding: 24px 28px 22px;
+      margin: -42px auto 0;
+      max-width: 1120px;
       position: relative; z-index: 10;
       margin-left: 24px; margin-right: 24px;
     }
@@ -343,10 +336,13 @@
       transform: translateY(-3px);
     }
     .feat-card-img {
-      width: 100%; height: 140px; object-fit: cover;
+      width: 100%; height: 140px; object-fit: cover; display:block;
       background: var(--purple-pale);
-      display: flex; align-items: center; justify-content: center;
+      display: block;
       font-size: 48px; color: var(--purple);
+    }
+    .feat-card-img.fallback {
+      display:flex; align-items:center; justify-content:center;
     }
     .feat-card-body { padding: 14px; }
     .feat-card-badge {
@@ -404,10 +400,12 @@
     }
     .news-card:hover { border-color: var(--purple); box-shadow: var(--shadow-md); transform: translateY(-2px); }
     .news-card-img {
-      width: 100%; height: 160px;
+      width: 100%; height: 160px; object-fit: cover; display:block;
       background: linear-gradient(135deg, var(--purple-pale), var(--purple-light));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 52px; flex-shrink: 0;
+      flex-shrink: 0;
+    }
+    .news-card-img.fallback {
+      display:flex; align-items:center; justify-content:center; font-size:52px;
     }
     .news-card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
     .news-card-cat { font-size: 11px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 0.06em; }
@@ -690,15 +688,15 @@
     </a>
     <nav class="nav-links">
       <a href="#" class="active">หน้าแรก</a>
+      <a href="#searchWrap" onclick="scrollTo('searchWrap')">ค้นหา</a>
       <a href="#categories" onclick="scrollTo('categories')">หมวดหมู่</a>
-      <a href="#featured" onclick="scrollTo('featured')">แนะนำ</a>
       <a href="#news" onclick="scrollTo('news')">ข่าวสาร</a>
       <a href="#activities" onclick="scrollTo('activities')">กิจกรรม</a>
       <a href="#about">เกี่ยวกับเรา</a>
     </nav>
     <div class="nav-actions">
       <button class="btn-outline" onclick="openRegModal()">สมัครเข้าร่วมระบบ</button>
-      <button class="btn-solid" onclick="openRegModal()">
+      <button class="btn-solid" id="loginBtnDesktop" onclick="openLoginModal()">
         <span>👤</span> เข้าสู่ระบบ
       </button>
       <button class="hamburger" id="hamburger" aria-label="เมนู">
@@ -717,11 +715,11 @@
       <h1 class="hero-title">
         ศูนย์รวมข้อมูลบริการ ชุมชน<br>
         และเศรษฐกิจท้องถิ่น<br>
-        <span class="hero-title-accent">บางรักน้อย Connect</span>
+        <span class="hero-title-main">บางรักน้อย</span> <span class="hero-title-accent">Connect</span>
       </h1>
       <p class="hero-subtitle">
         ค้นหาช่าง ร้านอาหาร แหล่งท่องเที่ยว งานฝึกอาชีพ<br>
-        และกิจกรรมชุมชนในพื้นที่ ได้ง่าย ๆ ที่เดียว
+        ข่าวสาร และกิจกรรมชุมชนในพื้นที่ ได้ง่าย ๆ ในที่เดียว
       </p>
       <div class="hero-badges">
         <div class="hero-badge">
@@ -744,7 +742,7 @@
 </section>
 
 <!-- ── SEARCH ── -->
-<div style="background: linear-gradient(180deg, #2d1072 0%, #f5f3ff 100%); padding-bottom: 60px;">
+<div id="searchWrap" style="background: linear-gradient(180deg, #fbf8ff 0%, #ffffff 100%); padding-bottom: 60px;">
   <div id="searchSection">
     <div class="search-row">
       <div class="search-input-wrap">
@@ -876,8 +874,8 @@
     <div class="line-text">
       <div class="line-icon">💬</div>
       <div>
-        <b>เป็นเพื่อนกับบางรักน้อย Connect</b>
-        <small>รับข่าวสาร แจ้งเตือนกิจกรรม และสิทธิประโยชน์ก่อนใคร</small>
+        <b>เป็นเพื่อนกับเทศบาลเมืองบางรักน้อย</b>
+        <small>รับข่าวสาร แจ้งเตือนกิจกรรม และข้อมูลบริการในพื้นที่ก่อนใคร</small>
       </div>
     </div>
     <a href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener" class="btn-line">
@@ -892,7 +890,7 @@
     <div class="footer-top">
       <div class="footer-brand">
         <img src="assets/bc-logo.webp" alt="BC" onerror="this.style.display='none'">
-        <p>พื้นที่สื่อกลางของชุมชนบางรักน้อย รวบรวมข้อมูลบริการท้องถิ่น ช่าง ร้านอาหาร แหล่งท่องเที่ยว และกิจกรรมชุมชน ตรวจสอบโดยเทศบาลเมืองบางรักน้อย</p>
+        <p>ศูนย์รวมข้อมูลบริการชุมชนและเศรษฐกิจท้องถิ่นของเทศบาลเมืองบางรักน้อย เพื่อช่วยให้ประชาชนเข้าถึงข้อมูลบริการ ร้านค้า ข่าวสาร และกิจกรรมในพื้นที่ได้สะดวกยิ่งขึ้น</p>
         <div class="footer-social">
           <a class="social-btn" href="https://www.facebook.com/search/groups/?q=บางรักน้อย" target="_blank" rel="noopener" title="Facebook">📘</a>
           <a class="social-btn" href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener" title="LINE OA">💬</a>
@@ -1006,18 +1004,36 @@
   </div>
 </div>
 
+
+<!-- ── LOGIN MODAL ── -->
+<div class="overlay" id="loginOverlay" onclick="closeLoginModal()"></div>
+<div class="modal" id="loginModal" style="display:none">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeLoginModal()">×</button>
+    <div class="modal-logo"><img src="assets/bc-logo.webp" alt="" width="50" height="50"></div>
+    <h2 class="modal-title">เข้าสู่ระบบสมาชิก</h2>
+    <p class="modal-sub">สำหรับสมาชิกและเจ้าหน้าที่ที่ได้รับอนุมัติ<br><small>โหมดสาธิตสำหรับใช้งานหน้าเว็บและทดสอบระบบ</small></p>
+    <div class="form-field"><label>เบอร์โทร / อีเมล</label><input type="text" id="login-user" placeholder="เช่น 08x-xxx-xxxx หรือ your@email.com" maxlength="120"></div>
+    <div class="form-field"><label>รหัสผ่าน</label><input type="password" id="login-pass" placeholder="กรอกรหัสผ่าน" maxlength="80"></div>
+    <div id="loginError" class="reg-error" style="display:none"></div>
+    <button class="btn-submit" id="loginSubmit"><span id="loginBtnLabel">🔐 เข้าสู่ระบบ</span></button>
+    <p class="login-note">หากยังไม่มีบัญชี สามารถกด “สมัครเข้าร่วมระบบ” ได้ทันที</p>
+  </div>
+</div>
+
 <!-- ── MOBILE MENU ── -->
 <div id="mobileMenu">
   <div class="mobile-nav-panel">
     <button class="mobile-nav-close" onclick="closeMobileMenu()">×</button>
     <a href="#">🏠 หน้าแรก</a>
+    <a href="#searchWrap" onclick="closeMobileMenu()">🔎 ค้นหา</a>
     <a href="#categories" onclick="closeMobileMenu()">📂 หมวดหมู่</a>
-    <a href="#featured" onclick="closeMobileMenu()">⭐ แนะนำ</a>
     <a href="#news" onclick="closeMobileMenu()">📢 ข่าวสาร</a>
     <a href="#activities" onclick="closeMobileMenu()">🎉 กิจกรรม</a>
     <a href="#about" onclick="closeMobileMenu()">ℹ️ เกี่ยวกับเรา</a>
     <hr style="border:none;border-top:1px solid var(--border);margin:8px 0">
     <a href="#" onclick="openRegModal();closeMobileMenu();">📝 สมัครเข้าร่วมระบบ</a>
+    <a href="#" onclick="openLoginModal();closeMobileMenu();">👤 เข้าสู่ระบบ</a>
     <a href="tel:021934512">☎️ โทร 02-193-4512</a>
     <a href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener">💬 LINE OA</a>
   </div>
@@ -1090,11 +1106,11 @@ CATS.forEach(c => {
 
 // ── FEATURED CARDS ─────────────────────────────────────────────────────────────
 const FEATURED = [
-  { badge:'craft',  label:'ช่าง',     title:'ช่างไฟบ้านคุณตั้ม',          area:'บางรักน้อย', hours:'โทร 089-123-4567', rating:'4.9', reviews:45,  icon:'⚡', id:'craft' },
-  { badge:'food',   label:'ร้านอาหาร',title:'ครัวริมน้ำบางรักน้อย',       area:'ริมคลองบางรักน้อย', hours:'เปิด 09:00–22:00', rating:'4.7', reviews:128, icon:'🍜', id:'food' },
-  { badge:'travel', label:'ที่เที่ยว', title:'วัดบางรักน้อย',              area:'บางรักน้อย', hours:'เปิดทุกวัน 06:00–18:00', rating:'4.8', reviews:86, icon:'🛕', id:'travel' },
-  { badge:'learn',  label:'ฝึกอาชีพ', title:'อบรมทำขนมไทย',              area:'ศูนย์ฝึกอาชีพ', hours:'20 พ.ค. 2567', rating:'4.9', reviews:32, icon:'🎂', id:'learn' },
-  { badge:'news',   label:'ข่าวสาร',  title:'ประกาศเทศบาล',               area:'เทศบาลเมืองบางรักน้อย', hours:'19 พ.ค. 2567', rating:null,  reviews:null, icon:'📋', id:'news' },
+  { badge:'craft',  label:'ช่าง',      title:'ช่างไฟบ้านคุณตั้ม', area:'บางรักน้อย', hours:'โทร 089-123-4567', rating:'4.9', reviews:45,  icon:'⚡', image:'assets/sample-craft.webp', id:'craft' },
+  { badge:'food',   label:'ร้านอาหาร', title:'ครัวริมน้ำบางรักน้อย', area:'ริมคลองบางรักน้อย', hours:'เปิด 09:00–22:00', rating:'4.7', reviews:128, icon:'🍜', image:'assets/sample-food.webp', id:'food' },
+  { badge:'travel', label:'ที่เที่ยว', title:'วัดบางรักน้อย', area:'บางรักน้อย', hours:'เปิดทุกวัน 06:00–18:00', rating:'4.8', reviews:86, icon:'🛕', image:'assets/sample-travel.webp', id:'travel' },
+  { badge:'learn',  label:'ฝึกอาชีพ', title:'อบรมทำขนมไทย', area:'ศูนย์ฝึกอาชีพเทศบาล', hours:'20 พ.ค. 2567', rating:'4.9', reviews:32, icon:'🎂', image:'assets/sample-learn.webp', id:'learn' },
+  { badge:'news',   label:'ข่าวสาร', title:'ประกาศเทศบาลเมืองบางรักน้อย', area:'งานประชาสัมพันธ์', hours:'19 พ.ค. 2567', rating:null, reviews:null, icon:'📋', image:'assets/sample-news.webp', id:'news' },
 ];
 const featGrid = document.getElementById('featuredGrid');
 FEATURED.forEach(f => {
@@ -1102,7 +1118,7 @@ FEATURED.forEach(f => {
   div.className = 'feat-card';
   div.onclick = () => openDrawer(f.id);
   div.innerHTML = `
-    <div class="feat-card-img">${f.icon}</div>
+    ${f.image ? `<img class="feat-card-img" src="${f.image}" alt="${f.title}" loading="lazy">` : `<div class="feat-card-img fallback">${f.icon}</div>`}
     <div class="feat-card-body">
       <span class="feat-card-badge badge-${f.badge}">${f.label}</span>
       <div class="feat-card-title">${f.title}</div>
@@ -1117,17 +1133,17 @@ FEATURED.forEach(f => {
 
 // ── NEWS ──────────────────────────────────────────────────────────────────────
 const NEWS = [
-  { cat:'ประกาศ',   title:'ประกาศรับสมัครสมาชิกเข้าร่วมโครงการเศรษฐกิจชุมชน ปี 2568',     date:'19 พ.ค. 2567', icon:'📋' },
-  { cat:'บริการ',   title:'เปิดให้บริการรับชำระภาษีออนไลน์ผ่านระบบ e-Service',              date:'15 พ.ค. 2567', icon:'💻' },
-  { cat:'สิ่งแวดล้อม',title:'โครงการปลูกต้นไม้เพิ่มพื้นที่สีเขียวในชุมชน',                 date:'10 พ.ค. 2567', icon:'🌳' },
+  { cat:'ประกาศ', title:'ประกาศรับสมัครสมาชิกเข้าร่วมระบบบางรักน้อย Connect', date:'19 พ.ค. 2567', icon:'📋', image:'assets/sample-news.webp', href:'https://www.brn.go.th/news_obt.php?id=2' },
+  { cat:'บริการ', title:'เปิดให้ประชาชนส่งข้อมูลร้านค้าและบริการชุมชนผ่านระบบออนไลน์', date:'15 พ.ค. 2567', icon:'💻', image:'assets/scene-townhall.webp', href:'https://www.brn.go.th/' },
+  { cat:'สิ่งแวดล้อม', title:'ชวนร่วมดูแลคลองและพื้นที่สาธารณะในชุมชนบางรักน้อย', date:'10 พ.ค. 2567', icon:'🌳', image:'assets/scene-river.webp', href:'https://www.brn.go.th/' },
 ];
 const newsGrid = document.getElementById('newsGrid');
 NEWS.forEach(n => {
   const div = document.createElement('div');
   div.className = 'news-card';
-  div.onclick = () => window.open('https://www.brn.go.th/news_obt.php?id=2','_blank','noopener');
+  div.onclick = () => window.open(n.href || 'https://www.brn.go.th/','_blank','noopener');
   div.innerHTML = `
-    <div class="news-card-img">${n.icon}</div>
+    ${n.image ? `<img class="news-card-img" src="${n.image}" alt="${n.title}" loading="lazy">` : `<div class="news-card-img fallback">${n.icon}</div>`}
     <div class="news-card-body">
       <div class="news-card-cat">${n.cat}</div>
       <div class="news-card-title">${n.title}</div>
@@ -1138,9 +1154,9 @@ NEWS.forEach(n => {
 
 // ── ACTIVITIES ────────────────────────────────────────────────────────────────
 const ACTS = [
-  { cat:'กิจกรรม',  title:'งานลอยกระทงบางรักน้อย ประจำปี 2568',      date:'15 พ.ย. 2568', icon:'🪔' },
-  { cat:'อบรม',     title:'อบรมอาชีพ: การทำขนมไทยสำหรับขาย',          date:'28 พ.ค. 2568', icon:'🍡' },
-  { cat:'ชุมชน',    title:'กิจกรรมวันเด็กแห่งชาติ ประจำปี 2569',        date:'11 ม.ค. 2569', icon:'🎪' },
+  { cat:'กิจกรรม', title:'งานลอยกระทงบางรักน้อย ประจำปี 2568', date:'15 พ.ย. 2568', icon:'🪔', image:'assets/scene-river.webp' },
+  { cat:'อบรม', title:'อบรมอาชีพ: การทำขนมไทยสำหรับจำหน่าย', date:'28 พ.ค. 2568', icon:'🍡', image:'assets/sample-learn.webp' },
+  { cat:'ชุมชน', title:'กิจกรรมวันเด็กแห่งชาติ ประจำปี 2569', date:'11 ม.ค. 2569', icon:'🎪', image:'assets/scene-temple.webp' },
 ];
 const actGrid = document.getElementById('actGrid');
 ACTS.forEach(a => {
@@ -1148,7 +1164,7 @@ ACTS.forEach(a => {
   div.className = 'news-card';
   div.onclick = () => showToast('กำลังโหลดรายละเอียดกิจกรรมครับ...');
   div.innerHTML = `
-    <div class="news-card-img">${a.icon}</div>
+    ${a.image ? `<img class="news-card-img" src="${a.image}" alt="${a.title}" loading="lazy">` : `<div class="news-card-img fallback">${a.icon}</div>`}
     <div class="news-card-body">
       <div class="news-card-cat">${a.cat}</div>
       <div class="news-card-title">${a.title}</div>
@@ -1340,6 +1356,34 @@ document.getElementById('regSubmit').addEventListener('click', async () => {
     showErr('❌ ส่งไม่สำเร็จ กรุณาโทร 02-193-4512-3');
     btn.disabled = false; lbl.textContent = '📨 ส่งข้อมูลสมัคร';
   }
+});
+
+
+// ── LOGIN MODAL (DEMO USE) ───────────────────────────────────────────────────
+window.openLoginModal = () => {
+  document.getElementById('loginOverlay').classList.add('show');
+  document.getElementById('loginModal').style.display = 'flex';
+};
+window.closeLoginModal = () => {
+  document.getElementById('loginOverlay').classList.remove('show');
+  document.getElementById('loginModal').style.display = 'none';
+  const err = document.getElementById('loginError');
+  if (err) err.style.display = 'none';
+};
+const loginBtnDesktop = document.getElementById('loginBtnDesktop');
+const savedLogin = localStorage.getItem('brnLoginName');
+if (savedLogin && loginBtnDesktop) loginBtnDesktop.innerHTML = '<span>👤</span> บัญชีสมาชิก';
+document.getElementById('loginSubmit').addEventListener('click', () => {
+  const user = document.getElementById('login-user').value.trim();
+  const pass = document.getElementById('login-pass').value.trim();
+  const err = document.getElementById('loginError');
+  err.style.display = 'none';
+  if (!user) { err.textContent = '⚠️ กรุณากรอกเบอร์โทรหรืออีเมล'; err.style.display = 'block'; return; }
+  if (!pass) { err.textContent = '⚠️ กรุณากรอกรหัสผ่าน'; err.style.display = 'block'; return; }
+  localStorage.setItem('brnLoginName', user);
+  if (loginBtnDesktop) loginBtnDesktop.innerHTML = '<span>👤</span> บัญชีสมาชิก';
+  closeLoginModal();
+  showToast('เข้าสู่ระบบสำเร็จ (โหมดสาธิต)');
 });
 
 // ── ANIMATE STATS ──────────────────────────────────────────────────────────────
