@@ -692,247 +692,220 @@
       .footer-top { grid-template-columns: 1fr; gap: 28px; }
     }
   
-/* ─────────────────────────────────────────────────────────────────────────────
-   V28 HOMEPAGE REBUILD ONLY — Character-led community portal
-   Scope: หน้าแรก/visual only. ระบบฟอร์ม, data.js, Google Sheet และ Apps Script คงเดิม
-───────────────────────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   V29 — landing-page story, mascot-first, no video, same system
+───────────────────────────────────────────────────────────── */
 :root{
-  --v28-purple:#5b21b6;
-  --v28-purple-2:#7c3aed;
-  --v28-orange:#f59e0b;
-  --v28-orange-2:#fb923c;
-  --v28-black:#0b0718;
-  --v28-ink:#171022;
-  --v28-muted:#6b6376;
-  --v28-white:#ffffff;
-  --v28-soft:#fff7ed;
-  --v28-lilac:#f4efff;
-  --v28-line:rgba(91,33,182,.14);
-  --v28-shadow:0 22px 60px rgba(31,14,70,.16);
-  --v28-radius:28px;
+  --brand-purple:#5b21b6;
+  --brand-purple-2:#7c3aed;
+  --brand-orange:#ff8a00;
+  --brand-orange-2:#f59e0b;
+  --ink:#0e0a18;
+  --muted:#746b80;
+  --cream:#fff8ed;
+  --lilac:#f2eaff;
+  --line:rgba(91,33,182,.14);
+  --card-shadow:0 22px 55px rgba(28,12,60,.12);
 }
 body{
   background:
-    radial-gradient(circle at 8% 0%, rgba(245,158,11,.13), transparent 26%),
-    radial-gradient(circle at 92% 10%, rgba(124,58,237,.16), transparent 30%),
-    linear-gradient(180deg,#fff 0%, #fff9f0 45%, #ffffff 100%);
-  color:var(--v28-ink);
+    radial-gradient(circle at top left, rgba(255,138,0,.14), transparent 30%),
+    radial-gradient(circle at 90% 12%, rgba(124,58,237,.16), transparent 32%),
+    linear-gradient(180deg,#fff 0%,#fff8ee 48%,#fff 100%);
 }
 #navbar{
-  background:rgba(255,255,255,.88);
+  background:rgba(255,255,255,.92);
   border-bottom:1px solid rgba(91,33,182,.10);
   backdrop-filter:blur(18px);
 }
-.nav-inner{max-width:1280px;height:72px;}
-.nav-logo img{height:44px;width:auto;object-fit:contain;border-radius:12px;}
-.nav-logo-text b{color:var(--v28-purple);}
-.nav-logo-text small{color:rgba(23,16,34,.58);}
-.nav-links a{font-weight:900;color:#1f1829;}
-.nav-links a:hover,.nav-links a.active{color:var(--v28-purple);border-bottom-color:var(--v28-orange);}
+.nav-inner{max-width:1240px;height:72px}
+.nav-logo img{height:44px;width:auto;object-fit:contain;border-radius:12px}
+.nav-logo-text b{color:var(--brand-purple)}
+.nav-logo-text small{color:#7d728a}
+.nav-links a{font-weight:900;color:#15101f}
+.nav-links a.active,.nav-links a:hover{color:var(--brand-purple);border-bottom-color:var(--brand-orange)}
 .btn-outline{
-  background:linear-gradient(135deg,var(--v28-orange),#ff7a18);
-  border:none;color:#fff;
-  box-shadow:0 10px 26px rgba(245,158,11,.25);
-  padding:10px 20px;font-weight:900;
+  background:linear-gradient(135deg,var(--brand-orange),#ff6b00);
+  color:white;border:none;font-weight:950;
+  padding:10px 20px;
+  box-shadow:0 12px 26px rgba(255,138,0,.24);
 }
-.btn-outline:hover{background:linear-gradient(135deg,#ff8a1f,var(--v28-orange));color:#fff;transform:translateY(-1px);}
+.btn-outline:hover{background:linear-gradient(135deg,#ff9b20,var(--brand-orange));color:#fff;transform:translateY(-1px)}
 
-.v28-shell{max-width:1280px;margin:0 auto;padding:0 24px;}
-#hero.v28-hero{
-  min-height:720px;
-  padding:34px 0 28px;
+.v29-wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+#hero.v29-hero{
   display:block;
+  min-height:auto;
+  padding:34px 0 22px;
   background:transparent;
-  overflow:hidden;
 }
-.v28-hero-card{
+.v29-hero-board{
   position:relative;
-  min-height:600px;
-  border-radius:38px;
+  min-height:640px;
+  border-radius:34px;
   overflow:hidden;
-  box-shadow:var(--v28-shadow);
-  border:1px solid rgba(91,33,182,.18);
+  box-shadow:0 30px 80px rgba(31,15,60,.18);
+  border:1px solid rgba(91,33,182,.14);
+  background:#10091e;
   isolation:isolate;
-  background:#130923;
 }
-.v28-hero-card::before{
+.v29-hero-board::before{
   content:"";
   position:absolute;inset:0;
   background:
-    linear-gradient(90deg,rgba(9,4,22,.86) 0%, rgba(24,10,42,.68) 34%, rgba(255,255,255,.12) 68%, rgba(255,255,255,.04) 100%),
-    linear-gradient(180deg,rgba(0,0,0,.18) 0%, rgba(0,0,0,.02) 55%, rgba(255,255,255,.92) 100%);
+    linear-gradient(90deg, rgba(11,7,20,.90) 0%, rgba(24,12,42,.72) 34%, rgba(24,12,42,.32) 62%, rgba(255,255,255,.06) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.12) 0%, rgba(0,0,0,.02) 58%, rgba(255,255,255,.95) 100%);
   z-index:-1;
 }
-.v28-hero-bg{
+.v29-hero-bg{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center 34%;
+  object-fit:cover;object-position:center center;
   z-index:-2;
   transform:scale(1.02);
 }
-.v28-hero-grid{
+.v29-hero-content{
   position:relative;
+  z-index:2;
+  min-height:640px;
   display:grid;
-  grid-template-columns:minmax(420px, 520px) 1fr;
+  grid-template-columns:minmax(430px, 540px) 1fr;
   align-items:center;
-  min-height:600px;
-  gap:30px;
-  padding:54px 54px 150px;
+  gap:24px;
+  padding:56px 56px 150px;
 }
-.v28-kicker{
+.v29-pill{
   display:inline-flex;align-items:center;gap:9px;
   padding:8px 14px;
   border-radius:999px;
   background:rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.22);
+  border:1px solid rgba(255,255,255,.24);
+  backdrop-filter:blur(12px);
   color:#fff;
-  font-size:13px;font-weight:900;
-  backdrop-filter:blur(10px);
+  font-size:13px;font-weight:950;
 }
-.v28-kicker i{
-  width:9px;height:9px;border-radius:99px;background:var(--v28-orange);
-  box-shadow:0 0 0 6px rgba(245,158,11,.18);
-}
-.v28-title{
+.v29-dot{width:10px;height:10px;border-radius:99px;background:var(--brand-orange);box-shadow:0 0 0 6px rgba(255,138,0,.20)}
+.v29-title{
   margin-top:18px;
-  font-size:clamp(46px,5.3vw,78px);
-  line-height:.98;
-  letter-spacing:-.055em;
+  color:#fff;
   font-weight:1000;
-  color:#fff;
-  text-shadow:0 10px 26px rgba(0,0,0,.24);
+  letter-spacing:-.06em;
+  line-height:.98;
+  font-size:clamp(48px,5.6vw,82px);
+  text-shadow:0 12px 32px rgba(0,0,0,.28);
 }
-.v28-title .purple{color:#c4a8ff;}
-.v28-title .orange{color:var(--v28-orange);}
-.v28-lead{
+.v29-title .connect{color:#c5a8ff}
+.v29-title .mark{color:var(--brand-orange)}
+.v29-lead{
   margin-top:18px;
-  color:rgba(255,255,255,.90);
+  max-width:560px;
+  color:rgba(255,255,255,.92);
   font-size:18px;
-  line-height:1.75;
-  max-width:520px;
-  font-weight:650;
+  line-height:1.72;
+  font-weight:700;
 }
-.v28-hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;}
-.v28-btn{
+.v29-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.v29-btn{
   border:none;border-radius:999px;
   padding:13px 22px;
-  font-weight:950;font-size:14px;
-  display:inline-flex;align-items:center;gap:9px;
+  font-size:14px;font-weight:1000;
+  display:inline-flex;gap:8px;align-items:center;justify-content:center;
   transition:.22s ease;
 }
-.v28-btn.primary{background:linear-gradient(135deg,var(--v28-orange),#ff7a18);color:white;box-shadow:0 16px 34px rgba(245,158,11,.32);}
-.v28-btn.secondary{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);color:white;backdrop-filter:blur(10px);}
-.v28-btn:hover{transform:translateY(-2px);}
-.v28-mini-proof{
-  display:grid;grid-template-columns:repeat(3, minmax(0,1fr));
-  gap:10px;margin-top:26px;max-width:510px;
-}
-.v28-proof-item{
-  padding:12px 13px;
+.v29-btn.main{background:linear-gradient(135deg,var(--brand-orange),#ff6800);color:white;box-shadow:0 16px 35px rgba(255,138,0,.32)}
+.v29-btn.sub{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.24);backdrop-filter:blur(10px)}
+.v29-btn:hover{transform:translateY(-2px)}
+.v29-badges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px;max-width:540px}
+.v29-badge{
+  min-height:72px;
   border-radius:18px;
+  padding:12px 14px;
   background:rgba(255,255,255,.12);
   border:1px solid rgba(255,255,255,.18);
   color:#fff;
   backdrop-filter:blur(12px);
 }
-.v28-proof-item b{display:block;font-size:13px;line-height:1.25;}
-.v28-proof-item span{display:block;margin-top:3px;font-size:10.5px;color:rgba(255,255,255,.72);}
-.v28-mascot-float{
+.v29-badge b{display:block;font-size:13px;font-weight:1000}
+.v29-badge small{display:block;color:rgba(255,255,255,.74);font-size:10.5px;margin-top:2px}
+.v29-mascot{
   position:absolute;
-  right:44px;bottom:96px;
-  width:min(340px,26vw);
-  filter:drop-shadow(0 28px 35px rgba(0,0,0,.28));
-  pointer-events:none;
-  z-index:2;
+  right:78px;
+  bottom:122px;
+  height:min(510px,42vw);
+  z-index:3;
+  filter:drop-shadow(0 28px 42px rgba(0,0,0,.32));
 }
-.v28-quick-dock{
+.v29-dock{
   position:absolute;
-  left:40px;right:40px;bottom:28px;
+  left:36px;right:36px;bottom:28px;
+  z-index:4;
   display:grid;
   grid-template-columns:repeat(8,1fr);
   gap:12px;
-  z-index:3;
 }
-.v28-quick{
-  border:1px solid rgba(91,33,182,.14);
+.v29-dock-card{
+  min-height:88px;
+  border:1px solid rgba(91,33,182,.12);
   border-radius:22px;
   background:rgba(255,255,255,.92);
-  color:#1d1530;
-  min-height:88px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  box-shadow:0 14px 32px rgba(40,22,70,.10);
-  backdrop-filter:blur(12px);
+  box-shadow:0 16px 35px rgba(30,15,70,.11);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  color:#161020;
   transition:.22s ease;
+  backdrop-filter:blur(12px);
 }
-.v28-quick:hover{transform:translateY(-5px);border-color:rgba(245,158,11,.55);box-shadow:0 18px 36px rgba(245,158,11,.18);}
-.v28-quick img{width:38px;height:38px;object-fit:contain;}
-.v28-quick span{font-weight:950;font-size:12px;text-align:center;line-height:1.25;}
+.v29-dock-card:hover{transform:translateY(-5px);border-color:rgba(255,138,0,.55);box-shadow:0 22px 44px rgba(255,138,0,.16)}
+.v29-dock-card img{height:36px;width:auto;max-width:48px;object-fit:contain}
+.v29-dock-card span{font-weight:1000;font-size:12px;line-height:1.18;text-align:center}
 
-#searchWrap.v28-search-wrap{
+#searchWrap.v29-search{
   background:transparent!important;
-  padding:0 0 34px!important;
-  margin-top:-6px;
+  padding:0 0 36px!important;
 }
 #searchSection{
   max-width:980px;
-  margin:0 auto;
   border-radius:28px;
   padding:18px;
-  border:1px solid rgba(91,33,182,.16);
-  box-shadow:0 22px 55px rgba(91,33,182,.12);
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(14px);
+  background:rgba(255,255,255,.96);
+  border:1px solid rgba(91,33,182,.14);
+  box-shadow:0 24px 60px rgba(91,33,182,.12);
 }
-.search-input-wrap input{font-weight:700;}
-#searchCat{font-weight:800;border-color:rgba(91,33,182,.18);}
+.search-input-wrap input{font-weight:750}
 .btn-search{
-  background:linear-gradient(135deg,var(--v28-orange),#ff7a18);
-  color:#fff;
-  font-weight:950;
-  border-radius:16px;
-  box-shadow:0 12px 24px rgba(245,158,11,.22);
+  background:linear-gradient(135deg,var(--brand-orange),#ff6900)!important;
+  border-radius:16px!important;
+  color:#fff!important;
+  box-shadow:0 12px 26px rgba(255,138,0,.22)!important;
+  font-weight:1000!important;
 }
 .search-tag{
-  background:#f2eaff;color:var(--v28-purple);font-weight:900;
-  border:1px solid rgba(91,33,182,.08);
+  background:#f2eaff!important;color:var(--brand-purple)!important;
+  border:1px solid rgba(91,33,182,.08)!important;
+  font-weight:900!important;
 }
-.search-tag:hover{background:#fff1d6;color:#a65300;}
+.search-tag:hover{background:#fff0d7!important;color:#a14f00!important}
 
-.v28-section{
-  padding:48px 0;
-}
-.v28-section-inner{
-  max-width:1280px;margin:0 auto;padding:0 24px;
-}
-.v28-section-head{
-  display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
-  margin-bottom:24px;
-}
-.v28-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:12px;font-weight:950;color:var(--v28-orange);
-  background:#fff3df;border:1px solid rgba(245,158,11,.20);
+.v29-section{padding:50px 0}
+.v29-section-inner{max-width:1240px;margin:0 auto;padding:0 24px}
+.v29-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:24px}
+.v29-eyebrow{
+  display:inline-flex;gap:8px;align-items:center;
   padding:6px 12px;border-radius:999px;
+  background:#fff1d9;color:#a65300;
+  border:1px solid rgba(255,138,0,.20);
+  font-size:12px;font-weight:1000;
 }
-.v28-section-title{
+.v29-heading{
   margin-top:10px;
-  font-size:clamp(26px,3vw,42px);
-  letter-spacing:-.035em;
-  line-height:1.1;
+  color:var(--ink);
+  font-size:clamp(28px,3.2vw,44px);
+  line-height:1.08;
+  letter-spacing:-.04em;
   font-weight:1000;
-  color:var(--v28-black);
 }
-.v28-section-desc{
-  margin-top:9px;color:var(--v28-muted);font-weight:650;max-width:680px;
-}
-.section-link{color:var(--v28-purple);font-weight:950;}
+.v29-desc{margin-top:8px;color:var(--muted);font-weight:650;max-width:680px}
+.section-link{color:var(--brand-purple);font-weight:1000}
 
-#categories{
-  background:transparent!important;
-}
+#categories{background:transparent!important}
 .cat-grid{
   display:grid!important;
   grid-template-columns:repeat(6,1fr)!important;
@@ -940,182 +913,117 @@ body{
 }
 .cat-card{
   padding:0!important;
-  border-radius:28px!important;
   min-height:unset!important;
-  border:1px solid rgba(91,33,182,.14)!important;
-  background:linear-gradient(180deg,#fff,#fffaf4)!important;
-  box-shadow:0 18px 44px rgba(25,10,60,.09)!important;
-  overflow:hidden;
+  border-radius:28px!important;
+  overflow:hidden!important;
   display:flex!important;
   flex-direction:column!important;
-  align-items:stretch!important;
-  text-align:center!important;
+  background:#fff!important;
+  border:1px solid rgba(91,33,182,.14)!important;
+  box-shadow:0 18px 45px rgba(30,10,70,.09)!important;
   transition:.24s ease!important;
 }
-.cat-card:hover{transform:translateY(-8px)!important;border-color:rgba(245,158,11,.55)!important;box-shadow:0 26px 58px rgba(91,33,182,.16)!important;}
+.cat-card:hover{transform:translateY(-8px)!important;border-color:rgba(255,138,0,.55)!important;box-shadow:0 28px 62px rgba(91,33,182,.16)!important}
 .cat-visual{
-  position:relative;
-  height:220px;
+  height:224px;
   display:flex;align-items:flex-end;justify-content:center;
-  background:
-    radial-gradient(circle at 50% 20%,rgba(245,158,11,.16),transparent 42%),
-    linear-gradient(180deg,#f5efff 0%,#fff 100%);
+  background:radial-gradient(circle at 50% 22%, rgba(255,138,0,.18), transparent 38%),linear-gradient(180deg,#f3eaff,#fff);
 }
-.cat-visual img{
-  height:232px;width:auto;max-width:none;
-  object-fit:contain;
-  object-position:center bottom;
-  margin-bottom:-7px;
-}
-.cat-info{
-  padding:14px 14px 16px;
-  background:#fff;
-  border-top:1px solid rgba(91,33,182,.08);
-}
-.cat-label{font-size:16px!important;font-weight:1000!important;color:var(--v28-black)!important;}
-.cat-count{font-size:11.5px!important;color:var(--v28-muted)!important;margin-top:4px!important;line-height:1.45;}
+.cat-visual img{height:236px;width:auto;max-width:none;margin-bottom:-8px;object-fit:contain}
+.cat-info{padding:15px 14px 17px;text-align:center;background:#fff;border-top:1px solid rgba(91,33,182,.08)}
+.cat-label{font-size:16px!important;font-weight:1000!important;color:var(--ink)!important}
+.cat-count{font-size:11.5px!important;line-height:1.45!important;color:var(--muted)!important;margin-top:4px!important}
 
-.v28-how{
-  background:linear-gradient(135deg,#18082f 0%,#2b0c4f 48%,#12081f 100%);
-  color:#fff;
-  border-radius:36px;
-  overflow:hidden;
+.v29-story-card{
   position:relative;
-  min-height:310px;
-  box-shadow:var(--v28-shadow);
+  overflow:hidden;
+  border-radius:34px;
+  background:linear-gradient(135deg,#13091f,#321060 55%,#12081f);
+  color:white;
+  box-shadow:0 28px 70px rgba(30,10,70,.18);
 }
-.v28-how::after{
-  content:"";position:absolute;right:-130px;top:-130px;width:360px;height:360px;border-radius:50%;
-  background:radial-gradient(circle,rgba(245,158,11,.28),transparent 68%);
+.v29-story-card::after{
+  content:"";position:absolute;right:-120px;top:-140px;width:360px;height:360px;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,138,0,.30), transparent 67%);
 }
-.v28-how-grid{
-  display:grid;grid-template-columns:1fr 300px;
-  align-items:center;gap:30px;
-  padding:34px 42px;
-  position:relative;z-index:1;
-}
-.v28-steps{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;
-}
-.v28-step{
-  background:rgba(255,255,255,.09);
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:22px;
-  padding:16px;
-}
-.v28-step strong{display:block;font-size:15px;font-weight:950;margin-bottom:6px;}
-.v28-step p{font-size:12px;color:rgba(255,255,255,.76);line-height:1.55;}
-.v28-step-num{
-  width:34px;height:34px;border-radius:12px;
-  display:grid;place-items:center;
-  background:var(--v28-orange);
-  color:#fff;font-weight:1000;margin-bottom:10px;
-}
-.v28-how-mascot{
-  align-self:end;
-  max-height:320px;
-  filter:drop-shadow(0 24px 30px rgba(0,0,0,.3));
-}
+.v29-story-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:center;padding:36px 44px}
+.v29-story-grid .v29-heading{color:#fff}
+.v29-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.v29-step{border-radius:22px;padding:16px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14)}
+.v29-step-num{width:34px;height:34px;border-radius:12px;background:var(--brand-orange);display:grid;place-items:center;font-weight:1000;margin-bottom:10px}
+.v29-step b{font-weight:1000}
+.v29-step p{margin-top:5px;color:rgba(255,255,255,.75);font-size:12px;line-height:1.55}
+.v29-story-mascot{max-height:310px;justify-self:center;align-self:end;filter:drop-shadow(0 24px 36px rgba(0,0,0,.34))}
 
-#news{
-  background:transparent!important;
-}
-.news-grid{
-  display:grid!important;
-  grid-template-columns:repeat(3,1fr)!important;
-  gap:16px!important;
-}
+#updates{background:transparent!important}
+.news-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:16px!important}
 .news-card{
-  display:grid!important;
-  grid-template-columns:150px 1fr!important;
-  min-height:160px!important;
-  border-radius:28px!important;
-  border:1px solid rgba(91,33,182,.14)!important;
-  background:#fff!important;
-  box-shadow:0 18px 44px rgba(25,10,60,.08)!important;
-  overflow:hidden!important;
+  display:grid!important;grid-template-columns:148px 1fr!important;
+  min-height:162px!important;
+  border-radius:28px!important;overflow:hidden!important;
+  background:#fff!important;border:1px solid rgba(91,33,182,.14)!important;
+  box-shadow:0 18px 45px rgba(30,10,70,.08)!important;
 }
-.news-card-img{
-  width:150px!important;height:100%!important;min-height:160px!important;
-  object-fit:cover!important;object-position:center top!important;
-  background:#f7f0ff!important;
-}
-.news-card-body{padding:18px!important;}
+.news-card-img{width:148px!important;height:100%!important;min-height:162px!important;object-fit:contain!important;background:linear-gradient(180deg,#f3eaff,#fff8ed)!important;padding:8px!important}
+.news-card-body{padding:18px!important}
 .news-card-cat{
-  display:inline-flex;width:max-content;
-  padding:5px 9px;border-radius:999px;
-  background:#f3e8ff;color:var(--v28-purple)!important;
-  font-size:11px!important;font-weight:1000!important;
+  display:inline-flex;width:max-content;border-radius:999px;padding:5px 9px;
+  background:#f3eaff;color:var(--brand-purple)!important;font-weight:1000!important;font-size:11px!important
 }
-.news-card-title{font-size:15px!important;font-weight:950!important;line-height:1.45!important;color:var(--v28-black)!important;}
-.news-card-date{font-size:11.5px!important;color:var(--v28-muted)!important;}
+.news-card-title{font-size:15px!important;font-weight:1000!important;line-height:1.45!important;color:var(--ink)!important}
+.news-card-date{color:var(--muted)!important;font-size:11.5px!important}
 
-#lineCta{
-  background:transparent!important;
-  border:none!important;
-  margin:0!important;
-}
+#lineCta{background:transparent!important;border:none!important}
 .line-inner{
-  max-width:1280px!important;
-  margin:0 auto 34px!important;
-  padding:18px 24px!important;
+  max-width:1240px!important;
+  margin:0 auto 36px!important;
   border-radius:30px!important;
-  background:linear-gradient(90deg,#fff 0%,#fff5e8 45%,#f3eaff 100%)!important;
+  padding:18px 24px!important;
+  background:linear-gradient(90deg,#fff,#fff6e9 42%,#f3eaff)!important;
   border:1px solid rgba(91,33,182,.12)!important;
-  box-shadow:0 18px 45px rgba(25,10,60,.08)!important;
+  box-shadow:0 18px 46px rgba(30,10,70,.08)!important;
 }
-.line-text{color:var(--v28-black)!important;}
-.line-icon{background:var(--v28-purple)!important;color:#fff!important;}
-.btn-line{
-  background:#06c755!important;color:#fff!important;border-radius:999px!important;
-  font-weight:950!important;
-}
-
+.line-text{color:var(--ink)!important}
+.line-icon{background:var(--brand-purple)!important;color:#fff!important}
+.btn-line{background:#06c755!important;color:#fff!important;border-radius:999px!important;font-weight:1000!important}
 footer{
-  background:
-    radial-gradient(circle at 18% 18%,rgba(245,158,11,.20),transparent 24%),
-    linear-gradient(135deg,#080511 0%,#1c0d35 54%,#0c0616 100%)!important;
+  background:radial-gradient(circle at 18% 12%,rgba(255,138,0,.18),transparent 24%),linear-gradient(135deg,#090511,#1f0d3a 55%,#08040f)!important;
 }
-.footer-inner{max-width:1280px!important;}
-.footer-brand-lockup img{object-fit:contain!important;}
-.footer-bottom p{color:rgba(255,255,255,.70)!important;}
+.footer-brand-lockup img{object-fit:contain!important}
+.footer-bottom p{color:rgba(255,255,255,.70)!important}
 
-@media (max-width:1100px){
-  .v28-hero-grid{grid-template-columns:1fr;padding:42px 34px 150px;}
-  .v28-mascot-float{right:20px;bottom:96px;width:260px;opacity:.92;}
-  .v28-quick-dock{grid-template-columns:repeat(4,1fr);}
-  .cat-grid{grid-template-columns:repeat(3,1fr)!important;}
-  .news-grid{grid-template-columns:1fr!important;}
-  .news-card{max-width:100%;}
+@media(max-width:1100px){
+  .v29-hero-content{grid-template-columns:1fr;padding:40px 34px 150px}
+  .v29-mascot{right:40px;height:360px;bottom:110px;opacity:.96}
+  .v29-dock{grid-template-columns:repeat(4,1fr)}
+  .cat-grid{grid-template-columns:repeat(3,1fr)!important}
+  .news-grid{grid-template-columns:1fr!important}
 }
-@media (max-width:760px){
-  .v28-shell{padding:0 14px;}
-  #hero.v28-hero{min-height:auto;padding:18px 0 20px;}
-  .v28-hero-card{border-radius:30px;min-height:690px;}
-  .v28-hero-grid{padding:30px 20px 250px;min-height:690px;}
-  .v28-title{font-size:42px;}
-  .v28-lead{font-size:14px;line-height:1.7;}
-  .v28-mini-proof{grid-template-columns:1fr;}
-  .v28-mascot-float{width:230px;right:50%;transform:translateX(50%);bottom:96px;}
-  .v28-quick-dock{left:16px;right:16px;bottom:16px;grid-template-columns:repeat(4,1fr);gap:8px;}
-  .v28-quick{min-height:72px;border-radius:18px;}
-  .v28-quick img{width:30px;height:30px;}
-  .v28-quick span{font-size:10px;}
-  .search-row{flex-wrap:wrap;}
-  #searchCat,.btn-search{width:100%;}
-  .v28-section{padding:34px 0;}
-  .v28-section-head{display:block;}
-  .cat-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important;}
-  .cat-visual{height:180px;}
-  .cat-visual img{height:192px;}
-  .cat-label{font-size:14px!important;}
-  .v28-how-grid{grid-template-columns:1fr;padding:26px 20px 0;}
-  .v28-steps{grid-template-columns:1fr;}
-  .v28-how-mascot{max-height:260px;margin:0 auto;}
-  .news-card{grid-template-columns:105px 1fr!important;min-height:130px!important;border-radius:22px!important;}
-  .news-card-img{width:105px!important;min-height:130px!important;}
-  .news-card-body{padding:14px!important;}
-  .line-inner{border-radius:0!important;margin-bottom:0!important;}
+@media(max-width:720px){
+  .v29-wrap,.v29-section-inner{padding:0 14px}
+  #hero.v29-hero{padding:18px 0 14px}
+  .v29-hero-board{border-radius:28px;min-height:720px}
+  .v29-hero-content{min-height:720px;padding:30px 20px 250px}
+  .v29-title{font-size:44px}
+  .v29-lead{font-size:14px;line-height:1.7}
+  .v29-badges{grid-template-columns:1fr}
+  .v29-mascot{height:270px;right:50%;transform:translateX(50%);bottom:96px}
+  .v29-dock{left:14px;right:14px;bottom:14px;grid-template-columns:repeat(4,1fr);gap:8px}
+  .v29-dock-card{min-height:72px;border-radius:18px}
+  .v29-dock-card img{height:28px}
+  .v29-dock-card span{font-size:10px}
+  .v29-section{padding:34px 0}
+  .v29-section-head{display:block}
+  .cat-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
+  .cat-visual{height:180px}
+  .cat-visual img{height:190px}
+  .cat-label{font-size:14px!important}
+  .v29-story-grid{grid-template-columns:1fr;padding:28px 20px 0}
+  .v29-steps{grid-template-columns:1fr}
+  .v29-story-mascot{max-height:260px}
+  .news-card{grid-template-columns:108px 1fr!important;min-height:132px!important;border-radius:22px!important}
+  .news-card-img{width:108px!important;min-height:132px!important}
+  .news-card-body{padding:14px!important}
 }
 
 </style>
@@ -1141,59 +1049,50 @@ footer{
     </nav>
     <div class="nav-actions">
       <button class="btn-outline" onclick="openRegModal()">เพิ่มข้อมูลร้าน/บริการ</button>
-      <button class="hamburger" id="hamburger" aria-label="เมนู">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="hamburger" id="hamburger" aria-label="เมนู"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
 
-<!-- ── HERO V28 ── -->
-<section id="hero" class="v28-hero">
-  <div class="v28-shell">
-    <div class="v28-hero-card">
-      <img class="v28-hero-bg" src="assets/v28/hero-world.webp" alt="" aria-hidden="true">
-      <div class="v28-hero-grid">
-        <div class="v28-hero-copy">
-          <div class="v28-kicker"><i></i> เทศบาลเมืองบางรักน้อย · ชุมชนใกล้ตัว</div>
-          <h1 class="v28-title">
-            บางรักน้อย<br>
-            <span class="purple">Connect</span>
-            <span class="orange">.</span>
-          </h1>
-          <p class="v28-lead">
-            ศูนย์รวมบริการ ข่าวสาร กิจกรรม และของดีในพื้นที่
-            ให้คนบางรักน้อยค้นหา ติดต่อ และมีส่วนร่วมได้ง่ายกว่าเดิม
-          </p>
-          <div class="v28-hero-actions">
-            <a class="v28-btn primary" href="#searchWrap">🔎 ค้นหาบริการ</a>
-            <button class="v28-btn secondary" onclick="openRegModal()">➕ เพิ่มข้อมูลร้าน/บริการ</button>
+<!-- ── HERO V29 ── -->
+<section id="hero" class="v29-hero">
+  <div class="v29-wrap">
+    <div class="v29-hero-board">
+      <img class="v29-hero-bg" src="assets/v29/hero-bg-illustration.webp" alt="" aria-hidden="true">
+      <div class="v29-hero-content">
+        <div class="v29-copy">
+          <div class="v29-pill"><span class="v29-dot"></span> เทศบาลเมืองบางรักน้อย · ชุมชนใกล้ตัว</div>
+          <h1 class="v29-title">บางรักน้อย<br><span class="connect">Connect</span><span class="mark">.</span></h1>
+          <p class="v29-lead">ศูนย์รวมบริการ ข่าวสาร กิจกรรม และของดีในพื้นที่ ให้คนบางรักน้อยค้นหา ติดต่อ และมีส่วนร่วมได้ง่ายกว่าเดิม</p>
+          <div class="v29-actions">
+            <a class="v29-btn main" href="#searchWrap">🔎 ค้นหาบริการ</a>
+            <button class="v29-btn sub" onclick="openRegModal()">➕ เพิ่มข้อมูลร้าน/บริการ</button>
           </div>
-          <div class="v28-mini-proof">
-            <div class="v28-proof-item"><b>ค้นหาง่าย</b><span>เข้าถึงบริการใกล้บ้าน</span></div>
-            <div class="v28-proof-item"><b>มีชีวิต</b><span>ข่าว กิจกรรม และชุมชน</span></div>
-            <div class="v28-proof-item"><b>ตรวจสอบก่อนเผยแพร่</b><span>ข้อมูลผ่านเจ้าหน้าที่</span></div>
+          <div class="v29-badges">
+            <div class="v29-badge"><b>ค้นหาง่าย</b><small>บริการใกล้บ้านในที่เดียว</small></div>
+            <div class="v29-badge"><b>มีชีวิต</b><small>ข่าว กิจกรรม และชุมชน</small></div>
+            <div class="v29-badge"><b>ตรวจสอบก่อนเผยแพร่</b><small>ข้อมูลผ่านเจ้าหน้าที่</small></div>
           </div>
         </div>
-        <img class="v28-mascot-float" src="assets/v28/mascot-phone.webp" alt="มาสคอตบางรักน้อย Connect">
+        <img class="v29-mascot" src="assets/v29/hero-mascot.webp" alt="มาสคอตบางรักน้อย Connect">
       </div>
 
-      <div class="v28-quick-dock" aria-label="ทางลัดบางรักน้อย Connect">
-        <a class="v28-quick" href="#" onclick="openDrawer('craft');return false;"><img src="assets/v28/cat-craft.webp" alt=""><span>หาช่าง</span></a>
-        <a class="v28-quick" href="#" onclick="openDrawer('food');return false;"><img src="assets/v28/cat-food.webp" alt=""><span>ร้านอาหาร</span></a>
-        <a class="v28-quick" href="#" onclick="openDrawer('travel');return false;"><img src="assets/v28/cat-travel.webp" alt=""><span>ท่องเที่ยว</span></a>
-        <a class="v28-quick" href="#" onclick="openDrawer('learn');return false;"><img src="assets/v28/cat-learn.webp" alt=""><span>ฝึกอาชีพ</span></a>
-        <a class="v28-quick" href="#" onclick="openDrawer('market');return false;"><img src="assets/v28/cat-market.webp" alt=""><span>สินค้า/บริการ</span></a>
-        <a class="v28-quick" href="#" onclick="openDrawer('chat');return false;"><img src="assets/v28/cat-chat.webp" alt=""><span>พูดคุย</span></a>
-        <a class="v28-quick" href="#updates"><img src="assets/v28/cat-news.webp" alt=""><span>ข่าวสาร</span></a>
-        <a class="v28-quick" href="#updates"><img src="assets/v28/cat-event.webp" alt=""><span>กิจกรรม</span></a>
+      <div class="v29-dock" aria-label="เมนูทางลัด">
+        <a class="v29-dock-card" href="#" onclick="openDrawer('craft');return false;"><img src="assets/v29/craft.webp" alt=""><span>หาช่าง</span></a>
+        <a class="v29-dock-card" href="#" onclick="openDrawer('food');return false;"><img src="assets/v29/food.webp" alt=""><span>ร้านอาหาร</span></a>
+        <a class="v29-dock-card" href="#" onclick="openDrawer('travel');return false;"><img src="assets/v29/travel.webp" alt=""><span>ท่องเที่ยว</span></a>
+        <a class="v29-dock-card" href="#" onclick="openDrawer('learn');return false;"><img src="assets/v29/learn.webp" alt=""><span>ฝึกอาชีพ</span></a>
+        <a class="v29-dock-card" href="#" onclick="openDrawer('market');return false;"><img src="assets/v29/market.webp" alt=""><span>สินค้า/บริการ</span></a>
+        <a class="v29-dock-card" href="#" onclick="openDrawer('chat');return false;"><img src="assets/v29/chat.webp" alt=""><span>พูดคุย</span></a>
+        <a class="v29-dock-card" href="#updates"><img src="assets/v29/news.webp" alt=""><span>ข่าวสาร</span></a>
+        <a class="v29-dock-card" href="#updates"><img src="assets/v29/event.webp" alt=""><span>กิจกรรม</span></a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ── SEARCH ── -->
-<div id="searchWrap" class="v28-search-wrap">
+<div id="searchWrap" class="v29-search">
   <div id="searchSection">
     <div class="search-row">
       <div class="search-input-wrap">
@@ -1224,58 +1123,56 @@ footer{
 </div>
 
 <!-- ── CATEGORIES ── -->
-<div id="categories" class="v28-section">
-  <div class="v28-section-inner">
-    <div class="v28-section-head">
+<div id="categories" class="v29-section">
+  <div class="v29-section-inner">
+    <div class="v29-section-head">
       <div>
-        <div class="v28-eyebrow">🧭 ทางเข้าหลัก</div>
-        <h2 class="v28-section-title">เลือกหมวดบริการที่ต้องการ</h2>
-        <p class="v28-section-desc">ใช้มาสคอตเป็นตัวนำทาง ให้คนเข้าใจหมวดบริการเร็วขึ้น กดแล้วเปิดข้อมูลบริการเดิมของระบบ</p>
+        <div class="v29-eyebrow">🧭 ทางเข้าหลัก</div>
+        <h2 class="v29-heading">เลือกหมวดบริการที่ต้องการ</h2>
+        <p class="v29-desc">ใช้มาสคอตเป็นตัวนำทาง กดแล้วเปิดข้อมูลบริการเดิมของระบบ</p>
       </div>
       <a class="section-link" href="#searchWrap">ค้นหาด้วยคำค้น ›</a>
     </div>
-    <div class="cat-grid" id="catGrid"><!-- populated by JS --></div>
+    <div class="cat-grid" id="catGrid"></div>
   </div>
 </div>
 
-<!-- ── HOW IT WORKS / CTA ── -->
-<section class="v28-section">
-  <div class="v28-section-inner">
-    <div class="v28-how">
-      <div class="v28-how-grid">
+<!-- ── STORY CTA ── -->
+<section class="v29-section">
+  <div class="v29-section-inner">
+    <div class="v29-story-card">
+      <div class="v29-story-grid">
         <div>
-          <div class="v28-eyebrow">🤝 ชุมชนช่วยกันเติมข้อมูล</div>
-          <h2 class="v28-section-title" style="color:#fff">เจอของดีในพื้นที่ ก็ส่งข้อมูลเข้าระบบได้</h2>
-          <p class="v28-section-desc" style="color:rgba(255,255,255,.76)">
-            ร้านค้า ช่าง กลุ่มอาชีพ แหล่งท่องเที่ยว หรือบริการในพื้นที่ ส่งข้อมูลให้เทศบาลตรวจสอบก่อนเผยแพร่
-          </p>
-          <div class="v28-steps">
-            <div class="v28-step"><div class="v28-step-num">1</div><strong>กรอกข้อมูล</strong><p>ชื่อร้าน/บริการ เบอร์โทร พื้นที่ และรายละเอียด</p></div>
-            <div class="v28-step"><div class="v28-step-num">2</div><strong>เจ้าหน้าที่ตรวจสอบ</strong><p>คัดกรองข้อมูลเบื้องต้นก่อนแสดงบนระบบ</p></div>
-            <div class="v28-step"><div class="v28-step-num">3</div><strong>ประชาชนค้นหาได้</strong><p>ช่วยให้บริการในชุมชนเข้าถึงง่ายขึ้น</p></div>
+          <div class="v29-eyebrow">🤝 ชุมชนช่วยกันเติมข้อมูล</div>
+          <h2 class="v29-heading">มีร้านค้า ช่าง หรือบริการในพื้นที่?</h2>
+          <p class="v29-desc" style="color:rgba(255,255,255,.76)">ส่งข้อมูลให้เทศบาลตรวจสอบก่อนเผยแพร่ เพื่อให้คนในชุมชนค้นหาได้ง่ายขึ้น</p>
+          <div class="v29-steps">
+            <div class="v29-step"><div class="v29-step-num">1</div><b>กรอกข้อมูล</b><p>ชื่อร้าน/บริการ เบอร์โทร พื้นที่ และรายละเอียด</p></div>
+            <div class="v29-step"><div class="v29-step-num">2</div><b>ตรวจสอบ</b><p>เจ้าหน้าที่คัดกรองข้อมูลเบื้องต้นก่อนแสดงผล</p></div>
+            <div class="v29-step"><div class="v29-step-num">3</div><b>ค้นหาได้</b><p>ประชาชนเข้าถึงบริการชุมชนได้สะดวกขึ้น</p></div>
           </div>
-          <div class="v28-hero-actions">
-            <button class="v28-btn primary" onclick="openRegModal()">➕ เพิ่มข้อมูลร้าน/บริการ</button>
+          <div class="v29-actions">
+            <button class="v29-btn main" onclick="openRegModal()">➕ เพิ่มข้อมูลร้าน/บริการ</button>
           </div>
         </div>
-        <img class="v28-how-mascot" src="assets/v28/mascot-present.webp" alt="มาสคอตแนะนำบริการ">
+        <img class="v29-story-mascot" src="assets/v29/service.webp" alt="">
       </div>
     </div>
   </div>
 </section>
 
 <!-- ── UPDATES ── -->
-<div id="updates" class="v28-section">
-  <div class="v28-section-inner">
-    <div class="v28-section-head">
+<div id="updates" class="v29-section">
+  <div class="v29-section-inner">
+    <div class="v29-section-head">
       <div>
-        <div class="v28-eyebrow">📢 อัปเดตจากพื้นที่</div>
-        <h2 class="v28-section-title">ข่าวสารและกิจกรรมชุมชน</h2>
-        <p class="v28-section-desc">รวมข่าว ประกาศ กิจกรรม และเรื่องที่เกี่ยวกับคนบางรักน้อยไว้ในจุดเดียว</p>
+        <div class="v29-eyebrow">📢 อัปเดตจากพื้นที่</div>
+        <h2 class="v29-heading">ข่าวสารและกิจกรรมชุมชน</h2>
+        <p class="v29-desc">รวมประกาศ กิจกรรม และเรื่องน่ารู้ของบางรักน้อยไว้ในที่เดียว</p>
       </div>
       <a class="section-link" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ดูทั้งหมด ›</a>
     </div>
-    <div class="news-grid" id="updatesGrid"><!-- populated by JS --></div>
+    <div class="news-grid" id="updatesGrid"></div>
   </div>
 </div>
 
@@ -1300,10 +1197,7 @@ footer{
       <div class="footer-brand">
         <div class="footer-brand-lockup">
           <img src="assets/favicon.png" alt="BC" onerror="this.style.display='none'">
-          <div>
-            <b>บางรักน้อย Connect</b>
-            <small>ชุมชนใกล้ตัว เชื่อมถึงกัน</small>
-          </div>
+          <div><b>บางรักน้อย Connect</b><small>ชุมชนใกล้ตัว เชื่อมถึงกัน</small></div>
         </div>
         <p>ศูนย์รวมข้อมูลบริการชุมชนของเทศบาลเมืองบางรักน้อย เพื่อช่วยให้ประชาชนค้นหาบริการ ร้านค้า ข่าวสาร และกิจกรรมในพื้นที่ได้สะดวกยิ่งขึ้น</p>
         <div class="footer-social">
@@ -1480,12 +1374,12 @@ document.getElementById('searchInput').addEventListener('keydown', e => { if (e.
 
 // ── CATEGORY GRID ─────────────────────────────────────────────────────────────
 const CATS = [
-  { id:'craft',  label:'หาช่าง', count:'ระบบไฟฟ้า ประปา แอร์ งานบ้าน', img:'assets/v28/cat-craft.webp' },
-  { id:'food',   label:'ร้านอาหาร', count:'ร้านอาหาร คาเฟ่ ของกินใกล้บ้าน', img:'assets/v28/cat-food.webp' },
-  { id:'travel', label:'ท่องเที่ยว', count:'วัด ริมคลอง จุดเช็กอินในพื้นที่', img:'assets/v28/cat-travel.webp' },
-  { id:'learn',  label:'ฝึกอาชีพ', count:'อบรม ทักษะ และกลุ่มอาชีพ', img:'assets/v28/cat-learn.webp' },
-  { id:'market', label:'สินค้า/บริการ', count:'ของดีชุมชน ร้านค้า และบริการ', img:'assets/v28/cat-market.webp' },
-  { id:'chat',   label:'พูดคุย/แลกเปลี่ยน', count:'เสนอข้อมูล สอบถาม และแลกเปลี่ยน', img:'assets/v28/cat-chat.webp' },
+  { id:'craft',  label:'หาช่าง', count:'ระบบไฟฟ้า ประปา แอร์ งานบ้าน', img:'assets/v29/craft.webp' },
+  { id:'food',   label:'ร้านอาหาร', count:'ร้านอาหาร คาเฟ่ ของกินใกล้บ้าน', img:'assets/v29/food.webp' },
+  { id:'travel', label:'ท่องเที่ยว', count:'วัด ริมคลอง จุดเช็กอินในพื้นที่', img:'assets/v29/travel.webp' },
+  { id:'learn',  label:'ฝึกอาชีพ', count:'อบรม ทักษะ และกลุ่มอาชีพ', img:'assets/v29/learn.webp' },
+  { id:'market', label:'สินค้า/บริการ', count:'ของดีชุมชน ร้านค้า และบริการ', img:'assets/v29/market.webp' },
+  { id:'chat',   label:'พูดคุย/แลกเปลี่ยน', count:'เสนอข้อมูล สอบถาม และแลกเปลี่ยน', img:'assets/v29/chat.webp' },
 ];
 const catGrid = document.getElementById('catGrid');
 if (catGrid) {
@@ -1495,10 +1389,7 @@ if (catGrid) {
     div.onclick = () => openDrawer(c.id);
     div.innerHTML = `
       <div class="cat-visual"><img src="${c.img}" alt="${c.label}" loading="lazy"></div>
-      <div class="cat-info">
-        <div class="cat-label">${c.label}</div>
-        <div class="cat-count">${c.count}</div>
-      </div>`;
+      <div class="cat-info"><div class="cat-label">${c.label}</div><div class="cat-count">${c.count}</div></div>`;
     catGrid.appendChild(div);
   });
 }
@@ -1506,9 +1397,9 @@ if (catGrid) {
 // ── UPDATES ─────────────────────────────────────────────────────────────────────
 
 const UPDATES = [
-  { cat:'ประกาศ', title:'ประกาศและข่าวสารที่เกี่ยวข้องกับคนในพื้นที่บางรักน้อย', date:'อัปเดต พ.ศ. 2569', icon:'📢', image:'assets/v28/cat-news.webp', href:'https://www.brn.go.th/news_obt.php?id=2' },
-  { cat:'บริการชุมชน', title:'ช่องทางบริการชุมชนและข้อมูลที่ประชาชนเข้าถึงได้ง่ายขึ้น', date:'อัปเดต พ.ศ. 2569', icon:'🏠', image:'assets/v28/cat-service.webp', href:'https://www.brn.go.th/' },
-  { cat:'กิจกรรม', title:'กิจกรรมชุมชนและเรื่องน่ารู้ในพื้นที่เทศบาลเมืองบางรักน้อย', date:'อัปเดต พ.ศ. 2569', icon:'🎉', image:'assets/v28/cat-event.webp', href:'https://www.brn.go.th/' },
+  { cat:'ประกาศ', title:'ข่าวสารและประกาศที่เกี่ยวข้องกับคนบางรักน้อย', date:'อัปเดต พ.ศ. 2569', icon:'📢', image:'assets/v29/news.webp', href:'https://www.brn.go.th/news_obt.php?id=2' },
+  { cat:'บริการชุมชน', title:'ช่องทางบริการชุมชนและข้อมูลที่ประชาชนเข้าถึงง่ายขึ้น', date:'อัปเดต พ.ศ. 2569', icon:'🏠', image:'assets/v29/service.webp', href:'https://www.brn.go.th/' },
+  { cat:'กิจกรรม', title:'กิจกรรมชุมชนและเรื่องน่ารู้ในพื้นที่เทศบาลเมืองบางรักน้อย', date:'อัปเดต พ.ศ. 2569', icon:'🎉', image:'assets/v29/event.webp', href:'https://www.brn.go.th/' },
 ];
 const updatesGrid = document.getElementById('updatesGrid');
 if (updatesGrid) {
