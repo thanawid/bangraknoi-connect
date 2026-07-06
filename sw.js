@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v21-perf';
+const CACHE_NAME = 'bangraknoi-connect-v22-municipal-portal';
 const PRECACHE_URLS = [
   './',
   './index.html',
