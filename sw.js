@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v30-dark-hero-real';
+const CACHE_NAME = 'bangraknoi-connect-v30-1-fb-half-mascot';
 const PRECACHE_URLS = [
   './',
   './index.html',

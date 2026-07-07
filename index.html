@@ -1241,6 +1241,180 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   .line-inner{border-radius:0!important;margin-bottom:0!important}
 }
 
+
+/* ─────────────────────────────────────────────────────────────
+   V30.1 — Facebook Page Updates + Half-body Hero Mascot
+───────────────────────────────────────────────────────────── */
+.v30-mascot-stage{
+  position:absolute;
+  right:54px;
+  bottom:0;
+  width:min(410px,34vw);
+  height:min(430px,35vw);
+  min-height:360px;
+  overflow:hidden;
+  z-index:2;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  pointer-events:none;
+  filter:drop-shadow(0 30px 42px rgba(0,0,0,.34));
+}
+.v30-mascot-stage::after{
+  content:"";
+  position:absolute;
+  left:7%;
+  right:7%;
+  bottom:0;
+  height:96px;
+  border-radius:42px 42px 0 0;
+  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,122,0,.16));
+  border:1px solid rgba(255,255,255,.18);
+  z-index:-1;
+}
+.v30-hero-mascot{
+  position:relative!important;
+  right:auto!important;
+  bottom:auto!important;
+  height:min(585px,46vw)!important;
+  max-width:none!important;
+  object-fit:contain!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+.v301-updates-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(360px,430px);
+  gap:18px;
+  align-items:start;
+}
+.v301-updates-layout .news-grid{
+  grid-template-columns:1fr!important;
+}
+.v301-updates-layout .news-card{
+  grid-template-columns:148px 1fr!important;
+  min-height:136px!important;
+}
+.v301-updates-layout .news-card-img{
+  width:148px!important;
+  min-height:136px!important;
+}
+.v301-facebook-card{
+  background:#fff;
+  border:1px solid rgba(91,33,182,.12);
+  border-radius:28px;
+  box-shadow:0 18px 46px rgba(31,14,70,.08);
+  overflow:hidden;
+}
+.v301-facebook-head{
+  padding:18px 18px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:14px;
+  border-bottom:1px solid rgba(91,33,182,.10);
+  background:linear-gradient(135deg,#fff,#fff7ed 54%,#f3eaff);
+}
+.v301-facebook-head b{
+  display:block;
+  font-size:17px;
+  font-weight:1000;
+  color:var(--v30-ink);
+  line-height:1.25;
+}
+.v301-facebook-head small{
+  display:block;
+  margin-top:4px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--v30-muted);
+  line-height:1.45;
+}
+.v301-facebook-badge{
+  flex:0 0 auto;
+  border-radius:999px;
+  padding:6px 10px;
+  background:#1877f2;
+  color:white;
+  font-size:12px;
+  font-weight:1000;
+}
+.v301-facebook-frame{
+  height:520px;
+  overflow:hidden;
+  background:#f6f7fb;
+}
+.v301-facebook-frame iframe{
+  width:100%!important;
+  min-width:100%!important;
+  height:520px!important;
+  display:block;
+}
+.v301-facebook-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  padding:14px 18px 18px;
+  border-top:1px solid rgba(91,33,182,.08);
+}
+.v301-mini-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:38px;
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:950;
+}
+.v301-mini-btn.fb{background:#1877f2;color:#fff}
+.v301-mini-btn.web{background:#f3eaff;color:var(--v30-purple)}
+.v301-note{
+  padding:0 18px 16px;
+  color:#857c90;
+  font-size:11.5px;
+  line-height:1.5;
+}
+
+@media(max-width:1120px){
+  .v30-mascot-stage{
+    right:28px;
+    width:330px;
+    height:365px;
+    min-height:365px;
+  }
+  .v30-hero-mascot{height:510px!important}
+  .v301-updates-layout{grid-template-columns:1fr}
+  .v301-facebook-card{max-width:620px;width:100%;margin:0 auto}
+}
+@media(max-width:760px){
+  .v30-mascot-stage{
+    right:50%;
+    transform:translateX(50%);
+    width:280px;
+    height:260px;
+    min-height:260px;
+  }
+  .v30-mascot-stage::after{height:56px;border-radius:28px 28px 0 0}
+  .v30-hero-mascot{
+    height:390px!important;
+  }
+  .v301-updates-layout .news-card{
+    grid-template-columns:110px 1fr!important;
+    min-height:124px!important;
+  }
+  .v301-updates-layout .news-card-img{
+    width:110px!important;
+    min-height:124px!important;
+  }
+  .v301-facebook-frame,
+  .v301-facebook-frame iframe{
+    height:440px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1290,7 +1464,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
             <div class="v30-feature"><span class="v30-feature-icon">🤝</span><div><b>มีส่วนร่วม</b><small>ร่วมสร้างชุมชนให้น่าอยู่</small></div></div>
           </div>
         </div>
-        <img class="v30-hero-mascot" src="assets/v30/mascot-hero.webp" alt="มาสคอตบางรักน้อย Connect">
+        <div class="v30-mascot-stage"><img class="v30-hero-mascot" src="assets/v30/mascot-hero.webp" alt="มาสคอตบางรักน้อย Connect"></div>
       </div>
     </div>
   </div>
@@ -1345,12 +1519,34 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   <div class="v30-section-inner">
     <div class="v30-section-head">
       <div>
-        <div class="v30-section-label">📢 อัปเดตจากชุมชน</div>
-        <h2 class="v30-heading">ข่าวสารและกิจกรรมจากชุมชน</h2>
+        <div class="v30-section-label">📢 ข่าวสาร กิจกรรม และประกาศ</div>
+        <h2 class="v30-heading">อัปเดตจากบางรักน้อย</h2>
       </div>
       <a class="section-link" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ดูทั้งหมด ›</a>
     </div>
-    <div class="news-grid" id="updatesGrid"></div>
+    <div class="v301-updates-layout">
+      <div class="news-grid" id="updatesGrid"></div>
+      <aside class="v301-facebook-card" aria-label="Facebook Page เทศบาลเมืองบางรักน้อย">
+        <div class="v301-facebook-head">
+          <div>
+            <b>เพจเทศบาลเมืองบางรักน้อย</b>
+            <small>อัปเดตความเคลื่อนไหวล่าสุดจาก Facebook</small>
+          </div>
+          <span class="v301-facebook-badge">Live Feed</span>
+        </div>
+        <div class="v301-facebook-frame">
+          <iframe title="Facebook Page เทศบาลเมืองบางรักน้อย"
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fwww.brn.go.th%2F&tabs=timeline&width=430&height=520&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+            width="430" height="520" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+            allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+        <div class="v301-facebook-actions">
+          <a class="v301-mini-btn fb" href="https://www.facebook.com/www.brn.go.th/" target="_blank" rel="noopener">เปิดเพจ Facebook</a>
+          <a class="v301-mini-btn web" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ข่าวบนเว็บเทศบาล</a>
+        </div>
+        <div class="v301-note">หมายเหตุ: หากไม่เห็นกล่อง Facebook อาจเกิดจากการตั้งค่าความเป็นส่วนตัว เบราว์เซอร์ หรือส่วนขยายที่บล็อกคุกกี้ของ Facebook</div>
+      </aside>
+    </div>
   </div>
 </div>
 
