@@ -71,3 +71,10 @@ V7.8 PRODUCTION:
 - News shows 3 cards as requested.
 - Facebook feed remains, moved under news for balanced visual weight.
 - Form / Google Sheet / buttons / drawer / search logic kept intact.
+
+
+V7.9:
+- แก้ section ข่าว/Facebook ใหม่
+- Facebook Page Plugin ไม่ถูกบังคับให้เต็มแถวแล้ว จึงไม่มีพื้นที่ว่างเทาขนาดใหญ่
+- จัดกลับเป็น 2 คอลัมน์: ซ้ายข่าว 3 ใบ, ขวา Facebook feed ขนาดพอดี
+- ฟอร์ม / Google Sheet / ปุ่ม / drawer / search logic คงเดิม

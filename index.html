@@ -10,7 +10,7 @@
   <meta property="og:image" content="assets/icon-512x512.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <title>บางรักน้อย Connect — V7.8</title>
+  <title>บางรักน้อย Connect — V7.9</title>
   <link rel="icon" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon-180x180.png">
   <link rel="manifest" href="manifest.webmanifest">
@@ -1526,6 +1526,88 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   .v78-facebook-frame,.v78-facebook-frame iframe{height:440px!important}
 }
 
+
+/* ─────────────────────────────────────────────────────────────
+   V7.9 — Updates/Facebook balanced layout
+   เหตุผล: Facebook Page Plugin ไม่ใช่ full-width widget; ถ้าบังคับเต็มแถวจะเกิดพื้นที่ว่างเทา
+───────────────────────────────────────────────────────────── */
+@media(min-width:1180px){
+  .v78-updates-stack{
+    display:grid!important;
+    grid-template-columns:minmax(0, 1fr) 520px!important;
+    gap:18px!important;
+    align-items:start!important;
+  }
+  .v78-news-grid{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:14px!important;
+  }
+  .v78-news-grid .news-card{
+    display:grid!important;
+    grid-template-columns:210px 1fr!important;
+    min-height:160px!important;
+    border-radius:24px!important;
+  }
+  .v78-news-grid .news-card-img{
+    width:210px!important;
+    min-height:160px!important;
+    height:100%!important;
+    object-fit:cover!important;
+  }
+  .v78-facebook-card{
+    width:520px!important;
+    max-width:520px!important;
+    height:auto!important;
+    justify-self:end!important;
+    border-radius:28px!important;
+    background:#fff!important;
+    overflow:hidden!important;
+  }
+  .v78-facebook-frame{
+    width:100%!important;
+    height:520px!important;
+    background:#fff!important;
+    overflow:hidden!important;
+  }
+  .v78-facebook-frame iframe{
+    width:500px!important;
+    min-width:500px!important;
+    max-width:500px!important;
+    height:520px!important;
+    display:block!important;
+    margin:0 auto!important;
+  }
+  .v78-facebook-actions{
+    padding:12px 16px 14px!important;
+    background:#fff!important;
+  }
+}
+@media(max-width:1179px){
+  .v78-updates-stack{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:18px!important;
+  }
+  .v78-facebook-card{
+    width:min(100%, 560px)!important;
+    justify-self:center!important;
+    background:#fff!important;
+  }
+  .v78-facebook-frame{
+    height:520px!important;
+    background:#fff!important;
+  }
+  .v78-facebook-frame iframe{
+    width:500px!important;
+    max-width:100%!important;
+    min-width:0!important;
+    height:520px!important;
+    margin:0 auto!important;
+    display:block!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1639,8 +1721,8 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       <aside class="v78-facebook-card" aria-label="Facebook Page เทศบาลเมืองบางรักน้อย">
         <div class="v78-facebook-frame">
           <iframe title="Facebook Page เทศบาลเมืองบางรักน้อย"
-            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fwww.brn.go.th%2F&tabs=timeline&width=1200&height=420&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false"
-            width="1200" height="420" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fwww.brn.go.th%2F&tabs=timeline&width=500&height=520&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false"
+            width="500" height="520" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
             allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
         </div>
         <div class="v78-facebook-actions">
@@ -1724,7 +1806,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V7.8</span></p>
+      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V7.9</span></p>
       <p>ข้อมูลในระบบเป็นข้อมูลเบื้องต้นเพื่อประกอบการตัดสินใจ · โปรดตรวจสอบรายละเอียดกับผู้ให้บริการโดยตรงก่อนใช้บริการ</p>
     </div>
   </div>
