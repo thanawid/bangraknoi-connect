@@ -86,3 +86,11 @@ V8.0 About Bridge Layout:
 - Facebook feed ยังอยู่ฝั่งขวา
 - ซ่อน About section เดิมด้านล่างเพื่อไม่ให้เนื้อหาซ้ำ
 - ฟอร์ม / Google Sheet / ปุ่ม / drawer / search logic คงเดิม
+
+
+V8.1 LINE + QR CTA Polish:
+- ปรับกล่อง LINE CTA ให้เต็มและสมดุลขึ้น
+- ใส่โลโก้ LINE แบบพอดี พร้อม animation เบา ๆ
+- ใส่ QR Code สำหรับเข้าเว็บบางรักน้อย Connect
+- ไม่ใส่รูปโปสเตอร์ในเว็บ
+- ฟอร์ม / Google Sheet / ปุ่ม / drawer / search logic คงเดิม

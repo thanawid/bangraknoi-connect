@@ -10,7 +10,7 @@
   <meta property="og:image" content="assets/icon-512x512.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <title>บางรักน้อย Connect — V8.0</title>
+  <title>บางรักน้อย Connect — V8.1</title>
   <link rel="icon" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon-180x180.png">
   <link rel="manifest" href="manifest.webmanifest">
@@ -1741,6 +1741,147 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   .v80-about-main p{font-size:13px}
 }
 
+
+/* ─────────────────────────────────────────────────────────────
+   V8.1 — LINE + QR CTA Polish
+───────────────────────────────────────────────────────────── */
+.v81-line-qr-section{
+  padding:26px 0 36px;
+  background:transparent;
+}
+.v81-line-qr-inner{
+  width:min(calc(100% - 48px), 1668px);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(260px, 1fr) minmax(380px, 1.35fr) minmax(240px, .72fr);
+  gap:14px;
+  align-items:stretch;
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 74% 12%,rgba(6,199,85,.20),transparent 28%),
+    linear-gradient(90deg,#fff,#fff8ef 40%,#effff4);
+  border:1px solid rgba(6,199,85,.18);
+  box-shadow:0 18px 46px rgba(31,14,70,.08);
+  padding:16px;
+}
+.v81-line-main,
+.v81-line-follow,
+.v81-qr-card{
+  border-radius:24px;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(91,33,182,.08);
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:16px;
+  min-width:0;
+}
+.v81-chat-icon{
+  width:54px;height:54px;border-radius:18px;display:grid;place-items:center;
+  flex:0 0 auto;font-size:26px;color:#fff;
+  background:linear-gradient(135deg,#7c3aed,#5b21b6);
+  box-shadow:0 10px 22px rgba(91,33,182,.22);
+}
+.v81-line-logo{
+  width:58px;height:58px;flex:0 0 auto;border-radius:18px;
+  box-shadow:0 12px 24px rgba(6,199,85,.24);
+  animation:v81LinePulse 2.6s ease-in-out infinite;
+}
+.v81-line-main b,
+.v81-line-follow b,
+.v81-qr-card b{
+  display:block;
+  font-weight:1000;
+  color:var(--v30-ink);
+  line-height:1.2;
+}
+.v81-line-main small,
+.v81-line-follow small,
+.v81-qr-card small{
+  display:block;
+  margin-top:4px;
+  color:#746b80;
+  font-size:12.5px;
+  line-height:1.45;
+  font-weight:700;
+}
+.v81-line-btn{
+  margin-left:auto;
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:#06c755;
+  color:#fff!important;
+  font-weight:1000;
+  box-shadow:0 14px 28px rgba(6,199,85,.28);
+  transition:.22s ease;
+  white-space:nowrap;
+}
+.v81-line-btn::before{
+  content:"";
+  width:9px;height:9px;border-radius:50%;
+  background:#fff;
+  margin-right:8px;
+  box-shadow:0 0 0 7px rgba(255,255,255,.18);
+  animation:v81DotBlink 1.5s ease-in-out infinite;
+}
+.v81-line-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 34px rgba(6,199,85,.34);
+}
+.v81-qr-card{
+  background:#fff;
+  justify-content:center;
+}
+.v81-qr-card img{
+  width:88px;height:88px;object-fit:contain;
+  border-radius:18px;
+  background:#fff;
+  border:1px solid rgba(91,33,182,.12);
+  padding:7px;
+  box-shadow:0 10px 24px rgba(91,33,182,.10);
+  flex:0 0 auto;
+}
+@keyframes v81LinePulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.055)}
+}
+@keyframes v81DotBlink{
+  0%,100%{opacity:.75;transform:scale(.92)}
+  50%{opacity:1;transform:scale(1.12)}
+}
+@media(max-width:1180px){
+  .v81-line-qr-inner{
+    grid-template-columns:1fr;
+    width:min(calc(100% - 28px), 780px);
+  }
+  .v81-line-btn{
+    margin-left:0;
+  }
+  .v81-line-follow{
+    flex-wrap:wrap;
+  }
+}
+@media(max-width:760px){
+  .v81-line-qr-section{padding:20px 0 28px}
+  .v81-line-qr-inner{padding:12px;border-radius:24px}
+  .v81-line-main,.v81-line-follow,.v81-qr-card{
+    border-radius:20px;
+    padding:14px;
+    align-items:flex-start;
+  }
+  .v81-line-logo,.v81-chat-icon{width:48px;height:48px}
+  .v81-line-btn{width:100%;margin-top:8px}
+  .v81-qr-card img{width:78px;height:78px}
+}
+@media (prefers-reduced-motion: reduce){
+  .v81-line-logo,.v81-line-btn::before{animation:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -1899,17 +2040,33 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   </div>
 </section>
 
-<!-- ── LINE CTA ── -->
-<div id="lineCta">
-  <div class="line-inner">
-    <div class="line-text">
-      <div class="line-icon">💬</div>
+<!-- ── LINE + QR CTA V8.1 ── -->
+<div id="lineCta" class="v81-line-qr-section">
+  <div class="v81-line-qr-inner">
+    <div class="v81-line-main">
+      <div class="v81-chat-icon">💬</div>
       <div>
         <b>ติดตามข่าวจากบางรักน้อย Connect</b>
         <small>รับข่าวสาร แจ้งเตือนกิจกรรม และข้อมูลบริการในพื้นที่</small>
       </div>
     </div>
-    <a href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener" class="btn-line">💬 เพิ่มเพื่อน LINE OA</a>
+
+    <div class="v81-line-follow">
+      <img class="v81-line-logo" src="assets/v81/line-logo.svg" alt="LINE">
+      <div>
+        <b>ติดตามผ่าน LINE Official Account</b>
+        <small>ไม่พลาดข่าวสารและกิจกรรมสำคัญในชุมชนบางรักน้อย</small>
+      </div>
+      <a href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener" class="v81-line-btn">เพิ่มเพื่อน LINE OA</a>
+    </div>
+
+    <div class="v81-qr-card">
+      <img src="assets/v81/bc-qr.png" alt="QR Code บางรักน้อย Connect">
+      <div>
+        <b>สแกนเข้าเว็บ</b>
+        <small>แชร์ให้คนในชุมชนเข้าถึงบริการได้ง่ายขึ้น</small>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1955,7 +2112,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V8.0</span></p>
+      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V8.1</span></p>
       <p>ข้อมูลในระบบเป็นข้อมูลเบื้องต้นเพื่อประกอบการตัดสินใจ · โปรดตรวจสอบรายละเอียดกับผู้ให้บริการโดยตรงก่อนใช้บริการ</p>
     </div>
   </div>

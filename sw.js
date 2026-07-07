@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v8-0-about-bridge';
+const CACHE_NAME = 'bangraknoi-connect-v8-1-line-qr';
 const PRECACHE_URLS = [
   './',
   './index.html',
@@ -46,6 +46,8 @@ const PRECACHE_URLS = [
   './assets/v78/news-signup.png',
   './assets/v78/news-cleanup.png',
   './assets/v78/news-food.png',
+  './assets/v81/bc-qr.png',
+  './assets/v81/line-logo.svg',
   './assets/favicon.png',
   './assets/icon-180x180.png',
   './assets/icon-192x192.png',
