@@ -86,21 +86,19 @@
     .nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
     /* pill buttons in nav */
-    .btn-nav-outline {
-      padding: 7px 18px; border-radius: var(--radius-full);
-      border: 1.5px solid rgba(245,158,11,0.6); color: var(--gold);
-      font-size: 12px; font-weight: 700; background: transparent;
-      transition: all 0.2s;
+    /* NAV FIGMA STYLE */
+    .btn-nav-cta {
+      padding: 10px 22px; border-radius: var(--radius-full);
+      background: var(--orange); color: var(--white);
+      font-size: 13px; font-weight: 800; border: none;
+      display: flex; align-items: center; gap: 7px;
+      box-shadow: 0 4px 16px rgba(249,115,22,0.4);
+      transition: all 0.2s; white-space: nowrap;
     }
-    .btn-nav-outline:hover { background: rgba(245,158,11,0.1); border-color: var(--gold); }
-    .btn-nav-solid {
-      padding: 7px 18px; border-radius: var(--radius-full);
-      background: linear-gradient(135deg, var(--purple-main), var(--purple-bright));
-      color: var(--white); font-size: 12px; font-weight: 700; border: none;
-      box-shadow: 0 4px 14px rgba(91,33,182,0.4);
-      transition: all 0.2s;
-    }
-    .btn-nav-solid:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(91,33,182,0.55); }
+    .btn-nav-cta:hover { background: #ea6c0a; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(249,115,22,0.5); }
+    /* keep these for mobile fallback */
+    .btn-nav-outline { display: none; }
+    .btn-nav-solid { display: none; }
     .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 6px; }
     .hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
 
@@ -256,13 +254,13 @@
     ══════════════════════════════════════════ */
     #stats {
       background: var(--white);
-      padding: 56px 32px;
+      padding: 40px 32px;
     }
     .stats-inner {
       max-width: 1200px; margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
     }
     .stat-card {
       background: var(--gray-900);
@@ -297,17 +295,21 @@
        CATEGORIES — DARK BG
     ══════════════════════════════════════════ */
     #categories {
-      background: var(--purple-dark);
-      padding: 80px 32px;
+      background: var(--gray-100);
+      padding: 64px 32px;
       position: relative; overflow: hidden;
     }
-    #categories::before {
-      content: '';
-      position: absolute; top: -200px; right: -200px;
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 65%);
-      pointer-events: none;
-    }
+    #categories::before { display: none; }
+    #categories .section-eyebrow { color: var(--orange); }
+    #categories .section-title-dark { color: var(--gray-900); }
+    #categories .section-title-dark .t-gold { color: var(--orange); }
+    #categories .see-all { color: var(--purple-main); border-color: rgba(91,33,182,0.25); }
+    #categories .see-all:hover { background: rgba(91,33,182,0.06); }
+    #categories .cat-card { background: var(--white); border-color: var(--gray-200); }
+    #categories .cat-card:hover { border-color: var(--purple-main); box-shadow: 0 8px 24px rgba(91,33,182,0.12); }
+    #categories .cat-label { color: var(--gray-900); }
+    #categories .cat-desc { color: var(--gray-600); }
+    #categories .cat-count-pill { background: rgba(91,33,182,0.08); color: var(--purple-main); }
     .section-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
     .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
     .section-eyebrow {
@@ -327,33 +329,49 @@
     }
     .see-all:hover { background: rgba(245,158,11,0.1); }
 
+    /* CATEGORY — Figma style with 2D mascot */
     .cat-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
     }
     .cat-card {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: var(--radius-lg);
-      padding: 22px 14px;
-      text-align: center; cursor: pointer;
+      padding: 18px 14px 14px;
+      cursor: pointer;
       transition: all 0.22s;
-      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      display: flex; flex-direction: column; align-items: flex-start;
+      position: relative; overflow: hidden;
     }
     .cat-card:hover {
-      background: rgba(245,158,11,0.08);
-      border-color: rgba(245,158,11,0.4);
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(245,158,11,0.45);
       transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.3);
     }
-    .cat-icon-wrap {
-      width: 54px; height: 54px; border-radius: 16px;
-      display: grid; place-items: center; font-size: 26px;
+    .cat-card-top {
+      width: 100%; display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 8px; margin-bottom: 10px;
+    }
+    .cat-card-text { flex: 1; }
+    .cat-label { font-size: 15px; font-weight: 900; color: var(--white); line-height: 1.25; margin-bottom: 4px; }
+    .cat-desc { font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+    .cat-mascot {
+      width: 64px; height: 64px; object-fit: contain;
+      flex-shrink: 0; margin-top: -4px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
       transition: transform 0.22s;
     }
-    .cat-card:hover .cat-icon-wrap { transform: scale(1.12); }
-    .cat-label { font-size: 13px; font-weight: 700; color: var(--white); line-height: 1.3; }
-    .cat-count { font-size: 11px; color: var(--gray-400); }
+    .cat-card:hover .cat-mascot { transform: scale(1.08) rotate(2deg); }
+    .cat-count-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(255,255,255,0.08); border-radius: var(--radius-full);
+      padding: 3px 10px; font-size: 11px; color: rgba(255,255,255,0.65); font-weight: 600;
+    }
+    /* keep old icon-wrap for fallback */
+    .cat-icon-wrap { display: none; }
 
     /* ══════════════════════════════════════════
        FEATURED — LIGHT BG
@@ -577,7 +595,7 @@
        SEARCH BAR (floating below hero)
     ══════════════════════════════════════════ */
     #search-wrap {
-      background: linear-gradient(180deg, var(--purple-deep) 0%, var(--white) 100%);
+      background: var(--white);
       padding: 0 32px 56px;
     }
     .search-card {
@@ -808,19 +826,18 @@
     <img src="assets/bc-logo.webp" alt="BC" onerror="this.style.display='none'">
     <div class="nav-logo-text">
       <b>บางรักน้อย Connect</b>
-      <small>เทศบาลเมืองบางรักน้อย</small>
+      <small>ชุมชนใกล้ตัว เชื่อมถึงกัน</small>
     </div>
   </a>
   <nav class="nav-links">
     <a href="#" class="active">หน้าแรก</a>
-    <a href="#categories">หมวดหมู่</a>
-    <a href="#featured">แนะนำ</a>
-    <a href="#news">ข่าวสาร</a>
+    <a href="#search-wrap" onclick="document.getElementById('searchInput').focus()">ค้นหา</a>
+    <a href="#categories">หมวดบริการ</a>
+    <a href="#news">ข่าว/กิจกรรม</a>
     <a href="#about-section">เกี่ยวกับเรา</a>
   </nav>
   <div class="nav-actions">
-    <button class="btn-nav-outline" onclick="openReg()">สมัครเข้าร่วม</button>
-    <button class="btn-nav-solid" onclick="openReg()">👤 เข้าสู่ระบบ</button>
+    <button class="btn-nav-cta" onclick="openReg()">＋ เพิ่มข้อมูลร้าน/บริการ</button>
     <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -845,26 +862,24 @@
         ชุมชนใกล้ตัว เชื่อมถึงกัน
       </div>
       <h1 class="hero-title">
-        ศูนย์รวมข้อมูล<br>
-        บริการชุมชน<br>
-        <span class="t-purple">บางรักน้อย</span> <span class="t-gold">Connect</span>
+        <span class="t-purple">บางรักน้อย</span> <span class="t-gold">Connect.</span>
       </h1>
       <p class="hero-subtitle">
-        ค้นหาช่าง ร้านอาหาร แหล่งท่องเที่ยว งานฝึกอาชีพ<br>
-        และกิจกรรมชุมชนในพื้นที่ ได้ง่ายๆ ที่เดียว
+        ศูนย์รวมบริการ ข่าวสาร กิจกรรม และของดีในพื้นที่<br>
+        ให้คนบางรักน้อยค้นหา ติดต่อ และมีส่วนร่วมได้ง่ายขึ้น
       </p>
       <div class="hero-ctas">
-        <button class="btn-hero-primary" onclick="document.getElementById('searchInput').focus();document.getElementById('search-wrap').scrollIntoView({behavior:'smooth'})">
+        <button class="btn-hero-primary" onclick="document.getElementById('search-wrap').scrollIntoView({behavior:'smooth'});document.getElementById('searchInput').focus()">
           🔍 ค้นหาบริการ
         </button>
         <button class="btn-hero-secondary" onclick="openReg()">
-          📝 สมัครเข้าร่วม
+          ＋ เพิ่มข้อมูลร้าน/บริการ
         </button>
       </div>
       <div class="hero-trust">
-        <div class="trust-badge"><span class="tb-icon">✅</span>ข้อมูลตรวจสอบโดยเทศบาล</div>
-        <div class="trust-badge"><span class="tb-icon">⚡</span>ใช้งานง่าย ฟรี</div>
-        <div class="trust-badge"><span class="tb-icon">🤝</span>สนับสนุนชุมชน</div>
+        <div class="trust-badge"><span class="tb-icon">📍</span><div><b style="display:block;font-size:12px;">ค้นหาง่าย</b><small>รวมบริการใกล้บ้าน</small></div></div>
+        <div class="trust-badge"><span class="tb-icon">👥</span><div><b style="display:block;font-size:12px;">มีชีวิต</b><small>ข่าว กิจกรรม และชุมชน</small></div></div>
+        <div class="trust-badge"><span class="tb-icon">✅</span><div><b style="display:block;font-size:12px;">ข้อมูลเบื้องต้น</b><small>ใช้ประกอบการตัดต่อ</small></div></div>
       </div>
     </div>
 
@@ -881,7 +896,10 @@
 </section>
 
 <!-- SEARCH -->
-<div id="search-wrap">
+<div id="search-wrap" style="background:var(--white);padding:40px 32px;">
+  <div style="max-width:1200px;margin:0 auto 20px;padding:0 0 0 4px;">
+    <h2 style="font-size:clamp(20px,2.5vw,28px);font-weight:900;color:var(--gray-900);">ค้นหาสิ่งที่คุณต้องการ</h2>
+  </div>
   <div class="search-card">
     <div class="search-row">
       <div class="s-input-wrap">
@@ -1031,7 +1049,7 @@
     <div class="section-header">
       <div>
         <div class="section-eyebrow-dark">ข่าวสารล่าสุด</div>
-        <h2 class="section-title-light">📢 ข่าวสาร<span class="t-purple">เทศบาล</span></h2>
+        <h2 class="section-title-light">ข่าวและกิจกรรม<span class="t-purple">จากชุมชน</span></h2>
       </div>
       <a class="see-all-dark" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ดูทั้งหมด ›</a>
     </div>
@@ -1244,21 +1262,28 @@ statsObs.observe(document.getElementById('stats'));
 
 // ── CATEGORIES ────────────────────────────────────────────────────────────────
 const CATS = [
-  { id:'craft',  label:'หาช่างใกล้บ้าน', count:'128 รายการ', icon:'🔧', bg:'rgba(245,158,11,0.15)', color:'#fbbf24' },
-  { id:'food',   label:'ร้านอาหาร',       count:'96 ร้าน',   icon:'🍜', bg:'rgba(249,115,22,0.15)', color:'#fb923c' },
-  { id:'travel', label:'เที่ยวบางรักน้อย', count:'24 สถานที่', icon:'📷', bg:'rgba(34,197,94,0.15)',  color:'#4ade80' },
-  { id:'learn',  label:'ฝึกอาชีพ',        count:'18 หลักสูตร', icon:'🎓', bg:'rgba(59,130,246,0.15)', color:'#60a5fa' },
-  { id:'news',   label:'ข่าวสารเทศบาล',   count:'32 ข่าว',   icon:'📢', bg:'rgba(239,68,68,0.15)',  color:'#f87171' },
-  { id:'activity',label:'กิจกรรมชุมชน',   count:'15 กิจกรรม', icon:'🎉', bg:'rgba(245,158,11,0.15)', color:'#fbbf24' },
-  { id:'market', label:'สินค้า/บริการ',    count:'56 รายการ', icon:'🛍', bg:'rgba(124,58,237,0.15)', color:'#a78bfa' },
-  { id:'chat',   label:'พูดคุย แลกเปลี่ยน', count:'8 หัวข้อ', icon:'💬', bg:'rgba(14,165,233,0.15)', color:'#38bdf8' },
+  { id:'craft',   label:'หาช่าง',         desc:'หาช่างใกล้บ้าน ซ่อม ไว้ใจได้',  count:'128 รายการ', mascot:'assets/cat-craft.webp' },
+  { id:'food',    label:'ร้านอาหาร',       desc:'ร้านอร่อยใกล้บ้าน อร่อยจริง แนะนำ', count:'96 ร้าน',   mascot:'assets/cat-food.webp' },
+  { id:'travel',  label:'ท่องเที่ยว',      desc:'เที่ยวบางรักน้อย ของดีต้องบอกต่อ', count:'24 สถานที่', mascot:'assets/cat-travel.webp' },
+  { id:'learn',   label:'ฝึกอาชีพ',        desc:'เรียนรู้พัฒนาอาชีพ สร้างรายได้',  count:'18 หลักสูตร', mascot:'assets/cat-learn.webp' },
+  { id:'market',  label:'สินค้า/บริการ',   desc:'สินค้าและบริการดี จากคนในชุมชน',  count:'56 รายการ', mascot:'assets/cat-market.webp' },
+  { id:'chat',    label:'พูดคุย แลกเปลี่ยน', desc:'แชร์ข้อมูล ช่วยกันพัฒนาชุมชน', count:'8 หัวข้อ', mascot:'assets/cat-chat.webp' },
 ];
 const catGrid = document.getElementById('catGrid');
 CATS.forEach(c => {
   const d = document.createElement('div');
   d.className = 'cat-card';
   d.onclick = () => openDrawer(c.id);
-  d.innerHTML = `<div class="cat-icon-wrap" style="background:${c.bg}">${c.icon}</div><div class="cat-label">${c.label}</div><div class="cat-count">${c.count}</div>`;
+  d.innerHTML = `
+    <div class="cat-card-top">
+      <div class="cat-card-text">
+        <div class="cat-label">${c.label}</div>
+        <div class="cat-desc">${c.desc}</div>
+      </div>
+      <img class="cat-mascot" src="${c.mascot}" alt="${c.label}" loading="lazy"
+           onerror="this.style.display='none'">
+    </div>
+    <div class="cat-count-pill">${c.count}</div>`;
   catGrid.appendChild(d);
 });
 
