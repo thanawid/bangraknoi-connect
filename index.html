@@ -10,7 +10,7 @@
   <meta property="og:image" content="assets/icon-512x512.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <title>บางรักน้อย Connect — ชุมชนใกล้ตัว เชื่อมถึงกัน</title>
+  <title>บางรักน้อย Connect — V7.8</title>
   <link rel="icon" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon-180x180.png">
   <link rel="manifest" href="manifest.webmanifest">
@@ -1415,21 +1415,115 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   }
 }
 
-/* V31 — ใช้ภาพชุดใหม่ และให้ข่าว/กิจกรรมแสดง 3 การ์ดตามตัวอย่าง */
-.v301-updates-layout{display:block!important}
-.v301-updates-layout .news-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
-.v301-updates-layout .news-card{grid-template-columns:170px minmax(0,1fr)!important;min-height:160px!important}
-.v301-updates-layout .news-card-img{width:170px!important;min-height:160px!important;object-fit:cover!important;padding:0!important}
-.v301-facebook-card{display:none!important}
 
-@media(max-width:1120px){
-  .v301-updates-layout .news-card{grid-template-columns:132px minmax(0,1fr)!important}
-  .v301-updates-layout .news-card-img{width:132px!important}
+/* ─────────────────────────────────────────────────────────────
+   V7.8 PRODUCTION LAYOUT
+───────────────────────────────────────────────────────────── */
+.version-chip{display:none!important}
+.version-mini{
+  display:inline-flex;margin-left:8px;padding:2px 8px;border-radius:999px;
+  font-size:10px;font-weight:1000;line-height:1.35;color:#ff7a00;
+  background:rgba(255,122,0,.10);border:1px solid rgba(255,122,0,.22);vertical-align:middle;
+}
+.v301-note,.v301-facebook-head{display:none!important}
+.v30-hero-bg{object-position:center center!important;transform:none!important}
+.v30-hero-card::before{
+  background:
+    linear-gradient(90deg, rgba(7,4,18,.92) 0%, rgba(16,7,35,.78) 35%, rgba(22,10,42,.35) 59%, rgba(0,0,0,.10) 100%)!important,
+    linear-gradient(180deg, rgba(0,0,0,.02) 0%, rgba(0,0,0,.05) 70%, rgba(0,0,0,.22) 100%)!important;
+}
+@media(min-width:1180px){
+  .nav-inner,.v30-shell,.v30-section-inner{
+    max-width:none!important;
+    width:min(calc(100% - 48px), 1668px)!important;
+    padding-left:0!important;padding-right:0!important;
+  }
+  #searchSection,.line-inner{max-width:min(calc(100% - 48px), 1668px)!important}
+  #hero.v30-hero{padding:28px 0 26px!important}
+  .v30-hero-card{min-height:520px!important;border-radius:34px!important}
+  .v30-hero-grid{
+    min-height:520px!important;
+    grid-template-columns:minmax(560px,700px) 1fr!important;
+    padding:42px 50px 30px!important;
+  }
+  .v30-title{font-size:clamp(58px,6vw,96px)!important}
+  .v30-lead{max-width:660px!important;font-size:18px!important;line-height:1.62!important}
+  .v30-feature-row{grid-template-columns:repeat(3,minmax(0,1fr))!important;max-width:720px!important}
+  .v30-mascot-stage{
+    right:28px!important;bottom:0!important;width:min(420px,28vw)!important;
+    height:min(438px,28vw)!important;min-height:390px!important;
+    overflow:hidden!important;background:transparent!important;filter:none!important;
+  }
+  .v30-mascot-stage::after{display:none!important}
+  .v30-hero-mascot{
+    height:min(590px,39vw)!important;width:auto!important;max-width:none!important;
+    object-fit:contain!important;object-position:center top!important;
+    transform:translateY(-2px)!important;
+    filter:drop-shadow(0 26px 34px rgba(0,0,0,.28))!important;
+  }
+  .v30-section{padding:30px 0!important}
+  .v30-cat-grid{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:12px!important}
+  .v30-cat{
+    min-height:152px!important;border-radius:26px!important;
+    grid-template-columns:1fr 116px!important;
+    padding:16px 10px 0 16px!important;
+  }
+  .v30-cat-title{
+    font-size:19px!important;line-height:1.12!important;word-break:keep-all!important;
+    overflow-wrap:normal!important;white-space:nowrap!important;hyphens:none!important;
+  }
+  .v30-cat:nth-child(6) .v30-cat-title{white-space:normal!important}
+  .v30-cat-desc{font-size:12px!important;line-height:1.45!important;word-break:keep-all!important}
+  .v30-cat-img{max-height:138px!important;max-width:128px!important;object-fit:contain!important}
+}
+.v78-updates-stack{display:grid;gap:18px}
+.v78-news-grid{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important;
+}
+.v78-news-grid .news-card{
+  display:grid!important;grid-template-columns:42% 1fr!important;min-height:166px!important;
+  border-radius:24px!important;background:#fff!important;border:1px solid rgba(91,33,182,.12)!important;
+  box-shadow:0 18px 42px rgba(31,14,70,.08)!important;overflow:hidden!important;
+}
+.v78-news-grid .news-card-img{
+  width:100%!important;height:100%!important;min-height:166px!important;object-fit:cover!important;background:#f8f4ff!important;
+}
+.news-card-body{min-width:0!important}
+.news-card-title{
+  display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important;
+  line-height:1.42!important;word-break:normal!important;overflow-wrap:break-word!important;
+}
+.news-card-meta{
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px;
+  color:#807689;font-size:11.5px!important;font-weight:800;
+}
+.news-card-meta span{display:inline-flex;align-items:center;gap:4px}
+.v78-facebook-card{
+  background:#fff;border:1px solid rgba(91,33,182,.12);border-radius:28px;
+  box-shadow:0 18px 46px rgba(31,14,70,.08);overflow:hidden;
+}
+.v78-facebook-frame{height:420px;overflow:hidden;background:#f6f7fb}
+.v78-facebook-frame iframe{width:100%!important;min-width:100%!important;height:420px!important;display:block}
+.v78-facebook-actions{
+  display:flex;gap:10px;flex-wrap:wrap;padding:12px 16px 14px;border-top:1px solid rgba(91,33,182,.08)
+}
+.v78-mini-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;
+  padding:8px 14px;border-radius:999px;font-size:13px;font-weight:950;
+}
+.v78-mini-btn.fb{background:#1877f2;color:#fff}.v78-mini-btn.web{background:#f3eaff;color:var(--v30-purple)}
+@media(max-width:1179px){
+  .v30-mascot-stage::after{display:none!important}
+  .v30-hero-mascot{filter:drop-shadow(0 24px 34px rgba(0,0,0,.26))!important}
+  .v78-news-grid{grid-template-columns:1fr!important}
 }
 @media(max-width:760px){
-  .v301-updates-layout .news-grid{grid-template-columns:1fr!important}
-  .v301-updates-layout .news-card{grid-template-columns:110px minmax(0,1fr)!important;min-height:124px!important}
-  .v301-updates-layout .news-card-img{width:110px!important;min-height:124px!important}
+  .version-mini{font-size:9px;padding:2px 7px}
+  .v30-cat-title{font-size:16px!important;line-height:1.18!important;word-break:keep-all!important;overflow-wrap:normal!important}
+  .v30-cat-desc{font-size:10.5px!important;line-height:1.4!important}
+  .v78-news-grid .news-card{grid-template-columns:116px 1fr!important;min-height:124px!important}
+  .v78-news-grid .news-card-img{min-height:124px!important}
+  .v78-facebook-frame,.v78-facebook-frame iframe{height:440px!important}
 }
 
 </style>
@@ -1464,7 +1558,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
 <section id="hero" class="v30-hero">
   <div class="v30-shell">
     <div class="v30-hero-card">
-      <img class="v30-hero-bg" src="assets/v31/hero-town.png" alt="" aria-hidden="true">
+      <img class="v30-hero-bg" src="assets/v78/hero-bg-wide.webp" alt="" aria-hidden="true">
       <div class="v30-hero-grid">
         <div class="v30-copy">
           <div class="v30-pill"><span class="v30-pill-dot"></span> ชุมชนใกล้ตัว เชื่อมถึงกัน</div>
@@ -1478,10 +1572,9 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
             <div class="v30-feature"><span class="v30-feature-icon">🔍</span><div><b>ค้นหาง่าย</b><small>เจอสิ่งที่ต้องการไวขึ้น</small></div></div>
             <div class="v30-feature"><span class="v30-feature-icon">❤</span><div><b>มีชีวิต</b><small>ข่าว กิจกรรม และชุมชน</small></div></div>
             <div class="v30-feature"><span class="v30-feature-icon">👥</span><div><b>เชื่อมชุมชน</b><small>รวมเรื่องคนในพื้นที่</small></div></div>
-            <div class="v30-feature"><span class="v30-feature-icon">🤝</span><div><b>มีส่วนร่วม</b><small>ร่วมสร้างชุมชนให้น่าอยู่</small></div></div>
           </div>
         </div>
-        <div class="v30-mascot-stage"><img class="v30-hero-mascot" src="assets/v30/mascot-hero.webp" alt="มาสคอตบางรักน้อย Connect"></div>
+        <div class="v30-mascot-stage"><img class="v30-hero-mascot" src="assets/v78/hero-mascot.webp" alt="มาสคอตบางรักน้อย Connect"></div>
       </div>
     </div>
   </div>
@@ -1536,32 +1629,24 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   <div class="v30-section-inner">
     <div class="v30-section-head">
       <div>
-        <div class="v30-section-label">📢 ข่าวสาร กิจกรรม และประกาศ</div>
-        <h2 class="v30-heading">อัปเดตจากบางรักน้อย</h2>
+        <div class="v30-section-label">📢 อัปเดตชุมชน</div>
+        <h2 class="v30-heading">ข่าวและกิจกรรมจากชุมชน</h2>
       </div>
       <a class="section-link" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ดูทั้งหมด ›</a>
     </div>
-    <div class="v301-updates-layout">
-      <div class="news-grid" id="updatesGrid"></div>
-      <aside class="v301-facebook-card" aria-label="Facebook Page เทศบาลเมืองบางรักน้อย">
-        <div class="v301-facebook-head">
-          <div>
-            <b>เพจเทศบาลเมืองบางรักน้อย</b>
-            <small>อัปเดตความเคลื่อนไหวล่าสุดจาก Facebook</small>
-          </div>
-          <span class="v301-facebook-badge">Live Feed</span>
-        </div>
-        <div class="v301-facebook-frame">
+    <div class="v78-updates-stack">
+      <div class="news-grid v78-news-grid" id="updatesGrid"></div>
+      <aside class="v78-facebook-card" aria-label="Facebook Page เทศบาลเมืองบางรักน้อย">
+        <div class="v78-facebook-frame">
           <iframe title="Facebook Page เทศบาลเมืองบางรักน้อย"
-            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fwww.brn.go.th%2F&tabs=timeline&width=430&height=520&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-            width="430" height="520" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fwww.brn.go.th%2F&tabs=timeline&width=1200&height=420&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false"
+            width="1200" height="420" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
             allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
         </div>
-        <div class="v301-facebook-actions">
-          <a class="v301-mini-btn fb" href="https://www.facebook.com/www.brn.go.th/" target="_blank" rel="noopener">เปิดเพจ Facebook</a>
-          <a class="v301-mini-btn web" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ข่าวบนเว็บเทศบาล</a>
+        <div class="v78-facebook-actions">
+          <a class="v78-mini-btn fb" href="https://www.facebook.com/www.brn.go.th/" target="_blank" rel="noopener">เปิดเพจ Facebook</a>
+          <a class="v78-mini-btn web" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ข่าวบนเว็บเทศบาล</a>
         </div>
-        <div class="v301-note">หมายเหตุ: หากไม่เห็นกล่อง Facebook อาจเกิดจากการตั้งค่าความเป็นส่วนตัว เบราว์เซอร์ หรือส่วนขยายที่บล็อกคุกกี้ของ Facebook</div>
       </aside>
     </div>
   </div>
@@ -1639,7 +1724,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน</p>
+      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V7.8</span></p>
       <p>ข้อมูลในระบบเป็นข้อมูลเบื้องต้นเพื่อประกอบการตัดสินใจ · โปรดตรวจสอบรายละเอียดกับผู้ให้บริการโดยตรงก่อนใช้บริการ</p>
     </div>
   </div>
@@ -1776,12 +1861,12 @@ document.getElementById('searchInput').addEventListener('keydown', e => { if (e.
 
 // ── CATEGORY GRID ─────────────────────────────────────────────────────────────
 const CATS = [
-  { id:'craft',  label:'หาช่าง', count:'หาช่างใกล้บ้าน ซ่อมไว ไว้ใจได้', img:'assets/v31/craft.png' },
-  { id:'food',   label:'ร้านอาหาร', count:'ร้านอร่อยใกล้บ้าน ของกินแนะนำ', img:'assets/v31/food.png' },
-  { id:'travel', label:'ท่องเที่ยว', count:'เที่ยวบางรักน้อย จุดเช็กอินน่าสนใจ', img:'assets/v31/travel.png' },
-  { id:'learn',  label:'ฝึกอาชีพ', count:'เรียนรู้ทักษะ สร้างรายได้', img:'assets/v31/learn.png' },
-  { id:'market', label:'สินค้า/บริการ', count:'สินค้าและบริการดี ๆ จากคนในชุมชน', img:'assets/v31/market.png' },
-  { id:'chat',   label:'พูดคุย/แลกเปลี่ยน', count:'แชร์เรื่องราว ช่วยกันพัฒนาชุมชน', img:'assets/v31/chat.png' },
+  { id:'craft',  label:'หาช่าง', titleHtml:'หาช่าง', count:'หาช่างใกล้บ้าน ซ่อมไว ไว้ใจได้', img:'assets/v78/cat-craft.png' },
+  { id:'food',   label:'ร้านอาหาร', titleHtml:'ร้านอาหาร', count:'ร้านอร่อยใกล้บ้าน ของกินแนะนำ', img:'assets/v78/cat-food.png' },
+  { id:'travel', label:'ท่องเที่ยว', titleHtml:'ท่องเที่ยว', count:'เที่ยวบางรักน้อย จุดเช็กอินน่าสนใจ', img:'assets/v78/cat-travel.png' },
+  { id:'learn',  label:'ฝึกอาชีพ', titleHtml:'ฝึกอาชีพ', count:'เรียนรู้ทักษะ สร้างรายได้', img:'assets/v78/cat-learn.png' },
+  { id:'market', label:'สินค้า/บริการ', titleHtml:'สินค้า/บริการ', count:'สินค้าและบริการดี ๆ จากคนในชุมชน', img:'assets/v78/cat-market.png' },
+  { id:'chat',   label:'พูดคุย/แลกเปลี่ยน', titleHtml:'พูดคุย/<br>แลกเปลี่ยน', count:'แชร์เรื่องราว ช่วยกันพัฒนาชุมชน', img:'assets/v78/cat-chat.png' },
 ];
 const catGrid = document.getElementById('catGrid');
 if (catGrid) {
@@ -1791,7 +1876,7 @@ if (catGrid) {
     div.onclick = () => openDrawer(c.id);
     div.innerHTML = `
       <div class="v30-cat-text">
-        <div class="v30-cat-title">${c.label}</div>
+        <div class="v30-cat-title">${c.titleHtml || c.label}</div>
         <div class="v30-cat-desc">${c.count}</div>
       </div>
       <img class="v30-cat-img" src="${c.img}" alt="${c.label}" loading="lazy">
@@ -1803,9 +1888,9 @@ if (catGrid) {
 // ── UPDATES ─────────────────────────────────────────────────────────────────────
 
 const UPDATES = [
-  { cat:'ข่าวสาร', title:'เปิดเส้นทางท่องเที่ยวทางน้ำบางรักน้อย', date:'12 พ.ค. 2569', icon:'📢', image:'assets/v31/news.png', href:'https://www.brn.go.th/news_obt.php?id=2' },
-  { cat:'กิจกรรม', title:'งานลอยกระทงบางรักน้อย ประจำปี 2569', date:'10 พ.ค. 2569', icon:'🎉', image:'assets/v31/event.png', href:'https://www.brn.go.th/' },
-  { cat:'ชุมชน', title:'ปลูกผัก ปลูกสุข สวนชุมชนริมคลอง', date:'8 พ.ค. 2569', icon:'🏠', image:'assets/v31/community.png', href:'https://www.brn.go.th/' },
+  { cat:'ข่าวสาร', title:'ประชาสัมพันธ์รับข้อมูลร้านและบริการชุมชน', date:'10 พ.ค. 2567', views:'1,250', icon:'📢', image:'assets/v78/news-signup.png', href:'https://www.brn.go.th/news_obt.php?id=2' },
+  { cat:'กิจกรรม', title:'กิจกรรมชุมชนริมคลองบางรักน้อย', date:'8 พ.ค. 2567', views:'980', icon:'🎉', image:'assets/v78/news-cleanup.png', href:'https://www.facebook.com/www.brn.go.th/' },
+  { cat:'ชุมชน', title:'แนะนำของดีและร้านน่าสนใจในพื้นที่', date:'5 พ.ค. 2567', views:'1,105', icon:'🏠', image:'assets/v78/news-food.png', href:'https://www.facebook.com/www.brn.go.th/' },
 ];
 const updatesGrid = document.getElementById('updatesGrid');
 if (updatesGrid) {
@@ -1818,7 +1903,7 @@ if (updatesGrid) {
       <div class="news-card-body">
         <div class="news-card-cat">${n.cat}</div>
         <div class="news-card-title">${n.title}</div>
-        <div class="news-card-date">📅 ${n.date}</div>
+        <div class="news-card-meta"><span>📅 ${n.date}</span>${n.views ? `<span>👁 ${n.views}</span>` : ""}</div>
       </div>`;
     updatesGrid.appendChild(div);
   });

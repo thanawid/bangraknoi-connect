@@ -61,3 +61,13 @@ V24 — Email Notify
 - ฟอร์มสมัครส่งเข้า Google Sheet: 1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM
 - Apps Script จะส่งอีเมลแจ้งเตือนไปที่ Bangraknoi2022@gmail.com
 - หลังวาง google-sheet-apps-script.gs ใหม่ ต้อง Deploy Web App ใหม่/แก้ deployment เดิม และอนุญาตสิทธิ์ MailApp
+
+
+V7.8 PRODUCTION:
+- Professional hero crop: train and Buddha are no longer cut awkwardly.
+- Correct transparent phone mascot in Hero.
+- Version shown only as tiny footer chip.
+- 6 category cards use attached mascot assets and controlled Thai wrapping.
+- News shows 3 cards as requested.
+- Facebook feed remains, moved under news for balanced visual weight.
+- Form / Google Sheet / buttons / drawer / search logic kept intact.
