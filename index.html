@@ -1415,6 +1415,82 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   }
 }
 
+
+/* ─────────────────────────────────────────────────────────────
+   V30.3 — ใช้ไฟล์แนบเป็นพื้นหลัง/มาสคอต/ข่าว 3 การ์ด
+   ระบบเดิมคงเดิม
+───────────────────────────────────────────────────────────── */
+.v30-hero-bg{
+  object-position:center center!important;
+}
+.v30-mascot-stage{
+  width:min(390px,32vw)!important;
+  height:min(405px,33vw)!important;
+  min-height:340px!important;
+}
+.v30-hero-mascot{
+  height:min(520px,42vw)!important;
+}
+.v30-cat-img{
+  max-height:158px!important;
+  max-width:148px!important;
+  object-fit:contain!important;
+}
+.v303-news-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:16px!important;
+}
+.v303-news-grid .news-card{
+  display:grid!important;
+  grid-template-columns:180px 1fr!important;
+  min-height:148px!important;
+  border-radius:24px!important;
+  background:#fff!important;
+  overflow:hidden!important;
+}
+.v303-news-grid .news-card-img{
+  width:180px!important;
+  height:100%!important;
+  min-height:148px!important;
+  object-fit:contain!important;
+  background:linear-gradient(135deg,#f8f4ff,#fff)!important;
+  padding:0!important;
+}
+.v303-news-grid .news-card-body{
+  min-width:0!important;
+  padding:16px 16px 12px!important;
+}
+.v303-news-grid .news-card-title{
+  line-height:1.42!important;
+  word-break:normal!important;
+  overflow-wrap:break-word!important;
+  text-wrap:balance;
+}
+@media(max-width:1120px){
+  .v303-news-grid{grid-template-columns:1fr!important}
+  .v303-news-grid .news-card{grid-template-columns:170px 1fr!important}
+  .v303-news-grid .news-card-img{width:170px!important}
+}
+@media(max-width:760px){
+  .v30-mascot-stage{
+    width:270px!important;
+    height:252px!important;
+    min-height:252px!important;
+  }
+  .v30-hero-mascot{
+    height:350px!important;
+  }
+  .v303-news-grid .news-card{
+    grid-template-columns:116px 1fr!important;
+    min-height:124px!important;
+  }
+  .v303-news-grid .news-card-img{
+    width:116px!important;
+    min-height:124px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1519,34 +1595,12 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   <div class="v30-section-inner">
     <div class="v30-section-head">
       <div>
-        <div class="v30-section-label">📢 ข่าวสาร กิจกรรม และประกาศ</div>
-        <h2 class="v30-heading">อัปเดตจากบางรักน้อย</h2>
+        <div class="v30-section-label">📢 อัปเดตจากชุมชน</div>
+        <h2 class="v30-heading">ข่าวและกิจกรรมจากชุมชน</h2>
       </div>
       <a class="section-link" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ดูทั้งหมด ›</a>
     </div>
-    <div class="v301-updates-layout">
-      <div class="news-grid" id="updatesGrid"></div>
-      <aside class="v301-facebook-card" aria-label="Facebook Page เทศบาลเมืองบางรักน้อย">
-        <div class="v301-facebook-head">
-          <div>
-            <b>เพจเทศบาลเมืองบางรักน้อย</b>
-            <small>อัปเดตความเคลื่อนไหวล่าสุดจาก Facebook</small>
-          </div>
-          <span class="v301-facebook-badge">Live Feed</span>
-        </div>
-        <div class="v301-facebook-frame">
-          <iframe title="Facebook Page เทศบาลเมืองบางรักน้อย"
-            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fwww.brn.go.th%2F&tabs=timeline&width=430&height=520&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-            width="430" height="520" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
-            allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-        </div>
-        <div class="v301-facebook-actions">
-          <a class="v301-mini-btn fb" href="https://www.facebook.com/www.brn.go.th/" target="_blank" rel="noopener">เปิดเพจ Facebook</a>
-          <a class="v301-mini-btn web" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ข่าวบนเว็บเทศบาล</a>
-        </div>
-        <div class="v301-note">หมายเหตุ: หากไม่เห็นกล่อง Facebook อาจเกิดจากการตั้งค่าความเป็นส่วนตัว เบราว์เซอร์ หรือส่วนขยายที่บล็อกคุกกี้ของ Facebook</div>
-      </aside>
-    </div>
+    <div class="news-grid v303-news-grid" id="updatesGrid"></div>
   </div>
 </div>
 
@@ -1786,9 +1840,9 @@ if (catGrid) {
 // ── UPDATES ─────────────────────────────────────────────────────────────────────
 
 const UPDATES = [
-  { cat:'ข่าวสาร', title:'เปิดเส้นทางท่องเที่ยวทางน้ำบางรักน้อย', date:'12 พ.ค. 2569', icon:'📢', image:'assets/v30/travel.webp', href:'https://www.brn.go.th/news_obt.php?id=2' },
-  { cat:'กิจกรรม', title:'งานลอยกระทงบางรักน้อย ประจำปี 2569', date:'10 พ.ค. 2569', icon:'🎉', image:'assets/v30/event.webp', href:'https://www.brn.go.th/' },
-  { cat:'ชุมชน', title:'ปลูกผัก ปลูกสุข สวนชุมชนริมคลอง', date:'8 พ.ค. 2569', icon:'🏠', image:'assets/v30/service.webp', href:'https://www.brn.go.th/' },
+  { cat:'ข่าวสาร', title:'ประชาสัมพันธ์รับข้อมูลร้านและบริการชุมชน', date:'10 พ.ค. 2569', icon:'📢', image:'assets/v30/news-card.webp', href:'https://www.brn.go.th/news_obt.php?id=2' },
+  { cat:'กิจกรรม', title:'กิจกรรมชุมชนริมคลองบางรักน้อย', date:'8 พ.ค. 2569', icon:'🎉', image:'assets/v30/event-card.webp', href:'https://www.brn.go.th/' },
+  { cat:'ชุมชน', title:'แนะนำของดีและร้านน่าสนใจในพื้นที่', date:'5 พ.ค. 2569', icon:'🏠', image:'assets/v30/community-card.webp', href:'https://www.brn.go.th/' },
 ];
 const updatesGrid = document.getElementById('updatesGrid');
 if (updatesGrid) {
