@@ -10,7 +10,7 @@
   <meta property="og:image" content="assets/icon-512x512.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <title>บางรักน้อย Connect — V7.9</title>
+  <title>บางรักน้อย Connect — V8.0</title>
   <link rel="icon" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon-180x180.png">
   <link rel="manifest" href="manifest.webmanifest">
@@ -1608,6 +1608,139 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   }
 }
 
+
+/* ─────────────────────────────────────────────────────────────
+   V8.0 — About Bridge Layout
+   ข่าว 3 ใบ + เกี่ยวกับบางรักน้อย Connect คั่นใต้ข่าว / Facebook อยู่ขวา
+───────────────────────────────────────────────────────────── */
+.v80-old-about-hidden{display:none!important}
+@media(min-width:1180px){
+  .v78-updates-stack{
+    grid-template-columns:minmax(0, 1fr) 520px!important;
+    gap:18px!important;
+    align-items:start!important;
+  }
+  .v80-left-story{
+    display:grid!important;
+    gap:16px!important;
+    min-width:0!important;
+  }
+  .v78-news-grid{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:14px!important;
+  }
+  .v78-news-grid .news-card{
+    grid-template-columns:42% 1fr!important;
+    min-height:154px!important;
+  }
+  .v78-news-grid .news-card-img{
+    width:100%!important;
+    min-height:154px!important;
+    object-fit:cover!important;
+  }
+  .v78-facebook-card{
+    width:520px!important;
+    max-width:520px!important;
+    justify-self:end!important;
+  }
+  .v78-facebook-frame,
+  .v78-facebook-frame iframe{
+    height:520px!important;
+  }
+}
+.v80-about-bridge{
+  background:linear-gradient(135deg,#fff,#fff7ed 48%,#f3eaff);
+  border:1px solid rgba(91,33,182,.12);
+  border-radius:28px;
+  box-shadow:0 18px 46px rgba(31,14,70,.08);
+  padding:20px;
+  overflow:hidden;
+}
+.v80-about-main{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+.v80-about-icon{
+  width:58px;
+  height:58px;
+  border-radius:22px;
+  display:grid;
+  place-items:center;
+  flex:0 0 auto;
+  font-size:28px;
+  background:#f3eaff;
+  color:var(--v30-purple);
+}
+.v80-about-main b{
+  display:block;
+  font-size:24px;
+  font-weight:1000;
+  line-height:1.15;
+  color:var(--v30-ink);
+  letter-spacing:-.02em;
+}
+.v80-about-main p{
+  margin:8px 0 0;
+  max-width:820px;
+  color:#746b80;
+  font-size:13.5px;
+  line-height:1.65;
+  font-weight:700;
+}
+.v80-about-mini-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-top:16px;
+}
+.v80-about-mini{
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(91,33,182,.10);
+  border-radius:20px;
+  padding:13px;
+  min-height:88px;
+}
+.v80-about-mini i{
+  display:inline-grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  border-radius:14px;
+  background:#f3eaff;
+  font-style:normal;
+  margin-bottom:8px;
+}
+.v80-about-mini:nth-child(2) i{background:#fff0da}
+.v80-about-mini:nth-child(3) i{background:#eaf5ff}
+.v80-about-mini b{
+  display:block;
+  color:var(--v30-ink);
+  font-weight:1000;
+  font-size:14px;
+  line-height:1.2;
+}
+.v80-about-mini small{
+  display:block;
+  margin-top:4px;
+  color:#746b80;
+  font-weight:700;
+  line-height:1.35;
+  font-size:11.5px;
+}
+@media(max-width:1179px){
+  .v80-left-story{display:grid;gap:16px}
+  .v80-about-mini-grid{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .v80-about-bridge{padding:16px;border-radius:24px}
+  .v80-about-main{display:block}
+  .v80-about-icon{margin-bottom:12px}
+  .v80-about-main b{font-size:20px}
+  .v80-about-main p{font-size:13px}
+}
+
 </style>
 </head>
 <body>
@@ -1717,7 +1850,23 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       <a class="section-link" href="https://www.brn.go.th/news_obt.php?id=2" target="_blank" rel="noopener">ดูทั้งหมด ›</a>
     </div>
     <div class="v78-updates-stack">
-      <div class="news-grid v78-news-grid" id="updatesGrid"></div>
+      <div class="v80-left-story">
+        <div class="news-grid v78-news-grid" id="updatesGrid"></div>
+        <div class="v80-about-bridge" id="about">
+          <div class="v80-about-main">
+            <span class="v80-about-icon">💜</span>
+            <div>
+              <b>เกี่ยวกับบางรักน้อย Connect</b>
+              <p>พื้นที่กลางสำหรับค้นหาข้อมูลร้าน บริการ ข่าวสาร และกิจกรรมในชุมชนบางรักน้อย ช่วยให้คนในพื้นที่ติดต่อกันง่ายขึ้น และมองเห็นของดีใกล้ตัวมากขึ้น</p>
+            </div>
+          </div>
+          <div class="v80-about-mini-grid">
+            <div class="v80-about-mini"><i>📍</i><b>ใกล้ตัว</b><small>รวมข้อมูลบริการในพื้นที่</small></div>
+            <div class="v80-about-mini"><i>📱</i><b>ใช้ง่าย</b><small>ค้นหาและติดต่อได้สะดวก</small></div>
+            <div class="v80-about-mini"><i>🤝</i><b>เชื่อมถึงกัน</b><small>คน ร้านค้า และชุมชนใกล้กันขึ้น</small></div>
+          </div>
+        </div>
+      </div>
       <aside class="v78-facebook-card" aria-label="Facebook Page เทศบาลเมืองบางรักน้อย">
         <div class="v78-facebook-frame">
           <iframe title="Facebook Page เทศบาลเมืองบางรักน้อย"
@@ -1735,7 +1884,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
 </div>
 
 <!-- ── ABOUT ── -->
-<section id="about" class="v30-section">
+<section class="v30-section v80-old-about-hidden">
   <div class="v30-section-inner">
     <div class="v30-about-grid">
       <div class="v30-about-title">
@@ -1806,7 +1955,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V7.9</span></p>
+      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V8.0</span></p>
       <p>ข้อมูลในระบบเป็นข้อมูลเบื้องต้นเพื่อประกอบการตัดสินใจ · โปรดตรวจสอบรายละเอียดกับผู้ให้บริการโดยตรงก่อนใช้บริการ</p>
     </div>
   </div>

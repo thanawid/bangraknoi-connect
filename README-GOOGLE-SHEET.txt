@@ -78,3 +78,11 @@ V7.9:
 - Facebook Page Plugin ไม่ถูกบังคับให้เต็มแถวแล้ว จึงไม่มีพื้นที่ว่างเทาขนาดใหญ่
 - จัดกลับเป็น 2 คอลัมน์: ซ้ายข่าว 3 ใบ, ขวา Facebook feed ขนาดพอดี
 - ฟอร์ม / Google Sheet / ปุ่ม / drawer / search logic คงเดิม
+
+
+V8.0 About Bridge Layout:
+- เพิ่มการ์ด "เกี่ยวกับบางรักน้อย Connect" ใต้ข่าว 3 ใบ
+- ใช้ About Bridge ลดช่องว่างฝั่งข่าว และเล่าเรื่องเว็บให้ชัดขึ้น
+- Facebook feed ยังอยู่ฝั่งขวา
+- ซ่อน About section เดิมด้านล่างเพื่อไม่ให้เนื้อหาซ้ำ
+- ฟอร์ม / Google Sheet / ปุ่ม / drawer / search logic คงเดิม

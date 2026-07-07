@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v7-9-fb-balance';
+const CACHE_NAME = 'bangraknoi-connect-v8-0-about-bridge';
 const PRECACHE_URLS = [
   './',
   './index.html',
