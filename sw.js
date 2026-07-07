@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v30-3-attached-assets';
+const CACHE_NAME = 'bangraknoi-connect-v30-1-fb-half-mascot';
 const PRECACHE_URLS = [
   './',
   './index.html',
@@ -26,9 +26,6 @@ const PRECACHE_URLS = [
   './assets/v29/service.webp',
   './assets/v29/event.webp',
   './assets/v30/hero-town.webp',
-  './assets/v30/news-card.webp',
-  './assets/v30/event-card.webp',
-  './assets/v30/community-card.webp',
   './assets/v30/mascot-hero.webp',
   './assets/v30/craft.webp',
   './assets/v30/food.webp',
