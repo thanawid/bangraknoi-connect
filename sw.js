@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v29-reference-style';
+const CACHE_NAME = 'bangraknoi-connect-v30-dark-hero-real';
 const PRECACHE_URLS = [
   './',
   './index.html',
@@ -25,6 +25,16 @@ const PRECACHE_URLS = [
   './assets/v29/news.webp',
   './assets/v29/service.webp',
   './assets/v29/event.webp',
+  './assets/v30/hero-town.webp',
+  './assets/v30/mascot-hero.webp',
+  './assets/v30/craft.webp',
+  './assets/v30/food.webp',
+  './assets/v30/travel.webp',
+  './assets/v30/learn.webp',
+  './assets/v30/market.webp',
+  './assets/v30/chat.webp',
+  './assets/v30/service.webp',
+  './assets/v30/event.webp',
   './assets/favicon.png',
   './assets/icon-180x180.png',
   './assets/icon-192x192.png',
