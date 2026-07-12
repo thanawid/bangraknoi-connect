@@ -2032,6 +2032,17 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
 .news-grid[data-news-source="brn-real"]::after{content:"● ข่าวจริงจากเว็บเทศบาล"}
 
 </style>
+
+  <!-- ═══ ANALYTICS: GoatCounter (ฟรี, ไม่เก็บ cookie, ไม่ต้องมี consent banner) ═══
+       วิธีเปิดใช้:
+       1. สมัครฟรีที่ https://www.goatcounter.com/signup (ใช้เวลา 1 นาที)
+       2. ตั้งชื่อ code เช่น "bangraknoi" จะได้ URL: bangraknoi.goatcounter.com
+       3. แก้ data-goatcounter ด้านล่างให้ตรงชื่อที่ตั้ง แล้วลบ comment ครอบออก
+       4. ดูสถิติได้ที่ bangraknoi.goatcounter.com — คนเข้ากี่คน มาจากไหน หน้าไหนฮิต
+
+  <script data-goatcounter="https://bangraknoi.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+  ═══════════════════════════════════════════════════════════════════ -->
 </head>
 <body>
 
@@ -2064,7 +2075,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
 <section id="hero" class="v30-hero">
   <div class="v30-shell">
     <div class="v30-hero-card">
-      <img class="v30-hero-bg" src="assets/v78/hero-bg-wide.webp" alt="" aria-hidden="true">
+      <img class="v30-hero-bg" src="assets/img/hero-bg-wide.webp" alt="" aria-hidden="true">
       <div class="v30-hero-grid">
         <div class="v30-copy">
           <div class="v30-pill"><span class="v30-pill-dot"></span> ชุมชนใกล้ตัว เชื่อมถึงกัน</div>
@@ -2080,7 +2091,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
             <div class="v30-feature"><span class="v30-feature-icon">👥</span><div><b>เชื่อมชุมชน</b><small>รวมเรื่องคนในพื้นที่</small></div></div>
           </div>
         </div>
-        <div class="v30-mascot-stage"><img class="v30-hero-mascot" src="assets/v78/hero-mascot.webp" alt="มาสคอตบางรักน้อย Connect"></div>
+        <div class="v30-mascot-stage"><img class="v30-hero-mascot" src="assets/img/hero-mascot.webp" alt="มาสคอตบางรักน้อย Connect"></div>
       </div>
     </div>
   </div>
@@ -2169,7 +2180,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
     </div>
 
     <div class="v81-line-follow">
-      <img class="v81-line-logo" src="assets/v81/line-logo.svg" alt="LINE">
+      <img class="v81-line-logo" src="assets/img/line-logo.svg" alt="LINE">
       <div>
         <b>ติดตามผ่าน LINE Official Account</b>
         <small>ไม่พลาดข่าวสารและกิจกรรมสำคัญในชุมชนบางรักน้อย</small>
@@ -2178,7 +2189,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
     </div>
 
     <div class="v81-qr-card">
-      <img src="assets/v81/bc-qr.png" alt="QR Code บางรักน้อย Connect">
+      <img src="assets/img/bc-qr.png" alt="QR Code บางรักน้อย Connect">
       <div>
         <b>สแกนเข้าเว็บ</b>
         <small>แชร์ให้คนในชุมชนเข้าถึงบริการได้ง่ายขึ้น</small>
@@ -2418,12 +2429,12 @@ document.getElementById('searchInput').addEventListener('keydown', e => { if (e.
 
 // ── CATEGORY GRID ─────────────────────────────────────────────────────────────
 const CATS = [
-  { id:'craft',  label:'หาช่าง', titleHtml:'หาช่าง', count:'หาช่างใกล้บ้าน ซ่อมไว ไว้ใจได้', img:'assets/v78/cat-craft.png' },
-  { id:'food',   label:'ร้านอาหาร', titleHtml:'ร้านอาหาร', count:'ร้านอร่อยใกล้บ้าน ของกินแนะนำ', img:'assets/v78/cat-food.png' },
-  { id:'travel', label:'ท่องเที่ยว', titleHtml:'ท่องเที่ยว', count:'เที่ยวบางรักน้อย จุดเช็กอินน่าสนใจ', img:'assets/v78/cat-travel.png' },
-  { id:'learn',  label:'ฝึกอาชีพ', titleHtml:'ฝึกอาชีพ', count:'เรียนรู้ทักษะ สร้างรายได้', img:'assets/v78/cat-learn.png' },
-  { id:'market', label:'สินค้า/บริการ', titleHtml:'สินค้า/บริการ', count:'สินค้าและบริการดี ๆ จากคนในชุมชน', img:'assets/v78/cat-market.png' },
-  { id:'chat',   label:'พูดคุย/แลกเปลี่ยน', titleHtml:'พูดคุย/<br>แลกเปลี่ยน', count:'แชร์เรื่องราว ช่วยกันพัฒนาชุมชน', img:'assets/v78/cat-chat.png' },
+  { id:'craft',  label:'หาช่าง', titleHtml:'หาช่าง', count:'หาช่างใกล้บ้าน ซ่อมไว ไว้ใจได้', img:'assets/img/cat-craft.webp' },
+  { id:'food',   label:'ร้านอาหาร', titleHtml:'ร้านอาหาร', count:'ร้านอร่อยใกล้บ้าน ของกินแนะนำ', img:'assets/img/cat-food.webp' },
+  { id:'travel', label:'ท่องเที่ยว', titleHtml:'ท่องเที่ยว', count:'เที่ยวบางรักน้อย จุดเช็กอินน่าสนใจ', img:'assets/img/cat-travel.webp' },
+  { id:'learn',  label:'ฝึกอาชีพ', titleHtml:'ฝึกอาชีพ', count:'เรียนรู้ทักษะ สร้างรายได้', img:'assets/img/cat-learn.webp' },
+  { id:'market', label:'สินค้า/บริการ', titleHtml:'สินค้า/บริการ', count:'สินค้าและบริการดี ๆ จากคนในชุมชน', img:'assets/img/cat-market.webp' },
+  { id:'chat',   label:'พูดคุย/แลกเปลี่ยน', titleHtml:'พูดคุย/<br>แลกเปลี่ยน', count:'แชร์เรื่องราว ช่วยกันพัฒนาชุมชน', img:'assets/img/cat-chat.webp' },
 ];
 const catGrid = document.getElementById('catGrid');
 if (catGrid) {
@@ -2435,6 +2446,7 @@ if (catGrid) {
       <div class="v30-cat-text">
         <div class="v30-cat-title">${c.titleHtml || c.label}</div>
         <div class="v30-cat-desc">${c.count}</div>
+        <div class="v30-cat-real" id="catCount-${c.id}" style="display:none;margin-top:6px;font-size:11px;font-weight:800;color:#16a34a;"></div>
       </div>
       <img class="v30-cat-img" src="${c.img}" alt="${c.label}" loading="lazy">
       <div class="v30-cat-arrow">›</div>`;
@@ -2442,19 +2454,32 @@ if (catGrid) {
   });
 }
 
+// ── REAL COUNTS จาก Google Sheet (แสดงเมื่อมีข้อมูลอนุมัติจริง) ─────────────
+(async () => {
+  try {
+    for (const c of CATS) {
+      const items = await getSheetItems(c.id);
+      if (items.length > 0) {
+        const el = document.getElementById('catCount-' + c.id);
+        if (el) { el.textContent = `✅ ${items.length} รายการในระบบ`; el.style.display = 'block'; }
+      }
+    }
+  } catch(e) { /* Sheet ยังไม่พร้อม ไม่แสดงตัวเลข */ }
+})();
+
 // ── UPDATES ─────────────────────────────────────────────────────────────────────
 
 const UPDATES = [
-  { cat:'กิจกรรม', title:'เทศบาลเมืองบางรักน้อยลงพื้นที่ร่วมกับ รพ.สต. ดำเนินโครงการร้านค้าปลอดภัย ไร้สารปนเปื้อน', date:'10 ก.ค. 2569', views:'4', icon:'🎉', image:'assets/v78/news-cleanup.png', href:'https://www.brn.go.th/news-atv?id=1' },
-  { cat:'กิจกรรม', title:'ร่วมพิธีเปิดโครงการส่งเสริมการออกกำลังกายเพื่อสุขภาพ ด้วยท่าบริหารฤาษีดัดตน', date:'9 ก.ค. 2569', views:'4', icon:'🎉', image:'assets/v78/news-food.png', href:'https://www.brn.go.th/news-atv?id=1' },
-  { cat:'ข่าวสาร', title:'ขอเชิญชวนพี่น้องชาวตำบลบางรักน้อย ร่วมเป็น “สมาชิกกองทุนแม่ของแผ่นดิน”', date:'9 ก.ค. 2569', views:'12', icon:'📢', image:'assets/v78/news-signup.png', href:'https://www.brn.go.th/news-obt?id=2' },
+  { cat:'กิจกรรม', title:'เทศบาลเมืองบางรักน้อยลงพื้นที่ร่วมกับ รพ.สต. ดำเนินโครงการร้านค้าปลอดภัย ไร้สารปนเปื้อน', date:'10 ก.ค. 2569', views:'4', icon:'🎉', image:'assets/img/news-cleanup.webp', href:'https://www.brn.go.th/news-atv?id=1' },
+  { cat:'กิจกรรม', title:'ร่วมพิธีเปิดโครงการส่งเสริมการออกกำลังกายเพื่อสุขภาพ ด้วยท่าบริหารฤาษีดัดตน', date:'9 ก.ค. 2569', views:'4', icon:'🎉', image:'assets/img/news-food.webp', href:'https://www.brn.go.th/news-atv?id=1' },
+  { cat:'ข่าวสาร', title:'ขอเชิญชวนพี่น้องชาวตำบลบางรักน้อย ร่วมเป็น “สมาชิกกองทุนแม่ของแผ่นดิน”', date:'9 ก.ค. 2569', views:'12', icon:'📢', image:'assets/img/news-signup.webp', href:'https://www.brn.go.th/news-obt?id=2' },
 ];
 
 // V8.4.2 Real News Mix 2+1:
 // ดึงกิจกรรม 2 ข่าว + ข่าวประชาสัมพันธ์ 1 ข่าว ผ่าน Apps Script proxy: ?action=news
 // รองรับ JSONP เพื่อหลบปัญหา CORS ของ Google Apps Script / เว็บเทศบาล
 const NEWS_FEED_ENDPOINT = window.BRN_NEWS_ENDPOINT || 'https://script.google.com/macros/s/AKfycbzv5WMeM5cSxl7Ot6QCjbqkxGaxPMAfsvc6lDj2rQe4UYKIjwnZMxa-Sxq6VtN9b51Q/exec?action=news';
-const FALLBACK_NEWS_IMAGES = ['assets/v78/news-signup.png','assets/v78/news-cleanup.png','assets/v78/news-food.png'];
+const FALLBACK_NEWS_IMAGES = ['assets/img/news-signup.webp','assets/img/news-cleanup.webp','assets/img/news-food.webp'];
 const updatesGrid = document.getElementById('updatesGrid');
 
 function normalizeUpdateItem(item = {}, index = 0) {
