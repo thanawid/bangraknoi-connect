@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v8-1-line-qr';
+const CACHE_NAME = 'bangraknoi-connect-v8-2-internal-pages';
 const PRECACHE_URLS = [
   './',
   './index.html',

@@ -94,3 +94,12 @@ V8.1 LINE + QR CTA Polish:
 - ใส่ QR Code สำหรับเข้าเว็บบางรักน้อย Connect
 - ไม่ใส่รูปโปสเตอร์ในเว็บ
 - ฟอร์ม / Google Sheet / ปุ่ม / drawer / search logic คงเดิม
+
+
+V8.2 Internal Pages + Title Polish:
+- Browser tab/title เปลี่ยนเป็น "บางรักน้อย Connect | ชุมชนใกล้ตัว เชื่อมถึงกัน" ไม่มีเลขเวอร์ชัน
+- เพิ่มหน้าในเว็บ #/submit สำหรับแบบฟอร์มเพิ่มข้อมูลร้าน/บริการ
+- เมนูหลักใช้ internal hash routes: #/home, #/search, #/categories, #/updates, #/about, #/submit
+- ย้าย LINE + QR CTA ไปอยู่ใต้ About Bridge ฝั่งซ้ายตามตำแหน่งที่ต้องการ
+- ฟอร์มยังส่งเข้า Google Sheet / Apps Script เดิม
+- drawer / search logic / ปุ่มหลัก คงเดิม

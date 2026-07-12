@@ -4,13 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#5b21b6">
-  <meta name="description" content="บางรักน้อย Connect — ชุมชนใกล้ตัว เชื่อมถึงกัน">
-  <meta property="og:title" content="บางรักน้อย Connect">
+  <meta name="description" content="บางรักน้อย Connect - ชุมชนใกล้ตัว เชื่อมถึงกัน ศูนย์รวมข้อมูลชุมชน ร้าน บริการ ข่าวสาร และกิจกรรมใกล้ตัว">
+  <meta name="twitter:title" content="บางรักน้อย Connect | ชุมชนใกล้ตัว เชื่อมถึงกัน">
+  <meta property="og:title" content="บางรักน้อย Connect | ชุมชนใกล้ตัว เชื่อมถึงกัน">
   <meta property="og:description" content="ค้นหาช่าง ร้านอาหาร แหล่งท่องเที่ยว งานฝึกอาชีพ และกิจกรรมชุมชนในพื้นที่ ได้ง่ายๆ ที่เดียว">
   <meta property="og:image" content="assets/icon-512x512.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <title>บางรักน้อย Connect — V8.1</title>
+  <title>บางรักน้อย Connect | ชุมชนใกล้ตัว เชื่อมถึงกัน</title>
   <link rel="icon" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/icon-180x180.png">
   <link rel="manifest" href="manifest.webmanifest">
@@ -1882,6 +1883,16 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   .v81-line-logo,.v81-line-btn::before{animation:none!important}
 }
 
+
+/* ─────────────────────────────────────────────────────────────
+   V8.2 — Internal Pages + Title Polish + LINE QR Inside Left Column
+───────────────────────────────────────────────────────────── */
+[hidden]{display:none!important}.v82-view{display:block}.nav-logo[href="#/home"]{cursor:pointer}
+.v82-line-inside{padding:0!important;margin:0!important;background:transparent!important}.v82-line-inside .v81-line-qr-inner{width:100%!important;margin:0!important;grid-template-columns:minmax(240px,1fr) minmax(310px,1.1fr) minmax(190px,.65fr)!important;padding:14px!important;border-radius:28px!important;box-shadow:0 18px 46px rgba(31,14,70,.08)!important}.v82-line-inside .v81-line-main,.v82-line-inside .v81-line-follow,.v82-line-inside .v81-qr-card{padding:14px!important;border-radius:22px!important}.v82-line-inside .v81-line-logo,.v82-line-inside .v81-chat-icon{width:48px!important;height:48px!important}.v82-line-inside .v81-qr-card img{width:74px!important;height:74px!important}.v82-line-inside .v81-line-btn{min-height:38px!important;padding:8px 14px!important;font-size:13px!important}
+@media(min-width:1180px){.v78-updates-stack{align-items:start!important}.v80-left-story{display:grid!important;gap:16px!important}}
+.v82-submit-page{min-height:calc(100vh - 72px);background:radial-gradient(circle at 8% 8%,rgba(255,122,0,.11),transparent 28%),radial-gradient(circle at 94% 12%,rgba(124,58,237,.13),transparent 28%),linear-gradient(180deg,#fff 0%,#fff8ef 100%)}.v82-submit-shell{width:min(calc(100% - 48px),1180px);margin:0 auto}.v82-submit-hero{padding:42px 0 22px}.v82-back-link{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;color:var(--v30-purple);font-weight:1000;font-size:14px}.v82-submit-head{display:flex;gap:18px;align-items:center;border-radius:30px;background:linear-gradient(135deg,#fff,#fff7ed 50%,#f3eaff);border:1px solid rgba(91,33,182,.12);box-shadow:0 20px 54px rgba(31,14,70,.09);padding:26px}.v82-submit-icon{width:68px;height:68px;border-radius:24px;display:grid;place-items:center;flex:0 0 auto;background:linear-gradient(135deg,var(--v30-orange),#ff6200);color:#fff;font-size:34px;font-weight:1000;box-shadow:0 14px 30px rgba(255,122,0,.25)}.v82-submit-head h1{margin:8px 0 0;font-size:clamp(30px,4vw,50px);font-weight:1000;letter-spacing:-.04em;color:var(--v30-ink);line-height:1.05}.v82-submit-head p{margin:10px 0 0;color:#746b80;font-weight:700;line-height:1.65;max-width:760px}.v82-submit-body{padding:0 0 54px}.v82-submit-grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px;align-items:start}.v82-submit-guide{position:sticky;top:92px;border-radius:26px;background:#fff;border:1px solid rgba(91,33,182,.12);box-shadow:0 18px 46px rgba(31,14,70,.07);padding:20px}.v82-submit-guide b{font-size:20px;font-weight:1000;color:var(--v30-ink)}.v82-submit-guide p{margin:10px 0 14px;color:#746b80;font-weight:700;line-height:1.6;font-size:13px}.v82-guide-list{display:grid;gap:9px}.v82-guide-list span{display:block;border-radius:16px;background:#f6f0ff;color:var(--v30-purple);padding:10px 12px;font-size:12px;font-weight:900}.v82-submit-card{border-radius:30px;background:#fff;border:1px solid rgba(91,33,182,.12);box-shadow:0 22px 60px rgba(31,14,70,.09);padding:24px}.v82-submit-card .form-field{margin-bottom:14px}.v82-submit-card input,.v82-submit-card select,.v82-submit-card textarea{font-size:15px}.v82-submit-note{text-align:center;font-size:11.5px;color:var(--text-light);margin-top:10px;font-weight:700}.v82-success-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+@media(max-width:1180px){.v82-line-inside .v81-line-qr-inner{grid-template-columns:1fr!important;width:100%!important}.v82-submit-grid{grid-template-columns:1fr}.v82-submit-guide{position:static}.v82-submit-shell{width:min(calc(100% - 28px),760px)}}@media(max-width:760px){.v82-submit-hero{padding:24px 0 16px}.v82-submit-head{display:block;padding:20px;border-radius:24px}.v82-submit-icon{margin-bottom:14px}.v82-submit-card{padding:16px;border-radius:24px}.v82-line-inside .v81-line-qr-inner{padding:12px!important;border-radius:24px!important}}
+
 </style>
 </head>
 <body>
@@ -1889,7 +1900,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
 <!-- ── NAVBAR ── -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a class="nav-logo" href="#">
+    <a class="nav-logo" href="#/home">
       <img src="assets/bc-logo.webp" alt="BC" onerror="this.style.display='none'">
       <div class="nav-logo-text">
         <b>บางรักน้อย Connect</b>
@@ -1897,11 +1908,11 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       </div>
     </a>
     <nav class="nav-links">
-      <a href="#" class="active">หน้าแรก</a>
-      <a href="#searchWrap">ค้นหา</a>
-      <a href="#categories">หมวดบริการ</a>
-      <a href="#updates">ข่าว/กิจกรรม</a>
-      <a href="#about">เกี่ยวกับเรา</a>
+      <a href="#/home" class="active" data-route-link="/home">หน้าแรก</a>
+      <a href="#/search" data-route-link="/search">ค้นหา</a>
+      <a href="#/categories" data-route-link="/categories">หมวดบริการ</a>
+      <a href="#/updates" data-route-link="/updates">ข่าว/กิจกรรม</a>
+      <a href="#/about" data-route-link="/about">เกี่ยวกับเรา</a>
     </nav>
     <div class="nav-actions">
       <button class="btn-outline" onclick="openRegModal()">+ เพิ่มข้อมูลร้าน/บริการ</button>
@@ -1910,6 +1921,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   </div>
 </nav>
 
+<main id="homeView" class="v82-view v82-home-view">
 <!-- ── HERO V30 ── -->
 <section id="hero" class="v30-hero">
   <div class="v30-shell">
@@ -1921,8 +1933,8 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
           <h1 class="v30-title">บางรักน้อย<br><span class="accent">Connect</span>.</h1>
           <p class="v30-lead">ศูนย์รวมข้อมูลชุมชน ข่าวสาร กิจกรรม และบริการใกล้ตัว ค้นหาร้านอาหาร ช่างท้องถิ่น ท่องเที่ยว ฝึกอาชีพ และของดีในพื้นที่ ได้ในที่เดียว</p>
           <div class="v30-actions">
-            <a class="v30-btn primary" href="#searchWrap">🔍 ค้นหาบริการ</a>
-            <a class="v30-btn secondary" href="#categories">▦ ดูหมวดบริการ</a>
+            <a class="v30-btn primary" href="#/search">🔍 ค้นหาบริการ</a>
+            <a class="v30-btn secondary" href="#/categories">▦ ดูหมวดบริการ</a>
           </div>
           <div class="v30-feature-row">
             <div class="v30-feature"><span class="v30-feature-icon">🔍</span><div><b>ค้นหาง่าย</b><small>เจอสิ่งที่ต้องการไวขึ้น</small></div></div>
@@ -2007,6 +2019,35 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
             <div class="v80-about-mini"><i>🤝</i><b>เชื่อมถึงกัน</b><small>คน ร้านค้า และชุมชนใกล้กันขึ้น</small></div>
           </div>
         </div>
+        <!-- ── LINE + QR CTA V8.1 ── -->
+<div id="lineCta" class="v81-line-qr-section v82-line-inside">
+  <div class="v81-line-qr-inner">
+    <div class="v81-line-main">
+      <div class="v81-chat-icon">💬</div>
+      <div>
+        <b>ติดตามข่าวจากบางรักน้อย Connect</b>
+        <small>รับข่าวสาร แจ้งเตือนกิจกรรม และข้อมูลบริการในพื้นที่</small>
+      </div>
+    </div>
+
+    <div class="v81-line-follow">
+      <img class="v81-line-logo" src="assets/v81/line-logo.svg" alt="LINE">
+      <div>
+        <b>ติดตามผ่าน LINE Official Account</b>
+        <small>ไม่พลาดข่าวสารและกิจกรรมสำคัญในชุมชนบางรักน้อย</small>
+      </div>
+      <a href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener" class="v81-line-btn">เพิ่มเพื่อน LINE OA</a>
+    </div>
+
+    <div class="v81-qr-card">
+      <img src="assets/v81/bc-qr.png" alt="QR Code บางรักน้อย Connect">
+      <div>
+        <b>สแกนเข้าเว็บ</b>
+        <small>แชร์ให้คนในชุมชนเข้าถึงบริการได้ง่ายขึ้น</small>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
       <aside class="v78-facebook-card" aria-label="Facebook Page เทศบาลเมืองบางรักน้อย">
         <div class="v78-facebook-frame">
@@ -2040,35 +2081,80 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   </div>
 </section>
 
-<!-- ── LINE + QR CTA V8.1 ── -->
-<div id="lineCta" class="v81-line-qr-section">
-  <div class="v81-line-qr-inner">
-    <div class="v81-line-main">
-      <div class="v81-chat-icon">💬</div>
-      <div>
-        <b>ติดตามข่าวจากบางรักน้อย Connect</b>
-        <small>รับข่าวสาร แจ้งเตือนกิจกรรม และข้อมูลบริการในพื้นที่</small>
-      </div>
-    </div>
+</main>
 
-    <div class="v81-line-follow">
-      <img class="v81-line-logo" src="assets/v81/line-logo.svg" alt="LINE">
-      <div>
-        <b>ติดตามผ่าน LINE Official Account</b>
-        <small>ไม่พลาดข่าวสารและกิจกรรมสำคัญในชุมชนบางรักน้อย</small>
+<!-- ── SUBMIT INTERNAL PAGE V8.2 ── -->
+<main id="submitView" class="v82-view v82-submit-page" hidden>
+  <section class="v82-submit-hero">
+    <div class="v82-submit-shell">
+      <a class="v82-back-link" href="#/home">← กลับหน้าแรก</a>
+      <div class="v82-submit-head">
+        <div class="v82-submit-icon">＋</div>
+        <div>
+          <div class="v30-section-label">แบบฟอร์มภายในเว็บ</div>
+          <h1>เพิ่มข้อมูลร้าน/บริการ</h1>
+          <p>ส่งข้อมูลร้าน ช่าง กลุ่มอาชีพ แหล่งท่องเที่ยว หรือบริการในพื้นที่บางรักน้อย เพื่อให้ทีมงานตรวจทานข้อมูลเบื้องต้นก่อนเผยแพร่</p>
+        </div>
       </div>
-      <a href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener" class="v81-line-btn">เพิ่มเพื่อน LINE OA</a>
     </div>
+  </section>
 
-    <div class="v81-qr-card">
-      <img src="assets/v81/bc-qr.png" alt="QR Code บางรักน้อย Connect">
-      <div>
-        <b>สแกนเข้าเว็บ</b>
-        <small>แชร์ให้คนในชุมชนเข้าถึงบริการได้ง่ายขึ้น</small>
+  <section class="v82-submit-body">
+    <div class="v82-submit-shell v82-submit-grid">
+      <aside class="v82-submit-guide">
+        <b>ก่อนส่งข้อมูล</b>
+        <p>ข้อมูลนี้เป็นข้อมูลเบื้องต้นเพื่อประกอบการตัดสินใจของประชาชน ไม่ใช่การรับรองคุณภาพสินค้า บริการ หรือผู้ให้บริการ</p>
+        <div class="v82-guide-list">
+          <span>✓ กรอกข้อมูลจริงและติดต่อได้</span>
+          <span>✓ ตรวจทานข้อมูลก่อนส่ง</span>
+          <span>✓ เจ้าหน้าที่ตรวจทานก่อนเผยแพร่</span>
+        </div>
+      </aside>
+
+      <div class="v82-submit-card">
+        <div id="regStep1">
+          <div class="form-field"><label>ชื่อร้าน / ช่าง / กลุ่มอาชีพ <span class="req">*</span></label><input type="text" id="reg-name" placeholder="เช่น ร้านก๋วยเตี๋ยวน้าติ่ง / ช่างสมชาย" maxlength="80"></div>
+          <div class="form-field"><label>ประเภทบริการ <span class="req">*</span></label>
+            <select id="reg-category">
+              <option value="">-- เลือก --</option>
+              <option value="หาช่าง">🔧 หาช่าง</option>
+              <option value="ร้านอาหาร">🍜 ร้านอาหาร / คาเฟ่</option>
+              <option value="ท่องเที่ยว">📷 ท่องเที่ยว</option>
+              <option value="ฝึกอาชีพ">🎓 ฝึกอาชีพ</option>
+              <option value="สินค้า/บริการ">🛍️ สินค้า / บริการ</option>
+              <option value="พูดคุย/แลกเปลี่ยน">💬 พูดคุย / แลกเปลี่ยน</option>
+            </select>
+          </div>
+          <div class="form-field"><label>เบอร์โทร <span class="req">*</span></label><input type="tel" id="reg-phone" placeholder="0XX-XXX-XXXX" maxlength="20"></div>
+          <div class="form-field"><label>LINE ID</label><input type="text" id="reg-contact" placeholder="@lineID" maxlength="80"></div>
+          <div class="form-field"><label>Facebook / เว็บไซต์</label><input type="text" id="reg-social" placeholder="facebook.com/..." maxlength="160"></div>
+          <div class="form-field"><label>ที่อยู่ / ชุมชน <span class="req">*</span></label><input type="text" id="reg-area" placeholder="เช่น หมู่ 3 ชุมชนวัดบางรักน้อย" maxlength="150"></div>
+          <div class="form-field"><label>รายละเอียด</label><textarea id="reg-desc" rows="3" maxlength="300" placeholder="บอกเล่าบริการสั้น ๆ..."></textarea></div>
+          <div class="legal-box">
+            <div class="legal-title">📋 ข้อตกลงและนโยบายข้อมูลส่วนบุคคล</div>
+            <div class="legal-scroll">
+              <p><strong>1. บทบาทของระบบ</strong><br>บางรักน้อย Connect เป็นพื้นที่รวบรวมข้อมูลเบื้องต้นของร้านและบริการในชุมชน เพื่อช่วยให้ประชาชนค้นหาและติดต่อได้สะดวกขึ้น</p>
+              <p><strong>2. การเผยแพร่ข้อมูล</strong><br>ผู้ส่งข้อมูลยินยอมให้เผยแพร่ข้อมูลที่จำเป็น เช่น ชื่อร้าน เบอร์ติดต่อ LINE Facebook ที่อยู่ และรายละเอียดบริการ เพื่อประชาสัมพันธ์บนระบบ</p>
+              <p><strong>3. การตรวจทานข้อมูล</strong><br>ทีมงานจะตรวจทานข้อมูลเบื้องต้นก่อนเผยแพร่ และอาจติดต่อกลับเพื่อสอบถามข้อมูลเพิ่มเติม</p>
+              <p><strong>4. การติดต่อใช้บริการ</strong><br>โปรดตรวจสอบรายละเอียด ราคา และเงื่อนไขกับผู้ให้บริการโดยตรงก่อนใช้บริการ</p>
+              <p><strong>5. การแก้ไข/ถอนข้อมูล</strong><br>หากต้องการแก้ไขหรือนำข้อมูลออกจากระบบ ติดต่อเทศบาลเมืองบางรักน้อยได้ตามช่องทางที่กำหนด</p>
+            </div>
+            <label class="consent-check"><input type="checkbox" id="reg-consent"><span>ข้าพเจ้าได้อ่าน เข้าใจ และยินยอมให้เผยแพร่ข้อมูลเบื้องต้นตามที่กรอก <span class="req">*</span></span></label>
+          </div>
+          <div id="regError" class="reg-error" style="display:none"></div>
+          <button class="btn-submit" id="regSubmit"><span id="regBtnLabel">📨 ส่งข้อมูลให้เจ้าหน้าที่ตรวจทาน</span></button>
+          <p class="v82-submit-note">หลังส่งข้อมูล ระบบจะแจ้งผลการรับข้อมูลและเลขอ้างอิงสำหรับติดตามภายในเว็บ</p>
+        </div>
+        <div id="regStep2" style="display:none" class="reg-success">
+          <div class="success-icon">✅</div><h3>รับข้อมูลแล้ว</h3>
+          <p>ขอบคุณที่ร่วมเพิ่มข้อมูลให้บางรักน้อย Connect ทีมงานจะตรวจทานข้อมูลเบื้องต้นก่อนเผยแพร่</p>
+          <p style="font-weight:700;color:var(--purple);margin-top:8px;" id="regSuccessName"></p>
+          <div class="v82-success-actions"><a class="btn-outline-purple" href="#/home">กลับหน้าแรก</a><a class="btn-outline-purple" href="#/search">ไปหน้าค้นหา</a></div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
+</main>
 
 <!-- ── FOOTER ── -->
 <footer>
@@ -2089,16 +2175,16 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       <div class="footer-col">
         <h4>ลิงก์ด่วน</h4>
         <ul>
-          <li><a href="#">หน้าแรก</a></li>
-          <li><a href="#searchWrap">ค้นหา</a></li>
-          <li><a href="#categories">หมวดบริการ</a></li>
+          <li><a href="#/home">หน้าแรก</a></li>
+          <li><a href="#/search" data-route-link="/search">ค้นหา</a></li>
+          <li><a href="#/categories" data-route-link="/categories">หมวดบริการ</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>เกี่ยวกับเรา</h4>
         <ul>
-          <li><a href="#about">เกี่ยวกับโครงการ</a></li>
-          <li><a href="#" onclick="openRegModal();return false;">ร่วมเป็นส่วนหนึ่ง</a></li>
+          <li><a href="#/about">เกี่ยวกับโครงการ</a></li>
+          <li><a href="#/submit">ร่วมเป็นส่วนหนึ่ง</a></li>
           <li><a href="tel:021934512">ติดต่อเรา</a></li>
         </ul>
       </div>
@@ -2112,7 +2198,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V8.1</span></p>
+      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V8.2</span></p>
       <p>ข้อมูลในระบบเป็นข้อมูลเบื้องต้นเพื่อประกอบการตัดสินใจ · โปรดตรวจสอบรายละเอียดกับผู้ให้บริการโดยตรงก่อนใช้บริการ</p>
     </div>
   </div>
@@ -2134,72 +2220,17 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   <div class="drawer-source" id="drawerSource"></div>
 </div>
 
-<!-- ── REGISTER MODAL ── -->
-<div class="overlay" id="regOverlay" onclick="closeRegModal()"></div>
-<div class="modal" id="regModal" style="display:none">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeRegModal()">×</button>
-    <div class="modal-logo"><img src="assets/bc-logo.webp" alt="" width="50" height="50"></div>
-    <h2 class="modal-title">ลงทะเบียนข้อมูลผู้ให้บริการในพื้นที่</h2>
-    <p class="modal-sub">สำหรับร้านค้า ช่าง กลุ่มอาชีพ แหล่งท่องเที่ยว หรือผู้ให้บริการในพื้นที่<br><small>ข้อมูลจะถูกตรวจสอบโดยเจ้าหน้าที่เทศบาลก่อนเผยแพร่</small></p>
-    <div id="regStep1">
-      <div class="form-field"><label>ชื่อร้าน / ช่าง / กลุ่มอาชีพ <span class="req">*</span></label><input type="text" id="reg-name" placeholder="เช่น ร้านก๋วยเตี๋ยวน้าติ่ง / ช่างสมชาย" maxlength="80"></div>
-      <div class="form-field"><label>ประเภทบริการ <span class="req">*</span></label>
-        <select id="reg-category">
-          <option value="">-- เลือก --</option>
-          <option value="หาช่าง">🔧 หาช่าง</option>
-          <option value="ร้านอาหาร">🍜 ร้านอาหาร / คาเฟ่</option>
-          <option value="ท่องเที่ยว">📷 ท่องเที่ยว</option>
-          <option value="ฝึกอาชีพ">🎓 ฝึกอาชีพ</option>
-          <option value="สินค้า/บริการ">🛍️ สินค้า / บริการ</option>
-          <option value="พูดคุย/แลกเปลี่ยน">💬 พูดคุย / แลกเปลี่ยน</option>
-        </select>
-      </div>
-      <div class="form-field"><label>เบอร์โทร <span class="req">*</span></label><input type="tel" id="reg-phone" placeholder="0XX-XXX-XXXX" maxlength="20"></div>
-      <div class="form-field"><label>LINE ID</label><input type="text" id="reg-contact" placeholder="@lineID" maxlength="80"></div>
-      <div class="form-field"><label>Facebook / เว็บไซต์</label><input type="text" id="reg-social" placeholder="facebook.com/..." maxlength="160"></div>
-      <div class="form-field"><label>ที่อยู่ / ชุมชน <span class="req">*</span></label><input type="text" id="reg-area" placeholder="เช่น หมู่ 3 ชุมชนวัดบางรักน้อย" maxlength="150"></div>
-      <div class="form-field"><label>รายละเอียด</label><textarea id="reg-desc" rows="3" maxlength="300" placeholder="บอกเล่าบริการสั้น ๆ..."></textarea></div>
-      <div class="legal-box">
-        <div class="legal-title">📋 ข้อตกลงและนโยบาย PDPA</div>
-        <div class="legal-scroll">
-          <p><strong>1. บทบาทของระบบ</strong><br>บางรักน้อย Connect เป็นสื่อกลางรวบรวมข้อมูลเท่านั้น ไม่ใช่ผู้ขาย นายหน้า หรือผู้รับประกันคุณภาพ</p>
-          <p><strong>2. ยินยอม PDPA</strong><br>ผู้เพิ่มข้อมูลยินยอมให้เทศบาลจัดเก็บและเผยแพร่ข้อมูล เช่น ชื่อ เบอร์ติดต่อ LINE Facebook ที่อยู่ เพื่อประชาสัมพันธ์บริการ</p>
-          <p><strong>3. สิทธิ์แก้ไข/ถอนข้อมูล</strong><br>ติดต่อ 02-193-4512-3 ได้ตลอดเวลา</p>
-          <p><strong>4. ข้อจำกัดความรับผิด</strong><br>เทศบาลไม่รับผิดชอบต่อความเสียหายจากการใช้บริการภายนอก</p>
-          <p><strong>5. ลิขสิทธิ์</strong><br>© 2569 บางรักน้อย Connect · เทศบาลเมืองบางรักน้อย ห้ามนำข้อมูลไปใช้เพื่อการค้าโดยไม่ได้รับอนุญาต</p>
-        </div>
-        <label class="consent-check">
-          <input type="checkbox" id="reg-consent">
-          <span>ข้าพเจ้าได้อ่าน เข้าใจ และยินยอมตามข้อตกลงทั้งหมด รวมถึงยินยอมให้เผยแพร่ข้อมูล <span class="req">*</span></span>
-        </label>
-      </div>
-      <div id="regError" class="reg-error" style="display:none"></div>
-      <button class="btn-submit" id="regSubmit"><span id="regBtnLabel">📨 ส่งข้อมูลให้เจ้าหน้าที่ตรวจสอบ</span></button>
-      <p style="text-align:center;font-size:11px;color:var(--text-light);margin-top:8px;">ข้อมูลจะถูกตรวจสอบโดยเจ้าหน้าที่เทศบาลก่อนเผยแพร่</p>
-    </div>
-    <div id="regStep2" style="display:none" class="reg-success">
-      <div class="success-icon">✅</div>
-      <h3>ส่งข้อมูลสำเร็จ!</h3>
-      <p>เจ้าหน้าที่จะตรวจสอบข้อมูลก่อนเผยแพร่บนระบบ</p>
-      <p style="font-weight:700;color:var(--purple);margin-top:8px;" id="regSuccessName"></p>
-      <button class="btn-outline-purple" onclick="closeRegModal()">ปิด</button>
-    </div>
-  </div>
-</div>
-
-
 <!-- ── MOBILE MENU ── -->
 <div id="mobileMenu">
   <div class="mobile-nav-panel">
     <button class="mobile-nav-close" onclick="closeMobileMenu()">×</button>
-    <a href="#" onclick="closeMobileMenu()">🏠 หน้าแรก</a>
-    <a href="#searchWrap" onclick="closeMobileMenu()">🔎 ค้นหา</a>
-    <a href="#categories" onclick="closeMobileMenu()">📂 หมวดบริการ</a>
-    <a href="#updates" onclick="closeMobileMenu()">📢 ข่าว/กิจกรรม</a>
-    <a href="#about" onclick="closeMobileMenu()">ℹ️ เกี่ยวกับเรา</a>
+    <a href="#/home" onclick="closeMobileMenu()">🏠 หน้าแรก</a>
+    <a href="#/search" onclick="closeMobileMenu()">🔎 ค้นหา</a>
+    <a href="#/categories" onclick="closeMobileMenu()">📂 หมวดบริการ</a>
+    <a href="#/updates" onclick="closeMobileMenu()">📢 ข่าว/กิจกรรม</a>
+    <a href="#/about" onclick="closeMobileMenu()">ℹ️ เกี่ยวกับเรา</a>
     <hr style="border:none;border-top:1px solid var(--border);margin:8px 0">
-    <a href="#" onclick="openRegModal();closeMobileMenu();">➕ เพิ่มข้อมูลร้าน/บริการ</a>
+    <a href="#/submit" onclick="closeMobileMenu()">➕ เพิ่มข้อมูลร้าน/บริการ</a>
     <a href="tel:021934512">☎️ โทร 02-193-4512</a>
     <a href="https://lin.ee/UL0OXvK" target="_blank" rel="noopener">💬 LINE OA</a>
   </div>
@@ -2418,71 +2449,77 @@ window.closeAll = () => {
   document.getElementById('overlay').classList.remove('show');
   document.getElementById('drawer').classList.remove('open');
 };
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAll(); closeRegModal(); } });
-
-// ── REGISTER ──────────────────────────────────────────────────────────────────
+// ── INTERNAL ROUTES + REGISTER ───────────────────────────────────────────────
 const APPS_URL = 'https://script.google.com/macros/s/AKfycbzv5WMeM5cSxl7Ot6QCjbqkxGaxPMAfsvc6lDj2rQe4UYKIjwnZMxa-Sxq6VtN9b51Q/exec';
-
-window.openRegModal = () => {
-  document.getElementById('regOverlay').classList.add('show');
-  document.getElementById('regModal').style.display = 'flex';
+const ROUTE_TARGETS = { '/home':'hero', '/search':'searchWrap', '/categories':'categories', '/updates':'updates', '/about':'about' };
+const normalizeRoute = () => {
+  const h = window.location.hash || '#/home';
+  if (h.startsWith('#/')) return h.slice(1);
+  if (h === '#' || h === '') return '/home';
+  return '/home';
 };
-window.closeRegModal = () => {
-  document.getElementById('regOverlay').classList.remove('show');
-  document.getElementById('regModal').style.display = 'none';
-  setTimeout(() => {
-    document.getElementById('regStep1').style.display = 'block';
-    document.getElementById('regStep2').style.display = 'none';
-    ['reg-name','reg-phone','reg-contact','reg-social','reg-area','reg-desc'].forEach(id => { const e=document.getElementById(id); if(e) e.value=''; });
-    const c=document.getElementById('reg-category'); if(c) c.value='';
-    const cb=document.getElementById('reg-consent'); if(cb) cb.checked=false;
-    const err=document.getElementById('regError'); if(err) err.style.display='none';
-    const lbl=document.getElementById('regBtnLabel'); if(lbl) lbl.textContent='📨 ส่งข้อมูลให้เจ้าหน้าที่ตรวจสอบ';
-    const btn=document.getElementById('regSubmit'); if(btn) btn.disabled=false;
-  }, 300);
+const setActiveRoute = route => {
+  document.querySelectorAll('[data-route-link]').forEach(a => a.classList.toggle('active', a.dataset.routeLink === route));
 };
-
-document.getElementById('regSubmit').addEventListener('click', async () => {
-  const name     = document.getElementById('reg-name')?.value.trim();
-  const category = document.getElementById('reg-category')?.value;
-  const phone    = document.getElementById('reg-phone')?.value.trim();
-  const area     = document.getElementById('reg-area')?.value.trim();
-  const consent  = document.getElementById('reg-consent')?.checked;
-  const errEl    = document.getElementById('regError');
-  const showErr  = msg => { errEl.textContent = msg; errEl.style.display = 'block'; };
-  errEl.style.display = 'none';
-
-  if (!name)    return showErr('⚠️ กรุณากรอกชื่อ');
-  if (!category) return showErr('⚠️ กรุณาเลือกประเภท');
-  if (!phone)   return showErr('⚠️ กรุณากรอกเบอร์โทร');
-  if (!area)    return showErr('⚠️ กรุณากรอกที่อยู่');
-  if (!consent) return showErr('⚠️ กรุณายอมรับข้อตกลง');
-
-  const btn = document.getElementById('regSubmit');
-  const lbl = document.getElementById('regBtnLabel');
-  btn.disabled = true; lbl.textContent = '⏳ กำลังส่ง...';
-
-  try {
-    await fetch(APPS_URL, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ name, category, phone,
-        line: document.getElementById('reg-contact')?.value.trim(),
-        contact: document.getElementById('reg-social')?.value.trim(),
-        area, desc: document.getElementById('reg-desc')?.value.trim(),
-        consent: 'ยอมรับ', source: 'Landing Page',
-        timestamp: new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' }) })
-    });
-    document.getElementById('regSuccessName').textContent = `"${name}" — ${category}`;
-    document.getElementById('regStep1').style.display = 'none';
-    document.getElementById('regStep2').style.display = 'block';
-    sheetFetched = false; // reset cache
-  } catch(e) {
-    showErr('❌ ส่งไม่สำเร็จ กรุณาโทร 02-193-4512-3');
-    btn.disabled = false; lbl.textContent = '📨 ส่งข้อมูลให้เจ้าหน้าที่ตรวจสอบ';
+window.handleRoute = () => {
+  const route = normalizeRoute();
+  const isSubmit = route === '/submit';
+  const homeView = document.getElementById('homeView');
+  const submitView = document.getElementById('submitView');
+  if (homeView) homeView.hidden = isSubmit;
+  if (submitView) submitView.hidden = !isSubmit;
+  setActiveRoute(isSubmit ? '/home' : route);
+  if (isSubmit) {
+    document.title = 'เพิ่มข้อมูลร้าน/บริการ | บางรักน้อย Connect';
+    window.scrollTo({top:0, behavior:'smooth'});
+    return;
   }
+  document.title = 'บางรักน้อย Connect | ชุมชนใกล้ตัว เชื่อมถึงกัน';
+  const target = document.getElementById(ROUTE_TARGETS[route] || 'hero');
+  if (target) setTimeout(() => target.scrollIntoView({behavior:'smooth', block:'start'}), 80);
+};
+window.addEventListener('hashchange', handleRoute);
+setTimeout(handleRoute, 0);
+window.openRegModal = () => { window.location.hash = '#/submit'; };
+window.closeRegModal = () => { resetRegForm(); window.location.hash = '#/home'; };
+const resetRegForm = () => {
+  const step1=document.getElementById('regStep1'), step2=document.getElementById('regStep2');
+  if(step1) step1.style.display='block'; if(step2) step2.style.display='none';
+  ['reg-name','reg-phone','reg-contact','reg-social','reg-area','reg-desc'].forEach(id=>{const e=document.getElementById(id); if(e) e.value='';});
+  const c=document.getElementById('reg-category'); if(c) c.value='';
+  const cb=document.getElementById('reg-consent'); if(cb) cb.checked=false;
+  const err=document.getElementById('regError'); if(err) err.style.display='none';
+  const lbl=document.getElementById('regBtnLabel'); if(lbl) lbl.textContent='📨 ส่งข้อมูลให้เจ้าหน้าที่ตรวจทาน';
+  const btn=document.getElementById('regSubmit'); if(btn) btn.disabled=false;
+};
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAll(); if (normalizeRoute() === '/submit') closeRegModal(); } });
+const regSubmitBtn = document.getElementById('regSubmit');
+if (regSubmitBtn) regSubmitBtn.addEventListener('click', async () => {
+  const name=document.getElementById('reg-name')?.value.trim();
+  const category=document.getElementById('reg-category')?.value;
+  const phone=document.getElementById('reg-phone')?.value.trim();
+  const area=document.getElementById('reg-area')?.value.trim();
+  const consent=document.getElementById('reg-consent')?.checked;
+  const errEl=document.getElementById('regError');
+  const showErr=msg=>{errEl.textContent=msg; errEl.style.display='block';};
+  errEl.style.display='none';
+  if(!name) return showErr('⚠️ กรุณากรอกชื่อ');
+  if(!category) return showErr('⚠️ กรุณาเลือกประเภท');
+  if(!phone) return showErr('⚠️ กรุณากรอกเบอร์โทร');
+  if(!area) return showErr('⚠️ กรุณากรอกที่อยู่');
+  if(!consent) return showErr('⚠️ กรุณายอมรับข้อตกลง');
+  const btn=document.getElementById('regSubmit');
+  const lbl=document.getElementById('regBtnLabel');
+  btn.disabled=true; lbl.textContent='⏳ กำลังส่ง...';
+  const ref=`BRN-${new Date().toISOString().slice(0,10).replaceAll('-','')}-${Math.floor(1000+Math.random()*9000)}`;
+  try{
+    await fetch(APPS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({name,category,phone,line:document.getElementById('reg-contact')?.value.trim(),contact:document.getElementById('reg-social')?.value.trim(),area,desc:document.getElementById('reg-desc')?.value.trim(),consent:'ยอมรับ',source:'Internal Submit Page',ref,timestamp:new Date().toLocaleString('th-TH',{timeZone:'Asia/Bangkok'})})});
+    document.getElementById('regSuccessName').textContent=`${name} — ${category} · เลขอ้างอิง ${ref}`;
+    document.getElementById('regStep1').style.display='none';
+    document.getElementById('regStep2').style.display='block';
+    sheetFetched=false;
+  }catch(e){showErr('❌ ส่งไม่สำเร็จ กรุณาโทร 02-193-4512-3'); btn.disabled=false; lbl.textContent='📨 ส่งข้อมูลให้เจ้าหน้าที่ตรวจทาน';}
 });
-
 
 
 </script>
