@@ -2336,7 +2336,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V8.4.1</span></p>
+      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V8.4.2</span></p>
       <p>ข้อมูลในระบบเป็นข้อมูลเบื้องต้นเพื่อประกอบการตัดสินใจ · โปรดตรวจสอบรายละเอียดกับผู้ให้บริการโดยตรงก่อนใช้บริการ</p>
     </div>
   </div>
@@ -2445,13 +2445,13 @@ if (catGrid) {
 // ── UPDATES ─────────────────────────────────────────────────────────────────────
 
 const UPDATES = [
-  { cat:'ข่าวสาร', title:'ขอเชิญชวนพี่น้องชาวตำบลบางรักน้อย ร่วมเป็น “สมาชิกกองทุนแม่ของแผ่นดิน”', date:'9 ก.ค. 2569', views:'10', icon:'📢', image:'assets/v78/news-signup.png', href:'https://www.brn.go.th/news-obt?id=2' },
-  { cat:'ข่าวสาร', title:'ประชาสัมพันธ์แจ้งตัดกระแสไฟฟ้าชั่วคราว', date:'7 ก.ค. 2569', views:'16', icon:'⚡', image:'assets/v78/news-cleanup.png', href:'https://www.brn.go.th/news-obt?id=2' },
-  { cat:'ข่าวสาร', title:'ขอเชิญชวนเข้าร่วมการประชุมประชาคมท้องถิ่น', date:'22 มิ.ย. 2569', views:'23', icon:'🗣️', image:'assets/v78/news-food.png', href:'https://www.brn.go.th/news-obt?id=2' },
+  { cat:'กิจกรรม', title:'เทศบาลเมืองบางรักน้อยลงพื้นที่ร่วมกับ รพ.สต. ดำเนินโครงการร้านค้าปลอดภัย ไร้สารปนเปื้อน', date:'10 ก.ค. 2569', views:'4', icon:'🎉', image:'assets/v78/news-cleanup.png', href:'https://www.brn.go.th/news-atv?id=1' },
+  { cat:'กิจกรรม', title:'ร่วมพิธีเปิดโครงการส่งเสริมการออกกำลังกายเพื่อสุขภาพ ด้วยท่าบริหารฤาษีดัดตน', date:'9 ก.ค. 2569', views:'4', icon:'🎉', image:'assets/v78/news-food.png', href:'https://www.brn.go.th/news-atv?id=1' },
+  { cat:'ข่าวสาร', title:'ขอเชิญชวนพี่น้องชาวตำบลบางรักน้อย ร่วมเป็น “สมาชิกกองทุนแม่ของแผ่นดิน”', date:'9 ก.ค. 2569', views:'12', icon:'📢', image:'assets/v78/news-signup.png', href:'https://www.brn.go.th/news-obt?id=2' },
 ];
 
-// V8.4 Real News Proxy:
-// ดึงข่าวจริงจาก Apps Script proxy: ?action=news
+// V8.4.2 Real News Mix 2+1:
+// ดึงกิจกรรม 2 ข่าว + ข่าวประชาสัมพันธ์ 1 ข่าว ผ่าน Apps Script proxy: ?action=news
 // รองรับ JSONP เพื่อหลบปัญหา CORS ของ Google Apps Script / เว็บเทศบาล
 const NEWS_FEED_ENDPOINT = window.BRN_NEWS_ENDPOINT || 'https://script.google.com/macros/s/AKfycbzv5WMeM5cSxl7Ot6QCjbqkxGaxPMAfsvc6lDj2rQe4UYKIjwnZMxa-Sxq6VtN9b51Q/exec?action=news';
 const FALLBACK_NEWS_IMAGES = ['assets/v78/news-signup.png','assets/v78/news-cleanup.png','assets/v78/news-food.png'];
