@@ -2009,6 +2009,28 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
   .v83-card-balance .v81-qr-card small{max-width:none!important}
 }
 
+
+/* ─────────────────────────────────────────────────────────────
+   V8.4 — Real News Proxy
+───────────────────────────────────────────────────────────── */
+.news-grid[data-news-source="brn-real"]::after{
+  content:"ข่าวจริงจากเว็บเทศบาล";
+  grid-column:1/-1;
+  justify-self:start;
+  margin-top:-4px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(6,199,85,.10);
+  color:#04783a;
+  border:1px solid rgba(6,199,85,.16);
+  font-size:11px;
+  font-weight:900;
+}
+.news-grid[data-news-source="brn-real"]::after{content:"● ข่าวจริงจากเว็บเทศบาล"}
+
 </style>
 </head>
 <body>
@@ -2314,7 +2336,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V8.3</span></p>
+      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V8.4</span></p>
       <p>ข้อมูลในระบบเป็นข้อมูลเบื้องต้นเพื่อประกอบการตัดสินใจ · โปรดตรวจสอบรายละเอียดกับผู้ให้บริการโดยตรงก่อนใช้บริการ</p>
     </div>
   </div>
@@ -2423,51 +2445,80 @@ if (catGrid) {
 // ── UPDATES ─────────────────────────────────────────────────────────────────────
 
 const UPDATES = [
-  { cat:'ข่าวสาร', title:'ประชาสัมพันธ์รับข้อมูลร้านและบริการชุมชน', date:'10 พ.ค. 2567', views:'1,250', icon:'📢', image:'assets/v78/news-signup.png', href:'https://www.brn.go.th/news_obt.php?id=2' },
-  { cat:'กิจกรรม', title:'กิจกรรมชุมชนริมคลองบางรักน้อย', date:'8 พ.ค. 2567', views:'980', icon:'🎉', image:'assets/v78/news-cleanup.png', href:'https://www.facebook.com/www.brn.go.th/' },
-  { cat:'ชุมชน', title:'แนะนำของดีและร้านน่าสนใจในพื้นที่', date:'5 พ.ค. 2567', views:'1,105', icon:'🏠', image:'assets/v78/news-food.png', href:'https://www.facebook.com/www.brn.go.th/' },
+  { cat:'ข่าวสาร', title:'ขอเชิญชวนพี่น้องชาวตำบลบางรักน้อย ร่วมเป็น “สมาชิกกองทุนแม่ของแผ่นดิน”', date:'9 ก.ค. 2569', views:'10', icon:'📢', image:'assets/v78/news-signup.png', href:'https://www.brn.go.th/news-obt?id=2' },
+  { cat:'ข่าวสาร', title:'ประชาสัมพันธ์แจ้งตัดกระแสไฟฟ้าชั่วคราว', date:'7 ก.ค. 2569', views:'16', icon:'⚡', image:'assets/v78/news-cleanup.png', href:'https://www.brn.go.th/news-obt?id=2' },
+  { cat:'ข่าวสาร', title:'ขอเชิญชวนเข้าร่วมการประชุมประชาคมท้องถิ่น', date:'22 มิ.ย. 2569', views:'23', icon:'🗣️', image:'assets/v78/news-food.png', href:'https://www.brn.go.th/news-obt?id=2' },
 ];
 
-// V8.3 Real News Ready:
-// ถ้ามี endpoint ข่าวจริงในอนาคต ให้ตั้งค่า window.BRN_NEWS_ENDPOINT เป็น JSON endpoint
-// รูปแบบข้อมูลที่รองรับ: [{cat,title,date,views,image,href}] หรือ {items:[...]}
-const NEWS_FEED_ENDPOINT = window.BRN_NEWS_ENDPOINT || '';
+// V8.4 Real News Proxy:
+// ดึงข่าวจริงจาก Apps Script proxy: ?action=news
+// รองรับ JSONP เพื่อหลบปัญหา CORS ของ Google Apps Script / เว็บเทศบาล
+const NEWS_FEED_ENDPOINT = window.BRN_NEWS_ENDPOINT || `${APPS_URL}?action=news`;
+const FALLBACK_NEWS_IMAGES = ['assets/v78/news-signup.png','assets/v78/news-cleanup.png','assets/v78/news-food.png'];
 const updatesGrid = document.getElementById('updatesGrid');
 
-function normalizeUpdateItem(item = {}) {
+function normalizeUpdateItem(item = {}, index = 0) {
   return {
     cat: item.cat || item.category || 'ข่าวสาร',
-    title: item.title || item.name || 'ข่าวจากชุมชน',
+    title: item.title || item.name || 'ข่าวจากเทศบาลเมืองบางรักน้อย',
     date: item.date || item.published_at || item.publishedAt || '',
     views: item.views || item.view_count || item.viewCount || '',
     icon: item.icon || '📢',
-    image: item.image || item.thumbnail || item.cover || '',
-    href: item.href || item.url || 'https://www.brn.go.th/news_obt.php?id=2'
+    image: item.image || item.thumbnail || item.cover || FALLBACK_NEWS_IMAGES[index % FALLBACK_NEWS_IMAGES.length],
+    href: item.href || item.url || 'https://www.brn.go.th/news-obt?id=2'
   };
+}
+
+function loadJsonp(url, timeout = 7000) {
+  return new Promise((resolve, reject) => {
+    const cb = `__BRN_NEWS_${Date.now()}_${Math.floor(Math.random()*100000)}`;
+    const sep = url.includes('?') ? '&' : '?';
+    const script = document.createElement('script');
+    const timer = setTimeout(() => cleanup(() => reject(new Error('news timeout'))), timeout);
+
+    function cleanup(done) {
+      clearTimeout(timer);
+      try { delete window[cb]; } catch(e) { window[cb] = undefined; }
+      script.remove();
+      done && done();
+    }
+
+    window[cb] = data => cleanup(() => resolve(data));
+    script.onerror = () => cleanup(() => reject(new Error('news jsonp failed')));
+    script.src = `${url}${sep}callback=${encodeURIComponent(cb)}&t=${Date.now()}`;
+    document.head.appendChild(script);
+  });
 }
 
 async function getRealUpdates() {
   if (!NEWS_FEED_ENDPOINT) return null;
   try {
-    const res = await fetch(NEWS_FEED_ENDPOINT, { cache:'no-cache' });
-    if (!res.ok) return null;
-    const json = await res.json();
+    const json = await loadJsonp(NEWS_FEED_ENDPOINT);
     const items = Array.isArray(json) ? json : (json.items || json.news || []);
     return items.slice(0, 3).map(normalizeUpdateItem);
-  } catch (err) {
-    return null;
+  } catch (jsonpErr) {
+    try {
+      const res = await fetch(NEWS_FEED_ENDPOINT, { cache:'no-cache' });
+      if (!res.ok) return null;
+      const json = await res.json();
+      const items = Array.isArray(json) ? json : (json.items || json.news || []);
+      return items.slice(0, 3).map(normalizeUpdateItem);
+    } catch (fetchErr) {
+      return null;
+    }
   }
 }
 
-function renderUpdates(items) {
+function renderUpdates(items, source = 'fallback') {
   if (!updatesGrid) return;
+  updatesGrid.dataset.newsSource = source;
   updatesGrid.innerHTML = '';
-  items.slice(0, 3).forEach(n => {
+  items.slice(0, 3).forEach((n, i) => {
     const div = document.createElement('div');
     div.className = 'news-card v83-news-ready-card';
     div.onclick = () => window.open(n.href || 'https://www.brn.go.th/','_blank','noopener');
     div.innerHTML = `
-      ${n.image ? `<img class="news-card-img" src="${n.image}" alt="${n.title}" loading="lazy">` : `<div class="news-card-img fallback">${n.icon}</div>`}
+      ${n.image ? `<img class="news-card-img" src="${n.image}" alt="${n.title}" loading="lazy" onerror="this.src='${FALLBACK_NEWS_IMAGES[i % FALLBACK_NEWS_IMAGES.length]}'">` : `<div class="news-card-img fallback">${n.icon}</div>`}
       <div class="news-card-body">
         <div class="news-card-cat">${n.cat}</div>
         <div class="news-card-title">${n.title}</div>
@@ -2478,8 +2529,9 @@ function renderUpdates(items) {
 }
 
 (async function initUpdates(){
+  renderUpdates(UPDATES, 'fallback');
   const realItems = await getRealUpdates();
-  renderUpdates(realItems?.length ? realItems : UPDATES);
+  if (realItems?.length) renderUpdates(realItems, 'brn-real');
 })();
 
 // ── SHEET REALTIME ────────────────────────────────────────────────────────────

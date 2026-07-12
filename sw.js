@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v8-3-card-balance';
+const CACHE_NAME = 'bangraknoi-connect-v8-4-real-news-proxy';
 const PRECACHE_URLS = [
   './',
   './index.html',

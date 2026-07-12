@@ -19,6 +19,11 @@ const SPREADSHEET_ID = '1-t3GIdtxAzbfPeQlIDfQb-9poVqjiD8m8XRyf73NQDM';
 const SHEET_NAME = 'สมัครเข้าร่วม';
 const NOTIFY_EMAIL = 'Bangraknoi2022@gmail.com';
 
+// V8.4: แหล่งข่าวจริงจากเว็บไซต์เทศบาลเมืองบางรักน้อย
+const BRN_NEWS_URL = 'https://www.brn.go.th/news-obt?id=2';
+const BRN_NEWS_CACHE_KEY = 'brn_news_v84';
+const BRN_NEWS_CACHE_SECONDS = 15 * 60;
+
 function doPost(e) {
   try {
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -65,7 +70,10 @@ function doPost(e) {
   }
 }
 
-function doGet() {
+function doGet(e) {
+  const action = e && e.parameter && e.parameter.action ? String(e.parameter.action) : '';
+  if (action === 'news') return handleNewsRequest_(e);
+
   return ContentService
     .createTextOutput('Bangraknoi Connect Google Sheet Receiver + Email Notify is running')
     .setMimeType(ContentService.MimeType.TEXT);
@@ -178,4 +186,221 @@ function escapeHtml_(value) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+
+// ── V8.4 REAL NEWS PROXY ─────────────────────────────────────────────────────
+function handleNewsRequest_(e) {
+  const payload = {
+    ok: true,
+    source: BRN_NEWS_URL,
+    fetchedAt: Utilities.formatDate(new Date(), 'Asia/Bangkok', "yyyy-MM-dd'T'HH:mm:ssXXX"),
+    items: getBrnNewsItems_()
+  };
+
+  const json = JSON.stringify(payload);
+  const cb = e && e.parameter && e.parameter.callback ? String(e.parameter.callback) : '';
+
+  // JSONP สำหรับเรียกจาก GitHub Pages ได้ โดยไม่ติด CORS
+  if (/^[A-Za-z_$][0-9A-Za-z_$\.]*$/.test(cb)) {
+    return ContentService
+      .createTextOutput(cb + '(' + json + ');')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+
+  return ContentService
+    .createTextOutput(json)
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function getBrnNewsItems_() {
+  const cache = CacheService.getScriptCache();
+  const cached = cache.get(BRN_NEWS_CACHE_KEY);
+  if (cached) {
+    try { return JSON.parse(cached); } catch (err) {}
+  }
+
+  const items = fetchBrnNewsItems_();
+  if (items && items.length) {
+    cache.put(BRN_NEWS_CACHE_KEY, JSON.stringify(items), BRN_NEWS_CACHE_SECONDS);
+    return items;
+  }
+
+  return getBrnNewsFallback_();
+}
+
+function fetchBrnNewsItems_() {
+  const res = UrlFetchApp.fetch(BRN_NEWS_URL, {
+    muteHttpExceptions: true,
+    followRedirects: true,
+    headers: {
+      'User-Agent': 'Mozilla/5.0 BangraknoiConnect/1.0',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    }
+  });
+
+  const code = res.getResponseCode();
+  if (code < 200 || code >= 400) return [];
+
+  const html = res.getContentText('UTF-8');
+  const listHtml = sliceNewsList_(html);
+  const items = parseBrnNewsHtml_(listHtml || html);
+  return items.slice(0, 3);
+}
+
+function sliceNewsList_(html) {
+  let start = html.indexOf('หัวข้อข่าว');
+  if (start < 0) start = html.indexOf('หมวดข่าว');
+  if (start < 0) start = html.indexOf('ข่าวประชาสัมพันธ์');
+  if (start < 0) start = 0;
+
+  let end = html.indexOf('หน้าสุดท้าย', start);
+  if (end < 0) end = html.indexOf('Previous', start);
+  if (end < 0) end = html.indexOf('เทศบาลเมืองบางรักน้อย', start + 300);
+  if (end < 0) end = Math.min(html.length, start + 80000);
+  return html.substring(start, end);
+}
+
+function parseBrnNewsHtml_(html) {
+  const items = [];
+  const seen = {};
+  const anchorRe = /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  let m;
+
+  while ((m = anchorRe.exec(html)) !== null && items.length < 10) {
+    let href = decodeHtml_(m[1] || '').trim();
+    let title = cleanText_(m[2]);
+    if (!isValidNewsTitle_(title, href)) continue;
+
+    const tailHtml = html.substring(anchorRe.lastIndex, Math.min(html.length, anchorRe.lastIndex + 900));
+    const tailText = cleanText_(tailHtml);
+    const info = extractDateViews_(tailText);
+    const image = extractNearestImage_(html.substring(Math.max(0, m.index - 1500), m.index));
+    const key = title + '|' + info.date;
+    if (seen[key]) continue;
+    seen[key] = true;
+
+    items.push({
+      cat: 'ข่าวสาร',
+      title: title,
+      date: info.date,
+      views: info.views,
+      icon: '📢',
+      image: image,
+      href: absoluteBrnUrl_(href)
+    });
+  }
+
+  // Fallback จาก text หากโครง HTML เปลี่ยนจนจับลิงก์ไม่ได้
+  if (!items.length) {
+    return parseBrnNewsTextFallback_(html);
+  }
+  return items.slice(0, 3);
+}
+
+function parseBrnNewsTextFallback_(html) {
+  const text = cleanText_(html);
+  const out = [];
+  const re = /ข่าวประชาสัมพันธ์\s+(.+?)\s+(\d{1,2}\s+[ก-๙\.]+\s+\d{4})\s+(\d{1,5})/g;
+  let m;
+  while ((m = re.exec(text)) !== null && out.length < 3) {
+    const title = cleanText_(m[1]);
+    if (!isValidNewsTitle_(title, '')) continue;
+    out.push({
+      cat: 'ข่าวสาร',
+      title: title,
+      date: cleanText_(m[2]),
+      views: cleanText_(m[3]),
+      icon: '📢',
+      image: '',
+      href: BRN_NEWS_URL
+    });
+  }
+  return out.length ? out : getBrnNewsFallback_();
+}
+
+function extractDateViews_(text) {
+  const m = text.match(/(\d{1,2}\s+[ก-๙\.]+\s+\d{4})\s+(\d{1,5})/);
+  return {
+    date: m ? cleanText_(m[1]) : '',
+    views: m ? cleanText_(m[2]) : ''
+  };
+}
+
+function extractNearestImage_(beforeHtml) {
+  let img = '';
+  const imgRe = /<img\b[^>]*src=["']([^"']+)["'][^>]*>/gi;
+  let m;
+  while ((m = imgRe.exec(beforeHtml)) !== null) img = m[1];
+  img = decodeHtml_(img || '').trim();
+  if (!img || /blank|loading|spacer|icon/i.test(img)) return '';
+  return absoluteBrnUrl_(img);
+}
+
+function isValidNewsTitle_(title, href) {
+  if (!title || title.length < 8) return false;
+  if (/^(ยกเลิกการค้นหา|Previous|Next|หน้าสุดท้าย|\d+)$/.test(title)) return false;
+  if (/^(ข่าวประชาสัมพันธ์|ข่าวจัดซื้อจัดจ้าง|กิจกรรม|ประกาศ)$/.test(title)) return false;
+  if (href && /javascript:|^#/.test(href)) return false;
+  return true;
+}
+
+function absoluteBrnUrl_(url) {
+  if (!url) return '';
+  url = decodeHtml_(url).trim();
+  if (/^https?:\/\//i.test(url)) return url;
+  if (url.indexOf('//') === 0) return 'https:' + url;
+  if (url.charAt(0) === '/') return 'https://www.brn.go.th' + url;
+  return 'https://www.brn.go.th/' + url.replace(/^\.\//, '');
+}
+
+function cleanText_(html) {
+  return decodeHtml_(String(html || '')
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim());
+}
+
+function decodeHtml_(s) {
+  return String(s || '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+function getBrnNewsFallback_() {
+  return [
+    {
+      cat: 'ข่าวสาร',
+      title: 'ขอเชิญชวนพี่น้องชาวตำบลบางรักน้อย ร่วมเป็น “สมาชิกกองทุนแม่ของแผ่นดิน”',
+      date: '9 ก.ค. 2569',
+      views: '10',
+      icon: '📢',
+      image: '',
+      href: BRN_NEWS_URL
+    },
+    {
+      cat: 'ข่าวสาร',
+      title: 'ประชาสัมพันธ์แจ้งตัดกระแสไฟฟ้าชั่วคราว',
+      date: '7 ก.ค. 2569',
+      views: '16',
+      icon: '⚡',
+      image: '',
+      href: BRN_NEWS_URL
+    },
+    {
+      cat: 'ข่าวสาร',
+      title: 'ขอเชิญชวนเข้าร่วมการประชุมประชาคมท้องถิ่น',
+      date: '22 มิ.ย. 2569',
+      views: '23',
+      icon: '🗣️',
+      image: '',
+      href: BRN_NEWS_URL
+    }
+  ];
 }
