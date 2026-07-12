@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bangraknoi-connect-v8-4-real-news-proxy';
+const CACHE_NAME = 'bangraknoi-connect-v8-4-1-news-runtime-fix';
 const PRECACHE_URLS = [
   './',
   './index.html',

@@ -2336,7 +2336,7 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V8.4</span></p>
+      <p>© 2569 บางรักน้อย Connect · ชุมชนใกล้ตัว เชื่อมถึงกัน <span class="version-mini">V8.4.1</span></p>
       <p>ข้อมูลในระบบเป็นข้อมูลเบื้องต้นเพื่อประกอบการตัดสินใจ · โปรดตรวจสอบรายละเอียดกับผู้ให้บริการโดยตรงก่อนใช้บริการ</p>
     </div>
   </div>
@@ -2453,7 +2453,7 @@ const UPDATES = [
 // V8.4 Real News Proxy:
 // ดึงข่าวจริงจาก Apps Script proxy: ?action=news
 // รองรับ JSONP เพื่อหลบปัญหา CORS ของ Google Apps Script / เว็บเทศบาล
-const NEWS_FEED_ENDPOINT = window.BRN_NEWS_ENDPOINT || `${APPS_URL}?action=news`;
+const NEWS_FEED_ENDPOINT = window.BRN_NEWS_ENDPOINT || 'https://script.google.com/macros/s/AKfycbzv5WMeM5cSxl7Ot6QCjbqkxGaxPMAfsvc6lDj2rQe4UYKIjwnZMxa-Sxq6VtN9b51Q/exec?action=news';
 const FALLBACK_NEWS_IMAGES = ['assets/v78/news-signup.png','assets/v78/news-cleanup.png','assets/v78/news-food.png'];
 const updatesGrid = document.getElementById('updatesGrid');
 
@@ -2532,6 +2532,7 @@ function renderUpdates(items, source = 'fallback') {
   renderUpdates(UPDATES, 'fallback');
   const realItems = await getRealUpdates();
   if (realItems?.length) renderUpdates(realItems, 'brn-real');
+  else if (!updatesGrid.children.length) renderUpdates(UPDATES, 'fallback-safe');
 })();
 
 // ── SHEET REALTIME ────────────────────────────────────────────────────────────
