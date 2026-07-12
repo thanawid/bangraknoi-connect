@@ -246,6 +246,42 @@
       transition: border-color 0.2s;
       background: var(--surface-2);
     }
+
+    /* ═══ IN-SITE SEARCH RESULTS ═══ */
+    .sr-item {
+      display:flex; align-items:center; gap:12px;
+      padding:12px 14px; border:1.5px solid #ede9fe; border-radius:14px;
+      background:#faf9ff; text-decoration:none; color:inherit;
+      transition:all .18s; cursor:pointer;
+    }
+    .sr-item:hover { background:#f1ecfe; border-color:#7c3aed; transform:translateX(3px); }
+    .sr-icon {
+      width:42px; height:42px; border-radius:12px; flex-shrink:0;
+      background:linear-gradient(135deg,#5b21b6,#7c3aed); color:#fff;
+      font-size:19px; display:grid; place-items:center;
+    }
+    .sr-body { flex:1; min-width:0; }
+    .sr-body b { display:block; font-size:14px; color:#1e1b4b; }
+    .sr-body small { display:block; font-size:11.5px; color:#6b7280; margin-top:2px; line-height:1.5; }
+    .sr-cat-chip { display:inline-block; font-size:10px; font-weight:700; color:#7c3aed; background:#ede9fe; border-radius:6px; padding:1px 7px; margin-left:6px; vertical-align:middle; }
+    .sr-sheet-chip { display:inline-block; font-size:10px; font-weight:700; color:#166534; background:#dcfce7; border-radius:6px; padding:1px 7px; margin-left:6px; vertical-align:middle; }
+    .sr-action { font-size:12px; font-weight:800; color:#7c3aed; white-space:nowrap; flex-shrink:0; }
+    .sr-empty { text-align:center; padding:18px 12px; color:#9ca3af; font-size:13px; line-height:1.7; }
+    .sr-maps-btn {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      width:100%; padding:12px; border-radius:12px;
+      border:1.5px dashed #bfdbfe; background:#eff6ff; color:#1e40af;
+      font-size:13px; font-weight:700; text-decoration:none;
+      transition:background .18s;
+    }
+    .sr-maps-btn:hover { background:#dbeafe; }
+    @media (max-width:640px) {
+      .sr-item { padding:11px 12px; gap:10px; }
+      .sr-icon { width:38px; height:38px; font-size:17px; }
+      .sr-body b { font-size:13px; }
+      .sr-action { font-size:11px; }
+      #srHeader { flex-direction:column; align-items:flex-start; }
+    }
     #searchInput:focus { border-color: var(--purple); background: white; }
     #searchInput::placeholder { color: var(--text-light); }
     #searchCat {
@@ -2033,8 +2069,15 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
 
 </style>
 
-  <script data-goatcounter="https://bangraknoi-connect.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+  <!-- ═══ ANALYTICS: GoatCounter (ฟรี, ไม่เก็บ cookie, ไม่ต้องมี consent banner) ═══
+       วิธีเปิดใช้:
+       1. สมัครฟรีที่ https://www.goatcounter.com/signup (ใช้เวลา 1 นาที)
+       2. ตั้งชื่อ code เช่น "bangraknoi" จะได้ URL: bangraknoi.goatcounter.com
+       3. แก้ data-goatcounter ด้านล่างให้ตรงชื่อที่ตั้ง แล้วลบ comment ครอบออก
+       4. ดูสถิติได้ที่ bangraknoi.goatcounter.com — คนเข้ากี่คน มาจากไหน หน้าไหนฮิต
+
+  <script data-goatcounter="https://bangraknoi.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
   ═══════════════════════════════════════════════════════════════════ -->
 </head>
 <body>
@@ -2130,6 +2173,16 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
       <span class="search-tag" onclick="quickSearch('วัด')">วัด</span>
       <span class="search-tag" onclick="quickSearch('ฝึกอาชีพ')">ฝึกอาชีพ</span>
       <span class="search-tag" onclick="quickSearch('สินค้าชุมชน')">สินค้าชุมชน</span>
+    </div>
+
+    <!-- ═══ ผลการค้นหาในเว็บ ═══ -->
+    <div id="searchResults" style="display:none;margin-top:18px;">
+      <div id="srHeader" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+        <div style="font-size:14px;font-weight:800;color:var(--text-dark,#1e1b4b);" id="srTitle"></div>
+        <button id="srClear" onclick="clearSearch()" style="border:1px solid #e5e7eb;background:#fff;border-radius:999px;padding:4px 14px;font-size:12px;color:#6b7280;cursor:pointer;font-family:inherit;">✕ ล้างผลค้นหา</button>
+      </div>
+      <div id="srList" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <div id="srMaps" style="margin-top:12px;"></div>
     </div>
   </div>
 </div>
@@ -2406,13 +2459,103 @@ window.showToast = (msg) => {
 };
 
 // ── SEARCH ────────────────────────────────────────────────────────────────────
-window.doSearch = () => {
+// ═══ IN-SITE SEARCH: ค้นข้อมูลในเว็บก่อน (data.js + Sheet) → Maps เป็นตัวเลือกเสริม ═══
+function collectSearchIndex() {
+  // รวมทุกรายการจาก ZONES (data.js)
+  const idx = [];
+  ZONES.forEach(z => {
+    const pushItem = (item) => idx.push({
+      icon: item.icon || '✦', title: item.title, detail: item.detail || '',
+      href: item.href || '#', action: item.action || 'ดู',
+      zoneId: z.id, zoneLabel: z.short || z.label, fromSheet: false,
+      _hay: `${item.title} ${item.detail||''} ${item.tag||''} ${z.label}`.toLowerCase()
+    });
+    if (z.groups) z.groups.forEach(g => g.items.forEach(pushItem));
+    else if (z.items) z.items.forEach(pushItem);
+  });
+  return idx;
+}
+let SEARCH_INDEX = null;
+
+window.doSearch = async () => {
   const q = document.getElementById('searchInput').value.trim();
-  const cat = document.getElementById('searchCat').value;
-  if (!q && !cat) { showToast('กรุณากรอกคำค้นหาครับ'); return; }
-  const query = q || cat;
-  const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query + ' บางรักน้อย นนทบุรี')}`;
-  window.open(url, '_blank', 'noopener');
+  const catSel = document.getElementById('searchCat').value;
+  if (!q && !catSel) { showToast('กรุณากรอกคำค้นหาครับ'); return; }
+
+  // ถ้าเลือกหมวดอย่างเดียว (ไม่พิมพ์คำ) → เปิด drawer หมวดนั้นเลย
+  if (!q && catSel) { openDrawer(catSel); return; }
+
+  if (!SEARCH_INDEX) SEARCH_INDEX = collectSearchIndex();
+  const qLow = q.toLowerCase();
+
+  // 1) ค้นจาก data.js
+  let results = SEARCH_INDEX.filter(it =>
+    it._hay.includes(qLow) && (!catSel || it.zoneId === catSel)
+  );
+
+  // 2) ค้นจาก Sheet (รายการที่อนุมัติแล้ว)
+  try {
+    const cats = catSel ? [catSel] : ['craft','food','travel','learn','market','chat'];
+    for (const c of cats) {
+      const rows = await getSheetItems(c);
+      rows.forEach(r => {
+        const hay = `${r.name} ${r.detail||''} ${r.area||''}`.toLowerCase();
+        if (hay.includes(qLow)) results.unshift({
+          icon:'✦', title:r.name, detail:[r.detail,r.area].filter(Boolean).join(' · '),
+          href: r.phone ? `tel:${r.phone.replace(/\D/g,'')}` : '#',
+          action: r.phone ? 'โทรเลย' : 'ดู',
+          zoneId:c, zoneLabel:'', fromSheet:true
+        });
+      });
+    }
+  } catch(e) {}
+
+  renderSearchResults(q, results);
+};
+
+function renderSearchResults(q, results) {
+  const box = document.getElementById('searchResults');
+  const list = document.getElementById('srList');
+  const title = document.getElementById('srTitle');
+  const mapsBox = document.getElementById('srMaps');
+  box.style.display = 'block';
+  list.innerHTML = '';
+
+  title.textContent = results.length
+    ? `พบ ${results.length} รายการสำหรับ "${q}"`
+    : `ไม่พบ "${q}" ในระบบ`;
+
+  if (!results.length) {
+    list.innerHTML = `<div class="sr-empty">ยังไม่มีข้อมูลนี้ในระบบของเรา<br>ลองค้นใน Google Maps ด้านล่าง หรือชวนร้าน/ช่างมา <a href="#/submit" style="color:#7c3aed;font-weight:700;">ลงทะเบียน</a> ครับ</div>`;
+  } else {
+    results.slice(0, 12).forEach(it => {
+      const a = document.createElement('a');
+      a.className = 'sr-item';
+      a.href = it.href;
+      if (it.href.startsWith('http')) { a.target='_blank'; a.rel='noopener'; }
+      else if (it.href === '#') { a.onclick = (e)=>{ e.preventDefault(); openDrawer(it.zoneId); }; }
+      const chip = it.fromSheet
+        ? '<span class="sr-sheet-chip">✅ ในระบบ</span>'
+        : (it.zoneLabel ? `<span class="sr-cat-chip">${it.zoneLabel}</span>` : '');
+      a.innerHTML = `
+        <div class="sr-icon">${it.icon}</div>
+        <div class="sr-body"><b>${it.title}${chip}</b><small>${it.detail}</small></div>
+        <span class="sr-action">${it.action} ›</span>`;
+      list.appendChild(a);
+    });
+  }
+
+  // Maps เป็นตัวเลือกเสริมเสมอ
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q + ' บางรักน้อย นนทบุรี')}`;
+  mapsBox.innerHTML = `<a class="sr-maps-btn" href="${mapsUrl}" target="_blank" rel="noopener">🗺 ค้นหา "${q}" เพิ่มเติมใน Google Maps ›</a>`;
+
+  // เลื่อนมาที่ผลลัพธ์ (ดีต่อมือถือ)
+  box.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+window.clearSearch = () => {
+  document.getElementById('searchResults').style.display = 'none';
+  document.getElementById('searchInput').value = '';
 };
 window.quickSearch = (q) => {
   document.getElementById('searchInput').value = q;
