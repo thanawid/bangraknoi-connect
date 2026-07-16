@@ -2067,6 +2067,31 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
 }
 .news-grid[data-news-source="brn-real"]::after{content:"● ข่าวจริงจากเว็บเทศบาล"}
 
+
+/* ─────────────────────────────────────────────────────────────
+   V8.5 HERO CAROUSEL — mascot-first landing section
+   inspired by the discussed premium carousel direction
+───────────────────────────────────────────────────────────── */
+#hero.v85-hero{position:relative;display:block;min-height:calc(100vh - 68px);padding:0;background:transparent;overflow:hidden}
+.v85-viewport{--hero-bg:#5b21b6;--hero-panel:#7c3aed;position:relative;min-height:calc(100vh - 68px);overflow:hidden;background:var(--hero-bg);transition:background-color 650ms cubic-bezier(.4,0,.2,1);isolation:isolate}
+.v85-bg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;opacity:.26;mix-blend-mode:soft-light;z-index:0}
+.v85-bg-vignette{position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 76% 50%, rgba(255,255,255,.14) 0%, rgba(255,255,255,.03) 18%, transparent 42%),linear-gradient(90deg, rgba(12,8,35,.72) 0%, rgba(12,8,35,.58) 34%, rgba(12,8,35,.22) 62%, rgba(12,8,35,.08) 100%),linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,.08) 100%)}
+.v85-grain{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:.35;background-size:220px 220px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E")}
+.v85-ghost{position:absolute;inset-inline:0;top:12%;z-index:2;pointer-events:none;user-select:none;display:flex;justify-content:center;align-items:center;text-align:center;font-size:clamp(86px,17vw,260px);line-height:.88;letter-spacing:-.04em;font-weight:900;color:rgba(255,255,255,.18);text-transform:uppercase;white-space:normal;max-width:12ch;margin:0 auto}
+.v85-brand{position:absolute;top:26px;left:28px;z-index:8;color:rgba(255,255,255,.92);font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.v85-content{position:relative;z-index:7;display:grid;grid-template-columns:minmax(320px,420px) 1fr;align-items:end;max-width:1240px;min-height:calc(100vh - 68px);margin:0 auto;padding:76px 28px 92px;gap:24px}
+.v85-copy{max-width:390px;align-self:end;padding-bottom:20px}.v85-kicker{display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;padding:7px 14px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);color:#fff;font-size:12px;font-weight:700}.v85-kicker span{width:8px;height:8px;border-radius:50%;background:#fbbf24;box-shadow:0 0 0 5px rgba(251,191,36,.15)}
+.v85-title{font-size:clamp(44px,7vw,82px);line-height:.95;font-weight:900;letter-spacing:-.05em;color:#fff;margin-bottom:18px}.v85-title span{color:#fde68a;display:block}.v85-subtitle{font-size:15.5px;line-height:1.75;color:rgba(255,255,255,.88);margin-bottom:22px;max-width:34ch}.v85-action-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:18px}
+.v85-main-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border-radius:999px;font-size:14px;font-weight:800;transition:transform .2s,background-color .2s,color .2s,border-color .2s}.v85-main-btn.primary{background:#fff;color:#3b1d8a;box-shadow:0 12px 32px rgba(10,8,31,.18)}.v85-main-btn.primary:hover{transform:translateY(-2px)}.v85-main-btn.secondary{border:1.5px solid rgba(255,255,255,.3);color:#fff;background:rgba(255,255,255,.08);backdrop-filter:blur(12px)}.v85-main-btn.secondary:hover{background:rgba(255,255,255,.16)}
+.v85-feature-pills{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:18px}.v85-feature-pill{padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(10px);color:#fff}.v85-feature-pill b{display:block;font-size:14px;line-height:1.25;font-weight:900;margin-bottom:2px}.v85-feature-pill small{display:block;font-size:12px;line-height:1.55;color:rgba(255,255,255,.78)}
+.v85-bottom-tools{display:flex;align-items:end;justify-content:space-between;gap:14px}.v85-bottom-copy{max-width:228px}.v85-mini-title{font-size:12px;font-weight:900;letter-spacing:.12em;color:#fde68a;text-transform:uppercase;margin-bottom:4px}.v85-mini-text{font-size:12px;line-height:1.55;color:rgba(255,255,255,.76)}
+.v85-nav-buttons{display:flex;gap:10px}.v85-nav-btn{width:52px;height:52px;border-radius:999px;border:2px solid rgba(255,255,255,.72);background:transparent;color:#fff;font-size:22px;font-weight:900;transition:transform .15s,background-color .15s}.v85-nav-btn:hover{transform:scale(1.08);background:rgba(255,255,255,.12)}
+.v85-stage{position:relative;min-height:100%}.v85-carousel{position:absolute;inset:0;z-index:5}.v85-carousel-item{position:absolute;aspect-ratio:.62 / 1;transition:transform 650ms cubic-bezier(.4,0,.2,1),filter 650ms cubic-bezier(.4,0,.2,1),opacity 650ms cubic-bezier(.4,0,.2,1),left 650ms cubic-bezier(.4,0,.2,1),height 650ms cubic-bezier(.4,0,.2,1),bottom 650ms cubic-bezier(.4,0,.2,1);will-change:transform,filter,opacity;pointer-events:none}.v85-carousel-item img{width:100%;height:100%;object-fit:contain;object-position:bottom center;user-select:none;-webkit-user-drag:none;filter:drop-shadow(0 24px 44px rgba(8,6,26,.38))}
+.v85-discover{position:absolute;right:28px;bottom:34px;z-index:8;display:flex;align-items:center;gap:10px;color:#fff;opacity:.94;font-size:clamp(20px,3.2vw,44px);line-height:1;font-weight:900;letter-spacing:-.03em;text-transform:uppercase;transition:opacity .2s,transform .2s}.v85-discover:hover{opacity:1;transform:translateX(3px)}.v85-discover span{font-size:.75em}
+.v85-dots{position:absolute;left:50%;transform:translateX(-50%);bottom:34px;z-index:8;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:min(92vw,860px)}.v85-dot{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:rgba(255,255,255,.86);font-size:12px;font-weight:800;display:inline-flex;align-items:center;gap:8px;backdrop-filter:blur(10px);transition:all .2s ease}.v85-dot:hover{background:rgba(255,255,255,.16)}.v85-dot.active{background:#fff;color:#2e1065;border-color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.14)}.v85-dot i{font-style:normal;font-size:15px}
+@media (max-width:959px){#hero.v85-hero,.v85-viewport{min-height:760px}.v85-content{grid-template-columns:1fr;align-items:start;padding:68px 22px 126px;gap:0}.v85-copy{max-width:100%;text-align:left;padding-bottom:0}.v85-stage{min-height:380px}.v85-discover{right:22px;bottom:92px;font-size:22px}.v85-dots{bottom:26px;max-width:90vw}}
+@media (max-width:639px){#hero.v85-hero,.v85-viewport{min-height:820px}.v85-brand{left:20px;top:20px}.v85-content{padding:60px 16px 132px;min-height:820px}.v85-ghost{top:15%;font-size:clamp(72px,24vw,132px);max-width:9ch}.v85-title{font-size:clamp(34px,12vw,54px)}.v85-subtitle{font-size:14px}.v85-action-row{gap:10px}.v85-main-btn{min-height:44px;font-size:13px;padding:0 14px}.v85-feature-pills{gap:8px}.v85-bottom-tools{align-items:flex-start;flex-direction:column}.v85-stage{min-height:330px}.v85-nav-buttons{gap:8px}.v85-nav-btn{width:46px;height:46px;font-size:20px}.v85-discover{left:16px;right:auto;bottom:84px}.v85-dots{justify-content:flex-start;left:16px;transform:none;bottom:24px}.v85-dot{min-height:36px;padding:0 12px;font-size:11px}}
+
 </style>
 
   <!-- ═══ ANALYTICS: GoatCounter (ฟรี, ไม่เก็บ cookie, ไม่ต้องมี consent banner) ═══
@@ -2108,28 +2133,46 @@ footer{background:radial-gradient(circle at 20% 12%,rgba(255,122,0,.18),transpar
 
 <main id="homeView" class="v82-view v82-home-view">
 <!-- ── HERO V30 ── -->
-<section id="hero" class="v30-hero">
-  <div class="v30-shell">
-    <div class="v30-hero-card">
-      <img class="v30-hero-bg" src="assets/img/hero-bg-wide.webp" alt="" aria-hidden="true">
-      <div class="v30-hero-grid">
-        <div class="v30-copy">
-          <div class="v30-pill"><span class="v30-pill-dot"></span> ชุมชนใกล้ตัว เชื่อมถึงกัน</div>
-          <h1 class="v30-title">บางรักน้อย<br><span class="accent">Connect</span>.</h1>
-          <p class="v30-lead">ศูนย์รวมข้อมูลชุมชน ข่าวสาร กิจกรรม และบริการใกล้ตัว ค้นหาร้านอาหาร ช่างท้องถิ่น ท่องเที่ยว ฝึกอาชีพ และของดีในพื้นที่ ได้ในที่เดียว</p>
-          <div class="v30-actions">
-            <a class="v30-btn primary" href="#/search">🔍 ค้นหาบริการ</a>
-            <a class="v30-btn secondary" href="#/categories">▦ ดูหมวดบริการ</a>
+<section id="hero" class="v85-hero">
+  <div class="v85-viewport" id="v85HeroViewport">
+    <img class="v85-bg-photo" src="assets/img/hero-bg-wide.webp" alt="" aria-hidden="true">
+    <div class="v85-bg-vignette"></div>
+    <div class="v85-grain" aria-hidden="true"></div>
+    <div class="v85-ghost" aria-hidden="true">BANGRAKNOI CONNECT</div>
+    <div class="v85-brand">BANGRAKNOI CONNECT</div>
+
+    <div class="v85-content">
+      <div class="v85-copy">
+        <div class="v85-kicker"><span></span> ชุมชนใกล้ตัว เชื่อมถึงกัน</div>
+        <h1 class="v85-title">บางรักน้อย <span>Connect</span></h1>
+        <p class="v85-subtitle" id="v85HeroDescription">ศูนย์รวมข้อมูลชุมชน ข่าวสาร กิจกรรม และบริการใกล้ตัว ค้นหาร้าน ร้านอาหาร แหล่งท่องเที่ยว ฝึกอาชีพ และของดีในพื้นที่ ได้ในที่เดียว</p>
+        <div class="v85-action-row">
+          <a class="v85-main-btn primary" href="#/search">🔍 ค้นหาบริการ</a>
+          <a class="v85-main-btn secondary" href="#/categories">▦ ดูหมวดบริการ</a>
+        </div>
+        <div class="v85-feature-pills">
+          <div class="v85-feature-pill"><b id="v85HeroLabel">หาช่าง</b><small id="v85HeroShort">ช่างใกล้บ้าน งานดี ใช้ได้</small></div>
+          <div class="v85-feature-pill"><b>บางรักน้อย Connect</b><small>ชุมชนใกล้ตัว เชื่อมถึงกัน</small></div>
+        </div>
+        <div class="v85-bottom-tools">
+          <div class="v85-bottom-copy">
+            <p class="v85-mini-title">หมุนดูหมวดเด่น</p>
+            <p class="v85-mini-text">เลื่อนซ้ายขวาเพื่อดูมาสคอตและหมวดบริการเด่นของชุมชนบางรักน้อย</p>
           </div>
-          <div class="v30-feature-row">
-            <div class="v30-feature"><span class="v30-feature-icon">🔍</span><div><b>ค้นหาง่าย</b><small>เจอสิ่งที่ต้องการไวขึ้น</small></div></div>
-            <div class="v30-feature"><span class="v30-feature-icon">❤</span><div><b>มีชีวิต</b><small>ข่าว กิจกรรม และชุมชน</small></div></div>
-            <div class="v30-feature"><span class="v30-feature-icon">👥</span><div><b>เชื่อมชุมชน</b><small>รวมเรื่องคนในพื้นที่</small></div></div>
+          <div class="v85-nav-buttons">
+            <button class="v85-nav-btn" id="v85PrevBtn" type="button" aria-label="ก่อนหน้า">←</button>
+            <button class="v85-nav-btn" id="v85NextBtn" type="button" aria-label="ถัดไป">→</button>
           </div>
         </div>
-        <div class="v30-mascot-stage"><img class="v30-hero-mascot" src="assets/img/hero-mascot.webp" alt="มาสคอตบางรักน้อย Connect"></div>
+      </div>
+
+      <div class="v85-stage">
+        <div class="v85-carousel" id="v85Carousel"></div>
       </div>
     </div>
+
+    <a class="v85-discover" href="#/search">เริ่มค้นหา <span>→</span></a>
+    <div class="v85-dots" id="v85Dots"></div>
   </div>
 </section>
 
@@ -2889,6 +2932,88 @@ if (regSubmitBtn) regSubmitBtn.addEventListener('click', async () => {
   }catch(e){showErr('❌ ส่งไม่สำเร็จ กรุณาโทร 02-193-4512-3'); btn.disabled=false; lbl.textContent='📨 ส่งข้อมูลให้เจ้าหน้าที่ตรวจทาน';}
 });
 
+
+
+// ── HERO CAROUSEL V8.5 ─────────────────────────────────────────────────────
+const HERO_ITEMS = [
+  { id:'craft', label:'หาช่าง', short:'ช่างใกล้บ้าน งานดี ใช้ได้', icon:'🔧', bg:'#7c3aed', panel:'#8b5cf6', src:'assets/img/cat-craft.webp', desc:'รวมช่างซ่อม งานไฟ งานประปา งานช่างเบื้องต้น และบริการในพื้นที่ ที่ค้นหาได้ง่ายขึ้นในบางรักน้อย' },
+  { id:'food', label:'ร้านอาหาร', short:'ของอร่อยใกล้บ้าน', icon:'🍜', bg:'#f97316', panel:'#fb923c', src:'assets/img/cat-food.webp', desc:'รวมร้านอาหาร ของกินใกล้บ้าน เมนูแนะนำ และร้านน่านั่งในชุมชน เพื่อให้คนในพื้นที่เจอของอร่อยได้เร็วขึ้น' },
+  { id:'travel', label:'ท่องเที่ยว', short:'เที่ยวชุมชน ชิลใกล้บ้าน', icon:'📷', bg:'#0ea5e9', panel:'#38bdf8', src:'assets/img/cat-travel.webp', desc:'แนะนำมุมเที่ยว วัด ตลาด และเสน่ห์ของบางรักน้อย ให้ค้นพบแหล่งท่องเที่ยวใกล้ตัวแบบเป็นกันเอง' },
+  { id:'learn', label:'ฝึกอาชีพ', short:'เรียนรู้และต่อยอดอาชีพ', icon:'🎓', bg:'#eab308', panel:'#facc15', src:'assets/img/cat-learn.webp', desc:'รวมข้อมูลการฝึกอาชีพ เวิร์กช็อป และกิจกรรมพัฒนาทักษะ ที่ช่วยสร้างรายได้และโอกาสใหม่ในชุมชน' },
+  { id:'market', label:'สินค้า/บริการ', short:'ของดีและบริการในพื้นที่', icon:'🛍️', bg:'#16a34a', panel:'#22c55e', src:'assets/img/cat-market.webp', desc:'รวมสินค้า บริการ และของดีจากคนในชุมชนบางรักน้อย เพื่อให้การซื้อขายและการเข้าถึงบริการสะดวกขึ้น' },
+  { id:'chat', label:'พูดคุย/แลกเปลี่ยน', short:'รวมเรื่องเล่าจากคนในพื้นที่', icon:'💬', bg:'#ec4899', panel:'#f472b6', src:'assets/img/cat-chat.webp', desc:'พื้นที่กลางสำหรับข่าว กิจกรรม และการพูดคุยแลกเปลี่ยนระหว่างคนในชุมชน เพื่อให้ใกล้กันมากขึ้นทุกวัน' }
+];
+let heroActiveIndex = 0;
+let heroAnimating = false;
+let heroIsMobile = window.innerWidth < 640;
+const heroViewport = document.getElementById('v85HeroViewport');
+const heroCarousel = document.getElementById('v85Carousel');
+const heroDots = document.getElementById('v85Dots');
+const heroDesc = document.getElementById('v85HeroDescription');
+const heroLabel = document.getElementById('v85HeroLabel');
+const heroShort = document.getElementById('v85HeroShort');
+function preloadHeroMascots(){ HERO_ITEMS.forEach(item => { const img = new Image(); img.src = item.src; }); }
+function heroRoleMap(active){ const c = HERO_ITEMS.length; return { center: active, left: (active + c - 1) % c, right: (active + 1) % c, backLeft: (active + c - 2) % c, backRight: (active + 2) % c }; }
+function getHeroItemStyle(role){
+  if(heroIsMobile){
+    switch(role){
+      case 'center': return {left:'50%', height:'60%', bottom:'18%', transform:'translateX(-50%) scale(1.26)', filter:'blur(0px)', opacity:'1', zIndex:'20'};
+      case 'left': return {left:'18%', height:'18%', bottom:'25%', transform:'translateX(-50%) scale(1)', filter:'blur(2px)', opacity:'.8', zIndex:'10'};
+      case 'right': return {left:'82%', height:'18%', bottom:'25%', transform:'translateX(-50%) scale(1)', filter:'blur(2px)', opacity:'.8', zIndex:'10'};
+      case 'backLeft': return {left:'10%', height:'13%', bottom:'29%', transform:'translateX(-50%) scale(1)', filter:'blur(4px)', opacity:'.36', zIndex:'5'};
+      case 'backRight': return {left:'90%', height:'13%', bottom:'29%', transform:'translateX(-50%) scale(1)', filter:'blur(4px)', opacity:'.36', zIndex:'5'};
+      default: return {left:'50%', height:'10%', bottom:'28%', transform:'translateX(-50%) scale(.9)', filter:'blur(6px)', opacity:'0', zIndex:'1'};
+    }
+  }
+  switch(role){
+    case 'center': return {left:'60%', height:'92%', bottom:'0%', transform:'translateX(-50%) scale(1.68)', filter:'blur(0px)', opacity:'1', zIndex:'20'};
+    case 'left': return {left:'28%', height:'28%', bottom:'14%', transform:'translateX(-50%) scale(1)', filter:'blur(2px)', opacity:'.85', zIndex:'10'};
+    case 'right': return {left:'79%', height:'28%', bottom:'14%', transform:'translateX(-50%) scale(1)', filter:'blur(2px)', opacity:'.85', zIndex:'10'};
+    case 'backLeft': return {left:'14%', height:'22%', bottom:'18%', transform:'translateX(-50%) scale(1)', filter:'blur(4px)', opacity:'.46', zIndex:'5'};
+    case 'backRight': return {left:'92%', height:'22%', bottom:'18%', transform:'translateX(-50%) scale(1)', filter:'blur(4px)', opacity:'.46', zIndex:'5'};
+    default: return {left:'50%', height:'16%', bottom:'16%', transform:'translateX(-50%) scale(.9)', filter:'blur(6px)', opacity:'0', zIndex:'1'};
+  }
+}
+function renderHeroCarousel(){
+  if(!heroCarousel || !heroViewport) return;
+  const active = HERO_ITEMS[heroActiveIndex];
+  heroViewport.style.setProperty('--hero-bg', active.bg);
+  heroViewport.style.setProperty('--hero-panel', active.panel);
+  if(heroDesc) heroDesc.textContent = active.desc;
+  if(heroLabel) heroLabel.textContent = active.label;
+  if(heroShort) heroShort.textContent = active.short;
+  const roles = heroRoleMap(heroActiveIndex);
+  heroCarousel.innerHTML = '';
+  HERO_ITEMS.forEach((item, idx) => {
+    let role = 'hidden';
+    Object.entries(roles).forEach(([r, index]) => { if(index === idx) role = r; });
+    const el = document.createElement('div');
+    el.className = `v85-carousel-item role-${role}`;
+    Object.assign(el.style, getHeroItemStyle(role));
+    el.setAttribute('data-role', role);
+    el.innerHTML = `<img src="${item.src}" alt="${item.label}" draggable="false">`;
+    heroCarousel.appendChild(el);
+  });
+  if(heroDots){
+    heroDots.innerHTML = '';
+    HERO_ITEMS.forEach((item, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `v85-dot ${idx === heroActiveIndex ? 'active' : ''}`;
+      btn.innerHTML = `<i>${item.icon}</i><span>${item.label}</span>`;
+      btn.addEventListener('click', () => setHeroIndex(idx));
+      heroDots.appendChild(btn);
+    });
+  }
+}
+function releaseHeroLock(){ setTimeout(() => { heroAnimating = false; }, 650); }
+function setHeroIndex(index){ if(heroAnimating || index === heroActiveIndex) return; heroAnimating = true; heroActiveIndex = index; renderHeroCarousel(); releaseHeroLock(); }
+function navigateHero(direction){ if(heroAnimating) return; heroAnimating = true; const max = HERO_ITEMS.length; heroActiveIndex = direction === 'next' ? (heroActiveIndex + 1) % max : (heroActiveIndex + max - 1) % max; renderHeroCarousel(); releaseHeroLock(); }
+window.addEventListener('resize', () => { const wasMobile = heroIsMobile; heroIsMobile = window.innerWidth < 640; if (wasMobile !== heroIsMobile) renderHeroCarousel(); });
+document.getElementById('v85PrevBtn')?.addEventListener('click', () => navigateHero('prev'));
+document.getElementById('v85NextBtn')?.addEventListener('click', () => navigateHero('next'));
+preloadHeroMascots();
+renderHeroCarousel();
 
 </script>
 </body>
